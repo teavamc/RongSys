@@ -8,9 +8,9 @@
     <artifactId>ruoyi</artifactId>
     <version>3.1</version>
 
-    <name>ruoyi</name>
-	<url>http://www.ruoyi.vip</url>
-    <description>若依管理系统</description>
+    <name>RongSys</name>
+	<url>www.teavamc.com</url>
+    <description>融媒体综合数据管理平台</description>
     
     <properties>
 	    <ruoyi.version>3.1</ruoyi.version>
@@ -47,7 +47,8 @@
 		<module>ruoyi-quartz</module>
 		<module>ruoyi-generator</module>
         <module>ruoyi-common</module>
-    </modules>
+		<module>sx-broad</module>
+	</modules>
     <packaging>pom</packaging>
 
 
