@@ -34,7 +34,6 @@
             </div>
             <div class="col-sm-6">
                 <form id="signupForm">
-                    <!--<h3 class="no-margins">登录系统</h3>-->
 
                     <input type="text"     name="username" class="form-control uname"     placeholder="用户名" value="admin"    />
                     <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="admin123" />
@@ -55,14 +54,17 @@
                 </form>
             </div>
         </div>
+
         <div class="signup-footer">
             <div class="text-center">
                 &copy; 2018 All Rights Reserved.湖南农业大学信息院 <br>
-                <!--<a href="http://www.miitbeian.gov.cn/" target="_blank" rel="nofollow">湘ICP备666666号</a><br>-->
+
             </div>
         </div>
     </div>
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
+
+
 <!-- 全局js -->
 <script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
 <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
