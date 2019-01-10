@@ -48,7 +48,8 @@
 		<module>ruoyi-generator</module>
         <module>ruoyi-common</module>
 		<module>sx-broad</module>
-	</modules>
+        <module>sx-village</module>
+    </modules>
     <packaging>pom</packaging>
 
 
