@@ -110,6 +110,14 @@
             <artifactId>ruoyi-generator</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
+
+		<!-- 广播模块-->
+		<dependency>
+			<groupId>com.ruoyi</groupId>
+			<artifactId>sx-broad</artifactId>
+			<version>${ruoyi.version}</version>
+		</dependency>
+
         
 		<!-- pagehelper 分页插件 -->
 		<dependency>
