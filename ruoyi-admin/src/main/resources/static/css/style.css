@@ -4097,7 +4097,7 @@ a.close-canvas-menu:hover {
 }
 
 .m-t-xs {
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
 .m-t-sm {
@@ -6755,7 +6755,7 @@ body.skin-blue {
 }
 
 .skin-blue .nav-header {
-    padding: 35px 25px 25px 25px;
+    padding: 0px 25px 11px 25px;
 }
 
 .skin-blue .nav-header a.dropdown-toggle {
