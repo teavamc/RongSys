@@ -32,11 +32,26 @@
         <div class="sidebar-collapse">
             <ul class="nav" id="side-menu">
                 <li class="nav-header">
-                    <div class="dropdown profile-element"> <span>
-                         <img th:src="(${user.avatar} == '') ? @{/img/profile.jpg} : @{/profile/avatar/} + ${user.avatar}" alt="image" class="img-circle" height="60" width="60"/></span>
+                    <div class="dropdown profile-element">
+
+                        <!--头像-->
+                        <!--<span>-->
+                         <!--<img th:src="(${user.avatar} == '') ? @{/img/profile.jpg} : @{/profile/avatar/} + ${user.avatar}" alt="image" class="img-circle" height="60" width="60"/>
+                         </span>-->
+
                          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                          <span class="clear"><span class="block m-t-xs"><strong class="font-bold" th:text="${user.userName}">用户</strong></span>
-                         <span class="text-muted text-xs block"><span th:text="${user.dept?.deptName}">部门</span> <b class="caret"></b></span> </span> </a>
+                          <span class="clear">
+                              <span class="block m-t-xs">
+                                  <!--<strong class="font-bold" th:text="${user.userName}">用户</strong>-->
+                                  <h1 th:text="${user.userName}">用户</h1>
+                              </span>
+                             <span class="text-muted text-xs block">
+                                 <span th:text="${user.dept?.deptName}">部门</span>
+                                 <b class="caret"></b>
+                             </span>
+                          </span>
+                         </a>
+
                          <ul class="dropdown-menu animated fadeInRight m-t-xs">
                              <li><a class="menuItem" th:href="@{/system/user/profile}">个人信息</a></li>
                              <li class="divider"></li>
