@@ -10,35 +10,39 @@ spring:
                 username: teavamc
                 password: Qwer1234!@#$
 
-            # （目前只读）思信库数据源 - broad
+            # （目前只读）思信数据源 - 应急广播 - broad
 #            slave:
-#                # 从数据源开关/默认关闭
+#                # 多数据源开关/默认关闭
 #                enabled: ture
 #                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
 #                username: root
 #                password: sx123456Aa
 
-            # （目前只读）思信库数据源 - broad
+            # （目前只读）思信数据源 - 应急广播 - broad
             sx_broad_broad:
-                # 从数据源开关/默认关闭
                 enabled: ture
                 url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 
-            # （目前只读）思信库数据源 - user
+            # （目前只读）思信数据源 - 应急广播 - user
             sx_broad_user:
-                # 从数据源开关/默认关闭
                 enabled: ture
                 url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 
-            # （目前只读）思信库数据源 - infom
+            # （目前只读）思信数据源 - 应急广播 - infom
             sx_broad_infom:
-                # 从数据源开关/默认关闭
                 enabled: ture
                 url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+
+            # （目前只读）思信数据源 - 山洪预警 - rivervis
+            sx_broad_infom:
+                enabled: ture
+                url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 
