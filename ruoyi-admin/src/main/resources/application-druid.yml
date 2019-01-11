@@ -11,40 +11,40 @@ spring:
                 password: Qwer1234!@#$
 
             # （目前只读）思信数据源 - 应急广播 - broad
-            slave:
-                # 多数据源开关/默认关闭
+#            slave:
+#                # 多数据源开关/默认关闭
+#                enabled: ture
+#                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+
+            # （目前只读）思信数据源 - 应急广播 - broad
+            sx_broad:
                 enabled: ture
                 url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 
-#            # （目前只读）思信数据源 - 应急广播 - broad
-#            sx_broad_broad:
-#                enabled: ture
-#                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-#                username: root
-#                password: sx123456Aa
-#
-#            # （目前只读）思信数据源 - 应急广播 - user
-#            sx_broad_user:
-#                enabled: ture
-#                url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-#                username: root
-#                password: sx123456Aa
-#
-#            # （目前只读）思信数据源 - 应急广播 - infom
-#            sx_broad_infom:
-#                enabled: ture
-#                url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-#                username: root
-#                password: sx123456Aa
-#
-#            # （目前只读）思信数据源 - 山洪预警 - rivervis
-#            sx_rivervis:
-#                enabled: ture
-#                url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-#                username: root
-#                password: sx123456Aa
+            # （目前只读）思信数据源 - 应急广播 - user
+            sx_user:
+                enabled: ture
+                url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+
+            # （目前只读）思信数据源 - 应急广播 - infom
+            sx_infom:
+                enabled: ture
+                url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+
+            # （目前只读）思信数据源 - 山洪预警 - rivervis
+            sx_rivervis:
+                enabled: ture
+                url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
 
 
             # 初始连接数
