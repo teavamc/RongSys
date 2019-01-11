@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
+
+import com.ruoyi.framework.web.domain.Server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -40,6 +42,13 @@ public class SysIndexController extends BaseController
     @GetMapping("/system/main")
     public String main(ModelMap mmap)
     {
+        Server server = new Server();
+        try {
+            server.copyTo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mmap.put("server", server);
         mmap.put("version", Global.getVersion());
         return "main";
     }
