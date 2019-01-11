@@ -40,7 +40,7 @@ spring:
                 password: sx123456Aa
 
             # （目前只读）思信数据源 - 山洪预警 - rivervis
-            sx_broad_infom:
+            sx_rivervis:
                 enabled: ture
                 url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
