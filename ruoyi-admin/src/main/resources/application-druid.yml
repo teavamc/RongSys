@@ -4,19 +4,43 @@ spring:
         type: com.alibaba.druid.pool.DruidDataSource
         driverClassName: com.mysql.cj.jdbc.Driver
         druid:
-            # 主库数据源
+            # 主库数据源 张超服务器
             master:
                 url: jdbc:mysql://120.79.42.11:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: teavamc
                 password: Qwer1234!@#$
 
-            # 从库数据源
+            # （目前只读）思信库数据源 - broad
 #            slave:
 #                # 从数据源开关/默认关闭
 #                enabled: ture
 #                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
 #                username: root
 #                password: sx123456Aa
+
+            # （目前只读）思信库数据源 - broad
+            sx_broad_broad:
+                # 从数据源开关/默认关闭
+                enabled: ture
+                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+
+            # （目前只读）思信库数据源 - user
+            sx_broad_user:
+                # 从数据源开关/默认关闭
+                enabled: ture
+                url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+
+            # （目前只读）思信库数据源 - infom
+            sx_broad_infom:
+                # 从数据源开关/默认关闭
+                enabled: ture
+                url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
 
 
             # 初始连接数
