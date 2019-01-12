@@ -23,9 +23,6 @@
 
 <body class="gray-bg">
     <div class="row  border-bottom  dashboard-header">
-
-
-
             <div class="wrapper wrapper-content">
                 <div class="row">
                     <div class="col-sm-2">
@@ -113,89 +110,87 @@
                         <div class="ibox float-e-margins">
 
                             <div class="ibox-title">
-                                <h5>服务器性能监控</h5>
-
-                                <!--<div class="pull-right">
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-xs btn-white active">天</button>
-                                        <button type="button" class="btn btn-xs btn-white">月</button>
-                                        <button type="button" class="btn btn-xs btn-white">年</button>
-                                    </div>
-                                </div>-->
-
+                                <h5>服务器性能监控 </h5>
+                                <div class="ibox-tools">
+                                    <!--<h5 th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></h5>-->
+                                    <span class="label label-info pull-right" th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></span>
+                                </div>
                             </div>
 
                             <div class="ibox-content">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-3">
                                         <table class="table table-hover">
                                             <thead>
                                             <tr>
-                                                <th>#</th>
-                                                <th>数据</th>
-                                                <th>用户</th>
+                                                <th>CPU属性</th>
                                                 <th>值</th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <tr>
-                                                <td>1</td>
-                                                <td><span class="line">5,3,2,-1,-3,-2,2,3,5,2</span>
                                                 </td>
-                                                <td>张三</td>
-                                                <td class="text-navy"> <i class="fa fa-level-up"></i> 40%</td>
+                                                <td>核心数</td>
+                                                <td th:text="${server.cpu.cpuNum}" class="text-warning"> <i class="fa fa-level-up"></i>0</td>
                                             </tr>
                                             <tr>
-                                                <td>2</td>
-                                                <td><span class="line">5,3,9,6,5,9,7,3,5,2</span>
                                                 </td>
-                                                <td>李四</td>
-                                                <td class="text-warning"> <i class="fa fa-level-down"></i> -20%</td>
+                                                <td>用户使用率</td>
+                                                <td th:text="${server.cpu.used + '%'}" class="text-navy"> <i class="fa fa-level-up"></i>0%</td>
                                             </tr>
                                             <tr>
-                                                <td>3</td>
-                                                <td><span class="line">1,6,3,9,5,9,5,3,9,6,4</span>
                                                 </td>
-                                                <td>王麻子</td>
-                                                <td class="text-navy"> <i class="fa fa-level-up"></i> 26%</td>
+                                                <td>系统使用率</td>
+                                                <td th:text="${server.cpu.sys + '%'}" class="text-warning"> <i class="fa fa-level-down"></i>0%</td>
+                                            </tr>
+                                            <tr>
+                                                </td>
+                                                <td>当前空闲率</td>
+                                                <td th:text="${server.cpu.free + '%'}" class="text-navy"> <i class="fa fa-level-up"></i>0%</td>
                                             </tr>
                                             </tbody>
                                         </table>
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <h5>使用率</h5>
-                                        <h2>50%</h2>
-                                        <div class="progress progress-mini">
-                                            <div style="width: 78%;" class="progress-bar"></div>
-                                        </div>
-                                        <div class="m-t-sm small">4:32更新</div>
-                                        <br>
-                                        <h5>使用率</h5>
-                                        <h2>50%</h2>
-                                        <div class="progress progress-mini">
-                                            <div style="width: 78%;" class="progress-bar"></div>
-                                        </div>
-                                        <div class="m-t-sm small">4:32更新</div>
+                                        <table class="table table-hover margin bottom">
+                                            <thead>
+                                            <tr>
+                                                <th>磁盘类型</th>
+                                                <th>已用百分比</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="sysFile : ${server.sysFiles}">
+                                                <td th:text="${sysFile.typeName}">local</td>
+                                                <td th:class="${sysFile.usage gt 80} ? 'text-danger'">[[${sysFile.usage}]]%</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <h5>使用率</h5>
-                                        <h2>50%</h2>
+                                        <h5>内存使用率</h5>
+                                        <h2 th:class="${server.mem.usage gt 80} ? 'text-danger'">[[${server.mem.usage}]]%</h2>
                                         <div class="progress progress-mini">
-                                            <div style="width: 78%;" class="progress-bar"></div>
+                                            <div th:style=" 'width:' + ${server.mem.usage} + '%'" class="progress-bar"></div>
                                         </div>
-                                        <div class="m-t-sm small">4:32更新</div>
+
                                         <br>
-                                        <h5>使用率</h5>
-                                        <h2>50%</h2>
+                                        <br>
+                                        <h5>JVM使用率</h5>
+                                        <h2 th:class="${server.jvm.usage gt 80} ? 'text-danger'">[[${server.jvm.usage}]]%</h2>
                                         <div class="progress progress-mini">
-                                            <div style="width: 78%;" class="progress-bar"></div>
+                                            <div th:style=" 'width:' + ${server.jvm.usage} + '%'" class="progress-bar"></div>
                                         </div>
-                                        <div class="m-t-sm small">4:32更新</div>
                                     </div>
 
-                                    <td th:text="${server.cpu.cpuNum}">0个</td>
+                                    <br>
+                                    <div class="col-sm-3">
+                                            <div class=" text-center h-500">
+                                                <span id="sparkline8"></span>
+                                            </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -240,6 +235,9 @@
         <script th:src="@{/js/plugins/sparkline/jquery.sparkline.min.js}"></script>
         <script th:src="@{/js/demo/sparkline-demo.min.js}"></script>
 
+        <!--sparkline图表插件-->
+        <script src="js/plugins/sparkline/jquery.sparkline.min.js"></script>
+        <script src="js/demo/sparkline-demo.min.js"></script>
 
 
 
