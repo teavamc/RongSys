@@ -12,6 +12,6 @@ public class BroadBaseController extends BaseController {
     @GetMapping("/broad/todo")
     public String todo()
     {
-        return "borad/todo";
+        return "broad/todo";
     }
 }
