@@ -10,39 +10,11 @@ spring:
                 username: teavamc
                 password: Qwer1234!@#$
 
-            # （目前只读）思信数据源 - 应急广播 - broad
-#            slave:
-#                # 多数据源开关/默认关闭
-#                enabled: ture
-#                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-#                username: root
-#                password: sx123456Aa
-
-            # （目前只读）思信数据源 - 应急广播 - broad
-            sx_broad:
+             #（目前只读）思信数据源 - 应急广播 - broad
+            slave:
+                # 多数据源开关/默认关闭
                 enabled: ture
                 url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: root
-                password: sx123456Aa
-
-            # （目前只读）思信数据源 - 应急广播 - user
-            sx_user:
-                enabled: ture
-                url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: root
-                password: sx123456Aa
-
-            # （目前只读）思信数据源 - 应急广播 - infom
-            sx_infom:
-                enabled: ture
-                url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: root
-                password: sx123456Aa
-
-            # （目前只读）思信数据源 - 山洪预警 - rivervis
-            sx_rivervis:
-                enabled: ture
-                url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 
@@ -77,3 +49,13 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
+
+# SpringDataSource多数据源配置，推荐使用Druid
+#sx:
+#    datasource:
+#        names: ds1,ds2,ds3
+#            ds1:
+#                driverClassName: com.mysql.jdbc.Driver
+#                url: jdbc:mysql://localhost:3306/test1
+#                username: root
+#                password: root
