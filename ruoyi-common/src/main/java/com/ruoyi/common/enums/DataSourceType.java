@@ -2,7 +2,7 @@ package com.ruoyi.common.enums;
 
 /**
  * 数据源
- * 
+ *
  * @author ruoyi
  */
 public enum DataSourceType
@@ -13,8 +13,23 @@ public enum DataSourceType
     MASTER,
 
     /**
-     * 从库
+     * 从库一
      */
     SLAVE,
+
+    /**
+     * 从库二
+     */
+    SXUSER,
+
+    /**
+     * 从库三
+     */
+    SXINFOM,
+
+    /**
+     * 从库四
+     */
+    SXRIVERVIS
 
 }
