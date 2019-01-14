@@ -9,19 +9,51 @@ spring:
                 url: jdbc:mysql://120.79.42.11:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: teavamc
                 password: Qwer1234!@#$
-             # （目前只读）思信数据源 - 应急广播 - broad
-            slave:
+             # 主库数据源 以后做分离用
+#            slave:
+#                # 多数据源开关/默认关闭
+#                enabled: true
+#                url:
+#                username:
+#                password:
+
+#           思信应急广播数据源
+            sxbroad:
                 # 多数据源开关/默认关闭
                 enabled: true
                 url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
-#            sxbroad:
+#           思信应急广播用户数据源
+            sxuser:
+                # 多数据源开关/默认关闭
+                enabled: true
+                url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+#           思信信息发布平台数据源
+            sxinfom:
+                # 多数据源开关/默认关闭
+                enabled: true
+                url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+#           思信山洪预警数据源
+            sxrivervis:
+                # 多数据源开关/默认关闭
+                enabled: true
+                url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+#           思信村务系统数据源
+#            sxvillage:
 #                # 多数据源开关/默认关闭
-#                enabled: true
-#                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-#                username: root
-#                password: sx123456Aa
+#                enabled:
+#                url:
+#                username:
+#                password:
+
+
             # 初始连接数
             initial-size: 10
             # 最大连接池数量
