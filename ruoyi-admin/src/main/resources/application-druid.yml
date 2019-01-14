@@ -9,16 +9,19 @@ spring:
                 url: jdbc:mysql://120.79.42.11:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: teavamc
                 password: Qwer1234!@#$
-
              #（目前只读）思信数据源 - 应急广播 - broad
-            slave:
+#            slave:
+#                # 多数据源开关/默认关闭
+#                enabled: true
+#                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+            sxbroad:
                 # 多数据源开关/默认关闭
-                enabled: ture
+                enabled: true
                 url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
-
-
             # 初始连接数
             initial-size: 10
             # 最大连接池数量
@@ -49,13 +52,3 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-
-# SpringDataSource多数据源配置，推荐使用Druid
-#sx:
-#    datasource:
-#        names: ds1,ds2,ds3
-#            ds1:
-#                driverClassName: com.mysql.jdbc.Driver
-#                url: jdbc:mysql://localhost:3306/test1
-#                username: root
-#                password: root
