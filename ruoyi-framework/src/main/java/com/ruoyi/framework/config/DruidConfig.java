@@ -14,7 +14,7 @@ import com.ruoyi.framework.datasource.DynamicDataSource;
 
 /**
  * druid 配置多数据源
- * 
+ *
  * @author ruoyi
  */
 @Configuration
@@ -36,17 +36,9 @@ public class DruidConfig
     }
 
     @Bean
-    @ConfigurationProperties("spring.datasource.druid.sxbroad")
-    @ConditionalOnProperty(prefix = "spring.datasource.druid.sxbroad", name = "enabled", havingValue = "true")
-    public DataSource sxbroadDataSource()
-    {
-        return DruidDataSourceBuilder.create().build();
-    }
-
-    @Bean
     @ConfigurationProperties("spring.datasource.druid.sxuser")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.sxuser", name = "enabled", havingValue = "true")
-    public DataSource sxuserDataSource()
+    public DataSource sx_userDataSource()
     {
         return DruidDataSourceBuilder.create().build();
     }
@@ -54,7 +46,7 @@ public class DruidConfig
     @Bean
     @ConfigurationProperties("spring.datasource.druid.sxinfom")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.sxinfom", name = "enabled", havingValue = "true")
-    public DataSource sxinfomDataSource()
+    public DataSource sx_infomDataSource()
     {
         return DruidDataSourceBuilder.create().build();
     }
@@ -62,32 +54,23 @@ public class DruidConfig
     @Bean
     @ConfigurationProperties("spring.datasource.druid.sxrivervis")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.sxrivervis", name = "enabled", havingValue = "true")
-    public DataSource sxrivervisDataSource()
-    {
-        return DruidDataSourceBuilder.create().build();
-    }
-
-    @Bean
-    @ConfigurationProperties("spring.datasource.druid.sxvillage")
-    @ConditionalOnProperty(prefix = "spring.datasource.druid.sxvillage", name = "enabled", havingValue = "true")
-    public DataSource sxvillageDataSource()
+    public DataSource sx_rivervisDataSource()
     {
         return DruidDataSourceBuilder.create().build();
     }
 
     @Bean(name = "dynamicDataSource")
     @Primary
-    public DynamicDataSource dataSource(
-            DataSource masterDataSource, DataSource slaveDataSource, DataSource sxbroadDataSource, DataSource sxuserDataSource,
-            DataSource sxrivervisDataSource, DataSource sxinfomDataSource, DataSource sxvillageDataSource){
+    public DynamicDataSource dataSource(DataSource masterDataSource, DataSource slaveDataSource,
+                                        DataSource sx_userDataSource, DataSource sx_infomDataSource,
+                                        DataSource sx_rivervisDataSource)
+    {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
         targetDataSources.put(DataSourceType.SLAVE.name(), slaveDataSource);
-        targetDataSources.put(DataSourceType.SXBROAD.name(), sxbroadDataSource);
-        targetDataSources.put(DataSourceType.SXUSER.name(), sxuserDataSource);
-        targetDataSources.put(DataSourceType.SXRIVERVIS.name(), sxrivervisDataSource);
-        targetDataSources.put(DataSourceType.SXINFOM.name(), sxinfomDataSource);
-        targetDataSources.put(DataSourceType.SXVILLAGE.name(), sxvillageDataSource);
+        targetDataSources.put(DataSourceType.SXUSER.name(), sx_userDataSource);
+        targetDataSources.put(DataSourceType.SXINFOM.name(), sx_infomDataSource);
+        targetDataSources.put(DataSourceType.SXRIVERVIS.name(), sx_rivervisDataSource);
         return new DynamicDataSource(masterDataSource, targetDataSources);
     }
 }
