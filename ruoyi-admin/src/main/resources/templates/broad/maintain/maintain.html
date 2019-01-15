@@ -18,17 +18,17 @@
 								故障现象：<input type="text" name="fault"/>
 							</li>
 
-							<li>
-								维护人员：<input type="text" name="mstaff"/>
-							</li>
+							<!--<li>-->
+								<!--维护人员：<input type="text" name="mstaff"/>-->
+							<!--</li>-->
 
 							<li>
 								维护时间：<input type="text" name="createtime"/>
 							</li>
 
-							<li>
-								备注：<input type="text" name="remark"/>
-							</li>
+							<!--<li>-->
+								<!--备注：<input type="text" name="remark"/>-->
+							<!--</li>-->
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -41,17 +41,17 @@
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
 				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:maintain:add">
-					<i class="fa fa-plus"></i> 添加
+					<i class="fa fa-plus"></i> 录入维护信息
 				</a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:maintain:edit">
-					<i class="fa fa-edit"></i> 修改
-				</a>
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:maintain:remove">
-					<i class="fa fa-remove"></i> 删除
-				</a>
-				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:maintain:export">
-						<i class="fa fa-download"></i> 导出
-				 </a>
+				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:maintain:edit">-->
+					<!--<i class="fa fa-edit"></i> 修改-->
+				<!--</a>-->
+				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:maintain:remove">-->
+					<!--<i class="fa fa-remove"></i> 删除-->
+				<!--</a>-->
+				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:maintain:export">-->
+						<!--<i class="fa fa-download"></i> 导出-->
+				 <!--</a>-->
 			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table" data-mobile-responsive="true"></table>
