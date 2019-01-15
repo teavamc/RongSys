@@ -49,6 +49,7 @@
         <module>ruoyi-common</module>
 		<module>sx-broad</module>
         <module>sx-village</module>
+        <module>sx-api</module>
     </modules>
     <packaging>pom</packaging>
 
