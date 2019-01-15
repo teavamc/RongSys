@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.TrafficMapper">
+    
+    <resultMap type="Traffic" id="TrafficResult">
+        <result property="ttid"    column="ttid"    />
+        <result property="tid"    column="tid"    />
+        <result property="usetraffic"    column="usetraffic"    />
+        <result property="lasttime"    column="lasttime"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+	
+	<sql id="selectTrafficVo">
+        select ttid, tid, usetraffic, lasttime, remark from terminal_traffic
+    </sql>
+	
+    <select id="selectTrafficList" parameterType="Traffic" resultMap="TrafficResult">
+        <include refid="selectTrafficVo"/>
+        <where>  
+            <if test="ttid != null "> and ttid = #{ttid}</if>
+             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
+             <if test="usetraffic != null "> and usetraffic = #{usetraffic}</if>
+             <if test="lasttime != null  and lasttime != '' "> and lasttime = #{lasttime}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+         </where>
+    </select>
+    
+    <select id="selectTrafficById" parameterType="Integer" resultMap="TrafficResult">
+        <include refid="selectTrafficVo"/>
+        where ttid = #{ttid}
+    </select>
+        
+    <insert id="insertTraffic" parameterType="Traffic">
+        insert into terminal_traffic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ttid != null  ">ttid,</if>
+			<if test="tid != null  and tid != ''  ">tid,</if>
+			<if test="usetraffic != null  ">usetraffic,</if>
+			<if test="lasttime != null  and lasttime != ''  ">lasttime,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ttid != null  ">#{ttid},</if>
+			<if test="tid != null  and tid != ''  ">#{tid},</if>
+			<if test="usetraffic != null  ">#{usetraffic},</if>
+			<if test="lasttime != null  and lasttime != ''  ">#{lasttime},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateTraffic" parameterType="Traffic">
+        update terminal_traffic
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tid != null  and tid != ''  ">tid = #{tid},</if>
+            <if test="usetraffic != null  ">usetraffic = #{usetraffic},</if>
+            <if test="lasttime != null  and lasttime != ''  ">lasttime = #{lasttime},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+        </trim>
+        where ttid = #{ttid}
+    </update>
+
+	<delete id="deleteTrafficById" parameterType="Integer">
+        delete from terminal_traffic where ttid = #{ttid}
+    </delete>
+	
+    <delete id="deleteTrafficByIds" parameterType="String">
+        delete from terminal_traffic where ttid in 
+        <foreach item="ttid" collection="array" open="(" separator="," close=")">
+            #{ttid}
+        </foreach>
+    </delete>
+    
+</mapper>
