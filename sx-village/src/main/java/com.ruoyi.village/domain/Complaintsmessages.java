@@ -34,6 +34,25 @@ public class Complaintsmessages {
     /** 是否有效*/
     private int remark;
 
+    @Override
+    public String toString() {
+        return "Complaintsmessages{" +
+                "fbid='" + fbid + '\'' +
+                ", fbuid='" + fbuid + '\'' +
+                ", title='" + title + '\'' +
+                ", ftype='" + ftype + '\'' +
+                ", content='" + content + '\'' +
+                ", fbdatetime='" + fbdatetime + '\'' +
+                ", isread=" + isread +
+                ", opinion='" + opinion + '\'' +
+                ", uid=" + uid +
+                ", uname='" + uname + '\'' +
+                ", datetime='" + datetime + '\'' +
+                ", aid='" + aid + '\'' +
+                ", remark=" + remark +
+                '}';
+    }
+
     public Complaintsmessages(String fbid, String fbuid, String title, String ftype, String content, String fbdatetime, int isread, String opinion, int uid, String uname, String datetime, int remark, String aid) {
         this.fbid = fbid;
         this.fbuid = fbuid;

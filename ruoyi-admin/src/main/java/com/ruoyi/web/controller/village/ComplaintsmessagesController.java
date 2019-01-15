@@ -47,7 +47,7 @@ public class ComplaintsmessagesController extends BaseController {
     @ResponseBody
     public TableDataInfo list(Complaintsmessages complaintmessages){
         startPage();
-        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList();
+        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList(complaintmessages);
         return getDataTable(list);
     }
     /**

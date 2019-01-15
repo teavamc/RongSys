@@ -18,7 +18,7 @@ public interface IComplaintsmessagesService {
      *
      * @return
      */
-    public List<Complaintsmessages> selectComplaintsList();
+    public List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
 
     /**
      * 根据fbid删除数据

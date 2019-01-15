@@ -34,18 +34,18 @@
 	</sql>
 
 	<!--获取所有投诉咨询 -->
-	<select id="selectComplaintsList"  resultType="Complaintsmessages">
+	<select id="selectComplaintsList"  resultType="com.ruoyi.village.domain.Complaintsmessages">
 		select <include refid="Field"/>
 		 from <include refid="tableName"/>
 		 where remark = 1
 		 ORDER BY fbdatetime desc
 	</select>
 	<!--根据fbid删除数据-->
-	<delete id="deleteComplaintsByid" parameterType="Integer">
-		delete from
-		 <include refid="tableName"/>
-		where fbid = #{id}
-	</delete>
+	<!--<delete id="deleteComplaintsByid" parameterType="Integer">-->
+		<!--delete from-->
+		 <!--<include refid="tableName"/>-->
+		<!--where fbid = #{id}-->
+	<!--</delete>-->
 	<delete id="deleteComplaintsByids" parameterType="String">
 		delete from <include refid="tableName"/> where fbid in
 		<foreach item="fbid" collection="array" open="(" separator="," close=")">
