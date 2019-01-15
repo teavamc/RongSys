@@ -27,7 +27,7 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
         return mapper.selectComplaintsList();
     }
 
-    @DataSource(value = DataSourceType.SXRIVERVIS)
+    @DataSource(value = DataSourceType.SXVILLAGE)
     public int deleteComplaintsByids(String id) {
         return mapper.deleteComplaintsByids(Convert.toStrArray(id));
     }
