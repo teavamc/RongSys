@@ -18,7 +18,7 @@ import com.ruoyi.village.service.IComplaintsmessagesService;
 
 /**
  * @program: lyb_RongSys
- * @description: 投诉咨询Controller
+ * @description: 投诉咨询 信息操作处理
  * @author: Mr.Liu
  * @create: 2019-01-14 16:04
  **/

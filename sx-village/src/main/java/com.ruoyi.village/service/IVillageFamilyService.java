@@ -19,4 +19,11 @@ public interface IVillageFamilyService {
      * @return
      */
     List<VillageFamily> selectVillageFamilyList(VillageFamily villageFamily);
+
+    /**
+     * 根据id 批量删除
+     * @param id
+     * @return
+     */
+    int deleteVillageFamilyByids(String id);
 }

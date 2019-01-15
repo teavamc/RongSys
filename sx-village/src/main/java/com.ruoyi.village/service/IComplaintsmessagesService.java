@@ -18,11 +18,11 @@ public interface IComplaintsmessagesService {
      *
      * @return
      */
-    public List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
+    List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
 
     /**
      * 根据fbid删除数据
      * @param id
      */
-    public int deleteComplaintsByids(String id);
+    int deleteComplaintsByids(String id);
 }

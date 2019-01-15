@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @program: lyb_RongSys
- * @description: 求职招聘控制器
+ * @description: 求职招聘 信息操作处理
  * @author: Mr.Liu
  * @create: 2019-01-15 14:31
  **/

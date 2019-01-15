@@ -13,5 +13,17 @@ import java.util.List;
 
 public interface VillageFamilyMapper {
 
+    /**
+     * 获取小村家事数据
+     * @param villageFamily
+     * @return
+     */
     List<VillageFamily> selectVillageFamilyList(VillageFamily villageFamily);
+
+    /**
+     * 根据 id 批量删除
+     * @param id
+     * @return
+     */
+    int deleteVillageFamilyByids(String[] id);
 }
