@@ -10,77 +10,77 @@
 				<form id="formId">
 					<div class="select-list">
 						<ul>
-							<li>
-								硬件版本：<input type="text" name="hversion"/>
-							</li>
+							<!--<li>-->
+								<!--硬件版本：<input type="text" name="hversion"/>-->
+							<!--</li>-->
 
-							<li>
-								软件版本：<input type="text" name="sversion"/>
-							</li>
+							<!--<li>-->
+								<!--软件版本：<input type="text" name="sversion"/>-->
+							<!--</li>-->
 
-							<li>
-								内核温度：<input type="text" name="temp"/>
-							</li>
+							<!--<li>-->
+								<!--内核温度：<input type="text" name="temp"/>-->
+							<!--</li>-->
 
-							<li>
-								网络类型：<input type="text" name="nettype"/>
-							</li>
+							<!--<li>-->
+								<!--网络类型：<input type="text" name="nettype"/>-->
+							<!--</li>-->
 
-							<li>
-								信号质量：<input type="text" name="qsignal"/>
-							</li>
+							<!--<li>-->
+								<!--信号质量：<input type="text" name="qsignal"/>-->
+							<!--</li>-->
 
-							<li>
-								SD卡容量：<input type="text" name="sd"/>
-							</li>
+							<!--<li>-->
+								<!--SD卡容量：<input type="text" name="sd"/>-->
+							<!--</li>-->
 
-							<li>
-								MP3音量：<input type="text" name="mp3"/>
-							</li>
+							<!--<li>-->
+								<!--MP3音量：<input type="text" name="mp3"/>-->
+							<!--</li>-->
 
-							<li>
-								FM音量：<input type="text" name="fm"/>
-							</li>
+							<!--<li>-->
+								<!--FM音量：<input type="text" name="fm"/>-->
+							<!--</li>-->
 
-							<li>
-								GSM音量：<input type="text" name="gsm"/>
-							</li>
+							<!--<li>-->
+								<!--GSM音量：<input type="text" name="gsm"/>-->
+							<!--</li>-->
 
-							<li>
-								NULL音量：<input type="text" name="nullv"/>
-							</li>
+							<!--<li>-->
+								<!--NULL音量：<input type="text" name="nullv"/>-->
+							<!--</li>-->
 
 							<li>
 								终端接入基站编号：<input type="text" name="basestation"/>
 							</li>
 
-							<li>
-								创建时间：<input type="text" name="createtime"/>
-							</li>
+							<!--<li>-->
+								<!--创建时间：<input type="text" name="createtime"/>-->
+							<!--</li>-->
 
-							<li>
-								备注：<input type="text" name="remark"/>
-							</li>
+							<!--<li>-->
+								<!--备注：<input type="text" name="remark"/>-->
+							<!--</li>-->
 
-							<li>
-								发射机的发射功率：<input type="text" name="transmitpower"/>
-							</li>
+							<!--<li>-->
+								<!--发射机的发射功率：<input type="text" name="transmitpower"/>-->
+							<!--</li>-->
 
-							<li>
-								反射功率：<input type="text" name="reflectedpower"/>
-							</li>
+							<!--<li>-->
+								<!--反射功率：<input type="text" name="reflectedpower"/>-->
+							<!--</li>-->
 
-							<li>
-								工作电压：<input type="text" name="workvoltage"/>
-							</li>
+							<!--<li>-->
+								<!--工作电压：<input type="text" name="workvoltage"/>-->
+							<!--</li>-->
 
-							<li>
-								FM调频发射RDS码：<input type="text" name="rds"/>
-							</li>
+							<!--<li>-->
+								<!--FM调频发射RDS码：<input type="text" name="rds"/>-->
+							<!--</li>-->
 
-							<li>
-								FM调频发射频率：<input type="text" name="fmfrequency"/>
-							</li>
+							<!--<li>-->
+								<!--FM调频发射频率：<input type="text" name="fmfrequency"/>-->
+							<!--</li>-->
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -92,18 +92,18 @@
 			</div>
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:conditions:add">
-					<i class="fa fa-plus"></i> 添加
-				</a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:conditions:edit">
-					<i class="fa fa-edit"></i> 修改
-				</a>
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:conditions:remove">
-					<i class="fa fa-remove"></i> 删除
-				</a>
-				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:conditions:export">
-						<i class="fa fa-download"></i> 导出
-				 </a>
+				<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:conditions:add">-->
+					<!--<i class="fa fa-plus"></i> 添加-->
+				<!--</a>-->
+				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:conditions:edit">-->
+					<!--<i class="fa fa-edit"></i> 修改-->
+				<!--</a>-->
+				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:conditions:remove">-->
+					<!--<i class="fa fa-remove"></i> 删除-->
+				<!--</a>-->
+				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:conditions:export">-->
+						<!--<i class="fa fa-download"></i> 导出-->
+				 <!--</a>-->
 			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table" data-mobile-responsive="true"></table>
@@ -126,7 +126,8 @@
                 modalName: "设备报",
 				search: false,
 		        showExport: true,
-                columns: [{
+                columns: [
+                    {
 		            checkbox: true
 		        },
 				{
@@ -198,42 +199,43 @@
 					field : 'remark', 
 					title : '备注',
 					sortable: true
-				},
-				{
-					field : 'transmitpower', 
-					title : '发射机的发射功率',
-					sortable: true
-				},
-				{
-					field : 'reflectedpower', 
-					title : '反射功率',
-					sortable: true
-				},
-				{
-					field : 'workvoltage', 
-					title : '工作电压',
-					sortable: true
-				},
-				{
-					field : 'rds', 
-					title : 'FM调频发射RDS码',
-					sortable: true
-				},
-				{
-					field : 'fmfrequency', 
-					title : 'FM调频发射频率',
-					sortable: true
-				},
-		        {
-		            title: '操作',
-		            align: 'center',
-		            formatter: function(value, row, index) {
-		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.tid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.tid + '\')"><i class="fa fa-remove"></i>删除</a>');
-						return actions.join('');
-		            }
-		        }]
+				}
+//				{
+//					field : 'transmitpower',
+//					title : '发射机的发射功率',
+//					sortable: true
+//				},
+//				{
+//					field : 'reflectedpower',
+//					title : '反射功率',
+//					sortable: true
+//				},
+//				{
+//					field : 'workvoltage',
+//					title : '工作电压',
+//					sortable: true
+//				},
+//				{
+//					field : 'rds',
+//					title : 'FM调频发射RDS码',
+//					sortable: true
+//				},
+//				{
+//					field : 'fmfrequency',
+//					title : 'FM调频发射频率',
+//					sortable: true
+//				},
+//		        {
+//		            title: '操作',
+//		            align: 'center',
+//		            formatter: function(value, row, index) {
+//		            	var actions = [];
+//		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.tid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+//                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.tid + '\')"><i class="fa fa-remove"></i>删除</a>');
+//						return actions.join('');
+//		            }
+//		        }
+		        ]
             };
             $.table.init(options);
         });
