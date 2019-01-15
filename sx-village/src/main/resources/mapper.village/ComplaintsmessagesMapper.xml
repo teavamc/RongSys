@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.village.mapper.ComplaintsmessagesMapper">
+	<resultMap type="Complaintsmessages" id="ComplaintsmessagesResult">
+		<id column="fbid" property="fbid"/>
+		<result column="fbuid" property="fbuid"/>
+		<result column="title" property="title"/>
+		<result column="ftype" property="ftype"/>
+		<result column="content" property="content"/>
+		<result column="fbdatetime" property="fbdatetime"/>
+		<result column="isread" property="isread"/>
+		<result column="opinion" property="opinion"/>
+		<result column="uid" property="uid"/>
+		<result column="uname" property="uname"/>
+		<result column="datetime" property="datetime"/>
+		<result column="aid" property="aid"/>
+		<result column="remark" property="remark"/>
+	</resultMap>
+	<!-- 字段值 -->
+	<!--还有一个 aid 字段-->
+	<sql id="Field">
+		 fbid, fbuid, title, ftype, content, fbdatetime, isread, opinion, uid, uname, datetime, remark
+	</sql>
+
+	<!--还有一个 #aid 字段-->
+	<sql id="FieldValue">
+		#{fbid}, #{fbuid}, #{title}, #{ftype}, #{content}, #{fbdatetime}, #{isread}, #{opinion}, #{uid}, #{uname}, #{datetime}, #{remark}
+	</sql>
+	
+	<!--表名 -->
+	<sql id="tableName">
+		tb_feedback
+	</sql>
+
+	<!--获取所有投诉咨询 -->
+	<select id="selectComplaintsList"  resultType="Complaintsmessages">
+		select <include refid="Field"/>
+		 from <include refid="tableName"/>
+		 where remark = 1
+		 ORDER BY fbdatetime desc
+	</select>
+	<!--根据fbid删除数据-->
+	<delete id="deleteComplaintsByid" parameterType="Integer">
+		delete from
+		 <include refid="tableName"/>
+		where fbid = #{id}
+	</delete>
+	<delete id="deleteComplaintsByids" parameterType="String">
+		delete from <include refid="tableName"/> where fbid in
+		<foreach item="fbid" collection="array" open="(" separator="," close=")">
+			#{fbid}
+		</foreach>
+	</delete>
+
+
+	</mapper>
