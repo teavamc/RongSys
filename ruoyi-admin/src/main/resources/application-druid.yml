@@ -17,24 +17,31 @@ spring:
                 username: root
                 password: sx123456Aa
 
-            # （目前只读）思信数据源 - 应急广播 - user
+            # 思信数据源 - 应急广播 - user
             sxuser:
                 enabled: true
                 url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 
-            # （目前只读）思信数据源 - 应急广播 - infom
+            # 思信数据源 - 应急广播 - infom
             sxinfom:
                 enabled: true
                 url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 
-            # （目前只读）思信数据源 - 山洪预警 - rivervis
+            # 思信数据源 - 山洪预警 - rivervis
             sxrivervis:
                 enabled: true
                 url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456Aa
+
+            # 思信数据源 - 山洪预警 - rivervis
+            sxvillage:
+                enabled: true
+                url: jdbc:mysql://110.53.162.164:3306/village?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
                 password: sx123456Aa
 

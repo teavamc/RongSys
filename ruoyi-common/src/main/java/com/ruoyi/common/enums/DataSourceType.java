@@ -30,6 +30,11 @@ public enum DataSourceType
     /**
      * 从库四
      */
-    SXRIVERVIS
+    SXRIVERVIS,
+
+    /**
+     * 从库五
+     */
+    SXVILLAGE
 
 }
