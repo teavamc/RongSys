@@ -1,8 +1,8 @@
 package com.ruoyi.web.controller.village;
 
-import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.framework.web.base.BaseController;
+
 import com.ruoyi.village.domain.VillageFamily;
 import com.ruoyi.village.service.IVillageFamilyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;

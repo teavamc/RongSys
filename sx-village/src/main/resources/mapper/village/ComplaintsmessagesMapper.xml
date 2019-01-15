@@ -33,6 +33,11 @@
 		tb_feedback
 	</sql>
 
+	<select id="selectComplaintsList_first" resultMap="ComplaintsmessagesResult">
+		select <include refid="Field"/>
+		 from <include refid="tableName"/>
+		 ORDER BY fbdatetime desc
+	</select>
 	<!--获取所有投诉咨询 -->
 	<select id="selectComplaintsList" parameterType="com.ruoyi.village.domain.Complaintsmessages" resultMap="ComplaintsmessagesResult">
 		select <include refid="Field"/>

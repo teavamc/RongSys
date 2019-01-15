@@ -31,4 +31,10 @@ public interface ComplaintsmessagesMapper {
      * @return
      */
     //List<Complaintsmessages> selectComplaintsListBy_other(String other);
+
+    /**
+     * 获取数据
+     * @return
+     */
+    List<Complaintsmessages> selectComplaintsList_first();
 }

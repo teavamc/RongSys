@@ -3,6 +3,8 @@ package com.ruoyi.web.controller.village;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.framework.web.base.BaseController;
+import com.ruoyi.village.domain.Complaintsmessages;
+import com.ruoyi.village.service.IComplaintsmessagesService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
-import com.ruoyi.village.domain.Complaintsmessages;
-import com.ruoyi.village.service.IComplaintsmessagesService;
+
+
 
 /**
  * @program: lyb_RongSys
@@ -45,7 +47,7 @@ public class ComplaintsmessagesController extends BaseController {
     @ResponseBody
     public TableDataInfo list(Complaintsmessages complaintmessages){
         startPage();
-        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList(complaintmessages);
+        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList_first();
         return getDataTable(list);
     }
     /**
