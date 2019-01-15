@@ -22,7 +22,7 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
     @Autowired
     private ComplaintsmessagesMapper mapper;
 
-    @DataSource(value = DataSourceType.SXRIVERVIS)
+    @DataSource(value = DataSourceType.SXVILLAGE)
     public List<Complaintsmessages> selectComplaintsList() {
         return mapper.selectComplaintsList();
     }
