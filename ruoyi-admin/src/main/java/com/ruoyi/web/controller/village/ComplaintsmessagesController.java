@@ -10,15 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import com.ruoyi.village.domain.Complaintsmessages;
 import com.ruoyi.village.service.IComplaintsmessagesService;
 
 /**
  * @program: lyb_RongSys
- * @description: 投诉咨询Controller
+ * @description: 投诉咨询 信息操作处理
  * @author: Mr.Liu
  * @create: 2019-01-14 16:04
  **/
@@ -47,7 +45,7 @@ public class ComplaintsmessagesController extends BaseController {
     @ResponseBody
     public TableDataInfo list(Complaintsmessages complaintmessages){
         startPage();
-        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList();
+        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList(complaintmessages);
         return getDataTable(list);
     }
     /**

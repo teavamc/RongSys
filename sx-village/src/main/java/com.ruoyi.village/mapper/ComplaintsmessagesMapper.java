@@ -17,7 +17,7 @@ public interface ComplaintsmessagesMapper {
      *
      * @return
      */
-    List<Complaintsmessages> selectComplaintsList();
+    List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
 
     /**
      * 根据fbid删除数据
@@ -30,5 +30,5 @@ public interface ComplaintsmessagesMapper {
      * @param other
      * @return
      */
-    List<Complaintsmessages> selectComplaintsListBy_other(String other);
+    //List<Complaintsmessages> selectComplaintsListBy_other(String other);
 }

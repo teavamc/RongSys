@@ -1,12 +1,15 @@
 package com.ruoyi.village.domain;
 
+import com.ruoyi.common.base.BaseEntity;
+
 /**
  * @program: lyb_RongSys
  * @description: 投诉咨询表
  * @author: Mr.Liu
  * @create: 2019-01-14 15:25
  **/
-public class Complaintsmessages {
+public class Complaintsmessages extends BaseEntity {
+    private static final long serialVersionUID = 1L;
     /**投诉数据编号*/
     private String fbid;
     /**投诉人编号*/
@@ -32,9 +35,31 @@ public class Complaintsmessages {
     /** 用户所属地区村社区 aid*/
     private String aid;
     /** 是否有效*/
-    private int remark;
+    private String remark;
 
-    public Complaintsmessages(String fbid, String fbuid, String title, String ftype, String content, String fbdatetime, int isread, String opinion, int uid, String uname, String datetime, int remark, String aid) {
+    @Override
+    public String toString() {
+        return "Complaintsmessages{" +
+                "fbid='" + fbid + '\'' +
+                ", fbuid='" + fbuid + '\'' +
+                ", title='" + title + '\'' +
+                ", ftype='" + ftype + '\'' +
+                ", content='" + content + '\'' +
+                ", fbdatetime='" + fbdatetime + '\'' +
+                ", isread=" + isread +
+                ", opinion='" + opinion + '\'' +
+                ", uid=" + uid +
+                ", uname='" + uname + '\'' +
+                ", datetime='" + datetime + '\'' +
+                ", aid='" + aid + '\'' +
+                ", remark=" + remark +
+                '}';
+    }
+
+    public Complaintsmessages(String fbid, String fbuid, String title,
+                              String ftype, String content, String fbdatetime,
+                              int isread, String opinion, int uid, String uname,
+                              String datetime, String remark, String aid) {
         this.fbid = fbid;
         this.fbuid = fbuid;
         this.title = title;
@@ -143,11 +168,11 @@ public class Complaintsmessages {
         this.datetime = datetime;
     }
 
-    public int getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(int remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 

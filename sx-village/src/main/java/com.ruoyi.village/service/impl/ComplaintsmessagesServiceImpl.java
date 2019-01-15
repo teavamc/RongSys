@@ -23,8 +23,8 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
     private ComplaintsmessagesMapper mapper;
 
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public List<Complaintsmessages> selectComplaintsList() {
-        return mapper.selectComplaintsList();
+    public List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages) {
+        return mapper.selectComplaintsList(complaintmessages);
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)
