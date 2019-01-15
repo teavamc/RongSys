@@ -1,12 +1,16 @@
 package com.ruoyi.village.domain;
 
+import com.ruoyi.common.base.BaseEntity;
+
 /**
  * @program: lyb_RongSys
  * @description: 求职招聘
  * @author: Mr.Liu
  * @create: 2019-01-15 14:05
  **/
-public class recruitment {
+public class recruitment extends BaseEntity {
+    private static final long serialVersionUID = 1L;
+
     /**招聘信息编号*/
     private String jid;
     /**职位类型**/
@@ -44,7 +48,7 @@ public class recruitment {
     /**用户所属地区村社区 aid**/
     private String aid;
     /**是否有效**/
-    private int remark;
+    private String remark;
 
     public recruitment() {
     }
@@ -54,7 +58,7 @@ public class recruitment {
                        String introduction, String url, String content,
                        String phone, String email, String date, int num,
                        String bedate, String endate, int uid, String uname,
-                       String aid, int remark) {
+                       String aid, String remark) {
         this.jid = jid;
         this.jtype = jtype;
         this.company = company;
@@ -212,11 +216,11 @@ public class recruitment {
         this.uname = uname;
     }
 
-    public int getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(int remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 }

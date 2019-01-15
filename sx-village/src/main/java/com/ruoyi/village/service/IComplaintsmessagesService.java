@@ -2,7 +2,6 @@ package com.ruoyi.village.service;
 
 import com.ruoyi.village.domain.Complaintsmessages;
 
-
 import java.util.List;
 
 /**
@@ -13,6 +12,11 @@ import java.util.List;
  **/
 
 public interface IComplaintsmessagesService {
+    /**
+     * 获取数据
+     * @return
+     */
+    List<Complaintsmessages> selectComplaintsList_first();
     /**
      * 查询投诉咨询记录列表
      *

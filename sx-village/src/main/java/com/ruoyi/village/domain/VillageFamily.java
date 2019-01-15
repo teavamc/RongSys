@@ -1,12 +1,15 @@
 package com.ruoyi.village.domain;
 
+import com.ruoyi.common.base.BaseEntity;
+
 /**
  * @program: lyb_RongSys
  * @description: 小村家事控制器
  * @author: Mr.Liu
  * @create: 2019-01-15 14:52
  **/
-public class VillageFamily {
+public class VillageFamily extends BaseEntity {
+    private static final long serialVersionUID = 1L;
     /**小村家事数据编号*/
     private int jsid;
     /**文章标题*/
@@ -30,7 +33,7 @@ public class VillageFamily {
     /**用户所属地区村社区 aid*/
     private String aid;
     /**是否有效*/
-    private int remark;
+    private String remark;
 
     public VillageFamily() {
     }
@@ -57,7 +60,7 @@ public class VillageFamily {
                          String adddate, String reldate,
                          String content, int adduid,
                          String adduname, int uid, String uname,
-                         String aid, int remark) {
+                         String aid, String remark) {
         this.jsid = jsid;
         this.title = title;
         this.type = type;
@@ -160,11 +163,11 @@ public class VillageFamily {
         this.aid = aid;
     }
 
-    public int getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(int remark) {
+    public void setRemark(String remark) {
         this.remark = remark;
     }
 }

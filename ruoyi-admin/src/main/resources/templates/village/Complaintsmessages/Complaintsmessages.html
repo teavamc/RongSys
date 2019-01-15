@@ -71,7 +71,7 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
-                modalName: "短信接收记录",
+                modalName: "投诉记录",
 				search: false,
 		        showExport: true,
                 columns: [{
@@ -88,19 +88,24 @@
 					visible:false
 				},
 				{
-					field : 'title',
-					title : '投诉标题',
+					field : 'ftype',
+					title : '类型',
 					sortable: true
 				},
 				{
-					field : 'ftype',
-					title : '投诉类型',
+					field : 'title',
+					title : '投诉标题',
 					sortable: true
 				},
 				{
 				    field:'fbdatetime',
 					title:'投诉时间',
 					visible:true
+				},
+				{
+				    field:'content',
+					title:'投诉内容',
+					sortable:true
 				},
 				{
 				    field:'isread',
@@ -132,8 +137,8 @@
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.rmid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.rmid + '\')"><i class="fa fa-remove"></i>删除</a>');
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.fbid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.fbid + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
 		        }]
