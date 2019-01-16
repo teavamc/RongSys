@@ -14,16 +14,10 @@ import java.util.List;
 
 public interface IPoliticsService {
     /**
-     * 获取数据
-     * @return
-     */
-    List<Politics> selectPoliticsList_first();
-    /**
-     * 查询村务政策记录列表
+     * 查询政策记录列表
      *
      * @return
      */
-
     List<Politics> selectPoliticsList(Politics politics);
 
     /**
@@ -31,4 +25,29 @@ public interface IPoliticsService {
      * @param id
      */
     int deletePoliticsByids(String id);
+
+    /**
+     * 添加投诉咨询数据
+     * @param  politics
+     * @return
+     */
+    int insertpolitics(Politics politics);
+    /**
+     * 根据shiid选择数据
+     * @param shiid
+     * @return
+     */
+    Politics selectByshiid(Integer shiid);
+    /**
+     * 保存用户修改
+     * @param politics
+     * @return
+     */
+    int updatePolitics(Politics politics);
+    /**
+     * 删除政策信息
+     * @param shiid
+     * @return
+     */
+    int deletePoliticsByIds(String shiid);
 }

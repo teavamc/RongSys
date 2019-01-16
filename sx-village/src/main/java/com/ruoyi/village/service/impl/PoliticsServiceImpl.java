@@ -19,21 +19,36 @@ import java.util.List;
  **/
 @Service
 public class PoliticsServiceImpl implements IPoliticsService {
-    @Autowired
-    private PoliticsMapper mapper;
+        @Autowired
+        private PoliticsMapper mapper;
 
-    @DataSource(value = DataSourceType.SXVILLAGE)
-    public List<Politics> selectPoliticsList(Politics politics) {
-        return mapper.selectPoliticsList(politics);
-    }
+        @DataSource(value = DataSourceType.SXVILLAGE)
+        public List<Politics> selectPoliticsList(Politics politics) {
+            return mapper.selectPoliticsList(politics);
+        }
 
-    @DataSource(value = DataSourceType.SXVILLAGE)
-    public List<Politics> selectPoliticsList_first(){
-        return mapper.selectPoliticsList_first();
-    }
+        @DataSource(value = DataSourceType.SXVILLAGE)
+        public int deletePoliticsByids(String id) {
+            return mapper.deletePoliticsByids(Convert.toStrArray(id));
+        }
 
-    @DataSource(value = DataSourceType.SXVILLAGE)
-    public int deletePoliticsByids(String id) {
-        return mapper.deletePoliticsByids(Convert.toStrArray(id));
+        @DataSource(value = DataSourceType.SXVILLAGE)
+        public int insertpolitics(Politics politics) {
+            return mapper.insertpolitics(politics);
+        }
+
+        @DataSource(value = DataSourceType.SXVILLAGE)
+        public Politics selectByshiid(Integer shiid) {
+            return mapper.selectByshiid(shiid);
+        }
+
+        @DataSource(value = DataSourceType.SXVILLAGE)
+        public int deletePoliticsByIds(String shiid) {
+            return mapper.deletePoliticsByIds(shiid);
+        }
+
+        @DataSource(value = DataSourceType.SXVILLAGE)
+        public int updatePolitics(Politics politics) {
+            return mapper.updatePolitics(politics);
+        }
     }
-}

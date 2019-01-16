@@ -1,6 +1,8 @@
 package com.ruoyi.web.controller.village;
 
+import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.base.AjaxResult;
+import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.village.domain.Politics;
@@ -8,10 +10,8 @@ import com.ruoyi.village.service.IPoliticsService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class PoliticsController extends BaseController {
 
     @RequiresPermissions("village:politics:view")
     @GetMapping()
-    public String Politics(){
+    public String Politic(){
         return prefix+"/politics";
     }
 
@@ -42,24 +42,13 @@ public class PoliticsController extends BaseController {
      * @param politics
      * @return
      */
-    @RequiresPermissions("village:politics:list")
+    //@RequiresPermissions("village:politics:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(Politics politics){
         startPage();
-        List<Politics> list = politicsService.selectPoliticsList_first();
+        List<Politics> list = politicsService.selectPoliticsList(politics);
         return getDataTable(list);
-    }
-    /**
-     * 根据shiid删除数据
-     * @param id
-     * @return
-     */
-    @RequiresPermissions("village:politics:delete")
-    @PostMapping("/delete")
-    @ResponseBody
-    public AjaxResult delete(String id){
-        return toAjax(politicsService.deletePoliticsByids(id));
     }
 
     @GetMapping("/add")
@@ -67,6 +56,48 @@ public class PoliticsController extends BaseController {
         return prefix+"/add";
     }
 
-    @GetMapping("/edit")
-    public String edit(){return prefix+"/edit";}
+    /**
+     * 新增保存投诉咨询
+     */
+    @RequiresPermissions("village:politics:add")
+    @Log(title = "政策信息", businessType = BusinessType.INSERT)
+    @PostMapping("/add")
+    @ResponseBody
+    public AjaxResult addSave(Politics politics)
+    {
+        return toAjax(politicsService.insertpolitics(politics));
+    }
+    /**
+     * 修改投诉咨询
+     */
+    @GetMapping("/edit/{shiid}")
+    public String edit(@PathVariable("shiid") Integer shiid, ModelMap mmap)
+    {
+        Politics politics = politicsService.selectByshiid(shiid);
+        mmap.put("politics", politics);
+        return prefix + "/edit";
+    }
+    /**
+     * 修改保存投诉咨询
+     */
+    @RequiresPermissions("village:politics:edit")
+    @Log(title = "政策信息", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit")
+    @ResponseBody
+    public AjaxResult editSave(Politics politics)
+    {
+        return toAjax(politicsService.updatePolitics(politics));
+    }
+    /**
+     * 删除投诉咨询
+     */
+    @RequiresPermissions("village:politics:remove")
+    @Log(title = "删除投诉咨询", businessType = BusinessType.DELETE)
+    @PostMapping( "/remove/{shiid}")
+    @ResponseBody
+    public AjaxResult remove(@PathVariable("shiid") String shiid)
+    {
+        System.out.println("*******"+shiid);
+        return toAjax(politicsService.deletePoliticsByIds(shiid));
+    }
 }

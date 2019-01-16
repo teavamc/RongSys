@@ -26,9 +26,9 @@
 								添加时间：<input type="text" name="adddate"/>
 							</li>
 
-							<li>
+							<!--<li>
 								是否有效：<input type="text" name="remark"/>
-							</li>
+							</li>-->
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -62,14 +62,14 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('village:Politics:edit')}]];
         var removeFlag = [[${@permission.hasPermi('village:Politics:remove')}]];
-        var prefix = ctx + "village/Politics";
+        var prefix = ctx + "village/politics";
 
         $(function() {
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
-                removeUrl: prefix + "/remove",
+                removeUrl: prefix + "/remove/{id}",
 				exportUrl: prefix + "/export",
                 modalName: "政策记录",
 				search: false,
@@ -147,8 +147,8 @@
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.fbid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.fbid + '\')"><i class="fa fa-remove"></i>删除</a>');
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.shiid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.shiid + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
 		        }]

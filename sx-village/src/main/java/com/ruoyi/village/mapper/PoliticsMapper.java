@@ -11,29 +11,44 @@ import java.util.List;
  * @Date: $
  */
 public interface PoliticsMapper {
-    /**
-     * 查询投诉咨询记录列表
+       /**
+     * 政策记录列表
      *
      * @return
      */
     List<Politics> selectPoliticsList(Politics politics);
 
     /**
-     * 根据fbid删除数据
+     * 根据shiid删除数据
      * @param id
      */
     int deletePoliticsByids(String[] id);
 
     /**
-     * 根据类型或者内容进行模糊查询
-     * @param other
+     * 添加政策信息
+     * @param politics
      * @return
      */
-    //List<Politics> selectPoliticsListBy_other(String other);
+    int insertpolitics(Politics politics);
 
     /**
-     * 获取数据
+     * 根据shiid选择数据
+     * @param shiid
      * @return
      */
-    List<Politics> selectPoliticsList_first();
+    Politics selectByshiid(Integer shiid);
+
+    /**
+     * 保存用户修改
+     * @param politics
+     * @return
+     */
+    int updatePolitics(Politics politics);
+
+    /**
+     * 删除政策信息
+     * @param shiid
+     * @return
+     */
+    int deletePoliticsByIds(String shiid);
 }

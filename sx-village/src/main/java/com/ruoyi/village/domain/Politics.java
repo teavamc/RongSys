@@ -11,7 +11,7 @@ import com.ruoyi.common.base.BaseEntity;
 public class Politics extends BaseEntity{
     private static final long serialVersionUID = 1L;
     /**政策发布编号*/
-    private int shiid;
+    private String shiid;
     /**文章标题*/
     private String title;
     /**文章类型*/
@@ -35,7 +35,7 @@ public class Politics extends BaseEntity{
     /**用户所属地区村社区 aid*/
     private String aid;
     /**是否有效*/
-    private String vedio;
+    private String video;
 
     @Override
     public String toString() {
@@ -52,11 +52,11 @@ public class Politics extends BaseEntity{
                 ", uname='" + uname + '\'' +
                 ", remark='" + remark + '\'' +
                 ", aid='" + aid + '\'' +
-                ", vedio='" + vedio + '\'' +
+                ", video='" + video + '\'' +
                 '}';
     }
 
-    public Politics(int shiid, String title, String type,
+    public Politics(String shiid, String title, String type,
                     String adddate, String reldate,
                     String content, String pic, int courread,
                     int uid, String uname, String remark, String aid, String vedio) {
@@ -72,18 +72,18 @@ public class Politics extends BaseEntity{
         this.uname = uname;
         this.remark = remark;
         this.aid = aid;
-        this.vedio = vedio;
+        this.video = video;
     }
 
     public Politics() {
         super();
     }
 
-    public int getShiid() {
+    public String getShiid() {
         return shiid;
     }
 
-    public void setShiid(int shiid) {
+    public void setShiid(String shiid) {
         this.shiid = shiid;
     }
 
@@ -177,11 +177,11 @@ public class Politics extends BaseEntity{
         this.aid = aid;
     }
 
-    public String getVedio() {
-        return vedio;
+    public String getVideo() {
+        return video;
     }
 
-    public void setVedio(String vedio) {
-        this.vedio = vedio;
+    public void setVideo(String video) {
+        this.video = video;
     }
 }
