@@ -22,41 +22,94 @@
 	</sql>
 
 	<sql id="FieldValue">
-		#{jsid}, #{title}, #{type}, #{adddate}, #{reldate}, #{content}, #{adduid}, #{adduname}, #{uid}, #{uname}, #{aid}, #{remark}
+		#{title}, #{type}, #{adddate}, #{reldate}, #{content}, #{adduid}, #{adduname}, #{uid}, #{uname}, #{aid}, #{remark}
 	</sql>
 
 	<!--表名 -->
 	<sql id="tableName">
 		tb_xiaocun
 	</sql>
-
 	<!--获取所有投诉咨询 -->
-	<select id="selectComplaintsList" parameterType="com.ruoyi.village.domain.VillageFamily" resultMap="VillageFamilyResultMap">
+	<select id="selectVillageFamilyList" parameterType="com.ruoyi.village.domain.VillageFamily" resultMap="VillageFamilyResultMap">
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
-			<if test="jsid != null "> and jsid = #{jsid}</if>
-			<if test="title != null  and title != '' "> and title = #{title}</if>
-			<if test="type != null  and type != '' "> and type = #{type}</if>
-			<if test="adddate != null  and adddate != ''  "> and adddate = #{adddate}</if>
-			<if test="reldate != null  and reldate != '' "> and reldate = #{reldate}</if>
-			<if test="content != null  and content != '' "> and content = #{content}</if>
+			<if test="title != null and title != ''"> and title = #{title}</if>
+			<if test="type != null  and type != ''"> and type = #{type}</if>
+			<if test="adddate != null  and adddate != ''"> and adddate = #{adddate}</if>
+			<if test="reldate != null and reldate != ''"> and reldate = #{reldate}</if>
+			<if test="content != null  and content != ''"> and content = #{content}</if>
 			<if test="adduid != null  and adduid != '' "> and adduid = #{adduid}</if>
-			<if test="adduname != null  and adduname != '' "> and adduname = #{adduname}</if>
-			<if test="uid != null "> and uid = #{uid}</if>
+			<if test="adduname != null  and adduname != ''"> and adduname = #{adduname}</if>
+			<if test="uid != null  and uid != ''"> and uid = #{uid}</if>
 			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-			<if test="aid != null"> and aid = #{aid}</if>
-			<if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+			<if test="aid != null  and aid != ''"> and aid = #{aid}</if>
+			<if test="remark != null  and remark != ''"> and remark = #{remark}</if>
 		</where>
-		ORDER BY fbdatetime desc
+		ORDER BY jsid desc
 	</select>
+	<!--根据jsid获取数据-->
+	<select id="selectByfbid" parameterType="Integer" resultMap="VillageFamilyResultMap">
+		select <include refid="Field"/>
+		from <include refid="tableName"/>
+		where jsid = #{jsid}
+	</select>
+	<!--修改数据-->
+	<update id="updateVillageFamily" parameterType="com.ruoyi.village.domain.VillageFamily">
+		update <include refid="tableName"/>
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="title != null  and title != ''  ">title = #{title},</if>
+			<if test="type != null  and type != ''  ">type = #{type},</if>
+			<if test="content != null  and content != ''  ">content = #{content},</if>
+			<if test="reldate != null  and reldate != ''  ">reldate = #{reldate},</if>
+			<if test="adduid != null  and adduid != ''  ">adduid = #{adduid},</if>
+			<if test="adduname != null  and adduname != ''  ">adduname = #{adduname},</if>
+			<if test="uid != null  and uid != ''  ">uid = #{uid},</if>
+			<if test="uname != null  and uname != ''  ">uname = #{uname},</if>
+			<if test="aid != null  and aid != ''  ">aid = #{aid},</if>
+			<if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+		</trim>
+		where jsid = #{jsid}
+	</update>
+	<!--插入数据-->
+	<insert id="insertVillageFamily" parameterType="com.ruoyi.village.domain.VillageFamily">
+		insert into <include refid="tableName"/>
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="title != null  and title != ''  ">title,</if>
+			<if test="type != null  and type != ''  ">type,</if>
+			<if test="adddate != null  and adddate != ''  ">adddate,</if>
+			<if test="reldate != null  and reldate != ''  ">reldate,</if>
+			<if test="content != null  and content != ''  ">content,</if>
+			<if test="adduid != null  and adduid != ''  ">adduid,</if>
+			<if test="adduname != null  and adduname != ''  ">adduname,</if>
+			<if test="uid != null  and uid != ''  ">uid,</if>
+			<if test="uname != null  and uname != ''  ">uname,</if>
+			<if test="aid != null  and aid != ''  ">aid,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="title != null  and title != ''  ">#{title},</if>
+			<if test="type != null  and type != '' ">#{type},</if>
+			<if test="adddate != null  and adddate != ''  ">#{adddate},</if>
+			<if test="reldate != null  and reldate != ''  ">#{reldate},</if>
+			<if test="content != null  and content != ''  ">#{content},</if>
+			<if test="adduid != null  and adduid != ''  ">#{adduid},</if>
+			<if test="adduname != null  and adduname != ''  ">#{adduname},</if>
+			<if test="uid != null  and uid != ''  ">#{uid},</if>
+			<if test="uname != null  and uname != ''  ">#{uname},</if>
+			<if test="aid != null  and aid != ''  ">#{aid},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+		</trim>
+	</insert>
+
 	<!--根据fbid 批量删除数据-->
-	<!--<delete id="deleteComplaintsByid" parameterType="Integer">-->
-		<!--delete from-->
-		 <!--<include refid="tableName"/>-->
-		<!--where fbid = #{id}-->
-	<!--</delete>-->
-	<delete id="deleteComplaintsByids" parameterType="String">
+	<delete id="deleteVillageFamilyByid" parameterType="String">
+		delete from
+		 <include refid="tableName"/>
+		where jsid = #{jsid}
+	</delete>
+	<delete id="deleteVillageFamilyByids" parameterType="String">
 		delete from <include refid="tableName"/> where jsid in
 		<foreach item="jsid" collection="array" open="(" separator="," close=")">
 			#{jsid}

@@ -26,15 +26,30 @@ public interface ComplaintsmessagesMapper {
     int deleteComplaintsByids(String[] id);
 
     /**
-     * 根据类型或者内容进行模糊查询
-     * @param other
+     * 添加投诉咨询
+     * @param complaintsmessages
      * @return
      */
-    //List<Complaintsmessages> selectComplaintsListBy_other(String other);
+    int insertcomplaintsmessages(Complaintsmessages complaintsmessages);
 
     /**
-     * 获取数据
+     * 根据fbid选择数据
+     * @param fbid
      * @return
      */
-    List<Complaintsmessages> selectComplaintsList_first();
+    Complaintsmessages selectByfbid(Integer fbid);
+
+    /**
+     * 保存用户修改
+     * @param complaintsmessages
+     * @return
+     */
+    int updateComplaintsmessages(Complaintsmessages complaintsmessages);
+
+    /**
+     * 删除投诉咨询
+     * @param fbid
+     * @return
+     */
+    int deleteComplaintsmessagesByIds(String fbid);
 }
