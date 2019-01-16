@@ -30,17 +30,17 @@ import com.ruoyi.common.utils.ExcelUtil;
 public class MaintainController extends BaseController
 {
     private String prefix = "broad/maintain";
-	
+
 	@Autowired
 	private IMaintainService maintainService;
-	
+
 	@RequiresPermissions("broad:maintain:view")
 	@GetMapping()
 	public String maintain()
 	{
 	    return prefix + "/maintain";
 	}
-	
+
 	/**
 	 * 查询终端维护记录列表
 	 */
@@ -53,8 +53,8 @@ public class MaintainController extends BaseController
         List<Maintain> list = maintainService.selectMaintainList(maintain);
 		return getDataTable(list);
 	}
-	
-	
+
+
 	/**
 	 * 导出终端维护记录列表
 	 */
@@ -67,7 +67,7 @@ public class MaintainController extends BaseController
         ExcelUtil<Maintain> util = new ExcelUtil<Maintain>(Maintain.class);
         return util.exportExcel(list, "maintain");
     }
-	
+
 	/**
 	 * 新增终端维护记录
 	 */
@@ -76,7 +76,7 @@ public class MaintainController extends BaseController
 	{
 	    return prefix + "/add";
 	}
-	
+
 	/**
 	 * 新增保存终端维护记录
 	 */
@@ -99,7 +99,7 @@ public class MaintainController extends BaseController
 		mmap.put("maintain", maintain);
 	    return prefix + "/edit";
 	}
-	
+
 	/**
 	 * 修改保存终端维护记录
 	 */
@@ -111,7 +111,7 @@ public class MaintainController extends BaseController
 	{
 		return toAjax(maintainService.updateMaintain(maintain));
 	}
-	
+
 	/**
 	 * 删除终端维护记录
 	 */
@@ -123,5 +123,5 @@ public class MaintainController extends BaseController
 	{
 		return toAjax(maintainService.deleteMaintainByIds(ids));
 	}
-	
+
 }
