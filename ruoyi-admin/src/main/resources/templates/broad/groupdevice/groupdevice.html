@@ -12,7 +12,7 @@
         <div class="box box-main">
             <div class="box-header">
                 <div class="box-title">
-                    <i class="fa icon-grid"></i> 组织机构
+                    <i class="fa icon-grid"></i> 终端地域分组
                 </div>
                 <div class="box-tools pull-right">
                     <a type="button" class="btn btn-box-tool menuItem" href="#" onclick="dept()" title="管理部门"><i class="fa fa-edit"></i></a>
@@ -52,7 +52,7 @@
 
     $(function() {
         $('body').layout({ west__size: 185 });
-        queryUserList();
+//        queryUserList();
         queryDeptTree();
     });
 
@@ -125,7 +125,7 @@
 
     function queryDeptTree()
     {
-        var url = ctx + "system/dept/treeData";
+//        var url = ctx + "system/dept/treeData";
         var options = {
             url: url,
             expandLevel: 2,
