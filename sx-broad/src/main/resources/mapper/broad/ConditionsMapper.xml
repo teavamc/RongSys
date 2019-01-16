@@ -65,6 +65,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectConditionsVo"/>
         ORDER BY  RAND() LIMIT 100
     </select>
+
+    <!--<select id="selectConditionsByRandom" parameterType="String" resultMap="ConditionsResult">-->
+        <!--<include refid="selectConditionsVo"/>-->
+
+    <!--</select>-->
         
     <insert id="insertConditions" parameterType="Conditions">
         insert into ter_conditions
