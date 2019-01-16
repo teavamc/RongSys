@@ -17,9 +17,9 @@ import java.util.List;
 
 
 /**
- * @program: lyb_RongSys
- * @description: 投诉咨询 信息操作处理
- * @author: Mr.Liu
+ * @program: dyq_RongSys
+ * @description: 政策信息 信息操作处理
+ * @author: Mr.Dai
  * @create: 2019-01-14 16:04
  **/
 @Controller
@@ -31,7 +31,7 @@ public class PoliticsController extends BaseController {
     @Autowired
     private IPoliticsService politicsService;
 
-    @RequiresPermissions("village:Politics:view")
+    @RequiresPermissions("village:politics:view")
     @GetMapping()
     public String Politics(){
         return prefix+"/Politics";
@@ -42,7 +42,7 @@ public class PoliticsController extends BaseController {
      * @param politics
      * @return
      */
-    @RequiresPermissions("village:Politics:list")
+    @RequiresPermissions("village:politics:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(Politics politics){
@@ -51,11 +51,11 @@ public class PoliticsController extends BaseController {
         return getDataTable(list);
     }
     /**
-     * 根据fbid删除数据
+     * 根据shiid删除数据
      * @param id
      * @return
      */
-    @RequiresPermissions("village:Politics:delete")
+    @RequiresPermissions("village:politics:delete")
     @PostMapping("/delete")
     @ResponseBody
     public AjaxResult delete(String id){

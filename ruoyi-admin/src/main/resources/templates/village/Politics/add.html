@@ -26,7 +26,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">添加时间：</label>
 				<div class="col-sm-8">
-					<input id="recivedtime" name="recivedtime" class="form-control" type="text">
+					<input id="adddate" name="adddate" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -39,8 +39,8 @@
 	</div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
-		var prefix = ctx + "village/Politics"
-		$("#form-politics-add").validate({
+		var prefix = ctx + "village/politics"
+		$("#form-Politics-add").validate({
 			rules:{
 				xxxx:{
 					required:true,
