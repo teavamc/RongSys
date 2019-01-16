@@ -85,7 +85,7 @@ public class MaintainController extends BaseController
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Maintain maintain)
-	{		
+	{
 		return toAjax(maintainService.insertMaintain(maintain));
 	}
 
@@ -108,7 +108,7 @@ public class MaintainController extends BaseController
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Maintain maintain)
-	{		
+	{
 		return toAjax(maintainService.updateMaintain(maintain));
 	}
 	
@@ -120,7 +120,7 @@ public class MaintainController extends BaseController
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
-	{		
+	{
 		return toAjax(maintainService.deleteMaintainByIds(ids));
 	}
 	
