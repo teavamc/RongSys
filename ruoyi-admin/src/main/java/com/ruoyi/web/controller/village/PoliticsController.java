@@ -64,9 +64,9 @@ public class PoliticsController extends BaseController {
 
     @GetMapping("/add")
     public String add(){
-        return prefix+"add";
+        return prefix+"/add";
     }
 
     @GetMapping("/edit")
-    public String edit(){return prefix+"edit";}
+    public String edit(){return prefix+"/edit";}
 }

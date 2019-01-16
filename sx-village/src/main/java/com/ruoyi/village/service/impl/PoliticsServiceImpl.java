@@ -31,6 +31,7 @@ public class PoliticsServiceImpl implements IPoliticsService {
     public List<Politics> selectPoliticsList_first(){
         return mapper.selectPoliticsList_first();
     }
+
     @DataSource(value = DataSourceType.SXVILLAGE)
     public int deletePoliticsByids(String id) {
         return mapper.deletePoliticsByids(Convert.toStrArray(id));
