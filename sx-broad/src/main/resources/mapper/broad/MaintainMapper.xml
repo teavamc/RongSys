@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.MaintainMapper">
+    
+    <resultMap type="Maintain" id="MaintainResult">
+        <result property="tmid"    column="tmid"    />
+        <result property="tid"    column="tid"    />
+        <result property="fault"    column="fault"    />
+        <result property="mstaff"    column="mstaff"    />
+        <result property="createtime"    column="createtime"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+	
+	<sql id="selectMaintainVo">
+        select tmid, tid, fault, mstaff, createtime, remark from terminal_maintain
+    </sql>
+	
+    <select id="selectMaintainList" parameterType="Maintain" resultMap="MaintainResult">
+        <include refid="selectMaintainVo"/>
+        <where>  
+            <if test="tmid != null "> and tmid = #{tmid}</if>
+             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
+             <if test="fault != null  and fault != '' "> and fault = #{fault}</if>
+             <if test="mstaff != null  and mstaff != '' "> and mstaff = #{mstaff}</if>
+             <if test="createtime != null  and createtime != '' "> and createtime = #{createtime}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+         </where>
+        ORDER BY createtime DESC
+    </select>
+    
+    <select id="selectMaintainById" parameterType="Integer" resultMap="MaintainResult">
+        <include refid="selectMaintainVo"/>
+        where tmid = #{tmid}
+    </select>
+        
+    <insert id="insertMaintain" parameterType="Maintain">
+        insert into terminal_maintain
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tmid != null  ">tmid,</if>
+			<if test="tid != null  and tid != ''  ">tid,</if>
+			<if test="fault != null  and fault != ''  ">fault,</if>
+			<if test="mstaff != null  and mstaff != ''  ">mstaff,</if>
+			<if test="createtime != null  and createtime != ''  ">createtime,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tmid != null  ">#{tmid},</if>
+			<if test="tid != null  and tid != ''  ">#{tid},</if>
+			<if test="fault != null  and fault != ''  ">#{fault},</if>
+			<if test="mstaff != null  and mstaff != ''  ">#{mstaff},</if>
+			<if test="createtime != null  and createtime != ''  ">#{createtime},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateMaintain" parameterType="Maintain">
+        update terminal_maintain
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="tid != null  and tid != ''  ">tid = #{tid},</if>
+            <if test="fault != null  and fault != ''  ">fault = #{fault},</if>
+            <if test="mstaff != null  and mstaff != ''  ">mstaff = #{mstaff},</if>
+            <if test="createtime != null  and createtime != ''  ">createtime = #{createtime},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+        </trim>
+        where tmid = #{tmid}
+    </update>
+
+	<delete id="deleteMaintainById" parameterType="Integer">
+        delete from terminal_maintain where tmid = #{tmid}
+    </delete>
+	
+    <delete id="deleteMaintainByIds" parameterType="String">
+        delete from terminal_maintain where tmid in 
+        <foreach item="tmid" collection="array" open="(" separator="," close=")">
+            #{tmid}
+        </foreach>
+    </delete>
+    
+</mapper>
