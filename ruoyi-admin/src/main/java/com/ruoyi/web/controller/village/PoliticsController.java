@@ -23,10 +23,10 @@ import java.util.List;
  * @create: 2019-01-14 16:04
  **/
 @Controller
-@RequestMapping("/village/Politics")
+@RequestMapping("/village/politics")
 public class PoliticsController extends BaseController {
 
-    private String prefix = "/village/Politics";
+    private String prefix = "/village/politics";
 
     @Autowired
     private IPoliticsService politicsService;
@@ -34,7 +34,7 @@ public class PoliticsController extends BaseController {
     @RequiresPermissions("village:politics:view")
     @GetMapping()
     public String Politics(){
-        return prefix+"/Politics";
+        return prefix+"/politics";
     }
 
     /**
