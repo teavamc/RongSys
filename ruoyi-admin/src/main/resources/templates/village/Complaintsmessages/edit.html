@@ -4,7 +4,7 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-recivedmessages-edit" th:object="${complaintsmessages}">
+        <form class="form-horizontal m" id="form-Complaintsmessages-edit" th:object="${complaintsmessages}">
             <input id="fbid" name="fbid" th:field="*{fbid}"  type="hidden">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">投诉标题：</label>
@@ -63,7 +63,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-recivedmessages-edit').serialize());
+	            $.operate.save(prefix + "/edit", $('#form-Complaintsmessages-edit').serialize());
 	        }
 	    }
 	</script>

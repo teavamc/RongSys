@@ -22,15 +22,30 @@ public class VillageFamilyServiceImpl implements IVillageFamilyService {
     @Autowired
     private VillageFamilyMapper mapper;
 
-    @Override
+
     @DataSource(value = DataSourceType.SXVILLAGE)
     public List<VillageFamily> selectVillageFamilyList(VillageFamily villageFamily) {
         return mapper.selectVillageFamilyList(villageFamily);
     }
 
-    @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public int deleteVillageFamilyByids(String id) {
-        return mapper.deleteVillageFamilyByids(Convert.toStrArray(id));
+    public int insertVillageFamily(VillageFamily villageFamily) {
+        return mapper.insertVillageFamily(villageFamily);
     }
+
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public VillageFamily selectByfbid(Integer jsid) {
+        return mapper.selectByfbid(jsid);
+    }
+
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public int updateVillageFamily(VillageFamily villageFamily) {
+        return mapper.updateVillageFamily(villageFamily);
+    }
+
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public int deleteVillageFamilyByid(String jsid) {
+        return mapper.deleteVillageFamilyByid(jsid);
+    }
+
 }

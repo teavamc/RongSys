@@ -33,27 +33,20 @@
 		tb_feedback
 	</sql>
 
-	<select id="selectComplaintsList_first" resultMap="ComplaintsmessagesResult">
-		select <include refid="Field"/>
-		 from <include refid="tableName"/>
-		 ORDER BY fbid desc
-	</select>
 	<!--获取所有投诉咨询 -->
 	<select id="selectComplaintsList" parameterType="com.ruoyi.village.domain.Complaintsmessages" resultMap="ComplaintsmessagesResult">
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
-			<if test="fbuid != null  and fbuid != '' "> and fbuid = #{fbuid}</if>
-			<if test="title != null  and title != '' "> and title = #{title}</if>
-			<if test="ftype != null  and ftype != ''  "> and ftype = #{ftype}</if>
-			<if test="content != null  and content != '' "> and content = #{content}</if>
-			<if test="fbdatetime != null  and fbdatetime != '' "> and fbdatetime = #{fbdatetime}</if>
-			<if test="isread != null  and isread != '' "> and isread = #{isread}</if>
-			<if test="opinion != null  and opinion != '' "> and opinion = #{opinion}</if>
-			<if test="uid != null and != ''"> and uid = #{uid}</if>
+			<if test="fbuid != null and fbuid != ''"> and fbuid = #{fbuid}</if>
+			<if test="title != null and title != ''"> and title = #{title}</if>
+			<if test="ftype != null  and ftype != ''"> and ftype = #{ftype}</if>
+			<if test="content != null  and content != ''"> and content = #{content}</if>
+			<if test="fbdatetime != null and fbdatetime != ''"> and fbdatetime = #{fbdatetime}</if>
+			<if test="opinion != null  and opinion != ''"> and opinion = #{opinion}</if>
 			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-			<if test="datetime != null  and datetime != '' "> and datetime = #{datetime}</if>
-			<if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+			<if test="datetime != null  and datetime != ''"> and datetime = #{datetime}</if>
+			<if test="remark != null  and remark != ''"> and remark = #{remark}</if>
 		</where>
 		ORDER BY fbid desc
 	</select>

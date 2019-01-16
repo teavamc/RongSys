@@ -28,10 +28,6 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public List<Complaintsmessages> selectComplaintsList_first(){
-        return mapper.selectComplaintsList_first();
-    }
-    @DataSource(value = DataSourceType.SXVILLAGE)
     public int deleteComplaintsByids(String id) {
         return mapper.deleteComplaintsByids(Convert.toStrArray(id));
     }

@@ -49,20 +49,9 @@ public class ComplaintsmessagesController extends BaseController {
     @ResponseBody
     public TableDataInfo list(Complaintsmessages complaintmessages){
         startPage();
-        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList_first();
+        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList(complaintmessages);
         return getDataTable(list);
     }
-//    /**
-//     * 根据fbid删除数据
-//     * @param id
-//     * @return
-//     */
-//    @RequiresPermissions("village:Complaintsmessages:delete")
-//    @PostMapping("/delete")
-//    @ResponseBody
-//    public AjaxResult delete(String id){
-//        return toAjax(complaintsmessagesService.deleteComplaintsByids(id));
-//    }
 
     @GetMapping("/add")
     public String add(){

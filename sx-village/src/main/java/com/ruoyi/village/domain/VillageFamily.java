@@ -4,7 +4,7 @@ import com.ruoyi.common.base.BaseEntity;
 
 /**
  * @program: lyb_RongSys
- * @description: 小村家事控制器
+ * @description: 小村家事
  * @author: Mr.Liu
  * @create: 2019-01-15 14:52
  **/

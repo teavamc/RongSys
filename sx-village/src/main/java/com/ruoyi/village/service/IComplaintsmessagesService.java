@@ -12,11 +12,7 @@ import java.util.List;
  **/
 
 public interface IComplaintsmessagesService {
-    /**
-     * 获取数据
-     * @return
-     */
-    List<Complaintsmessages> selectComplaintsList_first();
+
     /**
      * 查询投诉咨询记录列表
      *

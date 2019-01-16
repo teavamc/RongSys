@@ -26,19 +26,6 @@ public interface ComplaintsmessagesMapper {
     int deleteComplaintsByids(String[] id);
 
     /**
-     * 根据类型或者内容进行模糊查询
-     * @param other
-     * @return
-     */
-    //List<Complaintsmessages> selectComplaintsListBy_other(String other);
-
-    /**
-     * 获取数据
-     * @return
-     */
-    List<Complaintsmessages> selectComplaintsList_first();
-
-    /**
      * 添加投诉咨询
      * @param complaintsmessages
      * @return
