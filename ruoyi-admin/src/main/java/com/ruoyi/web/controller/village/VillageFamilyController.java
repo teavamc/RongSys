@@ -24,7 +24,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/village/VillageFamily")
 public class VillageFamilyController extends BaseController {
-    private String prefix = "/village/VillageFamily";
+    private String prefix = "village/VillageFamily";
 
     @Autowired
     private IVillageFamilyService iVillageFamilyService;

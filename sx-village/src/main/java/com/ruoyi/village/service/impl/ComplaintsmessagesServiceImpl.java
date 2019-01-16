@@ -35,4 +35,24 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
     public int deleteComplaintsByids(String id) {
         return mapper.deleteComplaintsByids(Convert.toStrArray(id));
     }
+
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public int insertcomplaintsmessages(Complaintsmessages complaintsmessages) {
+        return mapper.insertcomplaintsmessages(complaintsmessages);
+    }
+
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public Complaintsmessages selectByfbid(Integer fbid) {
+        return mapper.selectByfbid(fbid);
+    }
+
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public int deleteComplaintsmessagesByIds(String fbid) {
+        return mapper.deleteComplaintsmessagesByIds(fbid);
+    }
+
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public int updateComplaintsmessages(Complaintsmessages complaintsmessages) {
+        return mapper.updateComplaintsmessages(complaintsmessages);
+    }
 }

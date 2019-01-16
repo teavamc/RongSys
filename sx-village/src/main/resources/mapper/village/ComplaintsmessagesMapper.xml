@@ -36,14 +36,13 @@
 	<select id="selectComplaintsList_first" resultMap="ComplaintsmessagesResult">
 		select <include refid="Field"/>
 		 from <include refid="tableName"/>
-		 ORDER BY fbdatetime desc
+		 ORDER BY fbid desc
 	</select>
 	<!--获取所有投诉咨询 -->
 	<select id="selectComplaintsList" parameterType="com.ruoyi.village.domain.Complaintsmessages" resultMap="ComplaintsmessagesResult">
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
-			<if test="fbid != null "> and fbid = #{fbid}</if>
 			<if test="fbuid != null  and fbuid != '' "> and fbuid = #{fbuid}</if>
 			<if test="title != null  and title != '' "> and title = #{title}</if>
 			<if test="ftype != null  and ftype != ''  "> and ftype = #{ftype}</if>
@@ -51,19 +50,54 @@
 			<if test="fbdatetime != null  and fbdatetime != '' "> and fbdatetime = #{fbdatetime}</if>
 			<if test="isread != null  and isread != '' "> and isread = #{isread}</if>
 			<if test="opinion != null  and opinion != '' "> and opinion = #{opinion}</if>
-			<if test="uid != null "> and uid = #{uid}</if>
+			<if test="uid != null and != ''"> and uid = #{uid}</if>
 			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
 			<if test="datetime != null  and datetime != '' "> and datetime = #{datetime}</if>
 			<if test="remark != null  and remark != '' "> and remark = #{remark}</if>
 		</where>
-		ORDER BY fbdatetime desc
+		ORDER BY fbid desc
 	</select>
+	<insert id="insertcomplaintsmessages" parameterType="com.ruoyi.village.domain.Complaintsmessages">
+		insert into <include refid="tableName"/>
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+
+			<if test="fbuid != null  and fbuid != ''  ">fbuid,</if>
+			<if test="title != null  and title != ''  ">title,</if>
+			<if test="ftype != null  and ftype != ''  ">ftype,</if>
+			<if test="content != null  and content != ''  ">content,</if>
+			<if test="fbdatetime != null  and fbdatetime != ''  ">fbdatetime,</if>
+			<if test="isread != null  and isread != ''  ">isread,</if>
+			<if test="opinion != null  and opinion != ''  ">opinion,</if>
+			<if test="uid != null  and uid != ''  ">uid,</if>
+			<if test="uname != null  and uname != ''  ">uname,</if>
+			<if test="datetime != null  and datetime != ''  ">datetime,</if>
+			<if test="aid != null  and aid != ''  ">aid,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="fbuid != null  and fbuid != ''  ">#{fbuid},</if>
+			<if test="title != null  and title != ''  ">#{title},</if>
+			<if test="ftype != null  and ftype != '' ">#{ftype},</if>
+			<if test="content != null  and content != ''  ">#{content},</if>
+			<if test="fbdatetime != null  and fbdatetime != ''  ">#{fbdatetime},</if>
+			<if test="isread != null  and isread != ''  ">#{isread},</if>
+			<if test="opinion != null  and opinion != ''  ">#{opinion},</if>
+			<if test="uid != null  and uid != ''  ">#{uid},</if>
+			<if test="uname != null  and uname != ''  ">#{uname},</if>
+			<if test="datetime != null  and datetime != ''  ">#{datetime},</if>
+			<if test="aid != null  and aid != ''  ">#{aid},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+		</trim>
+	</insert>
 	<!--根据fbid删除数据-->
-	<!--<delete id="deleteComplaintsByid" parameterType="Integer">-->
-		<!--delete from-->
-		 <!--<include refid="tableName"/>-->
-		<!--where fbid = #{id}-->
-	<!--</delete>-->
+	<delete id="deleteComplaintsmessagesByIds" parameterType="String">
+		delete from
+		 <include refid="tableName"/>
+		where fbid = #{fbid}
+	</delete>
+	<!--批量删除-->
 	<delete id="deleteComplaintsByids" parameterType="String">
 		delete from <include refid="tableName"/> where fbid in
 		<foreach item="fbid" collection="array" open="(" separator="," close=")">
@@ -71,5 +105,25 @@
 		</foreach>
 	</delete>
 
+	<select id="selectByfbid" resultMap="ComplaintsmessagesResult" parameterType="Integer">
+		select <include refid="Field"/>
+		from <include refid="tableName"/>
+		where fbid = #{fbid}
+	</select>
 
+	<update id="updateComplaintsmessages" parameterType="Integer">
+		update <include refid="tableName"/>
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="title != null  and title != ''  ">title = #{title},</if>
+			<if test="ftype != null  and ftype != ''  ">ftype = #{ftype},</if>
+			<if test="content != null  and content != ''  ">content = #{content},</if>
+			<if test="isread != null  and isread != ''  ">isread = #{isread},</if>
+			<if test="opinion != null  and opinion != ''  ">opinion = #{opinion},</if>
+			<if test="uid != null  and uid != ''  ">uid = #{uid},</if>
+			<if test="uname != null  and uname != ''  ">uname = #{uname},</if>
+			<if test="datetime != null  and datetime != ''  ">datetime = #{datetime},</if>
+			<if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+		</trim>
+		where fbid = #{fbid}
+	</update>
 	</mapper>
