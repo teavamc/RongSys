@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.village.mapper.PoliticsMapper">
+	<resultMap type="Politics" id="PoliticsResult">
+		<id column="shiid" property="shiid"/>
+		<result column="title" property="title"/>
+		<result column="type" property="type"/>
+		<result column="adddate" property="adddate"/>
+		<result column="reldate" property="reldate"/>
+		<result column="content" property="content"/>
+		<result column="pic" property="pic"/>
+		<result column="courread" property="courread"/>
+		<result column="uid" property="uid"/>
+		<result column="uname" property="uname"/>
+		<result column="remark" property="remark"/>
+		<result column="aid" property="aid"/>
+		<result column="video" property="video"/>
+	</resultMap>
+	<!-- 字段值 -->
+	<!--还有一个 aid 字段-->
+	<sql id="Field">
+		 shiid, title, type, adddate, reldate, content, pic, courread, uid, uname, remark, aid, video
+	</sql>
+
+	<!--还有一个 #aid 字段-->
+	<sql id="FieldValue">
+		#{shiid}, #{title}, #{type}, #{adddate}, #{reldate}, #{content}, #{pic}, #{courread}, #{uid}, #{uname}, #{remark}, #{aid}, #{video}
+	</sql>
+	
+	<!--表名 -->
+	<sql id="tableName">
+		tb_politics
+	</sql>
+
+	<select id="selectPoliticsList_first" resultMap="PoliticsResult">
+		select <include refid="Field"/>
+		 from <include refid="tableName"/>
+		 ORDER BY adddate desc
+	</select>
+	<!--获取所有投诉咨询 -->
+	<select id="selectPoliticsList" parameterType="com.ruoyi.village.domain.Politics" resultMap="PoliticsResult">
+		select <include refid="Field"/>
+		from <include refid="tableName"/>
+		<where>
+			<if test="shiid != null "> and shiid = #{shiid}</if>
+			<if test="title != null  and title != '' "> and title = #{title}</if>
+			<if test="type != null  and type != '' "> and type = #{type}</if>
+			<if test="adddate != null  and adddate != ''  "> and adddate = #{adddate}</if>
+			<if test="reldate != null  and reldate != '' "> and content = #{reldate}</if>
+			<if test="content != null  and content != '' "> and content = #{content}</if>
+			<if test="pic != null  and pic != '' "> and pic = #{pic}</if>
+			<if test="courread != null  and courread != '' "> and opinion = #{opinion}</if>
+			<if test="uid != null "> and uid = #{uid}</if>
+			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
+			<if test="remark != null  and rrmark != '' "> and remark = #{remark}</if>
+			<if test="video != null  and video != '' "> and video = #{video}</if>
+		</where>
+		ORDER BY addate desc
+	</select>
+	<!--根据fbid删除数据-->
+	<!--<delete id="deleteComplaintsByid" parameterType="Integer">-->
+		<!--delete from-->
+		 <!--<include refid="tableName"/>-->
+		<!--where fbid = #{id}-->
+	<!--</delete>-->
+	<delete id="deletePoliticsByids" parameterType="String">
+		delete from <include refid="tableName"/> where shiid in
+		<foreach item="shiid" collection="array" open="(" separator="," close=")">
+			#{shiid}
+		</foreach>
+	</delete>
+
+
+	</mapper>
