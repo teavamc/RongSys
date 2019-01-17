@@ -20,12 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectRecivedmessagesList" parameterType="Recivedmessages" resultMap="RecivedmessagesResult">
         <include refid="selectRecivedmessagesVo"/>
         <where>  
-            <if test="rmid != null "> and rmid = #{rmid}</if>
-             <if test="rmobile != null  and rmobile != '' "> and rmobile = #{rmobile}</if>
-             <if test="rcontent != null  and rcontent != '' "> and rcontent = #{rcontent}</if>
-             <if test="isread != null "> and isread = #{isread}</if>
-             <if test="recivedtime != null  and recivedtime != '' "> and recivedtime = #{recivedtime}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+            <if test="rmid != null "> and rmid like '%${rmid}%'</if>
+             <if test="rmobile != null  and rmobile != '' "> and rmobile like '%${rmobile}%'</if>
+             <if test="rcontent != null  and rcontent != '' "> and rcontent like '%${rcontent}%'</if>
+             <if test="isread != null "> and isread like '%${isread}%'</if>
+             <if test="recivedtime != null  and recivedtime != '' "> and recivedtime like '%${recivedtime}%'</if>
+             <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
          </where>
         ORDER BY recivedtime DESC
     </select>
