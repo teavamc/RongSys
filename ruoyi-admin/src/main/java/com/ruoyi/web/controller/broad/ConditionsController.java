@@ -120,7 +120,7 @@ public class ConditionsController extends BaseController
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
-	{		
+	{
 		return toAjax(conditionsService.deleteConditionsByIds(ids));
 	}
 	

@@ -44,8 +44,8 @@ public class VillageFamilyServiceImpl implements IVillageFamilyService {
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public int deleteVillageFamilyByid(String jsid) {
-        return mapper.deleteVillageFamilyByid(jsid);
+    public int deleteVillageFamilyByids(String jsid) {
+        return mapper.deleteVillageFamilyByids(Convert.toStrArray(jsid));
     }
 
 }

@@ -33,7 +33,7 @@ public class ComplaintsmessagesController extends BaseController {
     @Autowired
     private IComplaintsmessagesService complaintsmessagesService;
 
-    @RequiresPermissions("village:Complaintsmessages:view")
+    @RequiresPermissions("village:complaintsmessages:view")
     @GetMapping()
     public String Complaintsmessages(){
         return prefix+"/Complaintsmessages";
@@ -44,7 +44,7 @@ public class ComplaintsmessagesController extends BaseController {
      * @param complaintmessages
      * @return
      */
-    //@RequiresPermissions("village:Complaintsmessages:list")
+    //@RequiresPermissions("village:complaintsmessages:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo list(Complaintsmessages complaintmessages){
@@ -61,7 +61,7 @@ public class ComplaintsmessagesController extends BaseController {
     /**
      * 新增保存投诉咨询
      */
-    @RequiresPermissions("village:Complaintsmessages:add")
+    @RequiresPermissions("village:complaintsmessages:add")
     @Log(title = "投诉咨询", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -88,6 +88,7 @@ public class ComplaintsmessagesController extends BaseController {
     @ResponseBody
     public AjaxResult editSave(Complaintsmessages complaintsmessages)
     {
+        System.out.println(complaintsmessages.toString());
         return toAjax(complaintsmessagesService.updateComplaintsmessages(complaintsmessages));
     }
     /**
@@ -95,11 +96,11 @@ public class ComplaintsmessagesController extends BaseController {
      */
     @RequiresPermissions("village:complaintsmessages:remove")
     @Log(title = "删除投诉咨询", businessType = BusinessType.DELETE)
-    @PostMapping( "/remove/{fbid}")
+    @PostMapping( "/remove/{id}")
     @ResponseBody
-    public AjaxResult remove(@PathVariable("fbid") String fbid)
+    public AjaxResult remove(@PathVariable("id") String fbid)
     {
-        System.out.println("*******"+fbid);
-        return toAjax(complaintsmessagesService.deleteComplaintsmessagesByIds(fbid));
+        return toAjax(complaintsmessagesService.deleteComplaintsByids(fbid));
     }
+
 }

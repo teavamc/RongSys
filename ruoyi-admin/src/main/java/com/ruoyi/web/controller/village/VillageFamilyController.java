@@ -30,7 +30,7 @@ public class VillageFamilyController extends BaseController {
     @Autowired
     private IVillageFamilyService iVillageFamilyService;
 
-    @RequiresPermissions("village:VillageFamily:view")
+    @RequiresPermissions("village:villageFamily:view")
     @GetMapping()
     public String VillageFamily(){return prefix+"/VillageFamily";}
 
@@ -41,7 +41,7 @@ public class VillageFamilyController extends BaseController {
     /**
      * 新增保存小村家事
      */
-    @RequiresPermissions("village:VillageFamily:add")
+    @RequiresPermissions("village:villageFamily:add")
     @Log(title = "小村家事", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
@@ -65,17 +65,19 @@ public class VillageFamilyController extends BaseController {
     /**
      * 修改保存小村家事
      */
-    @RequiresPermissions("village:VillageFamily:edit")
+    @RequiresPermissions("village:villageFamily:edit")
     @Log(title = "小村家事", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(VillageFamily villageFamily) {return toAjax(iVillageFamilyService.updateVillageFamily(villageFamily));}
+    public AjaxResult editSave(VillageFamily villageFamily) {
+        System.out.println(villageFamily.toString());
+        return toAjax(iVillageFamilyService.updateVillageFamily(villageFamily));}
 
     /**
      * 获取小村家事数据
      * @return
      */
-    //@RequiresPermissions("village:VillageFamily:remove")
+    //@RequiresPermissions("village:villageFamily:list")
     @PostMapping("/list")
     @ResponseBody
     public TableDataInfo List(VillageFamily villageFamily){
@@ -87,12 +89,12 @@ public class VillageFamilyController extends BaseController {
     /**
      * 删除小村家事
      */
-    @RequiresPermissions("village:VillageFamily:remove")
+    @RequiresPermissions("village:villageFamily:remove")
     @Log(title = "删除小村家事", businessType = BusinessType.DELETE)
     @PostMapping( "/remove/{jsid}")
     @ResponseBody
     public AjaxResult remove(@PathVariable("jsid") String jsid)
     {
-        return toAjax(iVillageFamilyService.deleteVillageFamilyByid(jsid));
+        return toAjax(iVillageFamilyService.deleteVillageFamilyByids(jsid));
     }
 }

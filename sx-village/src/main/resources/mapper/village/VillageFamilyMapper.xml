@@ -104,11 +104,6 @@
 	</insert>
 
 	<!--根据fbid 批量删除数据-->
-	<delete id="deleteVillageFamilyByid" parameterType="String">
-		delete from
-		 <include refid="tableName"/>
-		where jsid = #{jsid}
-	</delete>
 	<delete id="deleteVillageFamilyByids" parameterType="String">
 		delete from <include refid="tableName"/> where jsid in
 		<foreach item="jsid" collection="array" open="(" separator="," close=")">

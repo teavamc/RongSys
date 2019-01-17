@@ -84,12 +84,7 @@
 			<if test="remark != null  and remark != ''  ">#{remark},</if>
 		</trim>
 	</insert>
-	<!--根据fbid删除数据-->
-	<delete id="deleteComplaintsmessagesByIds" parameterType="String">
-		delete from
-		 <include refid="tableName"/>
-		where fbid = #{fbid}
-	</delete>
+
 	<!--批量删除-->
 	<delete id="deleteComplaintsByids" parameterType="String">
 		delete from <include refid="tableName"/> where fbid in
@@ -104,7 +99,7 @@
 		where fbid = #{fbid}
 	</select>
 
-	<update id="updateComplaintsmessages" parameterType="Integer">
+	<update id="updateComplaintsmessages" parameterType="com.ruoyi.village.domain.Complaintsmessages">
 		update <include refid="tableName"/>
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="title != null  and title != ''  ">title = #{title},</if>
