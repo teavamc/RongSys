@@ -58,5 +58,12 @@ public interface ConditionsMapper
      * @return 结果
      */
 	public int deleteConditionsByIds(String[] tids);
-	
+
+	/**
+	 * 随机选取100个数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	public List<Conditions> selectConditionsByRandom();
 }

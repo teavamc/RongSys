@@ -12,4 +12,23 @@
     <artifactId>sx-api</artifactId>
 
 
+
+    <dependencies>
+
+        <!-- 通用工具-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-common</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
+        <!-- 核心模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-framework</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
+
+    </dependencies>
 </project>

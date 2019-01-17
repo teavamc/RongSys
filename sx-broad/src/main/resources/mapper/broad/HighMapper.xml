@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="isread != null "> and isread = #{isread}</if>
              <if test="senduserid != null  and senduserid != '' "> and senduserid = #{senduserid}</if>
          </where>
+        ORDER BY sendtime DESC
     </select>
     
     <select id="selectHighById" parameterType="Integer" resultMap="HighResult">

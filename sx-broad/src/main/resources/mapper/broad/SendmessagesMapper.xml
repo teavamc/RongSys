@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="spelanguage != null  and spelanguage != '' "> and spelanguage = #{spelanguage}</if>
              <if test="sendtimes != null "> and sendtimes = #{sendtimes}</if>
          </where>
+        ORDER BY sendtime DESC
     </select>
     
     <select id="selectSendmessagesById" parameterType="Integer" resultMap="SendmessagesResult">
