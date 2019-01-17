@@ -37,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="createtime != null  and createtime != '' "> and createtime = #{createtime}</if>
              <if test="isread != null "> and isread = #{isread}</if>
          </where>
+        ORDER BY createtime DESC
     </select>
     
     <select id="selectWeaById" parameterType="Integer" resultMap="WeaResult">
