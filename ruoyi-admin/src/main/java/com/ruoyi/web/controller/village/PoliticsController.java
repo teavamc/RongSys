@@ -68,7 +68,7 @@ public class PoliticsController extends BaseController {
         return toAjax(politicsService.insertpolitics(politics));
     }
     /**
-     * 修改投诉咨询
+     * 修改政策信息
      */
     @GetMapping("/edit/{shiid}")
     public String edit(@PathVariable("shiid") Integer shiid, ModelMap mmap)
@@ -78,7 +78,7 @@ public class PoliticsController extends BaseController {
         return prefix + "/edit";
     }
     /**
-     * 修改保存投诉咨询
+     * 修改保存政策
      */
     @RequiresPermissions("village:politics:edit")
     @Log(title = "政策信息", businessType = BusinessType.UPDATE)
@@ -89,10 +89,10 @@ public class PoliticsController extends BaseController {
         return toAjax(politicsService.updatePolitics(politics));
     }
     /**
-     * 删除投诉咨询
+     * 删除政策信息
      */
     @RequiresPermissions("village:politics:remove")
-    @Log(title = "删除投诉咨询", businessType = BusinessType.DELETE)
+    @Log(title = "删除政策信息", businessType = BusinessType.DELETE)
     @PostMapping( "/remove/{shiid}")
     @ResponseBody
     public AjaxResult remove(@PathVariable("shiid") String shiid)

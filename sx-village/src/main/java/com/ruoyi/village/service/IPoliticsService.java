@@ -21,13 +21,13 @@ public interface IPoliticsService {
     List<Politics> selectPoliticsList(Politics politics);
 
     /**
-     * 根据fbid删除数据
+     * 根据shiid删除数据
      * @param id
      */
     int deletePoliticsByids(String id);
 
     /**
-     * 添加投诉咨询数据
+     * 添加政策公告数据
      * @param  politics
      * @return
      */
