@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.broad.mapper.SendmessagesMapper">
-    
+
     <resultMap type="Sendmessages" id="SendmessagesResult">
         <result property="smid"    column="smid"    />
         <result property="smobile"    column="smobile"    />
@@ -15,14 +15,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="spelanguage"    column="spelanguage"    />
         <result property="sendtimes"    column="sendtimes"    />
     </resultMap>
-	
+
 	<sql id="selectSendmessagesVo">
         select smid, smobile, scontent, issend, sendtime, remark, tid, spelanguage, sendtimes from sendmessages
     </sql>
-	
+
     <select id="selectSendmessagesList" parameterType="Sendmessages" resultMap="SendmessagesResult">
         <include refid="selectSendmessagesVo"/>
-        <where>  
+        <where>
             <if test="smid != null "> and smid = #{smid}</if>
              <if test="smobile != null  and smobile != '' "> and smobile = #{smobile}</if>
              <if test="scontent != null  and scontent != '' "> and scontent = #{scontent}</if>
@@ -34,12 +34,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="sendtimes != null "> and sendtimes = #{sendtimes}</if>
          </where>
     </select>
-    
+
     <select id="selectSendmessagesById" parameterType="Integer" resultMap="SendmessagesResult">
         <include refid="selectSendmessagesVo"/>
         where smid = #{smid}
     </select>
-        
+
     <insert id="insertSendmessages" parameterType="Sendmessages">
         insert into sendmessages
 		<trim prefix="(" suffix=")" suffixOverrides=",">
@@ -65,7 +65,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="sendtimes != null  ">#{sendtimes},</if>
          </trim>
     </insert>
-	 
+
     <update id="updateSendmessages" parameterType="Sendmessages">
         update sendmessages
         <trim prefix="SET" suffixOverrides=",">
@@ -84,12 +84,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteSendmessagesById" parameterType="Integer">
         delete from sendmessages where smid = #{smid}
     </delete>
-	
+
     <delete id="deleteSendmessagesByIds" parameterType="String">
-        delete from sendmessages where smid in 
+        delete from sendmessages where smid in
         <foreach item="smid" collection="array" open="(" separator="," close=")">
             #{smid}
         </foreach>
     </delete>
-    
+
 </mapper>
