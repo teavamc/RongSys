@@ -6,9 +6,11 @@ import com.ruoyi.common.support.Convert;
 import com.ruoyi.village.domain.Complaintsmessages;
 import com.ruoyi.village.mapper.ComplaintsmessagesMapper;
 import com.ruoyi.village.service.IComplaintsmessagesService;
+import com.ruoyi.village.util.FilterText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -24,7 +26,12 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
 
     @DataSource(value = DataSourceType.SXVILLAGE)
     public List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages) {
-        return mapper.selectComplaintsList(complaintmessages);
+        List<Complaintsmessages> list = mapper.selectComplaintsList(complaintmessages);
+        for(Complaintsmessages complaints : list){
+            if(complaints.getContent().length()>0)
+                complaints.setContent(FilterText.delHTMLTag(complaints.getContent()));
+        }
+        return list;
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)

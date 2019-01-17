@@ -34,17 +34,17 @@
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
-			<if test="title != null and title != ''"> and title = #{title}</if>
-			<if test="type != null  and type != ''"> and type = #{type}</if>
-			<if test="adddate != null  and adddate != ''"> and adddate = #{adddate}</if>
-			<if test="reldate != null and reldate != ''"> and reldate = #{reldate}</if>
-			<if test="content != null  and content != ''"> and content = #{content}</if>
-			<if test="adduid != null  and adduid != '' "> and adduid = #{adduid}</if>
-			<if test="adduname != null  and adduname != ''"> and adduname = #{adduname}</if>
-			<if test="uid != null  and uid != ''"> and uid = #{uid}</if>
-			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-			<if test="aid != null  and aid != ''"> and aid = #{aid}</if>
-			<if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+			<if test="title != null and title != ''"> and title like '${title}'</if>
+			<if test="type != null  and type != ''"> and type like '${type}'</if>
+			<if test="adddate != null  and adddate != ''"> and adddate like '${adddate}'</if>
+			<if test="reldate != null and reldate != ''"> and reldate like '${reldate}'</if>
+			<if test="content != null  and content != ''"> and content like '${content}'</if>
+			<if test="adduid != null  and adduid != '' "> and adduid like '${adduid}'</if>
+			<if test="adduname != null  and adduname != ''"> and adduname like '${adduname}'</if>
+			<if test="uid != null  and uid != ''"> and uid like '${uid}'</if>
+			<if test="uname != null  and uname != '' "> and uname like '${uname}'</if>
+			<if test="aid != null  and aid != ''"> and aid like '${aid}'</if>
+			<if test="remark != null  and remark != ''"> and remark like '${remark}'</if>
 		</where>
 		ORDER BY jsid desc
 	</select>
