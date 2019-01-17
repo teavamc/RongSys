@@ -60,8 +60,8 @@
 	</div>
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('village:Politics:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('village:Politics:remove')}]];
+        var editFlag = [[${@permission.hasPermi('village:politics:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('village:politics:remove')}]];
         var prefix = ctx + "village/politics";
 
         $(function() {
