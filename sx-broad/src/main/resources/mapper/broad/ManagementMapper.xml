@@ -26,6 +26,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="Remark"    />
         <result property="backupBatteryVoltage"    column="BackupBatteryVoltage"    />
     </resultMap>
+
+    <resultMap type="Managementgps" id="ManagementgpsResult">
+        <result property="tid"    column="tid"    />
+        <result property="longitude"    column="Longitude"    />
+        <result property="latitude"    column="Latitude"    />
+    </resultMap>
 	
 	<sql id="selectManagementVo">
         select tid, SupervisionUnit, AccountabilityUnit, Longitude, Latitude, Families, Population, TwoOverlayMode, TwoTransmitFrequency, TwoOverlayNumber, TwoOverlayFamiles, TwoOverlayPopulations, PowerConsumption, OtherTechnology, DrillingPeriod, StandbyBattery, PlaybacksMode, MaintenanceFunds, Remark, BackupBatteryVoltage from terminal_management
@@ -60,6 +66,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectManagementById" parameterType="String" resultMap="ManagementResult">
         <include refid="selectManagementVo"/>
         where tid = #{tid}
+    </select>
+
+    <select id="selectManagementByRandom" resultMap="ManagementgpsResult">
+        select tid,Longitude, Latitude from terminal_management
+        ORDER BY  RAND() LIMIT 100
+    </select>
+
+    <select id="selectManagementAll" resultMap="ManagementgpsResult">
+        select tid,Longitude, Latitude from terminal_management
     </select>
         
     <insert id="insertManagement" parameterType="Management">

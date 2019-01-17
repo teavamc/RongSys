@@ -1,7 +1,10 @@
 package com.ruoyi.broad.mapper;
 
+import com.ruoyi.broad.domain.Conditions;
 import com.ruoyi.broad.domain.Management;
-import java.util.List;	
+import com.ruoyi.broad.domain.Managementgps;
+
+import java.util.List;
 
 /**
  * 终端管理 数据层
@@ -58,5 +61,21 @@ public interface ManagementMapper
      * @return 结果
      */
 	public int deleteManagementByIds(String[] tids);
-	
+
+	/**
+	 * 随机选取100个数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	public List<Managementgps> selectManagementByRandom();
+
+	/**
+	 * 所有数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	public List<Managementgps> selectManagementAll();
+
 }
