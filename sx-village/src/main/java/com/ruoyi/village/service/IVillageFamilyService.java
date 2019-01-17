@@ -43,6 +43,6 @@ public interface IVillageFamilyService {
      * @param jsid
      * @return
      */
-    int deleteVillageFamilyByid(String jsid);
+    int deleteVillageFamilyByids(String jsid);
 
 }

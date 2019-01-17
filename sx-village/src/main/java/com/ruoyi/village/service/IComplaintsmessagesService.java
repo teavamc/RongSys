@@ -22,9 +22,9 @@ public interface IComplaintsmessagesService {
 
     /**
      * 根据fbid删除数据
-     * @param id
+     * @param fbid
      */
-    int deleteComplaintsByids(String id);
+    int deleteComplaintsByids(String fbid);
 
     /**
      * 添加投诉咨询数据
@@ -44,10 +44,5 @@ public interface IComplaintsmessagesService {
      * @return
      */
     int updateComplaintsmessages(Complaintsmessages complaintsmessages);
-    /**
-     * 删除投诉咨询
-     * @param fbid
-     * @return
-     */
-    int deleteComplaintsmessagesByIds(String fbid);
+
 }

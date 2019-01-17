@@ -470,8 +470,8 @@
         			return;
         		}
         		$.modal.confirm("确认要删除选中的" + rows.length + "条数据吗?", function() {
-        			var url = $.table._option.removeUrl;
-        			var data = { "ids": rows.join() };
+                    var url = $.table._option.removeUrl.replace("{id}", rows.join());
+                    var data = { "ids": rows.join() };
         			$.operate.submit(url, "post", "json", data);
         		});
             },

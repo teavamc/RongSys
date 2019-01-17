@@ -28,8 +28,8 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public int deleteComplaintsByids(String id) {
-        return mapper.deleteComplaintsByids(Convert.toStrArray(id));
+    public int deleteComplaintsByids(String fbid) {
+        return mapper.deleteComplaintsByids(Convert.toStrArray(fbid));
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)
@@ -42,10 +42,7 @@ public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService
         return mapper.selectByfbid(fbid);
     }
 
-    @DataSource(value = DataSourceType.SXVILLAGE)
-    public int deleteComplaintsmessagesByIds(String fbid) {
-        return mapper.deleteComplaintsmessagesByIds(fbid);
-    }
+
 
     @DataSource(value = DataSourceType.SXVILLAGE)
     public int updateComplaintsmessages(Complaintsmessages complaintsmessages) {

@@ -21,9 +21,9 @@ public interface ComplaintsmessagesMapper {
 
     /**
      * 根据fbid删除数据
-     * @param id
+     * @param fbid
      */
-    int deleteComplaintsByids(String[] id);
+    int deleteComplaintsByids(String[] fbid);
 
     /**
      * 添加投诉咨询
@@ -46,10 +46,4 @@ public interface ComplaintsmessagesMapper {
      */
     int updateComplaintsmessages(Complaintsmessages complaintsmessages);
 
-    /**
-     * 删除投诉咨询
-     * @param fbid
-     * @return
-     */
-    int deleteComplaintsmessagesByIds(String fbid);
 }
