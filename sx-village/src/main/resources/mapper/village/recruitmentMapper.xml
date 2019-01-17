@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.village.mapper.recruitmentMapper">
+	<resultMap type="recruitment" id="recruitmentResultMap">
+		<id column="jid" property="jid"/>
+		<result column="jtype" property="jtype"/>
+		<result column="company" property="company"/>
+		<result column="picurl" property="picurl"/>
+		<result column="vidurl" property="vidurl"/>
+		<result column="position" property="position"/>
+		<result column="introduction" property="introduction"/>
+		<result column="url" property="url"/>
+		<result column="content" property="content"/>
+		<result column="phone" property="phone"/>
+		<result column="email" property="email"/>
+		<result column="date" property="date"/>
+		<result column="num" property="num"/>
+		<result column="bedate" property="bedate"/>
+		<result column="endate" property="endate"/>
+		<result column="uid" property="uid"/>
+		<result column="uname" property="uname"/>
+		<result column="remark" property="remark"></result>
+	</resultMap>
+	<!-- 字段值 -->
+	<sql id="Field">
+		jid,
+		jtype,
+		company,
+		picurl,
+		vidurl,
+		position,
+		introduction,
+		url,
+		content,
+		phone,
+		email,
+		date,
+		num,
+		bedate,
+		endate,
+		uid,
+		uname,
+		remark
+	</sql>
+
+	<sql id="FieldValue">
+		#{jid},
+		#{jtype},
+		#{company},
+		#{picurl},
+		#{vidurl},
+		#{position},
+		#{introduction},
+		#{url},
+		#{content},
+		#{phone},
+		#{email},
+		#{date},
+		#{num},
+		#{bedate},
+		#{endate},
+		#{uid},
+		#{uname},
+		#{remark}
+
+	</sql>
+
+	<!--表名 -->
+	<sql id="tableName">
+		tb_job
+	</sql>
+
+	<!--获取所有投诉咨询 -->
+	<select id="selectComplaintsList"  resultType="com.ruoyi.village.domain.recruitment">
+		select <include refid="Field"/>
+		 from <include refid="tableName"/>
+		 where remark = 1
+		 ORDER BY fbdatetime desc
+	</select>
+	<!--根据fbid删除数据-->
+	<!--<delete id="deleteComplaintsByid" parameterType="Integer">-->
+		<!--delete from-->
+		 <!--<include refid="tableName"/>-->
+		<!--where fbid = #{id}-->
+	<!--</delete>-->
+	<delete id="deleteComplaintsByids" parameterType="String">
+		delete from <include refid="tableName"/> where fbid in
+		<foreach item="fbid" collection="array" open="(" separator="," close=")">
+			#{fbid}
+		</foreach>
+	</delete>
+
+
+	</mapper>
