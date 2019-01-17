@@ -20,12 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectMaintainList" parameterType="Maintain" resultMap="MaintainResult">
         <include refid="selectMaintainVo"/>
         <where>  
-            <if test="tmid != null "> and tmid = #{tmid}</if>
-             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
-             <if test="fault != null  and fault != '' "> and fault = #{fault}</if>
-             <if test="mstaff != null  and mstaff != '' "> and mstaff = #{mstaff}</if>
-             <if test="createtime != null  and createtime != '' "> and createtime = #{createtime}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+            <if test="tmid != null "> and tmid like '%${tmid}%'</if>
+             <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
+             <if test="fault != null  and fault != '' "> and fault like '%${fault}%'</if>
+             <if test="mstaff != null  and mstaff != '' "> and mstaff like '%${mstaff}%'</if>
+             <if test="createtime != null  and createtime != '' "> and createtime like '%${createtime}%'</if>
+             <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
          </where>
         ORDER BY createtime DESC
     </select>

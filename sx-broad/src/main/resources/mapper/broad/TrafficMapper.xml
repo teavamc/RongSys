@@ -19,11 +19,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectTrafficList" parameterType="Traffic" resultMap="TrafficResult">
         <include refid="selectTrafficVo"/>
         <where>  
-            <if test="ttid != null "> and ttid = #{ttid}</if>
-             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
-             <if test="usetraffic != null "> and usetraffic = #{usetraffic}</if>
-             <if test="lasttime != null  and lasttime != '' "> and lasttime = #{lasttime}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+            <if test="ttid != null "> and ttid like '%${ttid}%'</if>
+             <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
+             <if test="usetraffic != null "> and usetraffic like '%${usetraffic}%'</if>
+             <if test="lasttime != null  and lasttime != '' "> and lasttime like '%${lasttime}%'</if>
+             <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
          </where>
         ORDER BY lasttime DESC
     </select>

@@ -23,15 +23,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectSendmessagesList" parameterType="Sendmessages" resultMap="SendmessagesResult">
         <include refid="selectSendmessagesVo"/>
         <where>  
-            <if test="smid != null "> and smid = #{smid}</if>
-             <if test="smobile != null  and smobile != '' "> and smobile = #{smobile}</if>
-             <if test="scontent != null  and scontent != '' "> and scontent = #{scontent}</if>
-             <if test="issend != null "> and issend = #{issend}</if>
-             <if test="sendtime != null  and sendtime != '' "> and sendtime = #{sendtime}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
-             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
-             <if test="spelanguage != null  and spelanguage != '' "> and spelanguage = #{spelanguage}</if>
-             <if test="sendtimes != null "> and sendtimes = #{sendtimes}</if>
+            <if test="smid != null "> and smid like '%${smid}%'</if>
+             <if test="smobile != null  and smobile != '' "> and smobile like '%${smobile}%'</if>
+             <if test="scontent != null  and scontent != '' "> and scontent like '%${scontent}%'</if>
+             <if test="issend != null "> and issend like '%${issend}%'</if>
+             <if test="sendtime != null  and sendtime != '' "> and sendtime like '%${sendtime}%'</if>
+             <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
+             <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
+             <if test="spelanguage != null  and spelanguage != '' "> and spelanguage like '%${spelanguage}%'</if>
+             <if test="sendtimes != null "> and sendtimes like '%${sendtimes}%'</if>
          </where>
         ORDER BY sendtime DESC
     </select>
