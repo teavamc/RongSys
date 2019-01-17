@@ -33,23 +33,23 @@
 	<sql id="tableName">
 		tb_policyinfo
 	</sql>
-	<!--获取所有政策信息 -->
+	<!--获取所有公告信息 -->
 	<select id="selectPolicyinfoList" parameterType="com.ruoyi.village.domain.Policyinfo" resultMap="PolicyinfoResult">
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
-			<if test="title != null and title != ''"> and title = #{title}</if>
-			<if test="type != null  and type != ''"> and type = #{type}</if>
-			<if test="adddate != null  and adddate != ''"> and adddate = #{adddate}</if>
-			<if test="reldate != null  and reldate != ''"> and reldate = #{reldate}</if>
-			<if test="content != null  and content != ''"> and content = #{content}</if>
-			<if test="adduid != null  and adduid != ''"> and adduid = #{adduid}</if>
-			<if test="adduname != null  and adduname != '' "> and adduname = #{adduname}</if>
-			<if test="pic != null  and pic != ''"> and pic = #{pic}</if>
-			<if test="courread != null and courread != ''"> and courread = #{courread}</if>
-			<if test="uid != null  and uid != ''"> and uid = #{uid}</if>
-			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-			<if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+			<if test="title != null and title != ''"> and title like '%${title}%'</if>
+			<if test="type != null  and type != ''"> and type like '%${type}%'</if>
+			<if test="adddate != null  and adddate != ''"> and adddate like '%${adddate}%'</if>
+			<if test="reldate != null  and reldate != ''"> and reldate like '%${reldate}%'</if>
+			<if test="content != null  and content != ''"> and content like '%${content}%'</if>
+			<if test="adduid != null  and adduid != ''"> and adduid like '%${adduid}%'</if>
+			<if test="adduname != null  and adduname != '' "> and adduname like '%${adduname}%'</if>
+			<if test="pic != null  and pic != ''"> and pic like '%${pic}%'</if>
+			<if test="courread != null and courread != ''"> and courread like '%${courread}%'</if>
+			<if test="uid != null  and uid != ''"> and uid like '%${uid}%'</if>
+			<if test="uname != null  and uname != '' "> and uname like '%${unaem}%'</if>
+			<if test="remark != null  and remark != ''"> and remark like '%${remark}%'</if>
 		</where>
 		ORDER BY poinid desc
 	</select>

@@ -37,17 +37,17 @@
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
-			<if test="title != null and title != ''"> and title = #{title}</if>
-			<if test="type != null  and type != ''"> and type = #{type}</if>
-			<if test="adddate != null  and adddate != ''"> and adddate = #{adddate}</if>
-			<if test="reldate != null  and reldate != ''"> and reldate = #{reldate}</if>
-			<if test="content != null  and content != ''"> and content = #{content}</if>
-			<if test="pic != null  and pic != ''"> and pic = #{pic}</if>
-			<if test="courread != null and courread != ''"> and courread = #{courread}</if>
-			<if test="uid != null  and uid != ''"> and uid = #{uid}</if>
-			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-			<if test="remark != null  and remark != ''"> and remark = #{remark}</if>
-			<if test="video != null  and video != ''"> and video = #{video}</if>
+			<if test="title != null and title != ''"> and title like '%${title}%'</if>
+			<if test="type != null  and type != ''"> and type like '%${type}%'</if>
+			<if test="adddate != null  and adddate != ''"> and adddate like '%${adddate}%'</if>
+			<if test="reldate != null  and reldate != ''"> and reldate like '%${reldate}%'</if>
+			<if test="content != null  and content != ''"> and content like '%${content}%'</if>
+			<if test="pic != null  and pic != ''"> and pic like '%${pic}%'</if>
+			<if test="courread != null and courread != ''"> and courread like '%${courread}%'</if>
+			<if test="uid != null  and uid != ''"> and uid like '%${uid}%'</if>
+			<if test="uname != null  and uname != '' "> and uname like '%${uname}%'</if>
+			<if test="remark != null  and remark != ''"> and remark like '%${remark}%'</if>
+			<if test="video != null  and video != ''"> and video like '%${video}%'</if>
 		</where>
 		ORDER BY shiid desc
 	</select>
