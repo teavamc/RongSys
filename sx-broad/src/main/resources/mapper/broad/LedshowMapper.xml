@@ -20,12 +20,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectLedshowList" parameterType="Ledshow" resultMap="LedshowResult">
         <include refid="selectLedshowVo"/>
         <where>  
-            <if test="lsid != null "> and lsid = #{lsid}</if>
-             <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
-             <if test="content != null  and content != '' "> and content = #{content}</if>
-             <if test="showtime != null  and showtime != '' "> and showtime = #{showtime}</if>
-             <if test="createtime != null  and createtime != '' "> and createtime = #{createtime}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+            <if test="lsid != null "> and lsid like '%${lsid}%'</if>
+             <if test="userid != null  and userid != '' "> and userid like '%${userid}%'</if>
+             <if test="content != null  and content != '' "> and content like '%${content}%'</if>
+             <if test="showtime != null  and showtime != '' "> and showtime like '%${showtime}%'</if>
+             <if test="createtime != null  and createtime != '' "> and createtime like '%${createtime}%'</if>
+             <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
          </where>
         ORDER BY createtime DESC
     </select>

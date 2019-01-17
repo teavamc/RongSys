@@ -36,28 +36,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectMemberList" parameterType="Member" resultMap="MemberResult">
         <include refid="selectMemberVo"/>
         <where>  
-            <if test="pid != null "> and pid = #{pid}</if>
-             <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
-             <if test="grouptype != null  and grouptype != '' "> and grouptype = #{grouptype}</if>
-             <if test="gid != null "> and gid = #{gid}</if>
-             <if test="housename != null  and housename != '' "> and housename = #{housename}</if>
-             <if test="name != null  and name != '' "> and name = #{name}</if>
-             <if test="sex != null  and sex != '' "> and sex = #{sex}</if>
-             <if test="nation != null  and nation != '' "> and nation = #{nation}</if>
-             <if test="relation != null  and relation != '' "> and relation = #{relation}</if>
-             <if test="idcard != null  and idcard != '' "> and idcard = #{idcard}</if>
-             <if test="edulevel != null  and edulevel != '' "> and edulevel = #{edulevel}</if>
-             <if test="birthday != null  and birthday != '' "> and birthday = #{birthday}</if>
-             <if test="address != null  and address != '' "> and address = #{address}</if>
-             <if test="phone1 != null  and phone1 != '' "> and phone1 = #{phone1}</if>
-             <if test="phone2 != null  and phone2 != '' "> and phone2 = #{phone2}</if>
-             <if test="jod != null  and jod != '' "> and jod = #{jod}</if>
-             <if test="workplace != null  and workplace != '' "> and workplace = #{workplace}</if>
-             <if test="income != null  and income != '' "> and income = #{income}</if>
-             <if test="bankcard1 != null  and bankcard1 != '' "> and bankcard1 = #{bankcard1}</if>
-             <if test="bankcard2 != null  and bankcard2 != '' "> and bankcard2 = #{bankcard2}</if>
-             <if test="bankcard3 != null  and bankcard3 != '' "> and bankcard3 = #{bankcard3}</if>
-             <if test="note != null  and note != '' "> and note = #{note}</if>
+            <if test="pid != null "> and pid like '%${pid}%'</if>
+             <if test="aid != null  and aid != '' "> and aid like '%${aid}%'</if>
+             <if test="grouptype != null  and grouptype != '' "> and grouptype like '%${grouptype}%'</if>
+             <if test="gid != null "> and gid like '%{gid}%'</if>
+             <if test="housename != null  and housename != '' "> and housename like '%${housename}%'</if>
+             <if test="name != null  and name != '' "> and name like '%${name}%'</if>
+             <if test="sex != null  and sex != '' "> and sex like '%${sex}%'</if>
+             <if test="nation != null  and nation != '' "> and nation like '%${nation}%'</if>
+             <if test="relation != null  and relation != '' "> and relation like '%${relation}%'</if>
+             <if test="idcard != null  and idcard != '' "> and idcard like '%${idcard}%'</if>
+             <if test="edulevel != null  and edulevel != '' "> and edulevel like '%${edulevel}%'</if>
+             <if test="birthday != null  and birthday != '' "> and birthday like '%${birthday}%'</if>
+             <if test="address != null  and address != '' "> and address like '%${address}%'</if>
+             <if test="phone1 != null  and phone1 != '' "> and phone1 like '%${phone1}%'</if>
+             <if test="phone2 != null  and phone2 != '' "> and phone2 like '%${phone2}%'</if>
+             <if test="jod != null  and jod != '' "> and jod like '%${jod}%'</if>
+             <if test="workplace != null  and workplace != '' "> and workplace like '%${workplace}%'</if>
+             <if test="income != null  and income != '' "> and income like '%${income}%'</if>
+             <if test="bankcard1 != null  and bankcard1 != '' "> and bankcard1 like '%${bankcard1}%'</if>
+             <if test="bankcard2 != null  and bankcard2 != '' "> and bankcard2 like '%${bankcard2}%'</if>
+             <if test="bankcard3 != null  and bankcard3 != '' "> and bankcard3 like '%${bankcard3}%'</if>
+             <if test="note != null  and note != '' "> and note like '%${note}%'</if>
          </where>
     </select>
     

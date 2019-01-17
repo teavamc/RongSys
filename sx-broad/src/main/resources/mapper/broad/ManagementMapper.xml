@@ -34,26 +34,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectManagementList" parameterType="Management" resultMap="ManagementResult">
         <include refid="selectManagementVo"/>
         <where>  
-            <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
-             <if test="supervisionUnit != null  and supervisionUnit != '' "> and SupervisionUnit = #{supervisionUnit}</if>
-             <if test="accountabilityUnit != null  and accountabilityUnit != '' "> and AccountabilityUnit = #{accountabilityUnit}</if>
-             <if test="longitude != null "> and Longitude = #{longitude}</if>
-             <if test="latitude != null "> and Latitude = #{latitude}</if>
-             <if test="families != null "> and Families = #{families}</if>
-             <if test="population != null "> and Population = #{population}</if>
-             <if test="twoOverlayMode != null  and twoOverlayMode != '' "> and TwoOverlayMode = #{twoOverlayMode}</if>
-             <if test="twoTransmitFrequency != null  and twoTransmitFrequency != '' "> and TwoTransmitFrequency = #{twoTransmitFrequency}</if>
-             <if test="twoOverlayNumber != null "> and TwoOverlayNumber = #{twoOverlayNumber}</if>
-             <if test="twoOverlayFamiles != null "> and TwoOverlayFamiles = #{twoOverlayFamiles}</if>
-             <if test="twoOverlayPopulations != null "> and TwoOverlayPopulations = #{twoOverlayPopulations}</if>
-             <if test="powerConsumption != null "> and PowerConsumption = #{powerConsumption}</if>
-             <if test="otherTechnology != null  and otherTechnology != '' "> and OtherTechnology = #{otherTechnology}</if>
-             <if test="drillingPeriod != null  and drillingPeriod != '' "> and DrillingPeriod = #{drillingPeriod}</if>
-             <if test="standbyBattery != null  and standbyBattery != '' "> and StandbyBattery = #{standbyBattery}</if>
-             <if test="playbacksMode != null  and playbacksMode != '' "> and PlaybacksMode = #{playbacksMode}</if>
-             <if test="maintenanceFunds != null "> and MaintenanceFunds = #{maintenanceFunds}</if>
-             <if test="remark != null  and remark != '' "> and Remark = #{remark}</if>
-             <if test="backupBatteryVoltage != null "> and BackupBatteryVoltage = #{backupBatteryVoltage}</if>
+            <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
+             <if test="supervisionUnit != null  and supervisionUnit != '' "> and SupervisionUnit like '%${supervisionUnit}%'</if>
+             <if test="accountabilityUnit != null  and accountabilityUnit != '' "> and AccountabilityUnit like '%${accountabilityUnit}%'</if>
+             <if test="longitude != null "> and Longitude like '%${longitude}%'</if>
+             <if test="latitude != null "> and Latitude like '%${latitude}%'</if>
+             <if test="families != null "> and Families like '%${families}%'</if>
+             <if test="population != null "> and Population like '%${population}%'</if>
+             <if test="twoOverlayMode != null  and twoOverlayMode != '' "> and TwoOverlayMode like '%${twoOverlayMode}%'</if>
+             <if test="twoTransmitFrequency != null  and twoTransmitFrequency != '' "> and TwoTransmitFrequency like '%${twoTransmitFrequency}%'</if>
+             <if test="twoOverlayNumber != null "> and TwoOverlayNumber like '%${twoOverlayNumber}%'</if>
+             <if test="twoOverlayFamiles != null "> and TwoOverlayFamiles like '%${twoOverlayFamiles}%'</if>
+             <if test="twoOverlayPopulations != null "> and TwoOverlayPopulations like '%${twoOverlayPopulations}%'</if>
+             <if test="powerConsumption != null "> and PowerConsumption like '%${powerConsumption}%'</if>
+             <if test="otherTechnology != null  and otherTechnology != '' "> and OtherTechnology like '%${otherTechnology}%'</if>
+             <if test="drillingPeriod != null  and drillingPeriod != '' "> and DrillingPeriod like '%${drillingPeriod}%'</if>
+             <if test="standbyBattery != null  and standbyBattery != '' "> and StandbyBattery like '%${standbyBattery}%'</if>
+             <if test="playbacksMode != null  and playbacksMode != '' "> and PlaybacksMode like '%${playbacksMode}%'</if>
+             <if test="maintenanceFunds != null "> and MaintenanceFunds like '%${maintenanceFunds}%'</if>
+             <if test="remark != null  and remark != '' "> and Remark like '%${remark}%'</if>
+             <if test="backupBatteryVoltage != null "> and BackupBatteryVoltage like '%${backupBatteryVoltage}%'</if>
          </where>
     </select>
     

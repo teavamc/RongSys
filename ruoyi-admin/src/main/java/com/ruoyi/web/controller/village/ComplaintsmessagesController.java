@@ -88,7 +88,6 @@ public class ComplaintsmessagesController extends BaseController {
     @ResponseBody
     public AjaxResult editSave(Complaintsmessages complaintsmessages)
     {
-        System.out.println(complaintsmessages.toString());
         return toAjax(complaintsmessagesService.updateComplaintsmessages(complaintsmessages));
     }
     /**

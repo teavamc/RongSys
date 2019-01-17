@@ -11,6 +11,8 @@ import com.ruoyi.village.domain.Member;
 import com.ruoyi.village.service.IMemberService;
 import com.ruoyi.common.support.Convert;
 
+import javax.annotation.Resource;
+
 /**
  * 村民基本 服务层实现
  * 

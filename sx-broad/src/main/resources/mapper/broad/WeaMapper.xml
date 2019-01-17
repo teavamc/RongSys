@@ -25,17 +25,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectWeaList" parameterType="Wea" resultMap="WeaResult">
         <include refid="selectWeaVo"/>
         <where>  
-            <if test="wid != null "> and wid = #{wid}</if>
-             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
-             <if test="wnum != null  and wnum != '' "> and wnum = #{wnum}</if>
-             <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
-             <if test="company != null  and company != '' "> and company = #{company}</if>
-             <if test="qid != null  and qid != '' "> and qid = #{qid}</if>
-             <if test="means != null  and means != '' "> and means = #{means}</if>
-             <if test="wstate != null  and wstate != '' "> and wstate = #{wstate}</if>
-             <if test="mes != null  and mes != '' "> and mes = #{mes}</if>
-             <if test="createtime != null  and createtime != '' "> and createtime = #{createtime}</if>
-             <if test="isread != null "> and isread = #{isread}</if>
+            <if test="wid != null "> and wid like '%${wid}%'</if>
+             <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
+             <if test="wnum != null  and wnum != '' "> and wnum like '%${wnum}%'</if>
+             <if test="userid != null  and userid != '' "> and userid like '%${userid}%'</if>
+             <if test="company != null  and company != '' "> and company like '%${company}%'</if>
+             <if test="qid != null  and qid != '' "> and qid like '%${qid}%'</if>
+             <if test="means != null  and means != '' "> and means like '%${means}%'</if>
+             <if test="wstate != null  and wstate != '' "> and wstate like '%${wstate}%'</if>
+             <if test="mes != null  and mes != '' "> and mes like '%${mes}%'</if>
+             <if test="createtime != null  and createtime != '' "> and createtime like '%${createtime}%'</if>
+             <if test="isread != null "> and isread like '%${isread}%'</if>
          </where>
         ORDER BY createtime DESC
     </select>
