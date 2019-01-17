@@ -22,7 +22,7 @@ import javax.annotation.Resource;
 @Service
 public class MemberServiceImpl implements IMemberService 
 {
-	@Resource
+	@Autowired
 	private MemberMapper memberMapper;
 
 	/**

@@ -23,7 +23,7 @@ import java.util.regex.Pattern;
  **/
 @Service
 public class VillageFamilyServiceImpl implements IVillageFamilyService {
-    @Resource
+    @Autowired
     private VillageFamilyMapper mapper;
 
 

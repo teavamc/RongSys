@@ -19,7 +19,7 @@ import java.util.List;
  **/
 @Service
 public class recruitmentServiceImpl implements IrecruitmentService {
-    @Resource
+    @Autowired
     private recruitmentMapper mapper;
 
     @Override

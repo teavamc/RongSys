@@ -21,7 +21,7 @@ import java.util.List;
  **/
 @Service
 public class ComplaintsmessagesServiceImpl implements IComplaintsmessagesService {
-    @Resource
+    @Autowired
     private ComplaintsmessagesMapper mapper;
 
     @DataSource(value = DataSourceType.SXVILLAGE)
