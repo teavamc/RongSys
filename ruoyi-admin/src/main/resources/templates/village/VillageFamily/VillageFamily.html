@@ -43,11 +43,11 @@
 			</div>
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:VillageFamily:add">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:villageFamily:add">
 					<i class="fa fa-plus"></i> 添加
 				</a>
 
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:VillageFamily:remove">
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:villageFamily:remove">
 					<i class="fa fa-remove"></i> 删除
 				</a>
 
@@ -59,8 +59,8 @@
 	</div>
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('village:VillageFamily:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('village:VillageFamily:remove')}]];
+        var editFlag = [[${@permission.hasPermi('village:villageFamily:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('village:villageFamily:remove')}]];
         var prefix = ctx + "village/VillageFamily";
 
         $(function() {
@@ -89,7 +89,14 @@
 				{
 					field : 'title',
 					title : '标题',
-					sortable: true
+					sortable: true,
+                    width: '10%'
+				},
+				{
+				    field:'content',
+					title:'家事内容',
+					sortable:true,
+                    width:'30%'
 				},
 				{
 				    field:'num',

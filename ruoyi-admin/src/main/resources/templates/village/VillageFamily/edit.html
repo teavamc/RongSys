@@ -4,7 +4,7 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-VillageFamily-edit" th:object="${villageFamily}">
+        <form class="form-horizontal m" id="form-villageFamily-edit" th:object="${villageFamily}">
             <input id="rmid" name="rmid" th:field="*{jsid}"  type="hidden">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">文章标题：</label>
@@ -47,7 +47,7 @@
     <div th:include="include::footer"></div>
     <script type="text/javascript">
 		var prefix = ctx + "village/VillageFamily"
-		$("#form-VillageFamily-edit").validate({
+		$("#form-villageFamily-edit").validate({
 			rules:{
 				xxxx:{
 					required:true,
@@ -57,7 +57,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-VillageFamily-edit').serialize());
+	            $.operate.save(prefix + "/edit", $('#form-villageFamily-edit').serialize());
 	        }
 	    }
 	</script>

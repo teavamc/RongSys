@@ -6,10 +6,14 @@ import com.ruoyi.common.support.Convert;
 import com.ruoyi.village.domain.VillageFamily;
 import com.ruoyi.village.mapper.VillageFamilyMapper;
 import com.ruoyi.village.service.IVillageFamilyService;
+import com.ruoyi.village.util.FilterText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @program: lyb_RongSys
@@ -25,7 +29,12 @@ public class VillageFamilyServiceImpl implements IVillageFamilyService {
 
     @DataSource(value = DataSourceType.SXVILLAGE)
     public List<VillageFamily> selectVillageFamilyList(VillageFamily villageFamily) {
-        return mapper.selectVillageFamilyList(villageFamily);
+        List<VillageFamily> list = mapper.selectVillageFamilyList(villageFamily);
+        for(VillageFamily village : list){
+            if(village.getContent().length() > 0)
+                village.setContent(FilterText.delHTMLTag(village.getContent())); //过滤html标签
+        }
+        return list;
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)
@@ -44,8 +53,8 @@ public class VillageFamilyServiceImpl implements IVillageFamilyService {
     }
 
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public int deleteVillageFamilyByid(String jsid) {
-        return mapper.deleteVillageFamilyByid(jsid);
+    public int deleteVillageFamilyByids(String jsid) {
+        return mapper.deleteVillageFamilyByids(Convert.toStrArray(jsid));
     }
 
 }

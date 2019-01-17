@@ -27,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="createtime != null  and createtime != '' "> and createtime = #{createtime}</if>
              <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
          </where>
+        ORDER BY createtime DESC
     </select>
     
     <select id="selectMaintainById" parameterType="Integer" resultMap="MaintainResult">

@@ -38,15 +38,15 @@
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
-			<if test="fbuid != null and fbuid != ''"> and fbuid = #{fbuid}</if>
-			<if test="title != null and title != ''"> and title = #{title}</if>
-			<if test="ftype != null  and ftype != ''"> and ftype = #{ftype}</if>
-			<if test="content != null  and content != ''"> and content = #{content}</if>
-			<if test="fbdatetime != null and fbdatetime != ''"> and fbdatetime = #{fbdatetime}</if>
-			<if test="opinion != null  and opinion != ''"> and opinion = #{opinion}</if>
-			<if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-			<if test="datetime != null  and datetime != ''"> and datetime = #{datetime}</if>
-			<if test="remark != null  and remark != ''"> and remark = #{remark}</if>
+			<if test="fbuid != null and fbuid != ''"> and fbuid like '%${fbuid}%'</if>
+			<if test="title != null and title != ''"> and title like '%${title}%'</if>
+			<if test="ftype != null  and ftype != ''"> and ftype like '%${ftype}%'</if>
+			<if test="content != null  and content != ''"> and content like '%${content}%'</if>
+			<if test="fbdatetime != null and fbdatetime != ''"> and fbdatetime like '%${fbdatetime}%'</if>
+			<if test="opinion != null  and opinion != ''"> and opinion like '%${opinion}%'</if>
+			<if test="uname != null  and uname != '' "> and uname like '%${uname}%'</if>
+			<if test="datetime != null  and datetime != ''"> and datetime like '%${datetime}%'</if>
+			<if test="remark != null  and remark != ''"> and remark like '%${remark}%'</if>
 		</where>
 		ORDER BY fbid desc
 	</select>
@@ -84,12 +84,7 @@
 			<if test="remark != null  and remark != ''  ">#{remark},</if>
 		</trim>
 	</insert>
-	<!--根据fbid删除数据-->
-	<delete id="deleteComplaintsmessagesByIds" parameterType="String">
-		delete from
-		 <include refid="tableName"/>
-		where fbid = #{fbid}
-	</delete>
+
 	<!--批量删除-->
 	<delete id="deleteComplaintsByids" parameterType="String">
 		delete from <include refid="tableName"/> where fbid in
@@ -104,7 +99,7 @@
 		where fbid = #{fbid}
 	</select>
 
-	<update id="updateComplaintsmessages" parameterType="Integer">
+	<update id="updateComplaintsmessages" parameterType="com.ruoyi.village.domain.Complaintsmessages">
 		update <include refid="tableName"/>
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="title != null  and title != ''  ">title = #{title},</if>

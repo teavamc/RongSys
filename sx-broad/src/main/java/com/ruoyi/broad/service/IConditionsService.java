@@ -50,5 +50,13 @@ public interface IConditionsService
      * @return 结果
      */
 	public int deleteConditionsByIds(String ids);
+
+	/**
+	 * 随机选取100个数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	public List<Conditions> selectConditionsByRandom();
 	
 }

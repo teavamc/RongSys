@@ -39,12 +39,7 @@ public interface VillageFamilyMapper {
      * @return
      */
     int updateVillageFamily(VillageFamily villageFamily);
-    /**
-     * 根据 jsid 删除
-     * @param jsid
-     * @return
-     */
-    int deleteVillageFamilyByid(String jsid);
+
     /**
      * 根据 id 批量删除
      * @param id
