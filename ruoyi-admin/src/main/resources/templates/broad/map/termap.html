@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    </style>
+    <script type="text/javascript"src="http://api.map.baidu.com/api?v=2.0&ak=68W956C0lFvh7EcBplXrEwkNAx5leb2f">
+    </script>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:inline="javascript">
+    var terdata = [];
+    var points = [];
+    terdata = [[${mapinfoList}]];
+
+    for (var i = 0; i < [[${mapinfoList.size()}]]; i++) {
+        points.push({
+            lng:terdata[i].longitude,
+            lat:terdata[i].latitude,
+            tid:terdata[i].tid,
+            aname:terdata[i].aname,
+            uname:terdata[i].uname,
+            phone:terdata[i].phone,
+            address:terdata[i].address,
+        });
+    }
+
+    //创建地图
+    var map = new BMap.Map("allmap");
+    map.centerAndZoom(new BMap.Point(113.090025,28.18606), 11);  // 设置中心点
+    map.centerAndZoom( "长沙");
+    map.setCurrentCity("长沙");          //设置为长沙
+    map.addControl(new BMap.MapTypeControl());
+    map.enableScrollWheelZoom(true);
+    addMarker(points);
+
+      //创建标注点并添加到地图中
+    function addMarker(points) {
+        //循环建立标注点
+        for(var i=0, pointsLen = points.length; i<pointsLen; i++) {
+            var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
+            var marker = new BMap.Marker(point); //将点转化成标注点
+            map.addOverlay(marker);  //将标注点添加到地图上
+            //添加监听事件
+            (function() {
+                var thePoint = points[i];
+                marker.addEventListener("click",
+                    function() {
+                        showInfo(this,thePoint);
+                    });
+            })();
+        }
+    }
+    function showInfo(thisMarker,point) {
+        //获取点的信息
+        var sContent =
+            '<ul style="margin:0 0 5px 0;padding:0.2em 0">'
+            +'<li style="line-height: 26px;font-size: 15px;">'
+            +'<span style="width: 150px;display: inline-block;">终端IEMI：</span>' + point.tid + '</li>'
+            +'<li style="line-height: 26px;font-size: 15px;">'
+           +'<span style="width: 150px;display: inline-block;">分组名称：</span>' + point.aname + '</li>'
+            +'<li style="line-height: 26px;font-size: 15px;">'
+            +'<span style="width: 150px;display: inline-block;">所属用户：</span>' + point.uname + '</li>'
+            +'<li style="line-height: 26px;font-size: 15px;">'
+            +'<span style="width: 150px;display: inline-block;">终端电话：</span>' + point.phone + '</li>'
+            +'<li style="line-height: 26px;font-size: 15px;">'
+            +'<span style="width: 150px;display: inline-block;">安装地址：</span>' + point.address + '</li>'
+            +'<li style="line-height: 26px;font-size: 15px;">'
+           /* + '<span style="width: 50px;display: inline-block;">查看：</span><a href="'+point.url+'">详情</a></li>'*/
+            +'</ul>';
+        var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
+        thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
+    }
+
+</script>
+</html>
