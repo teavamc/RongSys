@@ -1,6 +1,11 @@
 package com.ruoyi.broad.service;
 
+import com.ruoyi.broad.domain.Conditions;
 import com.ruoyi.broad.domain.Management;
+import com.ruoyi.broad.domain.Managementgps;
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
+
 import java.util.List;
 
 /**
@@ -50,5 +55,21 @@ public interface IManagementService
      * @return 结果
      */
 	public int deleteManagementByIds(String ids);
+
+	/**
+	 * 随机选取100个数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	public List<Managementgps> selectManagementByRandom();
+
+	/**
+	 * 所有数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	public List<Managementgps> selectManagementAll();
 	
 }
