@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/village/policyinfo")
 public class PolicyinfoController extends BaseController {
 
-    private String prefix = "/village/policyinfo";
+    private String prefix = "village/policyinfo";
 
     @Autowired
     private IPolicyinfoService policyinfoService;

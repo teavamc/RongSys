@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/village/recruitment")
 public class recruitmentController extends BaseController {
-    private String prefix = "/village/recruitment";
+    private String prefix = "village/recruitment";
 
     @Autowired
     private IrecruitmentService irecruitmentService;
