@@ -18,36 +18,43 @@ public interface IPolicyinfoService {
      *
      * @return
      */
-    List<Policyinfo> selectPolicyinfoList(Policyinfo policyinfo);
+    public List<Policyinfo> selectPolicyinfoList(Policyinfo policyinfo);
 
     /**
      * 根据fbid删除数据
      * @param id
      */
-    int deletePolicyinfoByids(String id);
+    public int deletePolicyinfoByids(String id);
 
     /**
      * 添加公告信息数据
      * @param  policyinfo
      * @return
      */
-    int insertpolicyinfo(Policyinfo policyinfo);
+    public int insertpolicyinfo(Policyinfo policyinfo);
     /**
      * 根据poinid选择数据
      * @param poinid
      * @return
      */
-    Policyinfo selectBypoinid(Integer poinid);
+    public Policyinfo selectBypoinid(Integer poinid);
     /**
      * 保存用户修改
      * @param policyinfo
      * @return
      */
-    int updatePolicyinfo(Policyinfo policyinfo);
+    public int updatePolicyinfo(Policyinfo policyinfo);
     /**
      * 删除公告信息
      * @param poinid
      * @return
      */
-    int deletePolicyinfoByIds(String poinid);
+    public int deletePolicyinfoByIds(String poinid);
+
+    /**
+     * 按照时间倒序获取十条政策信息
+     *
+     * @return 最近的十条数据
+     */
+    public List<Policyinfo> selectpoliclimitten();
 }

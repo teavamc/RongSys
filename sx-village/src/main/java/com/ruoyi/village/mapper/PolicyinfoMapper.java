@@ -52,4 +52,12 @@ public interface PolicyinfoMapper {
      * @return
      */
     int deletePolicyinfoByIds(String poinid);
+
+    /**
+     * 按照时间倒序获取十条政策信息
+     *
+     * @return 最近的十条数据
+     */
+    List<Policyinfo> selectpoliclimitten();
+
 }
