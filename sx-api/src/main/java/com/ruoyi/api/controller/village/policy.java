@@ -21,6 +21,7 @@ public class policy extends BaseController {
     private IPolicyinfoService policyinfoService;
 
     @GetMapping("/limit")
+    @CrossOrigin
     public List<Policyinfo> searchten()
     {
         List<Policyinfo> search = policyinfoService.selectpoliclimitten();
