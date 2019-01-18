@@ -14,8 +14,8 @@ import java.util.List;
 public interface SocialCircleCommentService {
     /**
      * 根据暮云圈pcid 搜索所有评论
-     * @param pcid
-     * @return
+     * @param pcid 暮云圈pcid号
+     * @return  暮云圈数据
      */
     public List<SocialCircleComment> selectAllByPcid(Integer pcid);
 }

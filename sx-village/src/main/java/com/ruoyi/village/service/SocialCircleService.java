@@ -15,14 +15,14 @@ public interface SocialCircleService {
     /**
      * 获取暮云圈 留言
      * 最新数据
-     * @return
+     * @return 暮云圈留言数据
      */
     public List<SocialCircle> selectSocialCircleList();
 
     /**
      * 获取暮云圈 留言
      * 热度数据
-     * @return
+     * @return 暮云圈留言热度数据
      */
     public List<SocialCircle> selectSocialCircleList_Heat();
 }

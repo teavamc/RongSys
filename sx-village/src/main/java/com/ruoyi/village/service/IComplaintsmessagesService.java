@@ -15,14 +15,14 @@ public interface IComplaintsmessagesService {
 
     /**
      * 查询投诉咨询记录列表
-     *
-     * @return
+     * @return 投诉咨询记录列表
      */
     public List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
 
     /**
      * 根据fbid删除数据
-     * @param fbid
+     * @param fbid 投诉咨询id号
+     * @return 结果
      */
     public int deleteComplaintsByids(String fbid);
 
@@ -34,14 +34,14 @@ public interface IComplaintsmessagesService {
     public int insertcomplaintsmessages(Complaintsmessages complaintsmessages);
     /**
      * 根据fbid选择数据
-     * @param fbid
-     * @return
+     * @param fbid 投诉咨询id号
+     * @return 投诉咨询数据
      */
     public Complaintsmessages selectByfbid(Integer fbid);
     /**
      * 保存用户修改
-     * @param complaintsmessages
-     * @return
+     * @param complaintsmessages 投诉咨询数据
+     * @return 结果
      */
     public int updateComplaintsmessages(Complaintsmessages complaintsmessages);
 

@@ -1,11 +1,14 @@
 package com.ruoyi.village.util;
 
+import com.ruoyi.village.domain.SocialCircle;
+
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
  * @program: lyb_RongSys
- * @description: 过滤文本工具
+ * @description: 过滤文本工具 和 快速排序
  * @author: Mr.Liu
  * @create: 2019-01-17 10:50
  **/
@@ -43,5 +46,29 @@ public class FilterText {
         htmlStr = m_space.replaceAll(""); // 过滤空格回车标签
         htmlStr = htmlStr.replaceAll(" ", ""); //过滤
         return htmlStr.trim(); // 返回文本字符串
+    }
+
+    /**快速排序*/
+    public static List<SocialCircle> quickSort(List<SocialCircle> list, int left, int right) {
+        if (left < right) {
+            int plot = left;
+            int index = plot +1;
+            for(int i = index;i<=right;i++){
+                if(list.get(i).getPcsennum() > list.get(plot).getPcsennum()){
+                    swap(list,index,i);
+                    index++;
+                }
+            }
+            swap(list,plot,index-1);
+            int plots = index-1;
+            quickSort(list,left,plots-1);
+            quickSort(list,plots+1,right);
+        }
+        return list;
+    }
+    /**交换两个值*/
+    public static void swap(List<?> list , int i , int j){
+        final List l = list;
+        l.set(i, l.set(j, l.get(i)));
     }
 }

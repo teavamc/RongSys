@@ -21,6 +21,12 @@ public class SocialCircleCommentServiceImpl implements SocialCircleCommentServic
     @Autowired
     private SocialCircleCommentMapper mapper;
 
+    /**
+     * 根据暮云圈pcid 搜索所有评论
+     * @param pcid 暮云圈pcid号
+     * @return  暮云圈数据
+     */
+    @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
     public List<SocialCircleComment> selectAllByPcid(Integer pcid) {
         return mapper.selectAllByPcid(pcid);
