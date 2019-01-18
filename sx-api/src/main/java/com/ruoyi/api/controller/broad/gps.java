@@ -17,23 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/gps")
 @CrossOrigin
 public class gps extends BaseController
 {
     @Autowired
     private IManagementService managementService;
 
-    @GetMapping("/gps")
-    @CrossOrigin
+    @GetMapping("/rondom")
     public List<Managementgps> searchrandom()
     {
         List<Managementgps> search = managementService.selectManagementByRandom();
         return search;
     }
 
-    @GetMapping("/gpsall")
-    @CrossOrigin
+    @GetMapping("/searchall")
     public List<Managementgps> searchall()
     {
         List<Managementgps> search = managementService.selectManagementAll();

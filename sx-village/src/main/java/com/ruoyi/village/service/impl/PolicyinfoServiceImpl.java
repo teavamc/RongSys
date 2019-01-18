@@ -20,35 +20,47 @@ import java.util.List;
 @Service
 public class PolicyinfoServiceImpl implements IPolicyinfoService {
         @Autowired
-        private PolicyinfoMapper mapper;
+        private PolicyinfoMapper policyinfomapper;
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public List<Policyinfo> selectPolicyinfoList(Policyinfo policyinfo) {
-            return mapper.selectPolicyinfoList(policyinfo);
+            return policyinfomapper.selectPolicyinfoList(policyinfo);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int deletePolicyinfoByids(String id) {
-            return mapper.deletePolicyinfoByids(Convert.toStrArray(id));
+            return policyinfomapper.deletePolicyinfoByids(Convert.toStrArray(id));
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int insertpolicyinfo(Policyinfo policyinfo) {
-            return mapper.insertpolicyinfo(policyinfo);
+            return policyinfomapper.insertpolicyinfo(policyinfo);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public Policyinfo selectBypoinid(Integer shiid) {
-            return mapper.selectBypoinid(shiid);
+            return policyinfomapper.selectBypoinid(shiid);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int deletePolicyinfoByIds(String shiid) {
-            return mapper.deletePolicyinfoByIds(shiid);
+            return policyinfomapper.deletePolicyinfoByIds(shiid);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int updatePolicyinfo(Policyinfo politics) {
-            return mapper.updatePolicyinfo(politics);
+            return policyinfomapper.updatePolicyinfo(politics);
+        }
+
+        @Override
+        @DataSource(value = DataSourceType.SXVILLAGE)
+        public List<Policyinfo> selectpoliclimitten(){
+            return policyinfomapper.selectpoliclimitten();
         }
     }
