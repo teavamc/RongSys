@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
+    <title>终端地图模块</title>
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/animate.min.css" th:href="@{/css/main/animate.min.css}" rel="stylesheet"/>
+    <link href="../static/css/main/style.min862f.css" th:href="@{/css/main/style.min862f.css}" rel="stylesheet"/>
+    <script th:src="@{http://api.map.baidu.com/api?v=3.0&ak=68W956C0lFvh7EcBplXrEwkNAx5leb2f}"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
         body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
     </style>
-    <script type="text/javascript"src="http://api.map.baidu.com/api?v=2.0&ak=68W956C0lFvh7EcBplXrEwkNAx5leb2f">
-    </script>
+
 </head>
-<body>
+<body class="gray-bg">
 <div id="allmap"></div>
 </body>
 
@@ -40,7 +45,7 @@
     map.enableScrollWheelZoom(true);
     addMarker(points);
 
-      //创建标注点并添加到地图中
+    //创建标注点并添加到地图中
     function addMarker(points) {
         //循环建立标注点
         for(var i=0, pointsLen = points.length; i<pointsLen; i++) {
@@ -64,7 +69,7 @@
             +'<li style="line-height: 26px;font-size: 15px;">'
             +'<span style="width: 150px;display: inline-block;">终端IEMI：</span>' + point.tid + '</li>'
             +'<li style="line-height: 26px;font-size: 15px;">'
-           +'<span style="width: 150px;display: inline-block;">分组名称：</span>' + point.aname + '</li>'
+            +'<span style="width: 150px;display: inline-block;">分组名称：</span>' + point.aname + '</li>'
             +'<li style="line-height: 26px;font-size: 15px;">'
             +'<span style="width: 150px;display: inline-block;">所属用户：</span>' + point.uname + '</li>'
             +'<li style="line-height: 26px;font-size: 15px;">'
@@ -72,7 +77,7 @@
             +'<li style="line-height: 26px;font-size: 15px;">'
             +'<span style="width: 150px;display: inline-block;">安装地址：</span>' + point.address + '</li>'
             +'<li style="line-height: 26px;font-size: 15px;">'
-           /* + '<span style="width: 50px;display: inline-block;">查看：</span><a href="'+point.url+'">详情</a></li>'*/
+            /* + '<span style="width: 50px;display: inline-block;">查看：</span><a href="'+point.url+'">详情</a></li>'*/
             +'</ul>';
         var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
         thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
