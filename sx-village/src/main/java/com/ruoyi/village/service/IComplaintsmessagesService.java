@@ -18,31 +18,31 @@ public interface IComplaintsmessagesService {
      *
      * @return
      */
-    List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
+    public List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
 
     /**
      * 根据fbid删除数据
      * @param fbid
      */
-    int deleteComplaintsByids(String fbid);
+    public int deleteComplaintsByids(String fbid);
 
     /**
      * 添加投诉咨询数据
      * @param complaintsmessages
      * @return
      */
-    int insertcomplaintsmessages(Complaintsmessages complaintsmessages);
+    public int insertcomplaintsmessages(Complaintsmessages complaintsmessages);
     /**
      * 根据fbid选择数据
      * @param fbid
      * @return
      */
-    Complaintsmessages selectByfbid(Integer fbid);
+    public Complaintsmessages selectByfbid(Integer fbid);
     /**
      * 保存用户修改
      * @param complaintsmessages
      * @return
      */
-    int updateComplaintsmessages(Complaintsmessages complaintsmessages);
+    public int updateComplaintsmessages(Complaintsmessages complaintsmessages);
 
 }

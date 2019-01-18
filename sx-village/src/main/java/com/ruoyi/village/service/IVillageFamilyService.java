@@ -17,7 +17,7 @@ public interface IVillageFamilyService {
      * 获取小村家事数据
      * @return
      */
-    List<VillageFamily> selectVillageFamilyList(VillageFamily villageFamily);
+    public List<VillageFamily> selectVillageFamilyList(VillageFamily villageFamily);
 
 
     /**
@@ -25,24 +25,24 @@ public interface IVillageFamilyService {
      * @param villageFamily
      * @return
      */
-    int insertVillageFamily(VillageFamily villageFamily);
+    public int insertVillageFamily(VillageFamily villageFamily);
     /**
      * 修改小村家事数据
      * @param jsid
      * @return
      */
-    VillageFamily selectByfbid(Integer jsid);
+    public VillageFamily selectByfbid(Integer jsid);
     /**
      * 保存小村家事修改
      * @param villageFamily
      * @return
      */
-    int updateVillageFamily(VillageFamily villageFamily);
+    public int updateVillageFamily(VillageFamily villageFamily);
     /**
      * 根据 jsid 删除
      * @param jsid
      * @return
      */
-    int deleteVillageFamilyByids(String jsid);
+    public int deleteVillageFamilyByids(String jsid);
 
 }

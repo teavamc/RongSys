@@ -110,6 +110,10 @@
 				{
 				    field:'pic',
 					title:'政策图片',
+                    formatter: function(value, row, index) {
+                        var txt="<img style='width: 50px;height: 50px' src='"+value+"' />";
+                        return txt;
+                    },
 					visible:true
 				},
 					{

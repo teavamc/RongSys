@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+
+<body class="gray-bg" >
+
+<div class="wrapper wrapper-content  animated fadeInRight">
+	<div class="row">
+		<!--左边布局-->
+		<div class="col-sm-6" >
+			<div class="ibox">
+				<div class="ibox-content text-center">
+					<h3 class="m-b-xxs">暮云圈-最新消息</h3>
+				</div>
+			</div>
+
+			<div class="social-feed-box" th:each="obj : ${socialCircleOne}">
+				<div class="pull-right social-action dropdown pullsh" th:name="${obj.pcid}">
+					<button data-toggle="dropdown" class="dropdown-toggle btn-white">
+						<i class="fa fa-angle-down"></i>
+					</button>
+					<ul class="dropdown-menu m-t-xs">
+						<li><a href="#">删除</a></li>
+					</ul>
+				</div>
+				<div class="social-avatar" >
+					<a href="#" class="pull-left">
+						<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">
+					</a>
+					<div class="media-body">
+						<a href="#" th:text="${obj.uid}">***</a>
+						<small class="text-muted" th:text="${obj.adddate}">***</small>
+					</div>
+				</div>
+				<div class="social-body">
+					<p th:text="${obj.pcontent}" style="font-weight: 600">*****</p>
+				</div>
+				<div class="social-footer" th:each="objs:${obj.child}" >
+					<div class="social-comment">
+						<a href="#" class="pull-left">
+							<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">
+						</a>
+						<div class="media-body">
+							<a href="#" th:text="${objs.uid}">****</a> <small class="text-muted" th:text="${objs.ccontent}">***</small><br/>
+
+							<a href="#" class="small"><i class="fa fa-thumbs-up"></i></a> -
+							<small class="text-muted" th:text="${objs.cdate}">****</small>
+						</div>
+					</div>
+
+					<!--<div class="social-comment">-->
+					<!--<a href="#" class="pull-left">-->
+					<!--<img alt="image" src="img/a3.jpg">-->
+					<!--</a>-->
+					<!--<div class="media-body">-->
+					<!--<textarea class="form-control" placeholder="填写评论..."></textarea>-->
+					<!--</div>-->
+					<!--</div>-->
+				</div>
+
+			</div>
+		</div>
+		<!--右边布局-->
+		<div class="col-sm-6">
+			<div class="ibox ">
+				<div class="ibox-content text-center">
+					<h3 class="m-b-xxs">暮云圈-热度榜</h3>
+				</div>
+			</div>
+			<div class="social-feed-separated" th:each="obj2 : ${socialCircleTwo}">
+
+				<div class="social-avatar">
+					<a href="#">
+						<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">
+					</a>
+				</div>
+
+				<div class="social-feed-box">
+
+					<div class="pull-right social-action dropdown">
+						<button data-toggle="dropdown" class="dropdown-toggle btn-white">
+							<i class="fa fa-angle-down"></i>
+						</button>
+						<ul class="dropdown-menu m-t-xs">
+							<li><a href="#">删除</a></li>
+						</ul>
+					</div>
+					<div class="social-avatar">
+						<a href="#" th:text="${obj2.uid}">
+							尤小右
+						</a>
+						<small class="text-muted" th:text="${obj2.adddate}">8月18日</small>
+					</div>
+					<div class="social-body">
+						<p th:text="${obj2.pcontent}">
+							新技术新概念很多，而且有了新定律：前端开发每18月会难一倍
+						</p>
+						<img src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png" class="img-responsive">
+					</div>
+					<div class="social-footer">
+						<div class="social-comment">
+							<a href="#" class="pull-left">
+								<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">
+							</a>
+							<div class="media-body">
+								<a href="#">
+									尤小右
+								</a> 图表展示、数据可视化是前端领域一个麻烦且重要的事情，这里推荐了11个JS图表库，各取所需吧
+								<br/>
+								<a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26</a> -
+								<small class="text-muted">8月18日</small>
+							</div>
+						</div>
+
+						<div class="social-comment">
+
+							<div class="social-comment">
+								<a href="#" class="pull-left">
+									<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">
+								</a>
+								<div class="media-body">
+									<a href="#">
+										尤小右
+									</a> 用checkbox + CSS 也能玩出来很多花样，来看看这些有趣的例子吧！
+									<br/>
+									<a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11</a> -
+									<small class="text-muted">8月18日</small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div th:include="include :: footer"></div>
+
+<script>
+    function data() {
+        //获取每个图片id，以字符串形式
+        var result = '';
+        $(".pullsh").each(function () {
+            result = result + $(this).attr("name") + ',';
+            values2.push($(this).attr("name"));
+        });
+        $.ajax({
+            url: ctx+'village/SocialCircle/list',
+            type: 'POST', //请求方法 GET or POST
+            async: true, //是否使用异步请求的方式
+            timeout: 3000, //请求超时的时间，以毫秒计
+            data: {
+                pcid: result
+            },
+            dataType: 'json',
+            success: function (data) {
+                console.log(data)
+                console.log(values2)
+                for(var i=0;i<values2.length;i++){
+                    var html = '';
+                    html = html + '<div class="social-comment" th:each="obj2 : '+data+'">';
+                    html = html + '		<a href="#" class="pull-left">';
+                    html = html + '			<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">';
+                    html = html + '		</a>';
+                    html = html + '		<div class="media-body">';
+                    html = html + '			<a href="#" th:text="${obj2.uid}">'+data.values2[i].uid+'</a> <small class="text-muted" th:text="${obj2.ccontent}">***</small><br/>';
+                    html = html + '			<a href="#" class="small"><i class="fa fa-thumbs-up"></i>***</a> -<small class="text-muted" th:text="${obj2.cdate}">***</small>';
+                    html = html + '		</div>';
+                    html = html + '		<div class="social-comment">';
+                    html = html + '			<a href="#" class="pull-left"><img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png"></a>';
+                    html = html + '			<div class="media-body"><textarea class="form-control" placeholder="填写评论..."></textarea></div>';
+                    html = html + '		</div>';
+                    html = html + '</div>';
+                    var id = values[i];
+                    $("#"+id+"").append(html);
+                }
+
+
+            },
+            error: function (data) {
+                console.log("错误")
+            }
+        })
+    }
+    //setInterval("data()",1000*1);//5秒一次刷新数据库新增的图片
+</script>
+</body>
+</html>
