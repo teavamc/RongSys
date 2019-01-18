@@ -32,7 +32,7 @@ public class SwaggerConfig
                 .apiInfo(apiInfo())
                 .select()
                 // 指定当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.ruoyi.web.controller.tool"))
+                .apis(RequestHandlerSelectors.basePackage("com.ruoyi.web.controller.broad"))
                 // 扫描所有 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
@@ -45,10 +45,10 @@ public class SwaggerConfig
     {
         // 用ApiInfoBuilder进行定制
         return new ApiInfoBuilder()
-                .title("标题：若依管理系统_接口文档")
-                .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
-                .contact(new Contact(Global.getName(), null, null))
-                .version("版本号:" + Global.getVersion())
+                .title("融媒体管理系统_接口文档")
+                .description("用于融媒体系统开发组生成RESTapi风格的接口...")
+//                .contact(new Contact(Global.getName(), null, null))
+//                .version("版本号:" + Global.getVersion())
                 .build();
     }
 }

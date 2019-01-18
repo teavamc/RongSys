@@ -2,6 +2,8 @@ package com.ruoyi.broad.service.impl;
 
 import java.util.List;
 
+
+import com.ruoyi.broad.domain.Managementgps;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,5 +89,29 @@ public class ManagementServiceImpl implements IManagementService
 	{
 		return managementMapper.deleteManagementByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 随机选取100个数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Managementgps> selectManagementByRandom(){
+		return managementMapper.selectManagementByRandom();
+	}
+
+	/**
+	 * 所有数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Managementgps> selectManagementAll(){
+		return managementMapper.selectManagementAll();
+	};
+
 }

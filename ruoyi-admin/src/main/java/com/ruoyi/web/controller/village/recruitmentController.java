@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.village;
 
 import com.ruoyi.framework.web.base.BaseController;
+
 import com.ruoyi.village.service.IrecruitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/village/recruitment")
 public class recruitmentController extends BaseController {
-    private String prefix = "/village/recruitment";
+    private String prefix = "village/recruitment";
 
     @Autowired
     private IrecruitmentService irecruitmentService;

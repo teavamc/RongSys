@@ -87,5 +87,17 @@ public class ConditionsServiceImpl implements IConditionsService
 	{
 		return conditionsMapper.deleteConditionsByIds(Convert.toStrArray(ids));
 	}
-	
+
+
+	/**
+	 * 随机选取100个数据
+	 *
+	 * @param
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Conditions> selectConditionsByRandom(){
+			return conditionsMapper.selectConditionsByRandom();
+	}
 }

@@ -4,7 +4,7 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-recivedmessages-add">
+        <form class="form-horizontal m" id="form-complaintsmessages-add">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">投诉标题：</label>
 				<div class="col-sm-8">
@@ -26,7 +26,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">接收时间：</label>
 				<div class="col-sm-8">
-					<input id="recivedtime" name="recivedtime" class="form-control" type="text">
+					<input id="fbdatetime" name="fbdatetime" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -40,7 +40,7 @@
     <div th:include="include::footer"></div>
     <script type="text/javascript">
 		var prefix = ctx + "village/Complaintsmessages"
-		$("#form-recivedmessages-add").validate({
+		$("#form-complaintsmessages-add").validate({
 			rules:{
 				xxxx:{
 					required:true,
@@ -50,7 +50,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-recivedmessages-add').serialize());
+	            $.operate.save(prefix + "/add", $('#form-complaintsmessages-add').serialize());
 	        }
 	    }
 	</script>
