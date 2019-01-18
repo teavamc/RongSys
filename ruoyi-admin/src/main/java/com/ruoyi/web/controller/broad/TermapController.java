@@ -19,7 +19,7 @@ public class TermapController extends BaseController
 {
 	@Autowired
 	private ITermapService mapService;
-	private String preurl = "broad/map";
+	private String preurl = "/broad/map";
 
 	@GetMapping("/list")
 	public String list(ModelMap mmap)

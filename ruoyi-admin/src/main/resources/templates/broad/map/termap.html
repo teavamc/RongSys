@@ -41,7 +41,10 @@
     map.centerAndZoom(new BMap.Point(113.090025,28.18606), 11);  // 设置中心点
     map.centerAndZoom( "长沙");
     map.setCurrentCity("长沙");          //设置为长沙
-    map.addControl(new BMap.MapTypeControl());
+    map.addControl(new BMap.MapTypeControl({
+        mapTypes: [
+            BMAP_NORMAL_MAP
+        ]}));
     map.enableScrollWheelZoom(true);
     addMarker(points);
 
