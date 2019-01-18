@@ -213,9 +213,9 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="sysFile : ${server.sysFiles}">
-                                        <td th:text="${sysFile.typeName}">local</td>
-                                        <td th:class="${sysFile.usage gt 80} ? 'text-danger'">[[${sysFile.usage}]]%</td>
+                                    <tr th:each="log : ${loginlog}">
+                                        <td th:text="${log.user_name}">local</td>
+                                        <td th:class="${log.loginTime}">[[${sysFile.usage}]]%</td>
                                     </tr>
                                     </tbody>
                                 </table>

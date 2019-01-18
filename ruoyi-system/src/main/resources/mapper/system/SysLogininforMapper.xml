@@ -16,6 +16,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="loginTime"     column="login_time"        />
 	</resultMap>
 
+	<resultMap type="SysLoginIndex" id="SysLoginIndexResult">
+		<result property="loginName"     column="login_name"        />
+		<result property="ipaddr"        column="ipaddr"            />
+		<result property="loginLocation" column="login_location"    />
+		<result property="browser"       column="browser"           />
+		<result property="loginTime"     column="login_time"        />
+		<result property="user_name"     column="user_name"        />
+	</resultMap>
+
 	<insert id="insertLogininfor" parameterType="SysLogininfor">
 		insert into sys_logininfor (login_name, status, ipaddr, login_location, browser, os, msg, login_time)
 		values (#{loginName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, sysdate())
@@ -40,6 +49,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				and date_format(login_time,'%y%m%d') &lt;= date_format(#{params.endTime},'%y%m%d')
 			</if>
 		</where>
+	</select>
+
+	<select id="selectLoginLogforIndex" resultMap="SysLoginIndexResult">
+		select
+			sys_logininfor.login_name,
+			sys_user.user_name,
+			sys_logininfor.ipaddr,
+			sys_logininfor.login_location,
+			sys_logininfor.browser,
+			sys_logininfor.login_time
+		from
+			sys_logininfor,sys_user
+		where
+			sys_logininfor.login_name = sys_user.login_name
+			AND
+			sys_logininfor.status = 0
+		order by sys_logininfor.login_time desc
+		limit 0,8
 	</select>
 	
 	<delete id="deleteLogininforByIds" parameterType="String">
