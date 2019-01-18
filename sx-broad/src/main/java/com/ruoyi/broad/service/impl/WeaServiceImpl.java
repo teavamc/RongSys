@@ -87,5 +87,7 @@ public class WeaServiceImpl implements IWeaService
 	{
 		return weaMapper.deleteWeaByIds(Convert.toStrArray(ids));
 	}
+
+
 	
 }

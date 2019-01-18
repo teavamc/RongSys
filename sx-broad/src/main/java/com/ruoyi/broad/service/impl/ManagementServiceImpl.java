@@ -113,5 +113,5 @@ public class ManagementServiceImpl implements IManagementService
 	public List<Managementgps> selectManagementAll(){
 		return managementMapper.selectManagementAll();
 	};
-	
+
 }
