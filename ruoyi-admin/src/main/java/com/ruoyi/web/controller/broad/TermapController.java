@@ -17,16 +17,16 @@ import java.util.List;
 @RequestMapping("/broad/map")
 public class TermapController extends BaseController
 {
-    @Autowired
-    private ITermapService mapService;
-    private String prefix = "broad/map";
+	@Autowired
+	private ITermapService mapService;
+	private String prefix = "broad/map";
 
-    @GetMapping("/list")
-    public String list(ModelMap mmap)
-    {
-        // 根据用户id取出菜单
-        List<Termap> mapinfoList = mapService.selectMap();
-        mmap.put("mapinfoList", mapinfoList);
-        return prefix+"/termap";
-    }
+	@GetMapping("/list")
+	public String list(ModelMap mmap)
+	{
+		// 根据用户id取出菜单
+		List<Termap> mapinfoList = mapService.selectMap();
+		mmap.put("mapinfoList", mapinfoList);
+		return prefix+"/termap";
+	}
 }
