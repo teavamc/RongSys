@@ -49,7 +49,11 @@
 								</div>
 							</div>
 						</div>
-						<div class="social-comment"><div class="media-body"><textarea class="form-control" placeholder="填写评论..."></textarea></div></div>
+						<div class="social-comment">
+							<div class="media-body">
+								<textarea class="form-control" placeholder="填写评论...(待完善)" disabled="disabled"></textarea>
+							</div>
+						</div>
 					</div>
 			</div>
 		</div>
@@ -104,7 +108,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="social-comment"><div class="media-body"><textarea class="form-control" placeholder="填写评论..."></textarea></div></div>
+						<div class="social-comment"><div class="media-body"><textarea class="form-control" placeholder="填写评论...(待完善)" disabled="disabled"></textarea></div></div>
 					</div>
 
 				</div>
@@ -142,7 +146,7 @@
 						html1 += '<a href="#" >'+data.socialCircleOne2[i].child[j].uid+'</a> <small class="text-muted">'+data.socialCircleOne2[i].child[j].ccontent+'</small><br/>';
 						html1 += '<a href="#" class="small"><i class="fa fa-thumbs-up"></i></a> - <small class="text-muted">'+data.socialCircleOne2[i].child[j].cdate+'</small></div> </div> </div>';
 					}
-					html1 += '<div class="social-comment"><div class="media-body"><textarea class="form-control" placeholder="填写评论..."></textarea></div></div> </div> </div></div>';
+					html1 += '<div class="social-comment"><div class="media-body"><textarea class="form-control" placeholder="填写评论...(待完善)" disabled="disabled"></textarea></div></div> </div> </div></div>';
 				}
 				var htmls = '';
 				for (var i =0;i<data.socialCircleTwo2.length;i++){
@@ -154,7 +158,7 @@
 						htmls += '<a href="#" >'+data.socialCircleTwo2[i].child[j].uid+'</a> <small class="text-muted">'+data.socialCircleTwo2[i].child[j].ccontent+'</small><br/>';
 						htmls += '<a href="#" class="small"><i class="fa fa-thumbs-up"></i></a> - <small class="text-muted">'+data.socialCircleTwo2[i].child[j].cdate+'</small></div> </div> </div>';
 					}
-					htmls += '<div class="social-comment"><div class="media-body"><textarea class="form-control" placeholder="填写评论..."></textarea></div></div></div> </div></div>';
+					htmls += '<div class="social-comment"><div class="media-body"><textarea class="form-control" placeholder="填写评论...(待完善)" disabled="disabled"></textarea></div></div></div> </div></div>';
 				}
 				$("#tht").append(html1);
 				$("#tht2").append(htmls);
