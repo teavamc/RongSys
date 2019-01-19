@@ -31,6 +31,9 @@
 							</li>
 
 							<li>
+								是否有效：<input type="text" name="remark"/>
+							</li>
+							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
 								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
 							</li>
@@ -40,11 +43,11 @@
 			</div>
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:villageFamily:add">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:villagefamily:add">
 					<i class="fa fa-plus"></i> 添加
 				</a>
 
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:villageFamily:remove">
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:villagefamily:remove">
 					<i class="fa fa-remove"></i> 删除
 				</a>
 
@@ -56,8 +59,8 @@
 	</div>
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('village:villageFamily:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('village:villageFamily:remove')}]];
+        var editFlag = [[${@permission.hasPermi('village:villagefamily:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('village:villagefamily:remove')}]];
         var prefix = ctx + "village/VillageFamily";
 
         $(function() {
@@ -123,14 +126,6 @@
 				{
 					field : 'remark', 
 					title : '是否有效',
-					formatter:function (value, row, index) {
-						if(value == 1){
-							return "有效"
-						}else {
-							return "无效"
-						}
-					},
-					width:'5%',
 					sortable: true
 				},
 		        {

@@ -20,35 +20,41 @@ import java.util.List;
 @Service
 public class PoliticsServiceImpl implements IPoliticsService {
         @Autowired
-        private PoliticsMapper mapper;
+        private PoliticsMapper politicsMapper;
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public List<Politics> selectPoliticsList(Politics politics) {
-            return mapper.selectPoliticsList(politics);
+            return politicsMapper.selectPoliticsList(politics);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int deletePoliticsByids(String id) {
-            return mapper.deletePoliticsByids(Convert.toStrArray(id));
+            return politicsMapper.deletePoliticsByids(Convert.toStrArray(id));
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int insertpolitics(Politics politics) {
-            return mapper.insertpolitics(politics);
+            return politicsMapper.insertpolitics(politics);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public Politics selectByshiid(Integer shiid) {
-            return mapper.selectByshiid(shiid);
+            return politicsMapper.selectByshiid(shiid);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int deletePoliticsByIds(String shiid) {
-            return mapper.deletePoliticsByIds(shiid);
+            return politicsMapper.deletePoliticsByIds(shiid);
         }
 
+        @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int updatePolitics(Politics politics) {
-            return mapper.updatePolitics(politics);
+            return politicsMapper.updatePolitics(politics);
         }
     }
