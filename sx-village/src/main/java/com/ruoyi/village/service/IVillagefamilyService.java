@@ -1,6 +1,6 @@
 package com.ruoyi.village.service;
 
-import com.ruoyi.village.domain.VillageFamily;
+import com.ruoyi.village.domain.Villagefamily;
 
 import java.util.List;
 
@@ -11,38 +11,38 @@ import java.util.List;
  * @create: 2019-01-15 15:00
  **/
 
-public interface IVillageFamilyService {
+public interface IVillagefamilyService {
 
     /**
      * 获取小村家事数据
      * @return
      */
-    List<VillageFamily> selectVillageFamilyList(VillageFamily villageFamily);
+    public List<Villagefamily> selectvillagefamilylist(Villagefamily villagefamily);
 
 
     /**
      * 新增小村家事 数据
-     * @param villageFamily
+     * @param villagefamily
      * @return
      */
-    int insertVillageFamily(VillageFamily villageFamily);
+    public int insertvillagefamily(Villagefamily villagefamily);
     /**
      * 修改小村家事数据
      * @param jsid
      * @return
      */
-    VillageFamily selectByfbid(Integer jsid);
+    public Villagefamily selectByfbid(Integer jsid);
     /**
      * 保存小村家事修改
-     * @param villageFamily
+     * @param villagefamily
      * @return
      */
-    int updateVillageFamily(VillageFamily villageFamily);
+    public int updatevillagefamily(Villagefamily villagefamily);
     /**
      * 根据 jsid 删除
      * @param jsid
      * @return
      */
-    int deleteVillageFamilyByids(String jsid);
+    public int deletevillagefamilybyids(String jsid);
 
 }
