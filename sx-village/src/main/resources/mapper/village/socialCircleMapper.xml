@@ -13,18 +13,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="adddate"    column="adddate"    />
         <result property="pcontent"    column="pcontent"    />
         <result property="uid"    column="uid"    />
-
     </resultMap>
-	
 	<sql id="selectSocialCircleVo">
         select pcid, aid, pcsennum, videourl, imgurl, adddate, pcontent, uid from tb_partycircle
     </sql>
 	
-    <select id="selectSocialCircleList" parameterType="SocialCircle" resultMap="socialCircleResult">
+    <select id="selectSocialCircleList" parameterType="int" resultMap="socialCircleResult">
         <include refid="selectSocialCircleVo"/>
-        order by pcid desc
+        order by pcid desc limit #{in} , #{index}
     </select>
-	 
+	 <select id="selectSocialCircleList_Heat" parameterType="int" resultMap="socialCircleResult">
+         <include refid="selectSocialCircleVo"/>
+         order by pcsennum desc limit #{in}, #{index}
+     </select>
     <update id="updateSocialCircle" parameterType="SocialCircle">
         update myc_member
         <trim prefix="SET" suffixOverrides=",">

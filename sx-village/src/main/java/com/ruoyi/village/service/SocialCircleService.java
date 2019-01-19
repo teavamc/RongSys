@@ -14,9 +14,17 @@ import java.util.List;
 public interface SocialCircleService {
     /**
      * 获取暮云圈 留言
-     * index!=0 最新数据  index==0 热度数据
-     * @return 暮云圈数据
+     * 最新数据
+     * @param in 开始行 index 结束行
+     * @return 暮云圈留言数据
      */
-    public List<SocialCircle> selectSocialCircleList(int index);
+    public List<SocialCircle> selectSocialCircleList(int in,int index);
 
+    /**
+     * 获取暮云圈 留言
+     * 热度数据
+     * @param in 起始行 index 结束行
+     * @return 暮云圈留言热度数据
+     */
+    public List<SocialCircle> selectSocialCircleList_Heat(int in,int index);
 }

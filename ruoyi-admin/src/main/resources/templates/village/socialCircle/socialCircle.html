@@ -8,7 +8,7 @@
 <div class="wrapper wrapper-content  animated fadeInRight">
 	<div class="row">
 		<!--左边布局-->
-		<div class="col-sm-6" >
+		<div class="col-sm-6" id="tht">
 			<div class="ibox">
 				<div class="ibox-content text-center">
 					<h3 class="m-b-xxs">暮云圈-最新消息</h3>
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		<!--右边布局-->
-		<div class="col-sm-6">
+		<div class="col-sm-6" id="tht2">
 			<div class="ibox ">
 				<div class="ibox-content text-center">
 					<h3 class="m-b-xxs">暮云圈-热度榜</h3>
@@ -83,7 +83,7 @@
 							<i class="fa fa-angle-down"></i>
 						</button>
 						<ul class="dropdown-menu m-t-xs">
-							<li><a href="#">删除</a></li>
+							<li><a href="#">你好</a></li>
 						</ul>
 					</div>
 					<div class="social-avatar">
@@ -98,93 +98,77 @@
 						</p>
 						<img src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png" class="img-responsive">
 					</div>
-					<div class="social-footer">
+					<div class="social-footer" th:each="objs:${obj2.child}" >
 						<div class="social-comment">
 							<a href="#" class="pull-left">
 								<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">
 							</a>
 							<div class="media-body">
-								<a href="#">
-									尤小右
-								</a> 图表展示、数据可视化是前端领域一个麻烦且重要的事情，这里推荐了11个JS图表库，各取所需吧
-								<br/>
-								<a href="#" class="small"><i class="fa fa-thumbs-up"></i> 26</a> -
-								<small class="text-muted">8月18日</small>
-							</div>
-						</div>
+								<a href="#" th:text="${objs.uid}">****</a> <small class="text-muted" th:text="${objs.ccontent}">***</small><br/>
 
-						<div class="social-comment">
-
-							<div class="social-comment">
-								<a href="#" class="pull-left">
-									<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">
-								</a>
-								<div class="media-body">
-									<a href="#">
-										尤小右
-									</a> 用checkbox + CSS 也能玩出来很多花样，来看看这些有趣的例子吧！
-									<br/>
-									<a href="#" class="small"><i class="fa fa-thumbs-up"></i> 11</a> -
-									<small class="text-muted">8月18日</small>
-								</div>
+								<a href="#" class="small"><i class="fa fa-thumbs-up"></i></a> -
+								<small class="text-muted" th:text="${objs.cdate}">****</small>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div style="width: 100%;height: 50px"><a th:href='ctx+"village/SocialCircle/list?index="+${index}'>加载更多</a></div>
 	</div>
+	<div style="width: 100%;height: 35px;text-align:center;background-color: #17b86b"><a onclick="data(this)" th:name="${index}" ><h2 style="color: #2E2D3C">加载更多</h2></a></div>
 </div>
 <div th:include="include :: footer"></div>
 
 <script>
-    function data() {
-        //获取每个图片id，以字符串形式
-        var result = '';
-        $(".pullsh").each(function () {
-            result = result + $(this).attr("name") + ',';
-            values2.push($(this).attr("name"));
-        });
-        $.ajax({
-            url: ctx+'village/SocialCircle/list',
-            type: 'POST', //请求方法 GET or POST
-            async: true, //是否使用异步请求的方式
-            timeout: 3000, //请求超时的时间，以毫秒计
-            data: {
-                pcid: result
-            },
-            dataType: 'json',
-            success: function (data) {
-                console.log(data)
-                console.log(values2)
-                for(var i=0;i<values2.length;i++){
-                    var html = '';
-                    html = html + '<div class="social-comment" th:each="obj2 : '+data+'">';
-                    html = html + '		<a href="#" class="pull-left">';
-                    html = html + '			<img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png">';
-                    html = html + '		</a>';
-                    html = html + '		<div class="media-body">';
-                    html = html + '			<a href="#" th:text="${obj2.uid}">'+data.values2[i].uid+'</a> <small class="text-muted" th:text="${obj2.ccontent}">***</small><br/>';
-                    html = html + '			<a href="#" class="small"><i class="fa fa-thumbs-up"></i>***</a> -<small class="text-muted" th:text="${obj2.cdate}">***</small>';
-                    html = html + '		</div>';
-                    html = html + '		<div class="social-comment">';
-                    html = html + '			<a href="#" class="pull-left"><img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png"></a>';
-                    html = html + '			<div class="media-body"><textarea class="form-control" placeholder="填写评论..."></textarea></div>';
-                    html = html + '		</div>';
-                    html = html + '</div>';
-                    var id = values[i];
-                    $("#"+id+"").append(html);
-                }
+	function data(obj) {
+		//获取每个图片id，以字符串形式
+		var index = $(obj).attr("name");
+		$.ajax({
+			url: ctx+'village/SocialCircle/addindex',
+			type: 'POST', //请求方法 GET or POST
+			async: true, //是否使用异步请求的方式
+			timeout: 3000, //请求超时的时间，以毫秒计
+			data: {
+				index: index
+			},
+			dataType: 'json',
+			success: function (data) {
+				console.log(data);
+				$(obj).attr("name",data.index);
 
-
-            },
-            error: function (data) {
-                console.log("错误")
-            }
-        })
-    }
-    //setInterval("data()",1000*1);//5秒一次刷新数据库新增的图片
+				var html1 = '';
+				for (var i =0;i<data.socialCircleOne2.length;i++){
+					html1 += '<div class="social-feed-box"> <div class="pull-right social-action dropdown pullsh"> <button data-toggle="dropdown" class="dropdown-toggle btn-white"> <i class="fa fa-angle-down"></i> </button> <ul class="dropdown-menu m-t-xs"> <li><a href="#">你好</a></li> </ul> </div> <div class="social-avatar"> ';
+					html1 += '<a href="#" class="pull-left"><div class="social-body"><img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png"> </a><div class="media-body">  <a href="#" >'+ data.socialCircleOne2[i].uid+' </a> <small class="text-muted" >'+data.socialCircleOne2[i].adddate+'</small> </div> ';
+					html1 += '<div class="social-body"> <p style="font-weight: 600">'+data.socialCircleOne2[i].pcontent+' </p> </div> ';
+					for (var j=0;j<data.socialCircleOne2[i].child.length;j++){
+						html1 += '<div class="social-footer" > <div class="social-comment"> <a href="#" class="pull-left"> <img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png"> </a> <div class="media-body">';
+						html1 += '<a href="#" >'+data.socialCircleOne2[i].child[j].uid+'</a> <small class="text-muted">'+data.socialCircleOne2[i].child[j].ccontent+'</small><br/>';
+						html1 += '<a href="#" class="small"><i class="fa fa-thumbs-up"></i></a> - <small class="text-muted">'+data.socialCircleOne2[i].child[j].cdate+'</small></div> </div> </div>';
+					}
+					html1 += '</div> </div>';
+				}
+				var htmls = '';
+				for (var i =0;i<data.socialCircleTwo2.length;i++){
+					htmls += '<div class="social-feed-separated"><div class="social-avatar"> <a href="#"> <img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png"> </a> </div> <div class="social-feed-box"> <div class="pull-right social-action dropdown"> <button data-toggle="dropdown" class="dropdown-toggle btn-white"> <i class="fa fa-angle-down"></i> </button> <ul class="dropdown-menu m-t-xs"> <li><a href="#">删除</a></li> </ul> </div> <div class="social-avatar"> ';
+					htmls += '<a href="#" >'+ data.socialCircleTwo2[i].uid+' </a> <small class="text-muted" >'+data.socialCircleTwo2[i].adddate+'</small> </div> ';
+					htmls += '<div class="social-body"> <p >'+data.socialCircleTwo2[i].pcontent+' </p><img src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png" class="img-responsive"> </div> ';
+					for (var j=0;j<data.socialCircleTwo2[i].child.length;j++){
+						htmls += '<div class="social-footer" > <div class="social-comment"> <a href="#" class="pull-left"> <img alt="image" src="https://lyb-iot-001-1256625471.cos.ap-guangzhou.myqcloud.com/fire_image/1.png"> </a> <div class="media-body">';
+						htmls += '<a href="#" >'+data.socialCircleTwo2[i].child[j].uid+'</a> <small class="text-muted">'+data.socialCircleTwo2[i].child[j].ccontent+'</small><br/>';
+						htmls += '<a href="#" class="small"><i class="fa fa-thumbs-up"></i></a> - <small class="text-muted">'+data.socialCircleTwo2[i].child[j].cdate+'</small></div> </div> </div>';
+					}
+					htmls += '</div> </div>';
+				}
+				$("#tht").append(html1);
+				$("#tht2").append(htmls);
+			},
+			error: function (data) {
+				console.log("错误")
+			}
+		})
+	}
+	//setInterval("data()",1000*1);//5秒一次刷新数据库新增的图片
 </script>
 </body>
 </html>

@@ -1,7 +1,9 @@
 package com.ruoyi.village.mapper;
 
 import com.ruoyi.village.domain.SocialCircle;
+import org.apache.ibatis.annotations.Param;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 /**
@@ -14,8 +16,14 @@ public interface SocialCircleMapper {
 
     /**
      * 获取暮云圈 留言
-     * index!=0 最新数据  index==0 热度数据
-     * @return 暮云圈数据
+     * @param index 结束行
+     * @return
      */
-    List<SocialCircle> selectSocialCircleList(int index);
+    public List<SocialCircle> selectSocialCircleList(@Param("in") int in , @Param("index") int index);
+    /**
+     * 获取暮云圈 留言
+     * @param  index 结束行
+     * @return 热度榜
+     */
+    public List<SocialCircle> selectSocialCircleList_Heat(@Param("in") int in , @Param("index") int index);
 }

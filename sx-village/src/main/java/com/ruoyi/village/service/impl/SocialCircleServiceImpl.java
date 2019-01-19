@@ -8,6 +8,9 @@ import com.ruoyi.village.service.SocialCircleService;
 import com.ruoyi.village.util.FilterText;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -21,25 +24,30 @@ public class SocialCircleServiceImpl implements SocialCircleService {
     @Autowired
     private SocialCircleMapper mapper;
 
+    private List<SocialCircle> ov2 = null;
     /**
      * 获取暮云圈 留言
-     * index!=0 最新数据  index==0 热度数据
-     * @return 暮云圈数据
+     * 最新数据
+     * @param in 开始行 index 结束行
+     * @return 暮云圈留言数据
      */
     @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public List<SocialCircle> selectSocialCircleList(int index) {
-        List<SocialCircle> list = mapper.selectSocialCircleList(index);
-        if(index != 0){
-            List<SocialCircle> ov = null;
-            for (int i = 0;i<list.size();i++){
-               ov.add(list.get(i));
-            }
-            return ov;
-        }else {
-            int left = 0 , right = list.size()-1;
-            return FilterText.quickSort(list,left,right);
-        }
+    public List<SocialCircle> selectSocialCircleList(int in,int index) {
+        return mapper.selectSocialCircleList(in,index);
+    }
+
+    /**
+     * 获取暮云圈 留言
+     * 热度数据
+     * @param in 起始行 index 结束行
+     * @return 暮云圈留言热度数据
+     */
+    @Override
+    @DataSource(value = DataSourceType.SXVILLAGE)
+    public List<SocialCircle> selectSocialCircleList_Heat(int in,int index) {
+                return mapper.selectSocialCircleList_Heat(in,index);
+
     }
 
 }
