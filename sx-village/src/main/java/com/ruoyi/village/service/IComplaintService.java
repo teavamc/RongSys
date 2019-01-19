@@ -1,6 +1,6 @@
 package com.ruoyi.village.service;
 
-import com.ruoyi.village.domain.Complaintsmessages;
+import com.ruoyi.village.domain.Complaint;
 
 import java.util.List;
 
@@ -11,38 +11,38 @@ import java.util.List;
  * @create: 2019-01-14 15:37
  **/
 
-public interface IComplaintsmessagesService {
+public interface IComplaintService {
 
     /**
      * 查询投诉咨询记录列表
      *
      * @return
      */
-    List<Complaintsmessages> selectComplaintsList(Complaintsmessages complaintmessages);
+    public List<Complaint> selectComplaintsList(Complaint complaintmessages);
 
     /**
      * 根据fbid删除数据
      * @param fbid
      */
-    int deleteComplaintsByids(String fbid);
+    public int deleteComplaintsByids(String fbid);
 
     /**
      * 添加投诉咨询数据
-     * @param complaintsmessages
+     * @param complaint
      * @return
      */
-    int insertcomplaintsmessages(Complaintsmessages complaintsmessages);
+    public int insertcomplaintsmessages(Complaint complaint);
     /**
      * 根据fbid选择数据
      * @param fbid
      * @return
      */
-    Complaintsmessages selectByfbid(Integer fbid);
+    public Complaint selectByfbid(Integer fbid);
     /**
      * 保存用户修改
-     * @param complaintsmessages
+     * @param complaint
      * @return
      */
-    int updateComplaintsmessages(Complaintsmessages complaintsmessages);
+    public int updateComplaintsmessages(Complaint complaint);
 
 }

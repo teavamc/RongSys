@@ -8,7 +8,7 @@ import com.ruoyi.common.base.BaseEntity;
  * @author: Mr.Liu
  * @create: 2019-01-14 15:25
  **/
-public class Complaintsmessages extends BaseEntity {
+public class Complaint extends BaseEntity {
     private static final long serialVersionUID = 1L;
     /**投诉数据编号*/
     private String fbid;
@@ -39,7 +39,7 @@ public class Complaintsmessages extends BaseEntity {
 
     @Override
     public String toString() {
-        return "Complaintsmessages{" +
+        return "Complaint{" +
                 "fbid='" + fbid + '\'' +
                 ", fbuid='" + fbuid + '\'' +
                 ", title='" + title + '\'' +
@@ -56,10 +56,10 @@ public class Complaintsmessages extends BaseEntity {
                 '}';
     }
 
-    public Complaintsmessages(String fbid, String fbuid, String title,
-                              String ftype, String content, String fbdatetime,
-                              int isread, String opinion, int uid, String uname,
-                              String datetime, String remark, String aid) {
+    public Complaint(String fbid, String fbuid, String title,
+                     String ftype, String content, String fbdatetime,
+                     int isread, String opinion, int uid, String uname,
+                     String datetime, String remark, String aid) {
         this.fbid = fbid;
         this.fbuid = fbuid;
         this.title = title;
@@ -75,7 +75,7 @@ public class Complaintsmessages extends BaseEntity {
         this.aid = aid;
     }
 
-    public Complaintsmessages() {
+    public Complaint() {
         super();
     }
 

@@ -5,9 +5,8 @@ import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.framework.web.base.BaseController;
-import com.ruoyi.framework.web.domain.server.Sys;
-import com.ruoyi.village.domain.Complaintsmessages;
-import com.ruoyi.village.service.IComplaintsmessagesService;
+import com.ruoyi.village.domain.Complaint;
+import com.ruoyi.village.service.IComplaintService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,17 +25,17 @@ import java.util.List;
  **/
 @Controller
 @RequestMapping("/village/Complaintsmessages")
-public class ComplaintsmessagesController extends BaseController {
+public class ComplaintController extends BaseController {
 
-    private String prefix = "village/Complaintsmessages";
+    private String prefix = "village/complaint";
 
     @Autowired
-    private IComplaintsmessagesService complaintsmessagesService;
+    private IComplaintService complaintService;
 
     @RequiresPermissions("village:complaintsmessages:view")
     @GetMapping()
     public String Complaintsmessages(){
-        return prefix+"/Complaintsmessages";
+        return prefix+"/complaint";
     }
 
     /**
@@ -47,9 +46,9 @@ public class ComplaintsmessagesController extends BaseController {
     //@RequiresPermissions("village:complaintsmessages:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Complaintsmessages complaintmessages){
+    public TableDataInfo list(Complaint complaintmessages){
         startPage();
-        List<Complaintsmessages> list = complaintsmessagesService.selectComplaintsList(complaintmessages);
+        List<Complaint> list = complaintService.selectComplaintsList(complaintmessages);
         return getDataTable(list);
     }
 
@@ -61,13 +60,13 @@ public class ComplaintsmessagesController extends BaseController {
     /**
      * 新增保存投诉咨询
      */
-    @RequiresPermissions("village:complaintsmessages:add")
+    @RequiresPermissions("village:complaint:add")
     @Log(title = "投诉咨询", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(Complaintsmessages complaintsmessages)
+    public AjaxResult addSave(Complaint complaint)
     {
-        return toAjax(complaintsmessagesService.insertcomplaintsmessages(complaintsmessages));
+        return toAjax(complaintService.insertcomplaintsmessages(complaint));
     }
     /**
      * 修改投诉咨询
@@ -75,20 +74,20 @@ public class ComplaintsmessagesController extends BaseController {
     @GetMapping("/edit/{fbid}")
     public String edit(@PathVariable("fbid") Integer fbid, ModelMap mmap)
     {
-        Complaintsmessages complaintsmessages = complaintsmessagesService.selectByfbid(fbid);
-        mmap.put("complaintsmessages", complaintsmessages);
+        Complaint complaint = complaintService.selectByfbid(fbid);
+        mmap.put("complaint", complaint);
         return prefix + "/edit";
     }
     /**
      * 修改保存投诉咨询
      */
-    @RequiresPermissions("village:complaintsmessages:edit")
+    @RequiresPermissions("village:complaint:edit")
     @Log(title = "投诉咨询", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(Complaintsmessages complaintsmessages)
+    public AjaxResult editSave(Complaint complaint)
     {
-        return toAjax(complaintsmessagesService.updateComplaintsmessages(complaintsmessages));
+        return toAjax(complaintService.updateComplaintsmessages(complaint));
     }
     /**
      * 删除投诉咨询
@@ -99,7 +98,7 @@ public class ComplaintsmessagesController extends BaseController {
     @ResponseBody
     public AjaxResult remove(@PathVariable("id") String fbid)
     {
-        return toAjax(complaintsmessagesService.deleteComplaintsByids(fbid));
+        return toAjax(complaintService.deleteComplaintsByids(fbid));
     }
 
 }
