@@ -4,7 +4,7 @@
 <head th:include="include :: header"></head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-complaintsmessages-add">
+        <form class="form-horizontal m" id="form-complaint-add">
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">投诉标题：</label>
 				<div class="col-sm-8">
@@ -39,8 +39,8 @@
 	</div>
     <div th:include="include::footer"></div>
     <script type="text/javascript">
-		var prefix = ctx + "village/Complaintsmessages"
-		$("#form-complaintsmessages-add").validate({
+		var prefix = ctx + "village/Complaint"
+		$("#form-complaint-add").validate({
 			rules:{
 				xxxx:{
 					required:true,
@@ -50,7 +50,7 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-complaintsmessages-add').serialize());
+	            $.operate.save(prefix + "/add", $('#form-complaint-add').serialize());
 	        }
 	    }
 	</script>

@@ -1,6 +1,6 @@
 package com.ruoyi.village.mapper;
 
-import com.ruoyi.village.domain.Villagefamily;
+import com.ruoyi.village.domain.VillageFamily;
 
 import java.util.List;
 
@@ -11,34 +11,34 @@ import java.util.List;
  * @create: 2019-01-15 14:59
  **/
 
-public interface VillagefamilyMapper {
+public interface VillageFamilyMapper {
 
     /**
      * 获取小村家事数据
      * @return
      */
-    List<Villagefamily> selectVillageFamilyList(Villagefamily villagefamily);
+    List<VillageFamily> selectVillageFamilyList(VillageFamily villagefamily);
 
     /**
      * 新增小村家事 数据
      * @param villagefamily
      * @return
      */
-    int insertVillageFamily(Villagefamily villagefamily);
+    int insertVillageFamily(VillageFamily villagefamily);
 
     /**
      * 修改小村家事数据
      * @param jsid
      * @return
      */
-    Villagefamily selectByfbid(Integer jsid);
+    VillageFamily selectByfbid(Integer jsid);
 
     /**
      * 保存小村家事修改
      * @param villagefamily
      * @return
      */
-    int updateVillageFamily(Villagefamily villagefamily);
+    int updateVillageFamily(VillageFamily villagefamily);
 
     /**
      * 根据 id 批量删除

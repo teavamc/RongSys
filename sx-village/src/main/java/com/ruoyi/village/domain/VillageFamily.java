@@ -8,7 +8,7 @@ import com.ruoyi.common.base.BaseEntity;
  * @author: Mr.Liu
  * @create: 2019-01-15 14:52
  **/
-public class Villagefamily extends BaseEntity {
+public class VillageFamily extends BaseEntity {
     private static final long serialVersionUID = 1L;
     /**小村家事数据编号*/
     private int jsid;
@@ -35,7 +35,7 @@ public class Villagefamily extends BaseEntity {
     /**是否有效*/
     private String remark;
 
-    public Villagefamily() {
+    public VillageFamily() {
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Villagefamily extends BaseEntity {
                 '}';
     }
 
-    public Villagefamily(int jsid, String title, String type,
+    public VillageFamily(int jsid, String title, String type,
                          String adddate, String reldate,
                          String content, int adduid,
                          String adduname, int uid, String uname,

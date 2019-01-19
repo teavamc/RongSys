@@ -40,10 +40,10 @@
 			</div>
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:complaintsmessages:add">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:complaint:add">
 					<i class="fa fa-plus"></i> 添加
 				</a>
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:complaintsmessages:remove">
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:complaint:remove">
 					<i class="fa fa-remove"></i> 删除
 				</a>
 			</div>
@@ -54,9 +54,9 @@
 	</div>
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('village:complaintsmessages:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('village:complaintsmessages:remove')}]];
-        var prefix = ctx + "village/Complaintsmessages";
+        var editFlag = [[${@permission.hasPermi('village:complaint:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('village:complaint:remove')}]];
+        var prefix = ctx + "village/Complaint";
 
         $(function() {
             var options = {
