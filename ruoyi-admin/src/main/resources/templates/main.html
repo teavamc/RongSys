@@ -170,17 +170,22 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <h5>内存使用率</h5>
+                                        <span class="badge badge-info">内存使用率</span>
                                         <h2 th:class="${server.mem.usage gt 80} ? 'text-danger'">[[${server.mem.usage}]]%</h2>
                                         <div class="progress progress-mini">
                                             <div th:style=" 'width:' + ${server.mem.usage} + '%'" class="progress-bar"></div>
                                         </div>
                                         <br>
-                                        <br>
-                                        <h5>JVM使用率</h5>
+                                        <span class="badge badge-success">JVM使用率</span>
                                         <h2 th:class="${server.jvm.usage gt 80} ? 'text-danger'">[[${server.jvm.usage}]]%</h2>
                                         <div class="progress progress-mini">
                                             <div th:style=" 'width:' + ${server.jvm.usage} + '%'" class="progress-bar"></div>
+                                        </div>
+                                        <br>
+                                        <span class="badge badge-warning">CPU使用率</span>
+                                        <h2 th:class="${server.cpu.sys gt 80} ? 'text-danger'">[[${server.cpu.sys}]]%</h2>
+                                        <div class="progress progress-mini">
+                                            <div th:style=" 'width:' + ${server.cpu.sys} + '%'" class="progress-bar"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -195,7 +200,8 @@
                             <div class="ibox-title">
                                 <h5>最近登录记录 </h5>
                                 <div class="ibox-tools">
-
+                                    <!--<h5 th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></h5>-->
+                                    <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></span>
                                 </div>
                             </div>
                             <div class="ibox-content">

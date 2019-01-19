@@ -46,8 +46,6 @@ public class SysIndexController extends BaseController
     public String main(ModelMap mmap)
     {
         Server server = new Server();
-
-
         try {
             server.copyTo();
         } catch (Exception e) {
