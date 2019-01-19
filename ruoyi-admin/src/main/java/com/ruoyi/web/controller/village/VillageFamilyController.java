@@ -86,7 +86,6 @@ public class VillageFamilyController extends BaseController {
     @ResponseBody
     public TableDataInfo List(VillageFamily villageFamily){
         startPage();
-        System.out.println(villageFamily.toString());
         List<VillageFamily> list = iVillageFamilyService.selectVillageFamilyList(villageFamily);
         return getDataTable(list);
     }
