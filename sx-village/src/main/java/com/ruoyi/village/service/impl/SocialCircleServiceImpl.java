@@ -23,26 +23,23 @@ public class SocialCircleServiceImpl implements SocialCircleService {
 
     /**
      * 获取暮云圈 留言
-     * 最新数据
-     * @return 暮云圈留言数据
+     * index!=0 最新数据  index==0 热度数据
+     * @return 暮云圈数据
      */
     @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
-    public List<SocialCircle> selectSocialCircleList() {
-        return mapper.selectSocialCircleList();
-    }
-
-    /**
-     * 获取暮云圈 留言
-     * 热度数据
-     * @return 暮云圈留言热度数据
-     */
-    @Override
-    @DataSource(value = DataSourceType.SXVILLAGE)
-    public List<SocialCircle> selectSocialCircleList_Heat() {
-        List<SocialCircle> list = mapper.selectSocialCircleList();
-        int left = 0 , right = mapper.selectSocialCircleList().size()-1;
-        return FilterText.quickSort(list,left,right);
+    public List<SocialCircle> selectSocialCircleList(int index) {
+        List<SocialCircle> list = mapper.selectSocialCircleList(index);
+        if(index != 0){
+            List<SocialCircle> ov = null;
+            for (int i = 0;i<list.size();i++){
+               ov.add(list.get(i));
+            }
+            return ov;
+        }else {
+            int left = 0 , right = list.size()-1;
+            return FilterText.quickSort(list,left,right);
+        }
     }
 
 }

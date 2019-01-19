@@ -6,6 +6,7 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.framework.web.base.BaseController;
 
+import com.ruoyi.framework.web.domain.server.Sys;
 import com.ruoyi.village.domain.VillageFamily;
 import com.ruoyi.village.service.IVillageFamilyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -25,21 +26,24 @@ import java.util.List;
 @Controller
 @RequestMapping("/village/VillageFamily")
 public class VillageFamilyController extends BaseController {
-    private String prefix = "village/VillageFamily";
+    private String prefix = "village/villageFamily";
 
     @Autowired
     private IVillageFamilyService iVillageFamilyService;
 
     @RequiresPermissions("village:villageFamily:view")
     @GetMapping()
-    public String VillageFamily(){return prefix+"/VillageFamily";}
+    public String VillageFamily(){return prefix+"/villageFamily";}
 
     @GetMapping("/add")
     public String add(){
         return prefix+"/add";
     }
+
     /**
      * 新增保存小村家事
+     * @param villageFamily
+     * @return Ajax
      */
     @RequiresPermissions("village:villageFamily:add")
     @Log(title = "小村家事", businessType = BusinessType.INSERT)
@@ -82,6 +86,7 @@ public class VillageFamilyController extends BaseController {
     @ResponseBody
     public TableDataInfo List(VillageFamily villageFamily){
         startPage();
+        System.out.println(villageFamily.toString());
         List<VillageFamily> list = iVillageFamilyService.selectVillageFamilyList(villageFamily);
         return getDataTable(list);
     }

@@ -14,7 +14,8 @@ public interface SocialCircleMapper {
 
     /**
      * 获取暮云圈 留言
-     * @return
+     * index!=0 最新数据  index==0 热度数据
+     * @return 暮云圈数据
      */
-    List<SocialCircle> selectSocialCircleList();
+    List<SocialCircle> selectSocialCircleList(int index);
 }

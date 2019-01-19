@@ -37,29 +37,21 @@ public class SocialCircleController extends BaseController {
     @RequiresPermissions("village:socialCircle:view")
     @RequestMapping()
     public String list(ModelMap mmap){
-        int index = 4;
-            List<SocialCircle> list = socialCircleService.selectSocialCircleList();
-            for (int i =0 ;i<socialCircleService.selectSocialCircleList().size();i++){
+            int index = 4;
+            List<SocialCircle> list = socialCircleService.selectSocialCircleList(index);
+            for (int i =0 ;i<socialCircleService.selectSocialCircleList(index).size();i++){
                 list.get(i).setChild(socialCircleCommentService.selectAllByPcid(list.get(i).getPcid()));
             }
             mmap.put("socialCircleOne",list);
             mmap.put("index",index);
-            mmap.put("socialCircleTwo",socialCircleService.selectSocialCircleList_Heat());
+            mmap.put("socialCircleTwo",socialCircleService.selectSocialCircleList(0));
         return prefix+"/socialCircle";
     }
 
     @RequestMapping("/addpc")
-    public String Ajax_list(ModelMap mmap,int index){
+    public void Ajax_list(ModelMap mmap,int index){
 
 
-
-//        List<SocialCircle> list = socialCircleService.selectSocialCircleList();
-//        for (int i =0 ;i<socialCircleService.selectSocialCircleList().size();i++){
-//            list.get(i).setChild(socialCircleCommentService.selectAllByPcid(list.get(i).getPcid()));
-//        }
-//        mmap.put("socialCircleOne",list);
-//        mmap.put("socialCircleTwo",socialCircleService.selectSocialCircleList_Heat());
-        return prefix+"/socialCircle";
     }
 
     //@RequiresPermissions("village:socialCircle:list")
