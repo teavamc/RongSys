@@ -106,20 +106,20 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-10">
                         <div class="ibox float-e-margins">
 
                             <div class="ibox-title">
                                 <h5>服务器性能监控 </h5>
                                 <div class="ibox-tools">
                                     <!--<h5 th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></h5>-->
-                                    <span class="label label-info pull-right" th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></span>
+                                    <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></span>
                                 </div>
                             </div>
 
                             <div class="ibox-content">
                                 <div class="row">
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <table class="table table-hover">
                                             <thead>
                                             <tr>
@@ -152,7 +152,7 @@
                                         </table>
                                     </div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <table class="table table-hover margin bottom">
                                             <thead>
                                             <tr>
@@ -169,7 +169,7 @@
                                         </table>
                                     </div>
 
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-4">
                                         <h5>内存使用率</h5>
                                         <h2 th:class="${server.mem.usage gt 80} ? 'text-danger'">[[${server.mem.usage}]]%</h2>
                                         <div class="progress progress-mini">
@@ -195,6 +195,32 @@
                             </div>
 
                         </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>最近登录记录 </h5>
+                                <div class="ibox-tools">
+
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>用户</th>
+                                        <th>登陆时间</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="log : ${loginlog}">
+                                        <td th:text="${log.user_name}">local</td>
+                                        <td th:class="${log.loginTime}">[[${sysFile.usage}]]%</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </di
                     </div>
                 </div>
             </div>

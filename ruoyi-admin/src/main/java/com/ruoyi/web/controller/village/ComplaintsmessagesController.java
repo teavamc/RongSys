@@ -28,7 +28,7 @@ import java.util.List;
 @RequestMapping("/village/Complaintsmessages")
 public class ComplaintsmessagesController extends BaseController {
 
-    private String prefix = "/village/Complaintsmessages";
+    private String prefix = "village/Complaintsmessages";
 
     @Autowired
     private IComplaintsmessagesService complaintsmessagesService;

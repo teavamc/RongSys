@@ -53,6 +53,14 @@
 		</where>
 		ORDER BY poinid desc
 	</select>
+
+	<select id="selectpoliclimitten" resultMap="PolicyinfoResult">
+		select <include refid="Field"/>
+		from <include refid="tableName"/>
+		ORDER BY adddate desc
+		limit 0,10
+	</select>
+
 	<insert id="insertpolicyinfo" parameterType="com.ruoyi.village.domain.Policyinfo">
 		insert into <include refid="tableName"/>
 		<trim prefix="(" suffix=")" suffixOverrides=",">
