@@ -24,14 +24,16 @@ public class gps extends BaseController
     @Autowired
     private IManagementService managementService;
 
-    @GetMapping("/rondom")
+    @GetMapping("/random")
+    @CrossOrigin
     public List<Managementgps> searchrandom()
     {
         List<Managementgps> search = managementService.selectManagementByRandom();
         return search;
     }
 
-    @GetMapping("/searchall")
+    @GetMapping("/all")
+    @CrossOrigin
     public List<Managementgps> searchall()
     {
         List<Managementgps> search = managementService.selectManagementAll();

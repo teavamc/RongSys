@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.SysLoginIndex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.support.Convert;
@@ -62,5 +64,15 @@ public class SysLogininforServiceImpl implements ISysLogininforService
     public void cleanLogininfor()
     {
         logininforMapper.cleanLogininfor();
+    }
+
+    /**
+     * 获取最近的8条访客记录传给前端
+     *
+     * @return 结果
+     */
+    @Override
+    public List<SysLoginIndex> selectLoginLogforIndex(){
+        return logininforMapper.selectLoginLogforIndex();
     }
 }
