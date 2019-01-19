@@ -20,47 +20,47 @@ import java.util.List;
 @Service
 public class PolicyinfoServiceImpl implements IPolicyinfoService {
         @Autowired
-        private PolicyinfoMapper policyinfomapper;
+        private PolicyinfoMapper policyinfoMapper;
 
         @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public List<Policyinfo> selectPolicyinfoList(Policyinfo policyinfo) {
-            return policyinfomapper.selectPolicyinfoList(policyinfo);
+            return policyinfoMapper.selectPolicyinfoList(policyinfo);
         }
 
         @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int deletePolicyinfoByids(String id) {
-            return policyinfomapper.deletePolicyinfoByids(Convert.toStrArray(id));
+            return policyinfoMapper.deletePolicyinfoByids(Convert.toStrArray(id));
         }
 
         @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int insertpolicyinfo(Policyinfo policyinfo) {
-            return policyinfomapper.insertpolicyinfo(policyinfo);
+            return policyinfoMapper.insertpolicyinfo(policyinfo);
         }
 
         @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public Policyinfo selectBypoinid(Integer shiid) {
-            return policyinfomapper.selectBypoinid(shiid);
+            return policyinfoMapper.selectBypoinid(shiid);
         }
 
         @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int deletePolicyinfoByIds(String shiid) {
-            return policyinfomapper.deletePolicyinfoByIds(shiid);
+            return policyinfoMapper.deletePolicyinfoByIds(shiid);
         }
 
         @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public int updatePolicyinfo(Policyinfo politics) {
-            return policyinfomapper.updatePolicyinfo(politics);
+            return policyinfoMapper.updatePolicyinfo(politics);
         }
 
         @Override
         @DataSource(value = DataSourceType.SXVILLAGE)
         public List<Policyinfo> selectpoliclimitten(){
-            return policyinfomapper.selectpoliclimitten();
+            return policyinfoMapper.selectpoliclimitten();
         }
     }
