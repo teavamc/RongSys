@@ -21,12 +21,12 @@ import java.util.List;
 @Service
 public class VillagefamilyServiceImpl implements IVillagefamilyService {
     @Autowired
-    private VillagefamilyMapper villageFamilyMapper;
+    private VillagefamilyMapper villagefamilyMapper;
 
     @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
     public List<Villagefamily> selectvillagefamilylist(Villagefamily villagefamily) {
-        List<Villagefamily> list = villageFamilyMapper.selectVillageFamilyList(villagefamily);
+        List<Villagefamily> list = villagefamilyMapper.selectVillageFamilyList(villagefamily);
         for(Villagefamily village : list){
             if(village.getContent().length() > 0)
                 village.setContent(FilterText.delHTMLTag(village.getContent())); //过滤html标签
@@ -37,25 +37,25 @@ public class VillagefamilyServiceImpl implements IVillagefamilyService {
     @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
     public int insertvillagefamily(Villagefamily villagefamily) {
-        return villageFamilyMapper.insertVillageFamily(villagefamily);
+        return villagefamilyMapper.insertVillageFamily(villagefamily);
     }
 
     @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
     public Villagefamily selectByfbid(Integer jsid) {
-        return villageFamilyMapper.selectByfbid(jsid);
+        return villagefamilyMapper.selectByfbid(jsid);
     }
 
     @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
     public int updatevillagefamily(Villagefamily villagefamily) {
-        return villageFamilyMapper.updateVillageFamily(villagefamily);
+        return villagefamilyMapper.updateVillageFamily(villagefamily);
     }
 
     @Override
     @DataSource(value = DataSourceType.SXVILLAGE)
     public int deletevillagefamilybyids(String jsid) {
-        return villageFamilyMapper.deleteVillageFamilyByids(Convert.toStrArray(jsid));
+        return villagefamilyMapper.deleteVillageFamilyByids(Convert.toStrArray(jsid));
     }
 
 }

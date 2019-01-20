@@ -45,9 +45,9 @@ public class VillagefamilyController extends BaseController {
     @Log(title = "小村家事", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(Villagefamily villageFamily)
+    public AjaxResult addSave(Villagefamily villagefamily)
     {
-        return toAjax(villagefamilyService.insertvillagefamily(villageFamily));
+        return toAjax(villagefamilyService.insertvillagefamily(villagefamily));
     }
 
     /**
@@ -58,8 +58,8 @@ public class VillagefamilyController extends BaseController {
      */
     @GetMapping("/edit/{jsid}")
     public String edit(@PathVariable("jsid") Integer jsid , ModelMap mmap){
-        Villagefamily villageFamily = villagefamilyService.selectByfbid(jsid);
-        mmap.put("villagefamily", villageFamily);
+        Villagefamily villagefamily = villagefamilyService.selectByfbid(jsid);
+        mmap.put("villagefamily", villagefamily);
         return prefix + "/edit";
     }
     /**
