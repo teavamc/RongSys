@@ -59,6 +59,7 @@ public class SysLogininforServiceImpl implements ISysLogininforService
 
     /**
      * 清空系统登录日志
+     *
      */
     @Override
     public void cleanLogininfor()
@@ -72,7 +73,8 @@ public class SysLogininforServiceImpl implements ISysLogininforService
      * @return 结果
      */
     @Override
-    public List<SysLoginIndex> selectLoginLogforIndex(){
+    public List<SysLoginIndex> selectLoginLogforIndex()
+    {
         return logininforMapper.selectLoginLogforIndex();
     }
 }

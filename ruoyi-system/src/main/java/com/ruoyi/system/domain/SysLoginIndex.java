@@ -17,28 +17,21 @@ public class SysLoginIndex extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 用户账号 */
-    @Excel(name = "用户账号")
     private String loginName;
 
     /** 浏览器类型 */
-    @Excel(name = "账号昵称")
     private String user_name;
 
     /** 登录IP地址 */
-    @Excel(name = "登录地址")
     private String ipaddr;
 
     /** 登录地点 */
-    @Excel(name = "登录地点")
     private String loginLocation;
 
     /** 浏览器类型 */
-    @Excel(name = "浏览器")
     private String browser;
 
-
     /** 访问时间 */
-    @Excel(name = "访问时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date loginTime;
 
     public static long getSerialVersionUID() {
@@ -82,8 +75,8 @@ public class SysLoginIndex extends BaseEntity
     }
 
     public void setBrowser(String browser) {
-        this.browser = browser;
-    }
+    this.browser = browser;
+}
 
     public Date getLoginTime() {
         return loginTime;
