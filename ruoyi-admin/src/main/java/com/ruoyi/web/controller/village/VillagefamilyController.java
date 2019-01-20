@@ -6,8 +6,8 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.framework.web.base.BaseController;
 
-import com.ruoyi.village.domain.VillageFamily;
-import com.ruoyi.village.service.IVillageFamilyService;
+import com.ruoyi.village.domain.Villagefamily;
+import com.ruoyi.village.service.IVillagefamilyService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,11 +24,11 @@ import java.util.List;
  **/
 @Controller
 @RequestMapping("/village/VillageFamily")
-public class VillageFamilyController extends BaseController {
+public class VillagefamilyController extends BaseController {
     private String prefix = "village/villagefamily";
 
     @Autowired
-    private IVillageFamilyService villagefamilyService;
+    private IVillagefamilyService villagefamilyService;
 
     @RequiresPermissions("village:villageFamily:view")
     @GetMapping()
@@ -45,7 +45,7 @@ public class VillageFamilyController extends BaseController {
     @Log(title = "小村家事", businessType = BusinessType.INSERT)
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(VillageFamily villageFamily)
+    public AjaxResult addSave(Villagefamily villageFamily)
     {
         return toAjax(villagefamilyService.insertvillagefamily(villageFamily));
     }
@@ -58,7 +58,7 @@ public class VillageFamilyController extends BaseController {
      */
     @GetMapping("/edit/{jsid}")
     public String edit(@PathVariable("jsid") Integer jsid , ModelMap mmap){
-        VillageFamily villageFamily = villagefamilyService.selectByfbid(jsid);
+        Villagefamily villageFamily = villagefamilyService.selectByfbid(jsid);
         mmap.put("villagefamily", villageFamily);
         return prefix + "/edit";
     }
@@ -69,7 +69,7 @@ public class VillageFamilyController extends BaseController {
     @Log(title = "小村家事", businessType = BusinessType.UPDATE)
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(VillageFamily villagefamily) {
+    public AjaxResult editSave(Villagefamily villagefamily) {
         System.out.println(villagefamily.toString());
         return toAjax(villagefamilyService.updatevillagefamily(villagefamily));}
 
@@ -80,9 +80,9 @@ public class VillageFamilyController extends BaseController {
     //@RequiresPermissions("village:villagefamily:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo List(VillageFamily villagefamily){
+    public TableDataInfo List(Villagefamily villagefamily){
         startPage();
-        List<VillageFamily> list = villagefamilyService.selectvillagefamilylist(villagefamily);
+        List<Villagefamily> list = villagefamilyService.selectvillagefamilylist(villagefamily);
         return getDataTable(list);
     }
 

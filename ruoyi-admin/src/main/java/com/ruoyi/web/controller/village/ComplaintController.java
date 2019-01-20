@@ -24,7 +24,7 @@ import java.util.List;
  * @create: 2019-01-14 16:04
  **/
 @Controller
-@RequestMapping("/village/Complaint")
+@RequestMapping("/village/complaint")
 public class ComplaintController extends BaseController {
 
     private String prefix = "village/complaint";
@@ -40,15 +40,15 @@ public class ComplaintController extends BaseController {
 
     /**
      * 投诉咨询列表
-     * @param complaint
+     * @param complaintmessages
      * @return
      */
-    //@RequiresPermissions("village:complaintsmessages:list")
+    @RequiresPermissions("village:complaint:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(Complaint complaint){
+    public TableDataInfo list(Complaint complaintmessages){
         startPage();
-        List<Complaint> list = complaintService.selectComplaintsList(complaint);
+        List<Complaint> list = complaintService.selectComplaintsList(complaintmessages);
         return getDataTable(list);
     }
 

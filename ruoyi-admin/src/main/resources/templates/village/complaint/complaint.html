@@ -56,7 +56,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('village:complaint:edit')}]];
         var removeFlag = [[${@permission.hasPermi('village:complaint:remove')}]];
-        var prefix = ctx + "village/Complaint";
+        var prefix = ctx + "village/complaint";
 
         $(function() {
             var options = {

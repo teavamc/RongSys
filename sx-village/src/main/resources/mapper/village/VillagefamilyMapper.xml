@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ruoyi.village.mapper.VillageFamilyMapper">
+<mapper namespace="com.ruoyi.village.mapper.VillagefamilyMapper">
 	<resultMap type="VillageFamily" id="VillageFamilyResultMap">
 		<id column="jsid" property="jsid"/>
 		<result column="title" property="title"/>
@@ -30,7 +30,7 @@
 		tb_xiaocun
 	</sql>
 	<!--获取所有投诉咨询 -->
-	<select id="selectVillageFamilyList" parameterType="com.ruoyi.village.domain.VillageFamily" resultMap="VillageFamilyResultMap">
+	<select id="selectVillageFamilyList" parameterType="com.ruoyi.village.domain.Villagefamily" resultMap="VillageFamilyResultMap">
 		select <include refid="Field"/>
 		from <include refid="tableName"/>
 		<where>
@@ -55,7 +55,7 @@
 		where jsid = #{jsid}
 	</select>
 	<!--修改数据-->
-	<update id="updateVillageFamily" parameterType="com.ruoyi.village.domain.VillageFamily">
+	<update id="updateVillageFamily" parameterType="com.ruoyi.village.domain.Villagefamily">
 		update <include refid="tableName"/>
 		<trim prefix="SET" suffixOverrides=",">
 			<if test="title != null  and title != ''  ">title = #{title},</if>
@@ -72,7 +72,7 @@
 		where jsid = #{jsid}
 	</update>
 	<!--插入数据-->
-	<insert id="insertVillageFamily" parameterType="com.ruoyi.village.domain.VillageFamily">
+	<insert id="insertVillageFamily" parameterType="com.ruoyi.village.domain.Villagefamily">
 		insert into <include refid="tableName"/>
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="title != null  and title != ''  ">title,</if>
