@@ -25,11 +25,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectPartyscoreVo">
-        select sfid, pid, pname, sex, birthday, partyjoindate, excellent, fine, qualified, unqualified, note, adddate, no, uid, uname, aid, remark from tb_partyscore
+        select pid,pname,sex,birthday,partyjoindate,
+		sum(excellent) as excellent,
+		sum(fine) as fine,
+		sum(qualified) as qualified,
+		sum(unqualified) as unqualified,
+		note,adddate,no,remark
+		from tb_partyscore
+      group by pid,pname,sex,birthday,partyjoindate,note
     </sql>
 	
     <select id="selectPartyscoreList" parameterType="Partyscore" resultMap="PartyscoreResult">
-        <include refid="selectPartyscoreVo"/>
+        select pid,pname,sex,birthday,partyjoindate,
+        sum(excellent) as excellent,
+        sum(fine) as fine,
+        sum(qualified) as qualified,
+        sum(unqualified) as unqualified,
+        note,adddate,no,remark
+        from tb_partyscore
         <where>  
             <if test="sfid != null "> and sfid = #{sfid}</if>
              <if test="pid != null "> and pid  LIKE CONCAT(CONCAT('%', #{pid}),'%')</if>
@@ -49,11 +62,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="aid != null  and aid != '' "> and aid  LIKE CONCAT(CONCAT('%', #{aid}),'%')</if>
              <if test="remark != null  and remark != '' "> and remark  LIKE CONCAT(CONCAT('%', #{remark}),'%')</if>
          </where>
+        group by pid,pname,sex,birthday,partyjoindate,note
     </select>
     
     <select id="selectPartyscoreById" parameterType="Integer" resultMap="PartyscoreResult">
-        <include refid="selectPartyscoreVo"/>
+         select pid,pname,sex,birthday,partyjoindate,
+		sum(excellent) as excellent,
+		sum(fine) as fine,
+		sum(qualified) as qualified,
+		sum(unqualified) as unqualified,
+		note,adddate,no,remark
+		from tb_partyscore
         where sfid = #{sfid}
+        group by pid,pname,sex,birthday,partyjoindate,note
     </select>
         
     <insert id="insertPartyscore" parameterType="Partyscore">
