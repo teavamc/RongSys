@@ -59,11 +59,19 @@ public class DruidConfig
         return DruidDataSourceBuilder.create().build();
     }
 
+    @Bean
+    @ConfigurationProperties("spring.datasource.druid.sxvillage")
+    @ConditionalOnProperty(prefix = "spring.datasource.druid.sxvillage", name = "enabled", havingValue = "true")
+    public DataSource sx_villageDataSource()
+    {
+        return DruidDataSourceBuilder.create().build();
+    }
+
     @Bean(name = "dynamicDataSource")
     @Primary
     public DynamicDataSource dataSource(DataSource masterDataSource, DataSource slaveDataSource,
                                         DataSource sx_userDataSource, DataSource sx_infomDataSource,
-                                        DataSource sx_rivervisDataSource)
+                                        DataSource sx_rivervisDataSource, DataSource sx_villageDataSource)
     {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
@@ -71,6 +79,7 @@ public class DruidConfig
         targetDataSources.put(DataSourceType.SXUSER.name(), sx_userDataSource);
         targetDataSources.put(DataSourceType.SXINFOM.name(), sx_infomDataSource);
         targetDataSources.put(DataSourceType.SXRIVERVIS.name(), sx_rivervisDataSource);
+        targetDataSources.put(DataSourceType.SXVILLAGE.name(), sx_villageDataSource);
         return new DynamicDataSource(masterDataSource, targetDataSources);
     }
 }

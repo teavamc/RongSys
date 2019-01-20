@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.ManagementMapper">
+    
+    <resultMap type="Management" id="ManagementResult">
+        <result property="tid"    column="tid"    />
+        <result property="supervisionUnit"    column="SupervisionUnit"    />
+        <result property="accountabilityUnit"    column="AccountabilityUnit"    />
+        <result property="longitude"    column="Longitude"    />
+        <result property="latitude"    column="Latitude"    />
+        <result property="families"    column="Families"    />
+        <result property="population"    column="Population"    />
+        <result property="twoOverlayMode"    column="TwoOverlayMode"    />
+        <result property="twoTransmitFrequency"    column="TwoTransmitFrequency"    />
+        <result property="twoOverlayNumber"    column="TwoOverlayNumber"    />
+        <result property="twoOverlayFamiles"    column="TwoOverlayFamiles"    />
+        <result property="twoOverlayPopulations"    column="TwoOverlayPopulations"    />
+        <result property="powerConsumption"    column="PowerConsumption"    />
+        <result property="otherTechnology"    column="OtherTechnology"    />
+        <result property="drillingPeriod"    column="DrillingPeriod"    />
+        <result property="standbyBattery"    column="StandbyBattery"    />
+        <result property="playbacksMode"    column="PlaybacksMode"    />
+        <result property="maintenanceFunds"    column="MaintenanceFunds"    />
+        <result property="remark"    column="Remark"    />
+        <result property="backupBatteryVoltage"    column="BackupBatteryVoltage"    />
+    </resultMap>
+
+    <resultMap type="Managementgps" id="ManagementgpsResult">
+        <result property="tid"    column="tid"    />
+        <result property="longitude"    column="Longitude"    />
+        <result property="latitude"    column="Latitude"    />
+    </resultMap>
+	
+	<sql id="selectManagementVo">
+        select tid, SupervisionUnit, AccountabilityUnit, Longitude, Latitude, Families, Population, TwoOverlayMode, TwoTransmitFrequency, TwoOverlayNumber, TwoOverlayFamiles, TwoOverlayPopulations, PowerConsumption, OtherTechnology, DrillingPeriod, StandbyBattery, PlaybacksMode, MaintenanceFunds, Remark, BackupBatteryVoltage from terminal_management
+    </sql>
+	
+    <select id="selectManagementList" parameterType="Management" resultMap="ManagementResult">
+        <include refid="selectManagementVo"/>
+        <where>  
+            <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
+             <if test="supervisionUnit != null  and supervisionUnit != '' "> and SupervisionUnit like '%${supervisionUnit}%'</if>
+             <if test="accountabilityUnit != null  and accountabilityUnit != '' "> and AccountabilityUnit like '%${accountabilityUnit}%'</if>
+             <if test="longitude != null "> and Longitude like '%${longitude}%'</if>
+             <if test="latitude != null "> and Latitude like '%${latitude}%'</if>
+             <if test="families != null "> and Families like '%${families}%'</if>
+             <if test="population != null "> and Population like '%${population}%'</if>
+             <if test="twoOverlayMode != null  and twoOverlayMode != '' "> and TwoOverlayMode like '%${twoOverlayMode}%'</if>
+             <if test="twoTransmitFrequency != null  and twoTransmitFrequency != '' "> and TwoTransmitFrequency like '%${twoTransmitFrequency}%'</if>
+             <if test="twoOverlayNumber != null "> and TwoOverlayNumber like '%${twoOverlayNumber}%'</if>
+             <if test="twoOverlayFamiles != null "> and TwoOverlayFamiles like '%${twoOverlayFamiles}%'</if>
+             <if test="twoOverlayPopulations != null "> and TwoOverlayPopulations like '%${twoOverlayPopulations}%'</if>
+             <if test="powerConsumption != null "> and PowerConsumption like '%${powerConsumption}%'</if>
+             <if test="otherTechnology != null  and otherTechnology != '' "> and OtherTechnology like '%${otherTechnology}%'</if>
+             <if test="drillingPeriod != null  and drillingPeriod != '' "> and DrillingPeriod like '%${drillingPeriod}%'</if>
+             <if test="standbyBattery != null  and standbyBattery != '' "> and StandbyBattery like '%${standbyBattery}%'</if>
+             <if test="playbacksMode != null  and playbacksMode != '' "> and PlaybacksMode like '%${playbacksMode}%'</if>
+             <if test="maintenanceFunds != null "> and MaintenanceFunds like '%${maintenanceFunds}%'</if>
+             <if test="remark != null  and remark != '' "> and Remark like '%${remark}%'</if>
+             <if test="backupBatteryVoltage != null "> and BackupBatteryVoltage like '%${backupBatteryVoltage}%'</if>
+         </where>
+    </select>
+    
+    <select id="selectManagementById" parameterType="String" resultMap="ManagementResult">
+        <include refid="selectManagementVo"/>
+        where tid = #{tid}
+    </select>
+
+    <select id="selectManagementByRandom" resultMap="ManagementgpsResult">
+        select tid,Longitude, Latitude from terminal_management
+        ORDER BY  RAND() LIMIT 100
+    </select>
+
+    <select id="selectManagementAll" resultMap="ManagementgpsResult">
+        select tid,Longitude, Latitude from terminal_management
+    </select>
+        
+    <insert id="insertManagement" parameterType="Management">
+        insert into terminal_management
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="tid != null  and tid != ''  ">tid,</if>
+			<if test="supervisionUnit != null  and supervisionUnit != ''  ">SupervisionUnit,</if>
+			<if test="accountabilityUnit != null  and accountabilityUnit != ''  ">AccountabilityUnit,</if>
+			<if test="longitude != null  ">Longitude,</if>
+			<if test="latitude != null  ">Latitude,</if>
+			<if test="families != null  ">Families,</if>
+			<if test="population != null  ">Population,</if>
+			<if test="twoOverlayMode != null  and twoOverlayMode != ''  ">TwoOverlayMode,</if>
+			<if test="twoTransmitFrequency != null  and twoTransmitFrequency != ''  ">TwoTransmitFrequency,</if>
+			<if test="twoOverlayNumber != null  ">TwoOverlayNumber,</if>
+			<if test="twoOverlayFamiles != null  ">TwoOverlayFamiles,</if>
+			<if test="twoOverlayPopulations != null  ">TwoOverlayPopulations,</if>
+			<if test="powerConsumption != null  ">PowerConsumption,</if>
+			<if test="otherTechnology != null  and otherTechnology != ''  ">OtherTechnology,</if>
+			<if test="drillingPeriod != null  and drillingPeriod != ''  ">DrillingPeriod,</if>
+			<if test="standbyBattery != null  and standbyBattery != ''  ">StandbyBattery,</if>
+			<if test="playbacksMode != null  and playbacksMode != ''  ">PlaybacksMode,</if>
+			<if test="maintenanceFunds != null  ">MaintenanceFunds,</if>
+			<if test="remark != null  and remark != ''  ">Remark,</if>
+			<if test="backupBatteryVoltage != null  ">BackupBatteryVoltage,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="tid != null  and tid != ''  ">#{tid},</if>
+			<if test="supervisionUnit != null  and supervisionUnit != ''  ">#{supervisionUnit},</if>
+			<if test="accountabilityUnit != null  and accountabilityUnit != ''  ">#{accountabilityUnit},</if>
+			<if test="longitude != null  ">#{longitude},</if>
+			<if test="latitude != null  ">#{latitude},</if>
+			<if test="families != null  ">#{families},</if>
+			<if test="population != null  ">#{population},</if>
+			<if test="twoOverlayMode != null  and twoOverlayMode != ''  ">#{twoOverlayMode},</if>
+			<if test="twoTransmitFrequency != null  and twoTransmitFrequency != ''  ">#{twoTransmitFrequency},</if>
+			<if test="twoOverlayNumber != null  ">#{twoOverlayNumber},</if>
+			<if test="twoOverlayFamiles != null  ">#{twoOverlayFamiles},</if>
+			<if test="twoOverlayPopulations != null  ">#{twoOverlayPopulations},</if>
+			<if test="powerConsumption != null  ">#{powerConsumption},</if>
+			<if test="otherTechnology != null  and otherTechnology != ''  ">#{otherTechnology},</if>
+			<if test="drillingPeriod != null  and drillingPeriod != ''  ">#{drillingPeriod},</if>
+			<if test="standbyBattery != null  and standbyBattery != ''  ">#{standbyBattery},</if>
+			<if test="playbacksMode != null  and playbacksMode != ''  ">#{playbacksMode},</if>
+			<if test="maintenanceFunds != null  ">#{maintenanceFunds},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="backupBatteryVoltage != null  ">#{backupBatteryVoltage},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateManagement" parameterType="Management">
+        update terminal_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supervisionUnit != null  and supervisionUnit != ''  ">SupervisionUnit = #{supervisionUnit},</if>
+            <if test="accountabilityUnit != null  and accountabilityUnit != ''  ">AccountabilityUnit = #{accountabilityUnit},</if>
+            <if test="longitude != null  ">Longitude = #{longitude},</if>
+            <if test="latitude != null  ">Latitude = #{latitude},</if>
+            <if test="families != null  ">Families = #{families},</if>
+            <if test="population != null  ">Population = #{population},</if>
+            <if test="twoOverlayMode != null  and twoOverlayMode != ''  ">TwoOverlayMode = #{twoOverlayMode},</if>
+            <if test="twoTransmitFrequency != null  and twoTransmitFrequency != ''  ">TwoTransmitFrequency = #{twoTransmitFrequency},</if>
+            <if test="twoOverlayNumber != null  ">TwoOverlayNumber = #{twoOverlayNumber},</if>
+            <if test="twoOverlayFamiles != null  ">TwoOverlayFamiles = #{twoOverlayFamiles},</if>
+            <if test="twoOverlayPopulations != null  ">TwoOverlayPopulations = #{twoOverlayPopulations},</if>
+            <if test="powerConsumption != null  ">PowerConsumption = #{powerConsumption},</if>
+            <if test="otherTechnology != null  and otherTechnology != ''  ">OtherTechnology = #{otherTechnology},</if>
+            <if test="drillingPeriod != null  and drillingPeriod != ''  ">DrillingPeriod = #{drillingPeriod},</if>
+            <if test="standbyBattery != null  and standbyBattery != ''  ">StandbyBattery = #{standbyBattery},</if>
+            <if test="playbacksMode != null  and playbacksMode != ''  ">PlaybacksMode = #{playbacksMode},</if>
+            <if test="maintenanceFunds != null  ">MaintenanceFunds = #{maintenanceFunds},</if>
+            <if test="remark != null  and remark != ''  ">Remark = #{remark},</if>
+            <if test="backupBatteryVoltage != null  ">BackupBatteryVoltage = #{backupBatteryVoltage},</if>
+        </trim>
+        where tid = #{tid}
+    </update>
+
+	<delete id="deleteManagementById" parameterType="String">
+        delete from terminal_management where tid = #{tid}
+    </delete>
+	
+    <delete id="deleteManagementByIds" parameterType="String">
+        delete from terminal_management where tid in 
+        <foreach item="tid" collection="array" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </delete>
+    
+</mapper>

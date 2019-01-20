@@ -22,15 +22,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectHighList" parameterType="High" resultMap="HighResult">
         <include refid="selectHighVo"/>
         <where>  
-            <if test="mhid != null "> and mhid = #{mhid}</if>
-             <if test="title != null  and title != '' "> and title = #{title}</if>
-             <if test="content != null  and content != '' "> and content = #{content}</if>
-             <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
-             <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
-             <if test="sendtime != null  and sendtime != '' "> and sendtime = #{sendtime}</if>
-             <if test="isread != null "> and isread = #{isread}</if>
-             <if test="senduserid != null  and senduserid != '' "> and senduserid = #{senduserid}</if>
+            <if test="mhid != null "> and mhid like '%${mhid}%'</if>
+             <if test="title != null  and title != '' "> and title like '%${title}%'</if>
+             <if test="content != null  and content != '' "> and content like '%${content}%'</if>
+             <if test="userid != null  and userid != '' "> and userid like '%${userid}%'</if>
+             <if test="aid != null  and aid != '' "> and aid like '%${aid}%'</if>
+             <if test="sendtime != null  and sendtime != '' "> and sendtime like '%${sendtime}%'</if>
+             <if test="isread != null "> and isread like '%${isread}%'</if>
+             <if test="senduserid != null  and senduserid != '' "> and senduserid like '%${senduserid}%'</if>
          </where>
+        ORDER BY sendtime DESC
     </select>
     
     <select id="selectHighById" parameterType="Integer" resultMap="HighResult">

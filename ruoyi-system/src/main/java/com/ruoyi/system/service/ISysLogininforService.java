@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+
+import com.ruoyi.system.domain.SysLoginIndex;
 import com.ruoyi.system.domain.SysLogininfor;
 
 /**
@@ -37,4 +39,11 @@ public interface ISysLogininforService
      * 清空系统登录日志
      */
     public void cleanLogininfor();
+
+    /**
+     * 获取最近的8条访客记录传给前端
+     *
+     * @return 结果
+     */
+    public List<SysLoginIndex> selectLoginLogforIndex();
 }

@@ -3,6 +3,8 @@ package com.ruoyi.web.controller.system;
 import java.util.List;
 
 import com.ruoyi.framework.web.domain.Server;
+import com.ruoyi.system.domain.SysLoginIndex;
+import com.ruoyi.system.service.ISysLogininforService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,6 +25,7 @@ public class SysIndexController extends BaseController
 {
     @Autowired
     private ISysMenuService menuService;
+    private ISysLogininforService logininforService;
 
     // 系统首页
     @GetMapping("/index")

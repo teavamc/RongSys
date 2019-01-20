@@ -1,9 +1,9 @@
 # 项目相关配置
 ruoyi:
   # 名称
-  name: Ruoyi
+  name: 融媒体平台
   # 版本
-  version: 3.1.0
+  version: 1.2.0
   # 版权年份
   copyrightYear: 2018
   # 文件上传路径
@@ -125,9 +125,9 @@ xss:
 # 代码生成
 gen: 
   # 作者
-  author: 张超
+  author: 张鸿权
   # 默认生成包路径 system 需改成自己的模块名称 如 system monitor tool
-  packageName: com.ruoyi.broad
+  packageName: com.ruoyi.village
   # 自动去除表前缀，默认是true
   autoRemovePre: true
   # 表前缀(类名不会包含表前缀)

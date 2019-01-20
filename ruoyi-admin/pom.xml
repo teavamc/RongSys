@@ -53,7 +53,21 @@
             <artifactId>sx-broad</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
-    </dependencies>
+
+        <!-- 村务模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-village</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
+        <!-- 村务模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-api</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+</dependencies>
 
     <build>
         <plugins>
