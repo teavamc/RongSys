@@ -31,7 +31,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("/village/SocialCircle")
-public class SocialCircleController extends BaseController {
+public class SocialcircleController extends BaseController {
 
     private String prefix = "village/socialCircle";
 
