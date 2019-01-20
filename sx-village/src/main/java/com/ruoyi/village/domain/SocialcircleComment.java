@@ -44,10 +44,10 @@ public class SocialcircleComment extends BaseEntity {
                 '}';
     }
 
-    public SocialCircleComment() {
+    public SocialcircleComment() {
     }
 
-    public SocialCircleComment(String coid, String pcid, String replyid,
+    public SocialcircleComment(String coid, String pcid, String replyid,
                                int uid, String ccontent, String issensitive,
                                String cdate, String aid, String to_uid) {
         this.coid = coid;
