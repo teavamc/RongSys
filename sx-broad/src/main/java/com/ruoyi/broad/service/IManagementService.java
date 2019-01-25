@@ -90,4 +90,13 @@ public interface IManagementService
 	 * @return com.ruoyi.broad.domain.Tersga
 	 */
 	public Tersga sumters();
+
+	/**
+	 * 按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return java.util.List<com.ruoyi.broad.domain.Tersga>
+	 */
+	public List<Tersga> sumterm();
 }

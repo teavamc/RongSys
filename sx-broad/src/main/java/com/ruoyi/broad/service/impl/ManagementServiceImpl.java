@@ -140,4 +140,17 @@ public class ManagementServiceImpl implements IManagementService
 	public Tersga sumters(){
 		return managementMapper.sumters();
 	}
+
+	/**
+	 * 按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return java.util.List<com.ruoyi.broad.domain.Tersga>
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Tersga> sumterm(){
+		return managementMapper.sumterm();
+	}
 }

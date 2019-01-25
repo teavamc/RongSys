@@ -17,6 +17,8 @@ public class Tersga {
     private int run;
     /** 停止数量 */
     private int down;
+    /** 维修数量 */
+    private int req;
 
     public String getAname() {
         return aname;
@@ -50,6 +52,14 @@ public class Tersga {
         this.down = down;
     }
 
+    public int getReq() {
+        return req;
+    }
+
+    public void setReq(int req) {
+        this.req = req;
+    }
+
     @Override
     public String toString() {
         return "Tersga{" +
@@ -57,6 +67,8 @@ public class Tersga {
                 ", sum=" + sum +
                 ", run=" + run +
                 ", down=" + down +
+                ", req=" + req +
                 '}';
     }
+
 }
