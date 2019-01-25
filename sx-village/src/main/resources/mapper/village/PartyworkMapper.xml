@@ -21,6 +21,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="selectPartyworkVo">
         select id, grouptype, uname, worktime, address, content, admin, note, adddate, aid, remark from tb_partywork
     </sql>
+
+    <select id="selectPartyworkListlimit5" resultMap="PartyworkResult">
+        <include refid="selectPartyworkVo"/>
+        order by worktime DESC
+        limit 0,5
+    </select>
 	
     <select id="selectPartyworkList" parameterType="Partywork" resultMap="PartyworkResult">
         <include refid="selectPartyworkVo"/>

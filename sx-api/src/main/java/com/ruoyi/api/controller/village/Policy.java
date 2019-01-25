@@ -16,13 +16,13 @@ import java.util.List;
 
 /**
  * 村务系统中系统公告功能的接口
- *
- * @author 张超
- */
+         *
+         * @author 张超
+        */
 @RestController
 @RequestMapping("/api/policy")
 @CrossOrigin
-public class policy extends BaseController {
+public class Policy extends BaseController {
 
     @Autowired
     private IPolicyinfoService policyinfoService;

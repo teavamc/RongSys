@@ -27,7 +27,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/gps")
 @CrossOrigin
-public class gps extends BaseController
+public class Gps extends BaseController
 {
     @Autowired
     private IManagementService managementService;
