@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.village.domain.Mcount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.MemberMapper;
@@ -89,5 +90,15 @@ public class MemberServiceImpl implements IMemberService
 	{
 		return memberMapper.deleteMemberByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 按组统计村民数据
+	 *
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public List<Mcount> countbygroup(){
+		return memberMapper.countbygroup();
+	}
 }
