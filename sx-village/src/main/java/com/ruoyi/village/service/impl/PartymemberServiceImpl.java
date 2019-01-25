@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.village.domain.Pmcount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.PartymemberMapper;
@@ -86,6 +87,17 @@ public class PartymemberServiceImpl implements IPartymemberService
 	public int deletePartymemberByIds(String ids)
 	{
 		return partymemberMapper.deletePartymemberByIds(Convert.toStrArray(ids));
+	}
+
+	/**
+	 * 按照地区统计党员信息
+	 *
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public List<Pmcount> countbygroup(){
+		return partymemberMapper.countbygroup();
 	}
 	
 }

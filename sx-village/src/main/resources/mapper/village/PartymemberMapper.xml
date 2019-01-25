@@ -21,10 +21,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="uid"    column="uid"    />
         <result property="wcid"    column="wcid"    />
     </resultMap>
+
+    <resultMap type="Pmcount" id="PmcountResult">
+        <result property="parea"    column="parea"    />
+        <result property="psum"    column="psum"    />
+        <result property="man"    column="man"    />
+        <result property="woman"    column="woman"    />
+    </resultMap>
 	
 	<sql id="selectPartymemberVo">
         select pid, aid, grouptype, uname, sex, nations, idcard, edulevel, birthday, partyjoindate, phone, address, notes, uid, wcid from myc_partymember
     </sql>
+
+    <select id="countbygroup" resultMap="PmcountResult">
+        select
+            grouptype as parea,
+            count(pid) as psum,
+            count(sex = '男' or null ) as man,
+            count(sex = '女' or null ) as woman
+        from myc_partymember
+        group by grouptype
+    </select>
 	
     <select id="selectPartymemberList" parameterType="Partymember" resultMap="PartymemberResult">
         <include refid="selectPartymemberVo"/>
