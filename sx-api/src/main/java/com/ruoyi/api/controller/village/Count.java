@@ -20,6 +20,13 @@ public class Count {
     @Autowired
     private IMemberService memberService;
 
+    /**
+        * 党员统计数据api
+        * @author 张超 teavamc
+        * @date 2019/1/25
+        * @param []
+        * @return com.ruoyi.api.domain.RongApiRes
+        */
     @RequestMapping("/pm")
     @CrossOrigin
     public RongApiRes countpm(){
@@ -27,6 +34,13 @@ public class Count {
     }
 
 
+    /**
+        * 村民统计数据接api
+        * @author 张超 teavamc
+        * @date 2019/1/25
+        * @param []
+        * @return com.ruoyi.api.domain.RongApiRes
+        */
     @RequestMapping("/m")
     @CrossOrigin
     public RongApiRes countm(){

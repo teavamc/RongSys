@@ -29,10 +29,12 @@ public class Policy extends BaseController {
 
 
     /**
-     * 按照时间排序查询最近的十条信息
-     *
-     * @author 张超
-     */
+        * 返回最近的十条政策公告
+        * @author 张超 teavamc
+        * @date 2019/1/25
+        * @param []
+        * @return com.ruoyi.api.domain.RongApiRes
+        */
     @GetMapping("/ten")
     @CrossOrigin
     public RongApiRes searchten()

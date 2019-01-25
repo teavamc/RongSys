@@ -12,6 +12,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createtime"    column="createtime"    />
         <result property="remark"    column="remark"    />
     </resultMap>
+
+    <resultMap type="Maintainx" id="MaintainxResult">
+        <result property="tid"    column="tid"    />
+        <result property="content"    column="content"    />
+        <result property="ctime"    column="ctime"    />
+        <result property="lo"    column="lo"    />
+        <result property="la"    column="la"    />
+    </resultMap>
 	
 	<sql id="selectMaintainVo">
         select tmid, tid, fault, mstaff, createtime, remark from terminal_maintain
@@ -34,6 +42,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectMaintainVo"/>
         where tmid = #{tmid}
     </select>
+
+    <select id="selectlal" resultMap="MaintainxResult">
+        select
+            terminal_maintain.tid as tid,
+            fault as content,
+            createtime as ctime,
+            terminal_management.Longitude as lo,
+            terminal_management.Latitude as la
+        from terminal_maintain,terminal_management
+        where terminal_maintain.tid = terminal_management.tid
+        order by createtime desc
+        limit 0,10
+    </select>
+
         
     <insert id="insertMaintain" parameterType="Maintain">
         insert into terminal_maintain
