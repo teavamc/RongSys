@@ -127,4 +127,17 @@ public class ManagementServiceImpl implements IManagementService
 	public List<Tersga> selecttersga(){
 		return managementMapper.selecttersga();
 	}
+
+	/**
+	 * 回传目前设备挂载总数,运行数，停止数
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return com.ruoyi.broad.domain.Tersga
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public Tersga sumters(){
+		return managementMapper.sumters();
+	}
 }

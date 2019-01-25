@@ -87,4 +87,13 @@ public interface ManagementMapper
 	    * @return java.util.List<com.ruoyi.broad.domain.Tersga>
 	    */
 	public List<Tersga> selecttersga();
+
+	/**
+	    * 回传目前设备挂载总数,运行数，停止数
+	    * @author 张超 teavamc
+	    * @date 2019/1/25
+	    * @param []
+	    * @return com.ruoyi.broad.domain.Tersga
+	    */
+	public Tersga sumters();
 }

@@ -47,7 +47,20 @@ public class Device {
         */
     @CrossOrigin
     @GetMapping("/tersga")
-    public RongApiRes Tersga(){
+    public RongApiRes tersgabyarea(){
         return RongApiService.get_list(managementService.selecttersga());
+    }
+
+    /**
+        * 回传目前设备挂载总数,运行数，停止数
+        * @author 张超 teavamc
+        * @date 2019/1/25
+        * @param []
+        * @return com.ruoyi.api.domain.RongApiRes
+        */
+    @CrossOrigin
+    @GetMapping("/sumters")
+    public RongApiRes sumters(){
+        return RongApiService.get_bean(managementService.sumters());
     }
 }

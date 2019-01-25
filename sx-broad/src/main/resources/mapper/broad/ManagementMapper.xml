@@ -179,4 +179,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where terminals.aid = area.aid
         group by area.aname
     </select>
+
+    <select id="sumters" resultMap="TersgaResult">
+        select
+            count(tid) as sum,
+            count(isuse = '1' or null) as run,
+            count(isuse = '0' or null) as down
+        from terminals
+    </select>
 </mapper>
