@@ -15,6 +15,13 @@ import java.util.List;
  */
 public class RongApiService {
 
+    /**
+        * 将其他业务中的List<HashMap(JavaBean)>进行统一封装成API-JSON数据
+        * @author 张超 teavamc
+        * @date 2019/1/25
+        * @param [list]
+        * @return com.ruoyi.api.domain.RongApiRes
+        */
     public static RongApiRes get_list(List list){
         RongApiRes res = new RongApiRes();
         if(list!=null&&!list.isEmpty()){

@@ -3,6 +3,7 @@ package com.ruoyi.broad.mapper;
 import com.ruoyi.broad.domain.Conditions;
 import com.ruoyi.broad.domain.Management;
 import com.ruoyi.broad.domain.Managementgps;
+import com.ruoyi.broad.domain.Tersga;
 
 import java.util.List;
 
@@ -78,4 +79,12 @@ public interface ManagementMapper
 	 */
 	public List<Managementgps> selectManagementAll();
 
+	/**
+	    * 按照终端地址进行运行状态的分组统计
+	    * @author 张超 teavamc
+	    * @date 2019/1/25
+	    * @param []
+	    * @return java.util.List<com.ruoyi.broad.domain.Tersga>
+	    */
+	public List<Tersga> selecttersga();
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import com.ruoyi.broad.domain.Managementgps;
+import com.ruoyi.broad.domain.Tersga;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -114,4 +115,16 @@ public class ManagementServiceImpl implements IManagementService
 		return managementMapper.selectManagementAll();
 	};
 
+	/**
+	 * 按照终端地址进行运行状态的分组统计
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return java.util.List<com.ruoyi.broad.domain.Tersga>
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Tersga> selecttersga(){
+		return managementMapper.selecttersga();
+	}
 }

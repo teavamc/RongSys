@@ -27,6 +27,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="backupBatteryVoltage"    column="BackupBatteryVoltage"    />
     </resultMap>
 
+    <resultMap type="Tersga" id="TersgaResult">
+        <result property="tid"    column="tid"    />
+        <result property="sum"    column="sum"    />
+        <result property="run"    column="run"    />
+        <result property="down"    column="down"    />
+    </resultMap>
+
     <resultMap type="Managementgps" id="ManagementgpsResult">
         <result property="tid"    column="tid"    />
         <result property="longitude"    column="Longitude"    />
@@ -161,5 +168,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{tid}
         </foreach>
     </delete>
-    
+
+    <select id="selecttersga" resultMap="TersgaResult">
+        select
+            area.aname,
+            count(terminals.tid) as sum,
+            count(terminals.isuse = '1' or null) as run,
+            count(terminals.isuse = '0' or null) as down
+        from terminals,area
+        where terminals.aid = area.aid
+        group by area.aname
+    </select>
 </mapper>
