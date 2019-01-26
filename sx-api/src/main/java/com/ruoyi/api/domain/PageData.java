@@ -4,6 +4,13 @@
 //
 //import java.util.*;
 //
+
+//注释原因，增加此工具类的目的是添加一个泛型JavaBean能够省去不必要的pojo模型类，但没时间做，暂时搁置
+
+//时间：2019-01-26
+// 张超
+
+
 ///**
 // * @author 张超 teavamc
 // * @Description:一个泛型JavaBean工具类，省去繁琐的Pojo操作
