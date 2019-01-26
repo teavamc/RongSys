@@ -211,13 +211,15 @@
                                         <th>用户</th>
                                         <th>IP地址</th>
                                         <th>登陆时间</th>
+                                        <th>登陆地点</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr th:each="log : ${loginlog}">
                                         <td th:text="${log.user_name}"></td>
-                                        <td th:class="${log.ipaddr}"></td>
-                                        <td th:class="${log.loginTime}"></td>
+                                        <td th:text="${log.ipaddr}"></td>
+                                        <td th:text="${log.loginTime}"></td>
+                                        <td th:text="${log.loginLocation}"></td>
                                     </tr>
                                     </tbody>
                                 </table>

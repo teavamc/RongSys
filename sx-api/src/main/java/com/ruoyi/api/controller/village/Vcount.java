@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/count")
 @CrossOrigin
 @Api(value = "村务模块 - 数据统计API类")
-public class Count {
+public class Vcount {
 
     @Autowired
     private IPartymemberService partymemberService;

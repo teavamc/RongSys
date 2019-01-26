@@ -25,6 +25,7 @@ public class SysIndexController extends BaseController
 {
     @Autowired
     private ISysMenuService menuService;
+    @Autowired
     private ISysLogininforService logininforService;
 
     // 系统首页
@@ -52,6 +53,7 @@ public class SysIndexController extends BaseController
             e.printStackTrace();
         }
         mmap.put("server", server);
+        mmap.put("loginlog",logininforService.selectLoginLogforIndex());
         mmap.put("version", Global.getVersion());
         return "main";
     }

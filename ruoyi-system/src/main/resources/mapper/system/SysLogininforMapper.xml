@@ -58,7 +58,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			sys_logininfor.ipaddr as ipaddr,
 			sys_logininfor.login_location as loginLocation,
 			sys_logininfor.browser as browser,
-			sys_logininfor.login_time as loginTime
+			date_format(sys_logininfor.login_time,'%m-%d %T %p') as loginTime
 		from
 			sys_logininfor,sys_user
 		where
