@@ -4,6 +4,8 @@ import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
 import com.ruoyi.broad.service.IMaintainService;
 import com.ruoyi.broad.service.IManagementService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/device")
 @CrossOrigin
+@Api(value = "应急广播模块 - 终端设备API类")
 public class Device {
 
     @Autowired
@@ -34,12 +37,13 @@ public class Device {
         */
     @CrossOrigin
     @GetMapping("/mlal")
+    @ApiOperation(value = "按照创建时间倒序的十条带有经纬度的维修设备记录")
     public RongApiRes maintianx(){
         return RongApiService.get_list(maintainService.selectlal());
     }
 
     /**
-        * :按照终端地址进行运行状态的分组统计
+        * 按照终端地址进行运行状态的分组统计
         * @author 张超 teavamc
         * @date 2019/1/25
         * @param []
@@ -47,6 +51,7 @@ public class Device {
         */
     @CrossOrigin
     @GetMapping("/tersga")
+    @ApiOperation(value = "按照终端地址进行运行状态的分组统计：总数，运行数，停止数")
     public RongApiRes tersgabyarea(){
         return RongApiService.get_list(managementService.selecttersga());
     }
@@ -60,12 +65,13 @@ public class Device {
      */
     @CrossOrigin
     @GetMapping("/sumters")
+    @ApiOperation(value = "回传目前设备挂载总数,运行数，停止数")
     public RongApiRes sumters(){
         return RongApiService.get_bean(managementService.sumters());
     }
 
     /**
-        * 按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量
+        * 按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量、维修数量
         * @author 张超 teavamc
         * @date 2019/1/25
         * @param []
@@ -73,6 +79,7 @@ public class Device {
         */
     @CrossOrigin
     @GetMapping("/sumterm")
+    @ApiOperation(value = "按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量、维修数量")
     public RongApiRes sumterm(){
         return RongApiService.get_list(managementService.sumterm());
     }
