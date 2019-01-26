@@ -7,6 +7,7 @@ import com.ruoyi.village.service.IMemberService;
 import com.ruoyi.village.service.IPartymemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,7 +28,7 @@ public class Count {
         * @param []
         * @return com.ruoyi.api.domain.RongApiRes
         */
-    @RequestMapping("/pm")
+    @GetMapping("/pm")
     @CrossOrigin
     public RongApiRes countpm(){
         return RongApiService.get_list(partymemberService.countbygroup());
@@ -41,7 +42,7 @@ public class Count {
         * @param []
         * @return com.ruoyi.api.domain.RongApiRes
         */
-    @RequestMapping("/m")
+    @GetMapping("/m")
     @CrossOrigin
     public RongApiRes countm(){
         return RongApiService.get_list(memberService.countbygroup());
