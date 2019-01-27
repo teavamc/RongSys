@@ -1,5 +1,6 @@
 package com.ruoyi.village.service;
 
+import com.ruoyi.village.domain.Mcount;
 import com.ruoyi.village.domain.Member;
 import java.util.List;
 
@@ -50,5 +51,11 @@ public interface IMemberService
      * @return 结果
      */
 	public int deleteMemberByIds(String ids);
-	
+
+	/**
+	 * 按组统计村民数据
+	 *
+	 * @return 结果
+	 */
+	public List<Mcount> countbygroup();
 }

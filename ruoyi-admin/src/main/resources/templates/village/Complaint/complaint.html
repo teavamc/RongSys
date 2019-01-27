@@ -56,7 +56,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('village:complaint:edit')}]];
         var removeFlag = [[${@permission.hasPermi('village:complaint:remove')}]];
-        var prefix = ctx + "village/Complaintsmessages";
+        var prefix = ctx + "village/complaint";
 
         $(function() {
             var options = {
@@ -127,17 +127,18 @@
 					field : 'remark', 
 					title : '是否有效',
 					sortable: true
-				},
-		        {
-		            title: '操作',
-		            align: 'center',
-		            formatter: function(value, row, index) {
-		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.fbid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.fbid + '\')"><i class="fa fa-remove"></i>删除</a>');
-						return actions.join('');
-		            }
-		        }]
+				}
+//				,{
+//		            title: '操作',
+//		            align: 'center',
+//		            formatter: function(value, row, index) {
+//		            	var actions = [];
+//		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.fbid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+//                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.fbid + '\')"><i class="fa fa-remove"></i>删除</a>');
+//						return actions.join('');
+//		            }
+//		        }
+		        ]
             };
             $.table.init(options);
         });

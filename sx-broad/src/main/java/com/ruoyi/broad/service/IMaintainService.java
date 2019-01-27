@@ -1,6 +1,8 @@
 package com.ruoyi.broad.service;
 
 import com.ruoyi.broad.domain.Maintain;
+import com.ruoyi.broad.domain.Maintainx;
+
 import java.util.List;
 
 /**
@@ -50,5 +52,14 @@ public interface IMaintainService
      * @return 结果
      */
 	public int deleteMaintainByIds(String ids);
+
+	/**
+	    * 连表查询设备维修记录和经纬度
+	    * @author 张超 teavamc
+	    * @date 2019/1/25
+	    * @param []
+	    * @return java.util.List<com.ruoyi.broad.domain.Maintainx>
+	    */
+	public List<Maintainx> selectlal();
 	
 }

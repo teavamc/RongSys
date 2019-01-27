@@ -2,6 +2,7 @@ package com.ruoyi.broad.service.impl;
 
 import java.util.List;
 
+import com.ruoyi.broad.domain.Maintainx;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,6 +87,20 @@ public class MaintainServiceImpl implements IMaintainService
 	public int deleteMaintainByIds(String ids)
 	{
 		return maintainMapper.deleteMaintainByIds(Convert.toStrArray(ids));
+	}
+
+
+	/**
+	 * 连表查询设备维修记录和经纬度
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return java.util.List<com.ruoyi.broad.domain.Maintainx>
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Maintainx> selectlal(){
+		return maintainMapper.selectlal();
 	}
 	
 }

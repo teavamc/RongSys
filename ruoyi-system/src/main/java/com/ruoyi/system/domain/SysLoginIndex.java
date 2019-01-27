@@ -32,7 +32,7 @@ public class SysLoginIndex extends BaseEntity
     private String browser;
 
     /** 访问时间 */
-    private Date loginTime;
+    private String loginTime;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -78,11 +78,11 @@ public class SysLoginIndex extends BaseEntity
     this.browser = browser;
 }
 
-    public Date getLoginTime() {
+    public String getLoginTime() {
         return loginTime;
     }
 
-    public void setLoginTime(Date loginTime) {
+    public void setLoginTime(String loginTime) {
         this.loginTime = loginTime;
     }
 

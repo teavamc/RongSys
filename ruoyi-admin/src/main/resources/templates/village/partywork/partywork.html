@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								党员小组：<input type="text" name="grouptype"/>
+							</li>
+
+							<li>
+								党员姓名：<input type="text" name="uname"/>
+							</li>
+
+							<li>
+								值班时间：<input type="text" name="worktime"/>
+							</li>
+
+							<li>
+								值班地点：<input type="text" name="address"/>
+							</li>
+
+							<li>
+								值班要求：<input type="text" name="content"/>
+							</li>
+
+							<li>
+								排班人：<input type="text" name="admin"/>
+							</li>
+
+							<li>
+								是否有效：<input type="text" name="remark"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:partywork:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="village:partywork:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:partywork:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="village:partywork:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('village:partywork:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('village:partywork:remove')}]];
+        var prefix = ctx + "village/partywork";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "党员值班",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'id', 
+					title : '数据编号',
+					visible: false
+				},
+				{
+					field : 'grouptype', 
+					title : '党员小组',
+					sortable: true
+				},
+				{
+					field : 'uname', 
+					title : '党员姓名',
+					sortable: true
+				},
+				{
+					field : 'worktime', 
+					title : '值班时间',
+					sortable: true
+				},
+				{
+					field : 'address', 
+					title : '值班地点',
+					sortable: true
+				},
+				{
+					field : 'content', 
+					title : '值班要求',
+					sortable: true
+				},
+				{
+					field : 'admin', 
+					title : '排班人',
+					sortable: true
+				},
+				{
+					field : 'note', 
+					title : '备注',
+					sortable: true
+				},
+				{
+					field : 'adddate', 
+					title : '添加时间',
+					sortable: true
+				},
+				{
+					field : 'remark', 
+					title : '是否有效',
+					sortable: true
+				}]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
