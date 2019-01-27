@@ -3,8 +3,10 @@ package com.ruoyi.broad.service.impl;
 import java.util.List;
 
 
+import com.ruoyi.broad.domain.Bindex;
 import com.ruoyi.broad.domain.Managementgps;
 import com.ruoyi.broad.domain.Tersga;
+import com.ruoyi.broad.mapper.BindexMapper;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class ManagementServiceImpl implements IManagementService
 {
 	@Autowired
 	private ManagementMapper managementMapper;
+	@Autowired
+	private BindexMapper bindexMapper;
 
 	/**
      * 查询终端管理信息
@@ -152,5 +156,18 @@ public class ManagementServiceImpl implements IManagementService
 	@DataSource(value = DataSourceType.SLAVE)
 	public List<Tersga> sumterm(){
 		return managementMapper.sumterm();
+	}
+
+	/**
+	 * 统计终端数，运行数，停止运行数
+	 * @author 张超 teavamc
+	 * @date 2019/1/26
+	 * @param []
+	 * @return com.ruoyi.broad.mapper.BindexMapper
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public Bindex count(){
+		return bindexMapper.count();
 	}
 }
