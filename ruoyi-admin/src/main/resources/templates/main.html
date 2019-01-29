@@ -52,7 +52,7 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 yellow-bg">
+                        <div class="widget style1 blue-bg">
                             <div class="row vertical-align">
                                 <div class="col-xs-3">
                                     <i class="fa fa-wrench fa-3x"></i>
@@ -64,6 +64,48 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        <div class="widget style1 blue-bg">
+                            <div class="row vertical-align">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-wrench fa-3x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <span> 终端设备停止数 </span>
+                                    <h2 class="font-bold">None</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="widget style1 blue-bg">
+                            <div class="row vertical-align">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-wrench fa-3x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <span> 终端设备停止数 </span>
+                                    <h2 class="font-bold">None</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="widget style1 blue-bg">
+                            <div class="row vertical-align">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-wrench fa-3x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <span> 终端设备停止数 </span>
+                                    <h2 class="font-bold">None</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
                     <div class="col-sm-2">
                         <div class="widget style1 navy-bg">
                             <div class="row vertical-align">
@@ -91,13 +133,52 @@
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 red-bg">
+                        <div class="widget style1 navy-bg">
                             <div class="row vertical-align">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-child fa-3x"></i>
+                                    <i class="fa fa-user-plus fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <span> 融媒体当前在线 </span>
+                                    <span> 村务新增用户 </span>
+                                    <h2 class="font-bold">None</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="widget style1 navy-bg">
+                            <div class="row vertical-align">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user-plus fa-3x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <span> 村务新增用户 </span>
+                                    <h2 class="font-bold">None</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="widget style1 navy-bg">
+                            <div class="row vertical-align">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user-plus fa-3x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <span> 村务新增用户 </span>
+                                    <h2 class="font-bold">None</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="widget style1 navy-bg">
+                            <div class="row vertical-align">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-user-plus fa-3x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <span> 村务新增用户 </span>
                                     <h2 class="font-bold">None</h2>
                                 </div>
                             </div>
@@ -106,7 +187,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-5">
                         <div class="ibox float-e-margins">
 
                             <div class="ibox-title">
@@ -119,7 +200,7 @@
 
                             <div class="ibox-content">
                                 <div class="row">
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <table class="table table-hover">
                                             <thead>
                                             <tr>
@@ -152,7 +233,7 @@
                                         </table>
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-6">
                                         <table class="table table-hover margin bottom">
                                             <thead>
                                             <tr>
@@ -168,8 +249,19 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-                                    <div class="col-sm-4">
+                    <div class="col-sm-3">
+                        <div class="col-sm-12">
+                            <div class="ibox float-e-margins">
+                                <div class="ibox-title">
+                                    <h5>资源使用率 </h5>
+                                </div>
+                                <div class="ibox-content">
+                                    <table class="table table-hover">
                                         <span class="badge badge-info">内存使用率</span>
                                         <h2 th:class="${server.mem.usage gt 80} ? 'text-danger'">[[${server.mem.usage}]]%</h2>
                                         <div class="progress progress-mini">
@@ -187,12 +279,11 @@
                                         <div class="progress progress-mini">
                                             <div th:style=" 'width:' + ${server.cpu.sys} + '%'" class="progress-bar"></div>
                                         </div>
-                                    </div>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
-
 
 
                     <div class="col-sm-4">
