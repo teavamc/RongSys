@@ -46,6 +46,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         group by grouptype
     </select>
 
+    <select id="countpm" resultType="HashMap">
+        select * from
+         (select
+              count(pid) as msum,
+              count(sex = '男' or null ) as mman,
+              count(sex = '女' or null ) as mwoman
+          from myc_member
+         ) as one,
+         (select
+              count(pid) as psum,
+              count(sex = '男' or null ) as pman,
+              count(sex = '女' or null ) as pwoman
+          from myc_partymember) as tow
+    </select>
+
 	
 	<sql id="selectMemberVo">
         select pid, aid, grouptype, gid, housename, name, sex, nation, relation, idcard, edulevel, birthday, address, phone1, phone2, jod, workplace, income, bankcard1, bankcard2, bankcard3, note from myc_member

@@ -1,5 +1,6 @@
 package com.ruoyi.village.service;
 
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.village.domain.Mcount;
 import com.ruoyi.village.domain.Member;
 import java.util.List;
@@ -58,4 +59,13 @@ public interface IMemberService
 	 * @return 结果
 	 */
 	public List<Mcount> countbygroup();
+
+	/**
+	 * 统计村民和党员总数/男/女
+	 * @author 张超 teavamc
+	 * @date 2019/1/30
+	 * @param []
+	 * @return java.util.List<com.ruoyi.common.utils.PageData>
+	 */
+	public List<PageData> countpm();
 }

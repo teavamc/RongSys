@@ -59,5 +59,18 @@ public class Vcount {
         return RongApiService.get_list(memberService.countbygroup());
     }
 
+    /**
+        * 统计村民和党员总数/男/女
+        * @author 张超 teavamc
+        * @date 2019/1/30
+        * @param []
+        * @return com.ruoyi.api.domain.RongApiRes
+        */
+    @GetMapping("/p_m")
+    @CrossOrigin
+    @ApiOperation(value = "统计村民和党员总数/男/女")
+    public RongApiRes countp_m(){
+        return RongApiService.get_list(memberService.countpm());
+    }
 
 }
