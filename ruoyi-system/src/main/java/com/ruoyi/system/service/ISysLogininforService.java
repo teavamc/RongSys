@@ -2,6 +2,7 @@ package com.ruoyi.system.service;
 
 import java.util.List;
 
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.system.domain.SysLoginIndex;
 import com.ruoyi.system.domain.SysLogininfor;
 
@@ -45,5 +46,5 @@ public interface ISysLogininforService
      *
      * @return 结果
      */
-    public List<SysLoginIndex> selectLoginLogforIndex();
+    public List<PageData> selectLoginLogforIndex();
 }

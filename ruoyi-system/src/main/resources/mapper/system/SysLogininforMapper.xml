@@ -51,7 +51,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 
-	<select id="selectLoginLogforIndex" resultMap="SysLoginIndexResult">
+	<select id="selectLoginLogforIndex" resultType="HashMap">
 		select
 			sys_logininfor.login_name as loginName,
 			sys_user.user_name as user_name,

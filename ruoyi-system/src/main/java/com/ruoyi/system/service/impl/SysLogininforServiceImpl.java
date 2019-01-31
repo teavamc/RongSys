@@ -2,6 +2,7 @@ package com.ruoyi.system.service.impl;
 
 import java.util.List;
 
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.system.domain.SysLoginIndex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +74,7 @@ public class SysLogininforServiceImpl implements ISysLogininforService
      * @return 结果
      */
     @Override
-    public List<SysLoginIndex> selectLoginLogforIndex()
+    public List<PageData> selectLoginLogforIndex()
     {
         return logininforMapper.selectLoginLogforIndex();
     }
