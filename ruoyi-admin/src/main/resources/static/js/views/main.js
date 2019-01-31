@@ -8,8 +8,10 @@ function onload() {
     init_sys_mon();
     //系统访问记录
     init_sys_loginlog();
-    //每3秒刷新系统监控数据
+    //每15秒刷新系统监控数据
     setInterval(init_sys_mon, 15000);
+    //每300秒刷新系统监控数据
+    setInterval(init_sys_loginlog, 300000);
 }
 
 function init_broad() {
@@ -144,18 +146,20 @@ function init_sys_loginlog() {
         url: "/api/sys_log/l_log",
         dataType: "json",
         success: function (data) {
+            $("#llog_flush_time").html('<span>' + data.time +
+                '</span>');
 
             var l_log = data.data;
             var log_info = '';
             for (log in l_log){
                 log_info += '<tr>' +
-                    '<td>' + log.user_name +
+                    '<td>' + l_log[log].user_name +
                     '</td>' +
-                    '<td>' + log.ipaddr +
+                    '<td>' + l_log[log].ipaddr +
                     '</td>' +
-                    '<td>' + log.loginTime +
+                    '<td>' + l_log[log].loginTime +
                     '</td>' +
-                    '<td>' + log.loginLocation +
+                    '<td>' + l_log[log].loginLocation +
                     '</td>' +
                     '</tr>';
             }
