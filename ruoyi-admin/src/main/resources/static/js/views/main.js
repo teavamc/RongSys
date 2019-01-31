@@ -8,6 +8,8 @@ function onload() {
     init_sys_mon();
     //系统访问记录
     init_sys_loginlog();
+    //首页图表1
+    init_ec_mbygroup();
     //每15秒刷新系统监控数据
     setInterval(init_sys_mon, 15000);
     //每300秒刷新系统监控数据
@@ -331,6 +333,69 @@ function flush_sys_mon() {
             //     $("#sys_cname").html(data.data.sys.computerName);
             //     $("#sys_osname").html(data.data.sys.osName);
 
+        }
+    })
+}
+
+function init_ec_mbygroup() {
+    $.ajax({
+        type: "GET",
+        url: "/api/count/m",
+        dataType: "json",
+        success: function (data) {
+            var mbygroup_data = data.data;
+            var x_data = new Array();
+            var y_data = new Array();
+            for( x in mbygroup_data){
+                if(mbygroup_data[x].marea == ''){
+                    x_data.push('未知');
+                }else {
+                    x_data.push(mbygroup_data[x].marea);
+                }
+            }
+            for (y in mbygroup_data){
+                y_data.push(mbygroup_data[y].msum);
+            }
+            var ec_mbygroup = echarts.init(document.getElementById('ec_mbygroup'));
+            ec_mbygroup_option = {
+                color: ['#ff3366'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '0%',
+                    right: '0%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : x_data,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'人口数量',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:y_data
+                    }
+                ]
+            };
+            ec_mbygroup.setOption(ec_mbygroup_option);
         }
     })
 }
