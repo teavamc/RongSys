@@ -26,8 +26,9 @@
 <body class="gray-bg" onload="onload()">
     <div class="row  border-bottom  dashboard-header">
             <div class="wrapper wrapper-content">
-                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_broad()">广播数据刷新</button>
-                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_village()">村务数据刷新</button>
+                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_broad()">刷新广播数据</button>
+                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_village()">刷新村务数据</button>
+                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_sys_mon()">刷新服务器数据</button>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="widget style1 blue-bg">
@@ -114,7 +115,7 @@
                         <div class="widget style1 navy-bg">
                             <div class="row vertical-align">
                                 <div class="col-xs-3">
-                                    <i class="fa fa-weixin fa-3x"></i>
+                                    <i class="fa fa-group fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <span>系统村民人数 </span>
@@ -196,62 +197,14 @@
 
                             <div class="ibox-title">
                                 <h5>服务器性能监控 </h5>
-                                <div class="ibox-tools">
-                                    <!--<h5 th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></h5>-->
-                                    <span th:text="${#dates.format(new java.util.Date().getTime(), 'yyyy-MM-dd hh:mm:ss')}"></span>
+                                <div id="mon_flush_time"  class="ibox-tools">
                                 </div>
                             </div>
 
                             <div class="ibox-content">
                                 <div class="row">
-                                    <div class="col-sm-6">
-                                        <table class="table table-hover">
-                                            <thead>
-                                            <tr>
-                                                <th>CPU属性</th>
-                                                <th>值</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                </td>
-                                                <td>核心数</td>
-                                                <td th:text="${server.cpu.cpuNum}" class="text-warning"> <i class="fa fa-level-up"></i>0</td>
-                                            </tr>
-                                            <tr>
-                                                </td>
-                                                <td>用户使用率</td>
-                                                <td th:text="${server.cpu.used + '%'}" class="text-navy"> <i class="fa fa-level-up"></i>0%</td>
-                                            </tr>
-                                            <tr>
-                                                </td>
-                                                <td>系统使用率</td>
-                                                <td th:text="${server.cpu.sys + '%'}" class="text-warning"> <i class="fa fa-level-down"></i>0%</td>
-                                            </tr>
-                                            <tr>
-                                                </td>
-                                                <td>当前空闲率</td>
-                                                <td th:text="${server.cpu.free + '%'}" class="text-navy"> <i class="fa fa-level-up"></i>0%</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-
-                                    <div class="col-sm-6">
-                                        <table class="table table-hover margin bottom">
-                                            <thead>
-                                            <tr>
-                                                <th>磁盘类型</th>
-                                                <th>已用百分比</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr th:each="sysFile : ${server.sysFiles}">
-                                                <td th:text="${sysFile.typeName}">local</td>
-                                                <td th:class="${sysFile.usage gt 80} ? 'text-danger'">[[${sysFile.usage}]]%</td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                    <div id="sys_mon_cpu" class="col-sm-6"></div>
+                                    <div id="sys_mon_disk" class="col-sm-6">
                                     </div>
                                 </div>
                             </div>
@@ -264,23 +217,7 @@
                                 <div class="ibox-title">
                                     <h5>资源使用率 </h5>
                                 </div>
-                                <div class="ibox-content">
-                                    <table class="table table-hover">
-                                        <h2 th:class="${server.mem.usage gt 80} ? 'text-danger'">内存：[[${server.mem.usage}]]%</h2>
-                                        <div class="progress progress-mini">
-                                            <div th:style=" 'width:' + ${server.mem.usage} + '%'" class="progress-bar"></div>
-                                        </div>
-                                        <br>
-                                        <h2 th:class="${server.jvm.usage gt 80} ? 'text-danger'">JVM：[[${server.jvm.usage}]]%</h2>
-                                        <div class="progress progress-mini">
-                                            <div th:style=" 'width:' + ${server.jvm.usage} + '%'" class="progress-bar"></div>
-                                        </div>
-                                        <br>
-                                        <h2 th:class="${server.cpu.sys gt 80} ? 'text-danger'">CPU：[[${server.cpu.sys}]]%</h2>
-                                        <div class="progress progress-mini">
-                                            <div th:style=" 'width:' + ${server.cpu.sys} + '%'" class="progress-bar"></div>
-                                        </div>
-                                    </table>
+                                <div id="sys_mon_line" class="ibox-content">
                                 </div>
                             </div>
                         </div>
@@ -292,33 +229,11 @@
                             <div class="ibox-title">
                                 <h5>最近登录记录 </h5>
                             </div>
-                            <div class="ibox-content">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>用户</th>
-                                        <th>IP地址</th>
-                                        <th>登陆时间</th>
-                                        <th>登陆地点</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="log : ${loginlog}">
-                                        <td th:text="${log.user_name}"></td>
-                                        <td th:text="${log.ipaddr}"></td>
-                                        <td th:text="${log.loginTime}"></td>
-                                        <td th:text="${log.loginLocation}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                            <div id="sys_login_log" class="ibox-content"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
 
 

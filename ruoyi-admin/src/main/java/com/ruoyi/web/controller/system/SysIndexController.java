@@ -24,8 +24,7 @@ public class SysIndexController extends BaseController
 {
     @Autowired
     private ISysMenuService menuService;
-    @Autowired
-    private ISysLogininforService logininforService;
+
 
 
 
@@ -47,15 +46,6 @@ public class SysIndexController extends BaseController
     @GetMapping("/system/main")
     public String main(ModelMap mmap)
     {
-        Server server = new Server();
-        try {
-            server.copyTo();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        mmap.put("server", server);
-        mmap.put("loginlog",logininforService.selectLoginLogforIndex());
-//        mmap.put("bindex",bindexService.countAny());
         mmap.put("version", Global.getVersion());
         return "main";
     }

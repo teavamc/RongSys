@@ -6,6 +6,7 @@ import com.ruoyi.broad.service.IManagementService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -44,5 +45,17 @@ public class RongApiService {
         }
         return res;
     }
+
+//    public static RongApiRes get_hashmap(Object obj){
+//        RongApiRes res = new RongApiRes();
+//
+//        if(obj!=null){
+//            res = res.success("已查询到1条数据");
+//            res.put("data",obj);
+//        }else {
+//            res = res.error("数据获取失败");
+//        }
+//        return res;
+//    }
 
 }
