@@ -492,31 +492,68 @@ function init_ec_pbygroup() {
 }
 
 function init_3d_v_pm() {
-    var pre_data_m,pre_data_pm;
+    var pre_data;
     var x_axis_name = new Array();
     var y_axis_name = new Array();
     var z_axis_data = new Array();
     var ec_3d_v_pm = echarts.init(document.getElementById('3d_v_pm'));
     $.ajax({
         type: "GET",
-        url: "/api/count/m",
-        dataType: "json",
-        success: function (data_m) {
-            pre_data_m = data_m.data;
-        }
-    });
-    $.ajax({
-        type: "GET",
-        url: "/api/count/pm",
+        url: "/api/count/g_cPM",
         dataType: "json",
         success: function (data_pm) {
-            pre_data_pm = data_pm.data;
+            pre_data = data_pm.data;
+            // Y坐标的数据类别
+            // 获得key值,包括area
+            var y_TEMP = Object.keys(pre_data[0]);
+            // 删除area之后的地域分类
+            y_TEMP.splice(arrIndex(y_TEMP,'area'),1);
+            console.log(y_TEMP);
+            //替换成中文名称
+            for ( item in y_TEMP){
+                if(y_TEMP[item].indexOf('p') == 0 ){
+                    y_TEMP[item] = y_TEMP[item].replace('p','党员');
+                    if(y_TEMP[item].indexOf('sum') >= 0){
+                        y_TEMP[item] = y_TEMP[item].replace('sum','总数');
+                    }else if(y_TEMP[item].indexOf('man') >= 0 && y_TEMP[item].indexOf('wo') < 0){
+                        y_TEMP[item] = y_TEMP[item].replace('man','男性');
+                    }else if(y_TEMP[item].indexOf('woman') >= 0 && y_TEMP[item].indexOf('wo') >= 0){
+                        y_TEMP[item] = y_TEMP[item].replace('woman','女性');
+                    }
+                }
+                if(y_TEMP[item].indexOf('m') == 0 ){
+                    y_TEMP[item] = y_TEMP[item].replace('m','村民');
+                    if(y_TEMP[item].indexOf('sum') >= 0){
+                        y_TEMP[item] = y_TEMP[item].replace('sum','总数');
+                    }else if(y_TEMP[item].indexOf('man') && y_TEMP[item].indexOf('wo') < 0){
+                        y_TEMP[item] = y_TEMP[item].replace('man','男性');
+                    }else if(y_TEMP[item].indexOf('woman') >= 0 && y_TEMP[item].indexOf('wo') >= 0){
+                        y_TEMP[item] = y_TEMP[item].replace('woman','女性');
+                    }
+                }
+            }
+            console.log(y_TEMP);
+            // X坐标的地名
+            for ( pm in pre_data){
+                x_axis_name.push(pre_data[pm].area);
+            }
+            console.log(x_axis_name);
         }
     });
-    for(m in pre_data_m){
-        if(pre_data_m[m].marea != ''){
-            x_axis_name.push(pre_data_m[m].marea);
+
+    //找到包含value的值 在arr数组中的下标
+    function arrIndex(arr, value) {
+        var i = arr.length;
+        while (i--) {
+            if (arr[i] === value) {
+                return i;
+            }
         }
+        return false;
+    }
+    
+    function f() {
+        
     }
 
 
