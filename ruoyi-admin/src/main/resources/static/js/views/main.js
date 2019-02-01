@@ -503,12 +503,29 @@ function init_3d_v_pm() {
         dataType: "json",
         success: function (data_pm) {
             pre_data = data_pm.data;
+            //确定Z轴的数值
+
             // Y坐标的数据类别
             // 获得key值,包括area
             var y_TEMP = Object.keys(pre_data[0]);
+            // X坐标的地名
+            for ( x_name in pre_data){
+                x_axis_name.push(pre_data[x_name].area);
+            }
+            // 外循环确定每次按地区遍历，按照x轴添加数据
+            for( z_data in pre_data){
+                //本次遍历的数据集X轴统一
+                var temp_areaGourp = x_axis_name.indexOf(pre_data[z_data]);
+                //去掉key为area 的map
+                pre_data[z_data].splice(0,1);
+                //内循环确定Y和Z的值
+                var i = pre_data[z_data].length;
+                while (i--){
+
+                }
+            }
             // 删除area之后的地域分类
             y_TEMP.splice(arrIndex(y_TEMP,'area'),1);
-            console.log(y_TEMP);
             //替换成中文名称
             for ( item in y_TEMP){
                 if(y_TEMP[item].indexOf('p') == 0 ){
@@ -531,13 +548,10 @@ function init_3d_v_pm() {
                         y_TEMP[item] = y_TEMP[item].replace('woman','女性');
                     }
                 }
-            }
-            console.log(y_TEMP);
-            // X坐标的地名
-            for ( pm in pre_data){
-                x_axis_name.push(pre_data[pm].area);
+                y_axis_name = y_TEMP;
             }
             console.log(x_axis_name);
+            console.log(y_axis_name);
         }
     });
 
