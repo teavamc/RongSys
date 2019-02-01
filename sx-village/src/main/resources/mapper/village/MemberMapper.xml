@@ -46,6 +46,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         group by grouptype
     </select>
 
+    <select id="groupAreaCountPM" resultType="HashMap">
+        select
+            m.area as area,
+            m.msum as msum,
+            m.mman as mman,
+            m.mwoman as mwoman,
+            p.psum as psum,
+            p.pwoman as pwoman,
+            p.pman as pman
+        from
+            (select
+                 grouptype as area,
+                 count(pid) as msum,
+                 count(sex = '男' or null ) as mman,
+                 count(sex = '女' or null ) as mwoman
+             from myc_member
+             group by grouptype) as m,
+            (select
+                 grouptype as area,
+                 count(pid) as psum,
+                 count(sex = '男' or null ) as pman,
+                 count(sex = '女' or null ) as pwoman
+             from myc_partymember
+             group by grouptype) as p
+        where
+            m.area = p.area
+    </select>
+
     <select id="countpm" resultType="HashMap">
         select * from
          (select

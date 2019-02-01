@@ -73,4 +73,11 @@ public class Vcount {
         return RongApiService.get_list(memberService.countpm());
     }
 
+    @GetMapping("/g_cPM")
+    @CrossOrigin
+    @ApiOperation(value = "按照地区类型返回村民和党员的总数/男性/女性")
+    public RongApiRes groupByAreaCountPM(){
+        return RongApiService.get_list(memberService.groupAreaCountPM());
+    }
+
 }

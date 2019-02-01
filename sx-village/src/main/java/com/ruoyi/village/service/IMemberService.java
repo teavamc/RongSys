@@ -68,4 +68,13 @@ public interface IMemberService
 	 * @return java.util.List<com.ruoyi.common.utils.PageData>
 	 */
 	public List<PageData> countpm();
+
+	/**
+	 * 按照地区类型返回村民和党员的总数/男性/女性
+	 * @author 张超 teavamc
+	 * @date 2019/2/1
+	 * @param []
+	 * @return java.util.List<com.ruoyi.common.utils.PageData>
+	 */
+	public List<PageData> groupAreaCountPM();
 }

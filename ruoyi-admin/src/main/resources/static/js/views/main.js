@@ -492,22 +492,33 @@ function init_ec_pbygroup() {
 }
 
 function init_3d_v_pm() {
+    var pre_data_m,pre_data_pm;
+    var x_axis_name = new Array();
+    var y_axis_name = new Array();
+    var z_axis_data = new Array();
     var ec_3d_v_pm = echarts.init(document.getElementById('3d_v_pm'));
     $.ajax({
         type: "GET",
         url: "/api/count/m",
         dataType: "json",
         success: function (data_m) {
+            pre_data_m = data_m.data;
         }
     });
-
     $.ajax({
         type: "GET",
         url: "/api/count/pm",
         dataType: "json",
         success: function (data_pm) {
+            pre_data_pm = data_pm.data;
         }
     });
+    for(m in pre_data_m){
+        if(pre_data_m[m].marea != ''){
+            x_axis_name.push(pre_data_m[m].marea);
+        }
+    }
+
 
     var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
                 '7a', '8a', '9a','10a','11a',
@@ -545,9 +556,13 @@ function init_3d_v_pm() {
         grid3D: {
             boxWidth: 200,
             boxDepth: 80,
+            viewControl: {
+                // projection: 'orthographic'
+            },
             light: {
                 main: {
-                    intensity: 1.2
+                    intensity: 1.2,
+                    shadow: true
                 },
                 ambient: {
                     intensity: 0.3
@@ -558,21 +573,16 @@ function init_3d_v_pm() {
             type: 'bar3D',
             data: data.map(function (item) {
                 return {
-                    value: [item[1], item[0], item[2]]
+                    value: [item[1], item[0], item[2]],
                 }
             }),
-            shading: 'color',
+            shading: 'lambert',
 
             label: {
-                show: false,
                 textStyle: {
                     fontSize: 16,
                     borderWidth: 1
                 }
-            },
-
-            itemStyle: {
-                opacity: 0.4
             },
 
             emphasis: {
