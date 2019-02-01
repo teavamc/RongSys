@@ -18,13 +18,16 @@
     <script th:src="@{/js/views/main.js}"></script>
     <!--echarts 可视化图形 插件-->
     <script th:src="@{/js/plugins/echarts/echarts.min.js}"></script>
+    <script th:src="@{/js/plugins/echarts/echarts-gl.min.js}"></script>
 </head>
 <body class="gray-bg" onload="onload()">
     <div class="row  border-bottom  dashboard-header">
             <div class="wrapper wrapper-content">
+                <button type="button" class="btn btn-w-m btn-warning" data-toggle="modal" data-target="#pop">系统说明</button>
                 <button type="button" class="btn btn-w-m btn-primary" onclick="flush_broad()">刷新广播数据</button>
                 <button type="button" class="btn btn-w-m btn-primary" onclick="flush_village()">刷新村务数据</button>
                 <button type="button" class="btn btn-w-m btn-primary" onclick="flush_sys_mon()">刷新服务器数据</button>
+                <div class="modal inmodal" id="pop" tabindex="-1" role="dialog" aria-hidden="true"></div>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="widget style1 blue-bg">
@@ -186,23 +189,44 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-9">
+                    <div class="col-sm-6">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>村镇地域人口可视化图表</h5>
+                                <h5>村镇村民人口地域分布可视化</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </div>
                             </div>
                             <div class="ibox-content">
                                 <div class="echarts" id="ec_mbygroup" ></div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-6">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h5>图表测试01</h5>
+                                <h5>村镇党员地域分布可视化</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </div>
                             </div>
                             <div class="ibox-content">
-                                <div class="echarts" id=""></div>
+                                <div class="echarts" id="ec_pbygroup"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>三维村镇人口可视化</h5>
+                                <div class="ibox-tools">
+                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="echarts" id="3d_v_pm"  style="height:500px;" ></div>
                             </div>
                         </div>
                     </div>
