@@ -506,21 +506,25 @@ function init_3d_v_pm() {
             pre_data = data_pm.data;
             var pg_temp = Object.keys(pre_data[0]);
             pg_temp.splice(arrIndex(pg_temp,'area'),1);
+            //重新确定人员分组的顺序(暂时写死）
+            pg_temp = ['pwoman','pman','psum','mwoman','mman','msum'];
+
+
             //确定area_group
             for ( area_name in pre_data){
                 area_group.push(pre_data[area_name].area);
             }
             //确定xyz_data
             for( pg_name in pre_data){
-                var y_d = area_group.indexOf(pre_data[pg_name].area);
+                var ag = area_group.indexOf(pre_data[pg_name].area);
                 var temp_data = pre_data[pg_name];
                 delete temp_data["area"];
                 var temp_keys = Object.keys(temp_data);
                 for(i=0;i<temp_keys.length;i++){
                     var this_key = temp_keys[i];
-                    var x_d = pg_temp.indexOf(temp_keys[i]);
-                    var z_d = temp_data[this_key];
-                    xyz_data.push([x_d,y_d,z_d])
+                    var pg = pg_temp.indexOf(temp_keys[i]);
+                    var z_value = temp_data[this_key];
+                    xyz_data.push([pg,ag,z_value])
                 }
             }
             //确定people_group
@@ -553,7 +557,13 @@ function init_3d_v_pm() {
             var p_cg = people_group;
             var data = xyz_data;
             ec_3d_v_pm_option = {
-                tooltip: {},
+                tooltip: {
+                    axisPointer :{
+                        label:{
+                            show: true
+                        }
+                    }
+                },
                 visualMap: {
                     max: 260,
                     inRange: {
@@ -574,8 +584,12 @@ function init_3d_v_pm() {
                 grid3D: {
                     boxWidth: 200,
                     boxDepth: 80,
+                    axisLabel: {
+                        interval: 0
+                    },
                     viewControl: {
                         // projection: 'orthographic'
+                        autoRotate: true
                     },
                     light: {
                         main: {
@@ -598,7 +612,7 @@ function init_3d_v_pm() {
 
                     label: {
                         textStyle: {
-                            fontSize: 16,
+                            fontSize: 12,
                             borderWidth: 1
                         }
                     },
