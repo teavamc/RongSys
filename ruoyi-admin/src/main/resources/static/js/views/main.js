@@ -16,6 +16,8 @@ function onload() {
     init_ec_pbygroup();
     //首页图表 三维村镇人口可视化
     init_3d_v_pm();
+    //首页图表 服务器性能可视化
+    init_3d_s_c();
     //每15秒刷新系统监控数据
     setInterval(init_sys_mon, 15000);
     //每300秒刷新系统监控数据
@@ -647,4 +649,55 @@ function init_3d_v_pm() {
     }
 
 
+}
+
+function init_3d_s_c() {
+    var ec_3d_s_c = echarts.init(document.getElementById('3d_s_c'));
+
+    var data = [];
+// Parametric curve
+    for (var t = 0; t < 25; t += 0.001) {
+        var x = (1 + 0.25 * Math.cos(75 * t)) * Math.cos(t);
+        var y = (1 + 0.25 * Math.cos(75 * t)) * Math.sin(t);
+        var z = t + 2.0 * Math.sin(75 * t);
+        data.push([x, y, z]);
+    }
+    console.log(data.length);
+
+    ec_3d_s_c_option = {
+        tooltip: {},
+        backgroundColor: '#fff',
+        visualMap: {
+            show: false,
+            dimension: 2,
+            min: 0,
+            max: 30,
+            inRange: {
+                color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+            }
+        },
+        xAxis3D: {
+            type: 'value'
+        },
+        yAxis3D: {
+            type: 'value'
+        },
+        zAxis3D: {
+            type: 'value'
+        },
+        grid3D: {
+            viewControl: {
+                projection: 'orthographic',
+                autoRotate: true
+            }
+        },
+        series: [{
+            type: 'line3D',
+            data: data,
+            lineStyle: {
+                width: 4
+            }
+        }]
+    };
+    ec_3d_s_c.setOption(ec_3d_s_c_option);
 }
