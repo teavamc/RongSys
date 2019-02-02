@@ -493,79 +493,131 @@ function init_ec_pbygroup() {
 
 function init_3d_v_pm() {
     var pre_data;
-    var x_axis_name = new Array();
-    var y_axis_name = new Array();
-    var z_axis_data = new Array();
+    var area_group = new Array();
+    var people_group = new Array();
+    var xyz_data = new Array();
     var ec_3d_v_pm = echarts.init(document.getElementById('3d_v_pm'));
+
     $.ajax({
         type: "GET",
         url: "/api/count/g_cPM",
         dataType: "json",
         success: function (data_pm) {
             pre_data = data_pm.data;
-            //确定Z轴的数值
-
-            // Y坐标的数据类别
-            // 获得key值,包括area
-            var y_TEMP = Object.keys(pre_data[0]);
-            // 删除area之后的地域分类
-            y_TEMP.splice(arrIndex(y_TEMP,'area'),1);
-            // X坐标的地名
-            for ( x_name in pre_data){
-                x_axis_name.push(pre_data[x_name].area);
+            var pg_temp = Object.keys(pre_data[0]);
+            pg_temp.splice(arrIndex(pg_temp,'area'),1);
+            //确定area_group
+            for ( area_name in pre_data){
+                area_group.push(pre_data[area_name].area);
             }
-            // 外循环确定每次按地区遍历，按照x轴添加数据
-            for( z_data in pre_data){
-                //本次遍历的数据集X轴统一
-                var temp_areaGourp = x_axis_name.indexOf(pre_data[z_data]);
-                //去掉key为area 的map
-                var temp_data = pre_data[z_data];
+            //确定xyz_data
+            for( pg_name in pre_data){
+                var y_d = area_group.indexOf(pre_data[pg_name].area);
+                var temp_data = pre_data[pg_name];
                 delete temp_data["area"];
-                //打印1
-                console.log(temp_data);
-
-                //
-                // 问题原因，应该作为MAP对象去操作
-                //
-
-                //内循环确定Y和Z的值
-                var i = temp_data.length;
-                console.log(i);
-                while (i--){
-                    //本次循环map中的key值
-                    var temp_key = Object.keys(temp_data[i]);
-                    //key值对应Y轴的序号，也作为Y坐标值
-                    y_axis_name = y_TEMP.indexOf(temp_key);
-                    z_axis_data.push([temp_areaGourp,y_axis_name,temp_data[i].temp_key]);
+                var temp_keys = Object.keys(temp_data);
+                for(i=0;i<temp_keys.length;i++){
+                    var this_key = temp_keys[i];
+                    var x_d = pg_temp.indexOf(temp_keys[i]);
+                    var z_d = temp_data[this_key];
+                    xyz_data.push([x_d,y_d,z_d])
                 }
             }
-            //替换成中文名称
-            for ( item in y_TEMP){
-                if(y_TEMP[item].indexOf('p') == 0 ){
-                    y_TEMP[item] = y_TEMP[item].replace('p','党员');
-                    if(y_TEMP[item].indexOf('sum') >= 0){
-                        y_TEMP[item] = y_TEMP[item].replace('sum','总数');
-                    }else if(y_TEMP[item].indexOf('man') >= 0 && y_TEMP[item].indexOf('wo') < 0){
-                        y_TEMP[item] = y_TEMP[item].replace('man','男性');
-                    }else if(y_TEMP[item].indexOf('woman') >= 0 && y_TEMP[item].indexOf('wo') >= 0){
-                        y_TEMP[item] = y_TEMP[item].replace('woman','女性');
+            //确定people_group
+            // 英文 - 中文替换
+            for ( item in pg_temp){
+                if(pg_temp[item].indexOf('p') == 0 ){
+                    pg_temp[item] = pg_temp[item].replace('p','党员');
+                    if(pg_temp[item].indexOf('sum') >= 0){
+                        pg_temp[item] = pg_temp[item].replace('sum','总数');
+                    }else if(pg_temp[item].indexOf('man') >= 0 && pg_temp[item].indexOf('wo') < 0){
+                        pg_temp[item] = pg_temp[item].replace('man','男性');
+                    }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
+                        pg_temp[item] = pg_temp[item].replace('woman','女性');
                     }
                 }
-                if(y_TEMP[item].indexOf('m') == 0 ){
-                    y_TEMP[item] = y_TEMP[item].replace('m','村民');
-                    if(y_TEMP[item].indexOf('sum') >= 0){
-                        y_TEMP[item] = y_TEMP[item].replace('sum','总数');
-                    }else if(y_TEMP[item].indexOf('man') && y_TEMP[item].indexOf('wo') < 0){
-                        y_TEMP[item] = y_TEMP[item].replace('man','男性');
-                    }else if(y_TEMP[item].indexOf('woman') >= 0 && y_TEMP[item].indexOf('wo') >= 0){
-                        y_TEMP[item] = y_TEMP[item].replace('woman','女性');
+                if(pg_temp[item].indexOf('m') == 0 ){
+                    pg_temp[item] = pg_temp[item].replace('m','村民');
+                    if(pg_temp[item].indexOf('sum') >= 0){
+                        pg_temp[item] = pg_temp[item].replace('sum','总数');
+                    }else if(pg_temp[item].indexOf('man') && pg_temp[item].indexOf('wo') < 0){
+                        pg_temp[item] = pg_temp[item].replace('man','男性');
+                    }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
+                        pg_temp[item] = pg_temp[item].replace('woman','女性');
                     }
                 }
-                y_axis_name = y_TEMP;
+                people_group = pg_temp;
             }
-            console.log(x_axis_name);
-            console.log(y_axis_name);
-            console.log(z_axis_data);
+            //确定3D_EC 坐标系与数据
+            var g_cg =area_group;
+            var p_cg = people_group;
+            var data = xyz_data;
+            ec_3d_v_pm_option = {
+                tooltip: {},
+                visualMap: {
+                    max: 260,
+                    inRange: {
+                        color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                    }
+                },
+                xAxis3D: {
+                    type: 'category',
+                    data: g_cg
+                },
+                yAxis3D: {
+                    type: 'category',
+                    data: p_cg
+                },
+                zAxis3D: {
+                    type: 'value'
+                },
+                grid3D: {
+                    boxWidth: 200,
+                    boxDepth: 80,
+                    viewControl: {
+                        // projection: 'orthographic'
+                    },
+                    light: {
+                        main: {
+                            intensity: 1.2,
+                            shadow: true
+                        },
+                        ambient: {
+                            intensity: 0.3
+                        }
+                    }
+                },
+                series: [{
+                    type: 'bar3D',
+                    data: data.map(function (item) {
+                        return {
+                            value: [item[1], item[0], item[2]],
+                        }
+                    }),
+                    shading: 'lambert',
+
+                    label: {
+                        textStyle: {
+                            fontSize: 16,
+                            borderWidth: 1
+                        }
+                    },
+
+                    emphasis: {
+                        label: {
+                            textStyle: {
+                                fontSize: 20,
+                                color: '#900'
+                            }
+                        },
+                        itemStyle: {
+                            color: '#900'
+                        }
+                    }
+                }]
+            };
+            ec_3d_v_pm.setOption(ec_3d_v_pm_option);
+
         }
     });
 
@@ -579,89 +631,6 @@ function init_3d_v_pm() {
         }
         return false;
     }
-    
-    function f() {
-        
-    }
 
 
-    var hours = ['12a', '1a', '2a', '3a', '4a', '5a', '6a',
-                '7a', '8a', '9a','10a','11a',
-                '12p', '1p', '2p', '3p', '4p', '5p',
-                '6p', '7p', '8p', '9p', '10p', '11p'];
-    var days = ['Saturday', 'Friday', 'Thursday',
-        'Wednesday', 'Tuesday', 'Monday', 'Sunday'];
-
-    var data = [[0,0,5],[0,1,1],[0,2,0],[0,3,0],[0,4,0],[0,5,0],[0,6,0],[0,7,0],[0,8,0],[0,9,0],[0,10,0],[0,11,2],[0,12,4],[0,13,1],[0,14,1],[0,15,3],[0,16,4],[0,17,6],[0,18,4],[0,19,4],[0,20,3],[0,21,3],[0,22,2],[0,23,5],
-                [1,0,7],[1,1,0],[1,2,0],[1,3,0],[1,4,0],[1,5,0],[1,6,0],[1,7,0],[1,8,0],[1,9,0],[1,10,5],[1,11,2],[1,12,2],[1,13,6],[1,14,9],[1,15,11],[1,16,6],[1,17,7],[1,18,8],[1,19,12],[1,20,5],[1,21,5],[1,22,7],[1,23,2],
-                [2,0,1],[2,1,1],[2,2,0],[2,3,0],[2,4,0],[2,5,0],[2,6,0],[2,7,0],[2,8,0],[2,9,0],[2,10,3],[2,11,2],[2,12,1],[2,13,9],[2,14,8],[2,15,10],[2,16,6],[2,17,5],[2,18,5],[2,19,5],[2,20,7],[2,21,4],[2,22,2],[2,23,4],
-                [3,0,7],[3,1,3],[3,2,0],[3,3,0],[3,4,0],[3,5,0],[3,6,0],[3,7,0],[3,8,1],[3,9,0],[3,10,5],[3,11,4],[3,12,7],[3,13,14],[3,14,13],[3,15,12],[3,16,9],[3,17,5],[3,18,5],[3,19,10],[3,20,6],[3,21,4],[3,22,4],[3,23,1],
-                [4,0,1],[4,1,3],[4,2,0],[4,3,0],[4,4,0],[4,5,1],[4,6,0],[4,7,0],[4,8,0],[4,9,2],[4,10,4],[4,11,4],[4,12,2],[4,13,4],[4,14,4],[4,15,14],[4,16,12],[4,17,1],[4,18,8],[4,19,5],[4,20,3],[4,21,7],[4,22,3],[4,23,0],
-                [5,0,2],[5,1,1],[5,2,0],[5,3,3],[5,4,0],[5,5,0],[5,6,0],[5,7,0],[5,8,2],[5,9,0],[5,10,4],[5,11,1],[5,12,5],[5,13,10],[5,14,5],[5,15,7],[5,16,11],[5,17,6],[5,18,0],[5,19,5],[5,20,3],[5,21,4],[5,22,2],[5,23,0],
-                [6,0,1],[6,1,0],[6,2,0],[6,3,0],[6,4,0],[6,5,0],[6,6,0],[6,7,0],[6,8,0],[6,9,0],[6,10,1],[6,11,0],[6,12,2],[6,13,1],[6,14,3],[6,15,4],[6,16,0],[6,17,0],[6,18,0],[6,19,0],[6,20,1],[6,21,2],[6,22,2],[6,23,6]];
-    ec_3d_v_pm_option = {
-        tooltip: {},
-        visualMap: {
-            max: 20,
-            inRange: {
-                color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
-            }
-        },
-        xAxis3D: {
-            type: 'category',
-            data: hours
-        },
-        yAxis3D: {
-            type: 'category',
-            data: days
-        },
-        zAxis3D: {
-            type: 'value'
-        },
-        grid3D: {
-            boxWidth: 200,
-            boxDepth: 80,
-            viewControl: {
-                // projection: 'orthographic'
-            },
-            light: {
-                main: {
-                    intensity: 1.2,
-                    shadow: true
-                },
-                ambient: {
-                    intensity: 0.3
-                }
-            }
-        },
-        series: [{
-            type: 'bar3D',
-            data: data.map(function (item) {
-                return {
-                    value: [item[1], item[0], item[2]],
-                }
-            }),
-            shading: 'lambert',
-
-            label: {
-                textStyle: {
-                    fontSize: 16,
-                    borderWidth: 1
-                }
-            },
-
-            emphasis: {
-                label: {
-                    textStyle: {
-                        fontSize: 20,
-                        color: '#900'
-                    }
-                },
-                itemStyle: {
-                    color: '#900'
-                }
-            }
-        }]
-    };
-    ec_3d_v_pm.setOption(ec_3d_v_pm_option);
 }
