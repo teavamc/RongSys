@@ -16,8 +16,10 @@ function onload() {
     init_ec_pbygroup();
     //首页图表 三维村镇人口可视化
     init_3d_v_pm();
+    //首页图表 三维广播分布可视化
+    init_3d_bt();
     //首页图表 服务器性能可视化
-    init_3d_s_c();
+    // init_3d_s_c();
     //每15秒刷新系统监控数据
     setInterval(init_sys_mon, 15000);
     //每300秒刷新系统监控数据
@@ -636,19 +638,6 @@ function init_3d_v_pm() {
 
         }
     });
-
-    //找到包含value的值 在arr数组中的下标
-    function arrIndex(arr, value) {
-        var i = arr.length;
-        while (i--) {
-            if (arr[i] === value) {
-                return i;
-            }
-        }
-        return false;
-    }
-
-
 }
 
 function init_3d_s_c() {
@@ -700,4 +689,164 @@ function init_3d_s_c() {
         }]
     };
     ec_3d_s_c.setOption(ec_3d_s_c_option);
+}
+
+function init_3d_bt() {
+
+    var pre_data;
+    var area_group = new Array();
+    var data_group = new Array();
+    var xyz_data = new Array();
+    var ec_3d_bt= echarts.init(document.getElementById('3d_bt'));
+    var ec_bt_sum = echarts.init(document.getElementById('bt_sum'));
+
+    $.ajax({
+        type: "GET",
+        url: "/api/device/sumterm",
+        dataType: "json",
+        success: function (data_bt) {
+            pre_data = data_bt.data;
+            var dp_temp = ['down','req','run','sum'];
+            //确定area_group
+            for ( area_name in pre_data){
+                area_group.push(pre_data[area_name].aname);
+            }
+            //确定xyz_data
+            for( pg_name in pre_data){
+                var ag = area_group.indexOf(pre_data[pg_name].aname);
+                var temp_data = pre_data[pg_name];
+                delete temp_data["aname"];
+                var temp_keys = Object.keys(temp_data);
+                for(i=0;i<temp_keys.length;i++){
+                    var this_key = temp_keys[i];
+                    var pg = dp_temp.indexOf(temp_keys[i]);
+                    var z_value = temp_data[this_key];
+                    xyz_data.push([pg,ag,z_value])
+                }
+            }
+
+            // 英文 - 中文替换
+            for ( item in dp_temp){
+                if(dp_temp[item].indexOf('sum') >= 0 ){
+                    dp_temp[item] = dp_temp[item].replace('sum','设备总数');
+                }else if(dp_temp[item].indexOf('run') >= 0 ){
+                    dp_temp[item] = dp_temp[item].replace('run','运行数');
+                }else if (dp_temp[item].indexOf('down') >= 0 ) {
+                    dp_temp[item] = dp_temp[item].replace('down','停止数');
+                }else if(dp_temp[item].indexOf('req') >= 0){
+                    dp_temp[item] = dp_temp[item].replace('req','维修数');
+                }
+                data_group = dp_temp;
+            }
+
+            //确定3D_EC 坐标系与数据
+            var a_cg =area_group;
+            var data_cg = data_group;
+            var data = xyz_data;
+            ec_3d_bt_option = {
+                tooltip: {
+                    axisPointer :{
+                        label:{
+                            show: true
+                        }
+                    }
+                },
+                visualMap: {
+                    max: 260,
+                    inRange: {
+                        color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                    }
+                },
+                xAxis3D: {
+                    type: 'category',
+                    data: a_cg
+                },
+                yAxis3D: {
+                    type: 'category',
+                    data: data_cg
+                },
+                zAxis3D: {
+                    type: 'value'
+                },
+                grid3D: {
+                    boxWidth: 200,
+                    boxDepth: 80,
+                    axisLabel: {
+                        interval: 0
+                    },
+                    viewControl: {
+                        // projection: 'orthographic'
+                        autoRotate: true
+                    },
+                    light: {
+                        main: {
+                            intensity: 1.2,
+                            shadow: true
+                        },
+                        ambient: {
+                            intensity: 0.3
+                        }
+                    }
+                },
+                series: [{
+                    type: 'bar3D',
+                    data: data.map(function (item) {
+                        return {
+                            value: [item[1], item[0], item[2]],
+                        }
+                    }),
+                    shading: 'lambert',
+
+                    label: {
+                        textStyle: {
+                            fontSize: 12,
+                            borderWidth: 1
+                        }
+                    },
+
+                    emphasis: {
+                        label: {
+                            textStyle: {
+                                fontSize: 20,
+                                color: '#900'
+                            }
+                        },
+                        itemStyle: {
+                            color: '#900'
+                        }
+                    }
+                }]
+            };
+            ec_3d_bt.setOption(ec_3d_bt_option);
+
+            // 二维图表 广播地域分布可视化
+            var x_data = new Array();
+            var y_data = new Array();
+            for( x in mbygroup_data){
+                if(mbygroup_data[x].parea == ''){
+                    x_data.push('未知');
+                }else {
+                    x_data.push(mbygroup_data[x].parea);
+                }
+            }
+            for (y in mbygroup_data){
+                y_data.push(mbygroup_data[y].psum);
+            }
+            ec_bt_sum_option = {};
+            ec_bt_sum.setOption(ec_bt_sum_option);
+
+        }
+    })
+
+}
+
+//找到包含value的值 在arr数组中的下标
+function arrIndex(arr, value) {
+    var i = arr.length;
+    while (i--) {
+        if (arr[i] === value) {
+            return i;
+        }
+    }
+    return false;
 }
