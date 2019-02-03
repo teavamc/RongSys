@@ -50,6 +50,7 @@
 		<module>sx-broad</module>
         <module>sx-village</module>
         <module>sx-api</module>
+        <module>sx-broadWebSocket</module>
     </modules>
     <packaging>pom</packaging>
 
