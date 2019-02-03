@@ -571,7 +571,7 @@ function init_3d_v_pm() {
                 visualMap: {
                     max: 260,
                     inRange: {
-                        color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                        color: ['#CD3333','#FF3030', '#FF7F50', '#FFB90F','#FFF68F','#FFFF00']
                     }
                 },
                 xAxis3D: {
@@ -754,7 +754,7 @@ function init_3d_bt() {
                 visualMap: {
                     max: 260,
                     inRange: {
-                        color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                        color: ['#00868B','#00CD00', '#00FA9A', '#00CED1','#00F5FF','#00FFFF']
                     }
                 },
                 xAxis3D: {
@@ -769,7 +769,7 @@ function init_3d_bt() {
                     type: 'value'
                 },
                 grid3D: {
-                    boxWidth: 200,
+                    boxWidth: 300,
                     boxDepth: 80,
                     axisLabel: {
                         interval: 0
@@ -831,7 +831,7 @@ function init_3d_bt() {
                 tooltip : {
                     trigger: 'axis',
                     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                        type : 'cross'        // 默认为直线，可选为：'line' | 'shadow'
                     }
                 },
                 grid: {
