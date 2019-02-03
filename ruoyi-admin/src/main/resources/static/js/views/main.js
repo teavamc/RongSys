@@ -820,19 +820,50 @@ function init_3d_bt() {
             ec_3d_bt.setOption(ec_3d_bt_option);
 
             // 二维图表 广播地域分布可视化
-            var x_data = new Array();
+            var x_data = area_group;
             var y_data = new Array();
-            for( x in mbygroup_data){
-                if(mbygroup_data[x].parea == ''){
-                    x_data.push('未知');
-                }else {
-                    x_data.push(mbygroup_data[x].parea);
-                }
+
+            for (y in pre_data){
+                y_data.push(pre_data[y].sum);
             }
-            for (y in mbygroup_data){
-                y_data.push(mbygroup_data[y].psum);
-            }
-            ec_bt_sum_option = {};
+            ec_bt_sum_option = {
+                color: ['#9B30FF'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '0%',
+                    right: '0%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : x_data,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'终端数量',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:y_data
+                    }
+                ]
+            };
             ec_bt_sum.setOption(ec_bt_sum_option);
 
         }
