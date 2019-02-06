@@ -53,25 +53,4 @@ public class RongApiService {
         }
         return res;
     }
-
-    /**
-        * 将list进行快速排序，返回排序完成的结果
-        * @author 张超 teavamc
-        * @date 2019/2/5
-        * @param [list]
-        * @return java.util.List<java.util.HashMap<java.lang.String,java.lang.Object>>
-        */
-    public static List<HashMap<String,Object>> list_quickSort(List<HashMap<String,Object>> list){
-        List<HashMap<String,Object>> pre = list;
-        //1.取list[0]的数据，放入keys数组
-        Object[] keys = ((list.get(0)).keySet()).toArray();
-        String aim_key;
-        //2.遍历这个数组，在list[0]比对每一个key对应的value数值， 拿到value最大的key，map获得value的方法是 MapName.get(key)
-        //3.list就按照这个Key的Value进行快排，最后改变list的顺序， java中互换list的方法是 Collections.swap(data,index1,index2);
-
-
-        return list;
-    }
-
-
 }
