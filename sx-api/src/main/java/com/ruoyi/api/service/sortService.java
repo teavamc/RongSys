@@ -11,11 +11,11 @@ import java.util.List;
  **/
 public interface sortService {
 
-    public void lQS(List<HashMap<String,String>> list);
+    public void lQS(List list,String targetName);
 
-    public int lQS_getMiddle(List<HashMap<String,String>> list,int left,int right);
+    public int lQS_getMiddle(List list,String targetName,int left,int right);
 
-    public List<HashMap<String,String>> listQuickSort(List<HashMap<String,String>> list,String key,int left,int right);
+    public void listQuickSort(List list,String targetName,int left,int right);
 
 
 
