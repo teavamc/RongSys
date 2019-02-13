@@ -4,6 +4,7 @@ import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
 import com.ruoyi.api.service.impl.sortServiceImpl;
 import com.ruoyi.api.service.sortService;
+import com.ruoyi.broad.domain.Tersga;
 import com.ruoyi.broad.service.IMaintainService;
 import com.ruoyi.broad.service.IManagementService;
 import io.swagger.annotations.Api;
@@ -98,7 +99,7 @@ public class Device {
     @GetMapping("/sumtermSort")
     @ApiOperation(value = "(排序后）按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量、维修数量")
     public RongApiRes sumtermSort(){
-        List pre = managementService.sumterm();
+        List<Tersga> pre = managementService.sumterm();
         sortServiceImpl qs = new sortServiceImpl();
         qs.lQS(pre,"sum");
         return RongApiService.get_list(pre);

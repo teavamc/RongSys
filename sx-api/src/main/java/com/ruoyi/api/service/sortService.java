@@ -11,11 +11,11 @@ import java.util.List;
  **/
 public interface sortService {
 
-    public void lQS(List list,String targetName);
+    public void lQS(List<Object> list,String targetName);
 
-    public int lQS_getMiddle(List list,String targetName,int left,int right);
+    public int lQS_getMiddle(List<Object> list,String targetName,int left,int right);
 
-    public void listQuickSort(List list,String targetName,int left,int right);
+    public void listQuickSort(List<Object> list,String targetName,int left,int right);
 
 
 

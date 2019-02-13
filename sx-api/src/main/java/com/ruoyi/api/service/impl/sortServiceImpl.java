@@ -16,7 +16,7 @@ public class sortServiceImpl implements sortService {
 
 
     @Override
-    public void lQS(List list,String targetName){
+    public void lQS(List<Object> list,String targetName){
         // 确定左右下标
         int left = 1;
         int right = list.size()-1;
@@ -27,13 +27,12 @@ public class sortServiceImpl implements sortService {
         * List<HashMap>的快排算法中的分治法
         * @author 张超 teavamc
         * @date 2019/2/13
-        * @param [list, targetName, left, right]
         * @return int
         */
     @Override
-    public int lQS_getMiddle(List list,String targetName,int left,int right){
+    public int lQS_getMiddle(List<Object> list,String targetName,int left,int right){
         // 确定 基准值 和 基准元素
-        int target = Integer.valueOf((list.get(left)).get(targetName));
+        int target = Integer.valueOf((list.get(left)).getSum);
         //如果左右下标未相遇
         while (left < right){
             // 若R下标若大于基准值则向左移动，若小于则 停止并交换
@@ -57,11 +56,10 @@ public class sortServiceImpl implements sortService {
         * List<HashMap>的快排算法中的递归排序
         * @author 张超 teavamc
         * @date 2019/2/13
-        * @param [list, targetName, left, right]
         * @return void
         */
     @Override
-    public void listQuickSort(List list,String targetName,int left,int right){
+    public void listQuickSort(List<Object> list,String targetName,int left,int right){
         if(left < right){
             int middle = lQS_getMiddle(list,targetName,left,right);
             listQuickSort(list,targetName,left,middle-1);
