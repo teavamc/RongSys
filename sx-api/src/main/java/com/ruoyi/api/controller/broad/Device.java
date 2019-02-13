@@ -103,9 +103,7 @@ public class Device {
     @ApiOperation(value = "(排序后）按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量、维修数量")
     public RongApiRes sumtermSort(){
         List<Tersga> pre = managementService.sumterm();
-        int start = 0;
-        int end = pre.size()-1;
-        quickSort(pre,start,end);
+        sumtermQuickSort(pre,0,pre.size()-1);
         return RongApiService.get_list(pre);
     }
 
@@ -117,7 +115,7 @@ public class Device {
         * @param [list, start, end]
         * @return void
         */
-    public void quickSort(List<Tersga> list,int start,int end){
+    public void sumtermQuickSort(List<Tersga> list,int start,int end){
 //        1、确定起始下标，默认Index=0处为基准值
 //        2、若左右下标未相遇，右侧下标向左走，若遇到小于基准值的则停止；左侧下标向右走，若遇到大于基准值的则停止
 //        3、交换左右下标的值，确保第一次左右下标相遇时，左侧值均小于等于基准值，右侧值均大于等于基准值
@@ -137,8 +135,8 @@ public class Device {
                 }
             }
             Collections.swap(list,left,start);
-            quickSort(list,start,left-1);
-            quickSort(list,right+1,end);
+            sumtermQuickSort(list,start,left-1);
+            sumtermQuickSort(list,right+1,end);
         }
     }
 

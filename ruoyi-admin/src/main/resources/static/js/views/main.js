@@ -370,7 +370,7 @@ function flush_sys_mon() {
 function init_ec_mbygroup() {
     $.ajax({
         type: "GET",
-        url: "/api/count/m",
+        url: "/api/count/mSort",
         dataType: "json",
         success: function (data) {
             var mbygroup_data = data.data;
@@ -433,7 +433,7 @@ function init_ec_mbygroup() {
 function init_ec_pbygroup() {
     $.ajax({
         type: "GET",
-        url: "/api/count/pm",
+        url: "/api/count/pmSort",
         dataType: "json",
         success: function (data) {
             var mbygroup_data = data.data;
