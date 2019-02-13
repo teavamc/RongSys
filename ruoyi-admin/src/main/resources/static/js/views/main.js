@@ -702,7 +702,7 @@ function init_3d_bt() {
 
     $.ajax({
         type: "GET",
-        url: "/api/device/sumterm",
+        url: "/api/device/sumtermSort",
         dataType: "json",
         success: function (data_bt) {
             pre_data = data_bt.data;
