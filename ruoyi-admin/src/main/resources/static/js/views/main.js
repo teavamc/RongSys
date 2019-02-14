@@ -18,6 +18,8 @@ function onload() {
     init_3d_v_pm();
     //首页图表 三维广播分布可视化
     init_3d_bt();
+    //首页图表 二维广播分布可视化
+    init_ec_bt();
     //首页图表 服务器性能可视化
     // init_3d_s_c();
     //每15秒刷新系统监控数据
@@ -370,6 +372,69 @@ function flush_sys_mon() {
 function init_ec_mbygroup() {
     $.ajax({
         type: "GET",
+        url: "/api/count/m",
+        dataType: "json",
+        success: function (data) {
+            var mbygroup_data = data.data;
+            var x_data = new Array();
+            var y_data = new Array();
+            for( x in mbygroup_data){
+                if(mbygroup_data[x].marea == ''){
+                    x_data.push('未知');
+                }else {
+                    x_data.push(mbygroup_data[x].marea);
+                }
+            }
+            for (y in mbygroup_data){
+                y_data.push(mbygroup_data[y].msum);
+            }
+            var ec_mbygroup = echarts.init(document.getElementById('ec_mbygroup'));
+            ec_mbygroup_option = {
+                color: ['#66fccc'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '0%',
+                    right: '0%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : x_data,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'人口数量',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:y_data
+                    }
+                ]
+            };
+            ec_mbygroup.setOption(ec_mbygroup_option);
+        }
+    })
+}
+
+function sort_ec_mbygroup() {
+    $.ajax({
+        type: "GET",
         url: "/api/count/mSort",
         dataType: "json",
         success: function (data) {
@@ -431,6 +496,71 @@ function init_ec_mbygroup() {
 }
 
 function init_ec_pbygroup() {
+    $.ajax({
+        type: "GET",
+        url: "/api/count/pm",
+        dataType: "json",
+        success: function (data) {
+            var mbygroup_data = data.data;
+            var x_data = new Array();
+            var y_data = new Array();
+            for( x in mbygroup_data){
+                if(mbygroup_data[x].parea == ''){
+                    x_data.push('未知');
+                }else {
+                    x_data.push(mbygroup_data[x].parea);
+                }
+            }
+            for (y in mbygroup_data){
+                y_data.push(mbygroup_data[y].psum);
+            }
+
+            var ec_pbygroup = echarts.init(document.getElementById('ec_pbygroup'));
+            ec_pbygroup_option = {
+                color: ['#ff3399'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '0%',
+                    right: '0%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : x_data,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'人口数量',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:y_data
+                    }
+                ]
+            };
+            ec_pbygroup.setOption(ec_pbygroup_option);
+
+        }
+    })
+}
+
+function sort_ec_pbygroup() {
     $.ajax({
         type: "GET",
         url: "/api/count/pmSort",
@@ -698,7 +828,204 @@ function init_3d_bt() {
     var data_group = new Array();
     var xyz_data = new Array();
     var ec_3d_bt= echarts.init(document.getElementById('3d_bt'));
+
+    $.ajax({
+        type: "GET",
+        url: "/api/device/sumterm",
+        dataType: "json",
+        success: function (data_bt) {
+            pre_data = data_bt.data;
+            var dp_temp = ['down','req','run','sum'];
+            //确定area_group
+            for ( area_name in pre_data){
+                area_group.push(pre_data[area_name].aname);
+            }
+            //确定xyz_data
+            for( pg_name in pre_data){
+                var ag = area_group.indexOf(pre_data[pg_name].aname);
+                var temp_data = pre_data[pg_name];
+                delete temp_data["aname"];
+                var temp_keys = Object.keys(temp_data);
+                for(i=0;i<temp_keys.length;i++){
+                    var this_key = temp_keys[i];
+                    var pg = dp_temp.indexOf(temp_keys[i]);
+                    var z_value = temp_data[this_key];
+                    xyz_data.push([pg,ag,z_value])
+                }
+            }
+
+            // 英文 - 中文替换
+            for ( item in dp_temp){
+                if(dp_temp[item].indexOf('sum') >= 0 ){
+                    dp_temp[item] = dp_temp[item].replace('sum','设备总数');
+                }else if(dp_temp[item].indexOf('run') >= 0 ){
+                    dp_temp[item] = dp_temp[item].replace('run','运行数');
+                }else if (dp_temp[item].indexOf('down') >= 0 ) {
+                    dp_temp[item] = dp_temp[item].replace('down','停止数');
+                }else if(dp_temp[item].indexOf('req') >= 0){
+                    dp_temp[item] = dp_temp[item].replace('req','维修数');
+                }
+                data_group = dp_temp;
+            }
+
+            //确定3D_EC 坐标系与数据
+            var a_cg =area_group;
+            var data_cg = data_group;
+            var data = xyz_data;
+            ec_3d_bt_option = {
+                tooltip: {
+                    axisPointer :{
+                        label:{
+                            show: true
+                        }
+                    }
+                },
+                visualMap: {
+                    max: 260,
+                    inRange: {
+                        color: ['#00868B','#00CD00', '#00FA9A', '#00CED1','#00F5FF','#00FFFF']
+                    }
+                },
+                xAxis3D: {
+                    type: 'category',
+                    data: a_cg
+                },
+                yAxis3D: {
+                    type: 'category',
+                    data: data_cg
+                },
+                zAxis3D: {
+                    type: 'value'
+                },
+                grid3D: {
+                    boxWidth: 300,
+                    boxDepth: 80,
+                    axisLabel: {
+                        interval: 0
+                    },
+                    viewControl: {
+                        // projection: 'orthographic'
+                        autoRotate: true
+                    },
+                    light: {
+                        main: {
+                            intensity: 1.2,
+                            shadow: true
+                        },
+                        ambient: {
+                            intensity: 0.3
+                        }
+                    }
+                },
+                series: [{
+                    type: 'bar3D',
+                    data: data.map(function (item) {
+                        return {
+                            value: [item[1], item[0], item[2]],
+                        }
+                    }),
+                    shading: 'lambert',
+
+                    label: {
+                        textStyle: {
+                            fontSize: 12,
+                            borderWidth: 1
+                        }
+                    },
+
+                    emphasis: {
+                        label: {
+                            textStyle: {
+                                fontSize: 20,
+                                color: '#900'
+                            }
+                        },
+                        itemStyle: {
+                            color: '#900'
+                        }
+                    }
+                }]
+            };
+            ec_3d_bt.setOption(ec_3d_bt_option);
+        }
+    })
+
+}
+
+function init_ec_bt() {
+    var pre_data;
+    var area_group = new Array();
     var ec_bt_sum = echarts.init(document.getElementById('bt_sum'));
+
+    $.ajax({
+        type: "GET",
+        url: "/api/device/sumterm",
+        dataType: "json",
+        success: function (data_bt) {
+            pre_data = data_bt.data;
+            //确定area_group
+            for ( area_name in pre_data){
+                area_group.push(pre_data[area_name].aname);
+            }
+
+            // 二维图表 广播地域分布可视化
+            var x_data = area_group;
+            var y_data = new Array();
+
+            for (y in pre_data){
+                y_data.push(pre_data[y].sum);
+            }
+            ec_bt_sum_option = {
+                color: ['#9B30FF'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'cross'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '0%',
+                    right: '0%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : x_data,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'终端数量',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:y_data
+                    }
+                ]
+            };
+            ec_bt_sum.setOption(ec_bt_sum_option);
+
+        }
+    })
+}
+
+function sort_3d_bt() {
+
+    var pre_data;
+    var area_group = new Array();
+    var data_group = new Array();
+    var xyz_data = new Array();
+    var ec_3d_bt= echarts.init(document.getElementById('3d_bt'));
 
     $.ajax({
         type: "GET",
@@ -818,6 +1145,26 @@ function init_3d_bt() {
                 }]
             };
             ec_3d_bt.setOption(ec_3d_bt_option);
+        }
+    })
+
+}
+
+function sort_ec_bt() {
+    var pre_data;
+    var area_group = new Array();
+    var ec_bt_sum = echarts.init(document.getElementById('bt_sum'));
+
+    $.ajax({
+        type: "GET",
+        url: "/api/device/sumtermSort",
+        dataType: "json",
+        success: function (data_bt) {
+            pre_data = data_bt.data;
+            //确定area_group
+            for ( area_name in pre_data){
+                area_group.push(pre_data[area_name].aname);
+            }
 
             // 二维图表 广播地域分布可视化
             var x_data = area_group;
@@ -868,7 +1215,6 @@ function init_3d_bt() {
 
         }
     })
-
 }
 
 //找到包含value的值 在arr数组中的下标
