@@ -57,6 +57,14 @@ public class AreaServiceImpl implements IAreaService
 		return trees;
 	}
 
+
+	/**
+	    * 根据List生产tree，前提是模型中包含id和父id关系
+	    * @author 张超 teavamc
+	    * @date 2019/2/14
+	    * @param [areaList]
+	    * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+	    */
 	public List<Map<String, Object>> getTrees(List<Area> areaList)
 	{
 
