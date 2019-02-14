@@ -42,6 +42,38 @@ public class AreaServiceImpl implements IAreaService
 	}
 
 	/**
+	    * 查询终端地区树
+	    * @author 张超 teavamc
+	    * @date 2019/2/14
+	    * @param [area]
+	    * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
+	    */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Map<String, Object>> selectAreaTree(Area area){
+		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+		List<Area> areaList = areaMapper.selectAreaList(area);
+		trees = getTrees(areaList);
+		return trees;
+	}
+
+	public List<Map<String, Object>> getTrees(List<Area> areaList)
+	{
+
+		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+		for (Area area : areaList)
+		{
+			Map<String, Object> areaMap = new HashMap<String, Object>();
+			areaMap.put("id", area.getAid());
+			areaMap.put("pId", area.getParentaid());
+			areaMap.put("name", area.getAname());
+			areaMap.put("title", area.getAname());
+			trees.add(areaMap);
+		}
+		return trees;
+	}
+
+	/**
      * 查询终端地域列表
      *
      * @param area 终端地域信息
