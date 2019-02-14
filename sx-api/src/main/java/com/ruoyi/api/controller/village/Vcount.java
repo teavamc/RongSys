@@ -3,6 +3,7 @@ package com.ruoyi.api.controller.village;
 
 import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.village.domain.Mcount;
 import com.ruoyi.village.domain.Pmcount;
 import com.ruoyi.village.service.IMemberService;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * 村务模块的数据统计接口
@@ -172,5 +174,41 @@ public class Vcount {
     public RongApiRes groupByAreaCountPM(){
         return RongApiService.get_list(memberService.groupAreaCountPM());
     }
+
+//    报错：类转换错误
+//    java.lang.ClassCastException: java.util.HashMap cannot be cast to com.ruoyi.common.utils.PageData
+//    不知为何PageData实现了Map接口，却无法使用override的get(Object key)和getString(Object key)方法
+//    本功能的排序暂搁置
+
+
+//    @GetMapping("/g_cPMSort")
+//    @CrossOrigin
+//    @ApiOperation(value = "（排序后）按照地区类型返回村民和党员的总数/男性/女性")
+//    public RongApiRes groupByAreaCountPMSort(){
+//        List<PageData> pre = memberService.groupAreaCountPM();
+//        //PageData中的基准key
+//        Object key = "msum";
+////        gcQuickSort(pre,key,0,pre.size()-1);
+//        return RongApiService.get_list(pre);
+//    }
+//
+//    public void gcQuickSort(List<PageData> list,String key,int start,int end){
+//        if (start < end){
+//            int left = start;
+//            int right = end;
+//            while (left != right){
+//                while (Integer.valueOf((list.get(right)).getString(key)) >= Integer.valueOf((list.get(start)).getString(key)) && left < right){
+//                    right--;
+//                }
+//                while (Integer.valueOf((list.get(left)).getString(key)) <= Integer.valueOf((list.get(start)).getString(key)) && left < right){
+//                    left++;
+//                }
+//                Collections.swap(list,left,right);
+//            }
+//            Collections.swap(list,left,start);
+//            gcQuickSort(list,key,start,left-1);
+//            gcQuickSort(list,key,right+1,end);
+//        }
+//    }
 
 }

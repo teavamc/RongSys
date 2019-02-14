@@ -85,7 +85,7 @@ function init_sys_mon() {
         url:"/api/sys_mon/mi",
         dataType:"json",
         success:function (data) {
-            $("#mon_flush_time").html('<span>' + data.time +
+            $("#mon_flush_time").html('<span>'+ '最后更新:  ' + data.time +
                 '</span>');
 
             $("#sys_mon_cpu").html('<table class="table table-hover">\n' +
@@ -180,7 +180,7 @@ function init_sys_loginlog() {
         url: "/api/sys_log/l_log",
         dataType: "json",
         success: function (data) {
-            $("#llog_flush_time").html('<span>' + data.time +
+            $("#llog_flush_time").html('<span>'+ '最后更新:  ' + data.time +
                 '</span>');
 
             var l_log = data.data;
@@ -256,7 +256,7 @@ function flush_sys_mon() {
         success: function (data) {
             alert("已完成手动刷新");
 
-            $("#mon_flush_time").html('<span>' + data.time +
+            $("#mon_flush_time").html('<span>' + '最后更新' +  data.time +
                 '</span>');
 
             $("#sys_mon_cpu").html('<table class="table table-hover">\n' +
@@ -769,6 +769,151 @@ function init_3d_v_pm() {
         }
     });
 }
+
+// function sort_3d_v_pm() {
+//     var pre_data;
+//     var area_group = new Array();
+//     var people_group = new Array();
+//     var xyz_data = new Array();
+//     var ec_3d_v_pm = echarts.init(document.getElementById('3d_v_pm'));
+//
+//     $.ajax({
+//         type: "GET",
+//         url: "/api/count/g_cPMSort",
+//         dataType: "json",
+//         success: function (data_pm) {
+//             pre_data = data_pm.data;
+//             var pg_temp = Object.keys(pre_data[0]);
+//             pg_temp.splice(arrIndex(pg_temp,'area'),1);
+//             //重新确定人员分组的顺序(暂时写死）
+//             pg_temp = ['pwoman','pman','psum','mwoman','mman','msum'];
+//
+//
+//             //确定area_group
+//             for ( area_name in pre_data){
+//                 area_group.push(pre_data[area_name].area);
+//             }
+//             //确定xyz_data
+//             for( pg_name in pre_data){
+//                 var ag = area_group.indexOf(pre_data[pg_name].area);
+//                 var temp_data = pre_data[pg_name];
+//                 delete temp_data["area"];
+//                 var temp_keys = Object.keys(temp_data);
+//                 for(i=0;i<temp_keys.length;i++){
+//                     var this_key = temp_keys[i];
+//                     var pg = pg_temp.indexOf(temp_keys[i]);
+//                     var z_value = temp_data[this_key];
+//                     xyz_data.push([pg,ag,z_value])
+//                 }
+//             }
+//             //确定people_group
+//             // 英文 - 中文替换
+//             for ( item in pg_temp){
+//                 if(pg_temp[item].indexOf('p') == 0 ){
+//                     pg_temp[item] = pg_temp[item].replace('p','党员');
+//                     if(pg_temp[item].indexOf('sum') >= 0){
+//                         pg_temp[item] = pg_temp[item].replace('sum','总数');
+//                     }else if(pg_temp[item].indexOf('man') >= 0 && pg_temp[item].indexOf('wo') < 0){
+//                         pg_temp[item] = pg_temp[item].replace('man','男性');
+//                     }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
+//                         pg_temp[item] = pg_temp[item].replace('woman','女性');
+//                     }
+//                 }
+//                 if(pg_temp[item].indexOf('m') == 0 ){
+//                     pg_temp[item] = pg_temp[item].replace('m','村民');
+//                     if(pg_temp[item].indexOf('sum') >= 0){
+//                         pg_temp[item] = pg_temp[item].replace('sum','总数');
+//                     }else if(pg_temp[item].indexOf('man') && pg_temp[item].indexOf('wo') < 0){
+//                         pg_temp[item] = pg_temp[item].replace('man','男性');
+//                     }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
+//                         pg_temp[item] = pg_temp[item].replace('woman','女性');
+//                     }
+//                 }
+//                 people_group = pg_temp;
+//             }
+//             //确定3D_EC 坐标系与数据
+//             var g_cg =area_group;
+//             var p_cg = people_group;
+//             var data = xyz_data;
+//             ec_3d_v_pm_option = {
+//                 tooltip: {
+//                     axisPointer :{
+//                         label:{
+//                             show: true
+//                         }
+//                     }
+//                 },
+//                 visualMap: {
+//                     max: 260,
+//                     inRange: {
+//                         color: ['#CD3333','#FF3030', '#FF7F50', '#FFB90F','#FFF68F','#FFFF00']
+//                     }
+//                 },
+//                 xAxis3D: {
+//                     type: 'category',
+//                     data: g_cg
+//                 },
+//                 yAxis3D: {
+//                     type: 'category',
+//                     data: p_cg
+//                 },
+//                 zAxis3D: {
+//                     type: 'value'
+//                 },
+//                 grid3D: {
+//                     boxWidth: 200,
+//                     boxDepth: 80,
+//                     axisLabel: {
+//                         interval: 0
+//                     },
+//                     viewControl: {
+//                         // projection: 'orthographic'
+//                         autoRotate: true
+//                     },
+//                     light: {
+//                         main: {
+//                             intensity: 1.2,
+//                             shadow: true
+//                         },
+//                         ambient: {
+//                             intensity: 0.3
+//                         }
+//                     }
+//                 },
+//                 series: [{
+//                     type: 'bar3D',
+//                     data: data.map(function (item) {
+//                         return {
+//                             value: [item[1], item[0], item[2]],
+//                         }
+//                     }),
+//                     shading: 'lambert',
+//
+//                     label: {
+//                         textStyle: {
+//                             fontSize: 12,
+//                             borderWidth: 1
+//                         }
+//                     },
+//
+//                     emphasis: {
+//                         label: {
+//                             textStyle: {
+//                                 fontSize: 20,
+//                                 color: '#900'
+//                             }
+//                         },
+//                         itemStyle: {
+//                             color: '#900'
+//                         }
+//                     }
+//                 }]
+//             };
+//             ec_3d_v_pm.setOption(ec_3d_v_pm_option);
+//
+//         }
+//     });
+// }
 
 function init_3d_s_c() {
     var ec_3d_s_c = echarts.init(document.getElementById('3d_s_c'));
