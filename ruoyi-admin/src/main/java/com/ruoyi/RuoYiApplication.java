@@ -20,7 +20,6 @@ public class RuoYiApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(RuoYiApplication.class, args);
-        System.out.println("老天保佑....融媒体平台顺利启动成功！！！\n");
     }
 
 
