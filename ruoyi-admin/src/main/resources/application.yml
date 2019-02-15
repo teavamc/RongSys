@@ -122,6 +122,11 @@ xss:
   # 匹配链接
   urlPatterns: /system/*,/monitor/*,/tool/*
 
+# Netty
+n:
+  port: 7000
+  url: 127.0.0.1
+
 # 代码生成
 gen: 
   # 作者

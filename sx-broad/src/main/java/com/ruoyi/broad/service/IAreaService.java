@@ -1,7 +1,11 @@
 package com.ruoyi.broad.service;
 
 import com.ruoyi.broad.domain.Area;
+import com.ruoyi.system.domain.SysDept;
+import com.ruoyi.system.domain.SysRole;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * 终端地域 服务层
@@ -18,7 +22,16 @@ public interface IAreaService
      * @return 终端地域信息
      */
 	public Area selectAreaById(String aid);
-	
+
+	/**
+	 * 查询终端地区树
+	 *
+	 * @param area 部门信息
+	 * @return 所有部门信息
+	 */
+	public List<Map<String, Object>> selectAreaTree(Area area);
+
+
 	/**
      * 查询终端地域列表
      * 

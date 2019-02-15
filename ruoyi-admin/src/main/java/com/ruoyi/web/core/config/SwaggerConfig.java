@@ -1,13 +1,14 @@
 package com.ruoyi.web.core.config;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Predicate;
+import com.google.common.base.Function;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.ruoyi.common.config.Global;
+import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -21,6 +22,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfig
 {
+
+    // 定义分隔符,配置Swagger多包
+    private static final String splitor = ";";
+
     /**
      * 创建API
      */
@@ -32,7 +37,7 @@ public class SwaggerConfig
                 .apiInfo(apiInfo())
                 .select()
                 // 指定当前包路径
-                .apis(RequestHandlerSelectors.basePackage("com.ruoyi.web.controller.broad"))
+                .apis(basePackage("com.ruoyi.api.controller.broad"+splitor+"com.ruoyi.api.controller.village"+splitor+"com.ruoyi.api.controller.system"))
                 // 扫描所有 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
@@ -50,5 +55,33 @@ public class SwaggerConfig
 //                .contact(new Contact(Global.getName(), null, null))
 //                .version("版本号:" + Global.getVersion())
                 .build();
+    }
+
+
+    /**
+        * 重写basePackage方法，使能够实现多包访问
+        * @author 张超 teavamc
+        * @date 2019/1/26
+        * @return com.google.common.base.Predicate<springfox.documentation.RequestHandler>
+        */
+    public static Predicate<RequestHandler> basePackage(final String basePackage) {
+        return input -> declaringClass(input).transform(handlerPackage(basePackage)).or(true);
+    }
+
+    private static Function<Class<?>, Boolean> handlerPackage(final String basePackage)     {
+        return input -> {
+            // 循环判断匹配
+            for (String strPackage : basePackage.split(splitor)) {
+                boolean isMatch = input.getPackage().getName().startsWith(strPackage);
+                if (isMatch) {
+                    return true;
+                }
+            }
+            return false;
+        };
+    }
+
+    private static Optional<? extends Class<?>> declaringClass(RequestHandler input) {
+        return Optional.fromNullable(input.declaringClass());
     }
 }

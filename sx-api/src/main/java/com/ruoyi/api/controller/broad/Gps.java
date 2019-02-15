@@ -11,6 +11,8 @@ import com.ruoyi.broad.service.IManagementService;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.framework.web.domain.server.Sys;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +29,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/gps")
 @CrossOrigin
-public class gps extends BaseController
+@Api(value = "应急广播模块 - 终端设备GPS坐标API类")
+public class Gps extends BaseController
 {
     @Autowired
     private IManagementService managementService;
@@ -39,6 +42,7 @@ public class gps extends BaseController
      */
     @GetMapping("/random")
     @CrossOrigin
+    @ApiOperation(value = "随机查询100台终端的地理位置")
     public RongApiRes searchrandom()
     {
         return RongApiService.get_list(managementService.selectManagementByRandom());
@@ -51,6 +55,7 @@ public class gps extends BaseController
      */
     @GetMapping("/all")
     @CrossOrigin
+    @ApiOperation(value = "查询全部的终端地理位置")
     public RongApiRes searchall()
     {
         return RongApiService.get_list(managementService.selectManagementAll());

@@ -26,7 +26,7 @@ import java.util.List;
 @RequestMapping("/village/politics")
 public class PoliticsController extends BaseController {
 
-    private String prefix = "village/politics";
+    private String prefix = "village/Politics";
 
     @Autowired
     private IPoliticsService politicsService;

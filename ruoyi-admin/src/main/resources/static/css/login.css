@@ -85,7 +85,7 @@ body.signin {
 }
 }
 /*
-µÇÂ¼½çÃæcheckÑùÊ½
+ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½checkï¿½ï¿½Ê½
 */ 
 .checkbox-custom {
     position: relative;
@@ -95,10 +95,10 @@ body.signin {
     display: inline-block;
 }
 /*
-½«³õÊ¼µÄcheckboxµÄÑùÊ½¸Ä±ä
+ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½checkboxï¿½ï¿½ï¿½ï¿½Ê½ï¿½Ä±ï¿½
 */
 .checkbox-custom input[type="checkbox"] {
-    opacity: 0;/*½«³õÊ¼µÄcheckboxÒþ²ØÆðÀ´*/
+    opacity: 0;/*ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½checkboxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
     position: absolute;
     cursor: pointer;
     z-index: 2;
@@ -107,7 +107,7 @@ body.signin {
     left: 3px;
 }
 /*
-Éè¼ÆÐÂµÄcheckbox£¬Î»ÖÃ
+ï¿½ï¿½ï¿½ï¿½Âµï¿½checkboxï¿½ï¿½Î»ï¿½ï¿½
 */
 .checkbox-custom label:before {
     content: '';
@@ -123,7 +123,7 @@ body.signin {
     background: #fff;
 }
 /*
-µã»÷³õÊ¼µÄcheckbox£¬½«ÐÂµÄcheckbox¹ØÁªÆðÀ´
+ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½checkboxï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½checkboxï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 */
 .checkbox-custom input[type="checkbox"]:checked +label:after {
     position: absolute;
@@ -142,7 +142,7 @@ body.signin {
 .checkbox-custom label {
     cursor: pointer;
     line-height: 1.2;
-    font-weight: normal;/*¸Ä±äÁËremembermeµÄ×ÖÌå*/
+    font-weight: normal;/*ï¿½Ä±ï¿½ï¿½ï¿½remembermeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½*/
     margin-bottom: 0;
     text-align: left;
 }

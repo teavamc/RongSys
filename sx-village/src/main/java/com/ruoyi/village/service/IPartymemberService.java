@@ -1,6 +1,8 @@
 package com.ruoyi.village.service;
 
 import com.ruoyi.village.domain.Partymember;
+import com.ruoyi.village.domain.Pmcount;
+
 import java.util.List;
 
 /**
@@ -50,5 +52,12 @@ public interface IPartymemberService
      * @return 结果
      */
 	public int deletePartymemberByIds(String ids);
+
+	/**
+	 * 按照地区统计党员信息
+	 *
+	 * @return 结果
+	 */
+	public List<Pmcount> countbygroup();
 	
 }

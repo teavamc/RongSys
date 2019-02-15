@@ -50,5 +50,12 @@ public interface IPartyworkService
      * @return 结果
      */
 	public int deletePartyworkByIds(String ids);
+
+	/**
+	 * 按照值班时间推送最近五条信息
+	 *
+	 * @return 结果
+	 */
+	public List<Partywork> selectPartyworkListlimit5();
 	
 }

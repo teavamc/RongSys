@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.BindexMapper">
+
+    <resultMap type="Bindex" id="BindexResult">
+        <result property="dev"    column="dev"    />
+        <result property="run"    column="run"    />
+        <result property="stop"    column="stop"    />
+    </resultMap>
+
+    <select id="count"  resultMap="BindexResult">
+        select
+            count(tid) as dev,
+            count(isuse = "1" or null) as run,
+            count(isuse = "0" or null) as stop
+        from terminals
+    </select>
+</mapper>
