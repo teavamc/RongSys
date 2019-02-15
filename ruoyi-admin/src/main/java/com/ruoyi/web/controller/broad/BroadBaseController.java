@@ -15,8 +15,8 @@ public class BroadBaseController extends BaseController {
         return "broad/todo";
     }
 
-    @GetMapping("/test")
+    @GetMapping("/broad/test")
     public String codetest(){
-        return "broad/codetest";
+        return "broad/stream/streamlive";
     }
 }
