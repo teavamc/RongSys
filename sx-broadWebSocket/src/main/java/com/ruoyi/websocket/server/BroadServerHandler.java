@@ -5,12 +5,19 @@ import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
  * @author 张超 teavamc
- * @Description:TODO
- * @ClassName ServerHandler
+ * @Description: 服务端逻辑处理类
+ * @ClassName BroadServerHandler
  * @date 2019/2/14 22:29
  **/
-public class ServerHandler extends SimpleChannelInboundHandler<Object> {
+public class BroadServerHandler extends SimpleChannelInboundHandler<Object> {
 
+    /**
+        * 业务逻辑处理
+        * @author 张超 teavamc
+        * @date 2019/2/16
+        * @param [ctx, msg]
+        * @return void
+        */
     @Override
     public void channelRead0(ChannelHandlerContext ctx, Object msg) {
         System.out.println("服务器返回信息 :" + msg);
@@ -18,6 +25,13 @@ public class ServerHandler extends SimpleChannelInboundHandler<Object> {
         ctx.close();
     }
 
+    /**
+        * 建立连接后，发送信息
+        * @author 张超 teavamc
+        * @date 2019/2/16
+        * @param [ctx]
+        * @return void
+        */
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
         System.out.println("线程通道激活>>>>>>>>");

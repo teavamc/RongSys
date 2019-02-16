@@ -20,24 +20,37 @@ import org.slf4j.LoggerFactory;
 
 /**
  * @author 张超 teavamc
- * @Description:TODO
- * @ClassName NettyClient
+ * @Description: 客户端类
+ * @ClassName BroadClient
  * @date 2019/2/14 22:30
  **/
-public class NettyClient {
-
-    private static final Logger log = LoggerFactory.getLogger(NettyClient.class);
-
+public class BroadClient {
+    // 日志记录
+    private static final Logger log = LoggerFactory.getLogger(BroadClient.class);
+    // 客户端初始化对象
     private static Bootstrap b;
+    // 异步结果返回对象
     private static ChannelFuture f;
+    // 业务线程组对象
     private static final EventLoopGroup workerGroup = new NioEventLoopGroup();
 
+    /**
+        * 客户端初始
+        * @author 张超 teavamc
+        * @date 2019/2/16
+        * @param []
+        * @return void
+        */
     private static void init () {
         try {
-            log.info("NettyClient开始初始化，init...");
+            log.info("NettyClient开始初始化");
             b = new Bootstrap();
             b.group(workerGroup);
+            // 异步客户端的 TCP Socket 连接
             b.channel(NioSocketChannel.class);
+            // SO_KEEPALIVE  Socket参数，连接保活，默认值为False
+            // 启用该功能时，TCP会主动探测空闲连接的有效性。可以将此功能视为TCP的心跳机制
+            // 需要注意的是：默认的心跳间隔是7200s即2小时。Netty默认关闭该功能
             b.option(ChannelOption.SO_KEEPALIVE, true);
             b.handler(new ChannelInitializer<SocketChannel>() {
 
@@ -47,7 +60,7 @@ public class NettyClient {
                     socketChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
                     socketChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
 
-                    socketChannel.pipeline().addLast(new ClientHandler());
+                    socketChannel.pipeline().addLast(new BroadClientHandler());
                 }
             });
         } catch (Exception e) {
@@ -68,8 +81,8 @@ public class NettyClient {
         InetSocketAddress address = new InetSocketAddress("127.0.0.1", 7000);
         String message = "你好";
         try {
-            Object result = NettyClient.startAndWrite(address, message);
-            log.info("原因t:" + result);
+            Object result = BroadClient.startAndWrite(address, message);
+            log.info("原因: " + result);
         } catch (Exception e) {
             log.error(e.getMessage());
         } finally {

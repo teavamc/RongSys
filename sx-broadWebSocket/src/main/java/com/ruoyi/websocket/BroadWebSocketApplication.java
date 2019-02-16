@@ -1,6 +1,6 @@
 package com.ruoyi.websocket;
 
-import com.ruoyi.websocket.server.NettyServer;
+import com.ruoyi.websocket.server.BroadServer;
 import io.netty.channel.ChannelFuture;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,15 +16,15 @@ import java.net.InetSocketAddress;
  * @date 2019/2/15 21:34
  **/
 @Component
-public class WebSocketApplication implements CommandLineRunner {
-    @Value("${n.port}")
+public class BroadWebSocketApplication implements CommandLineRunner {
+    @Value("${netty.port}")
     private int port;
 
-    @Value("${n.url}")
+    @Value("${netty.url}")
     private String url;
 
     @Autowired
-    private   NettyServer socketServer;
+    private BroadServer socketServer;
 
     @Override
     public void run(String... strings) {

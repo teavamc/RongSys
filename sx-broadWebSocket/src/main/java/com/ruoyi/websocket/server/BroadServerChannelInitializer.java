@@ -8,17 +8,18 @@ import io.netty.util.CharsetUtil;
 
 /**
  * @author 张超 teavamc
- * @Description:TODO
- * @ClassName ServerChannelInitializer
+ * @Description: 服务端通道初始化
+ * @ClassName BroadServerChannelInitializer
  * @date 2019/2/14 22:28
  **/
-public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
+public class BroadServerChannelInitializer extends ChannelInitializer<SocketChannel> {
     @Override
     protected void initChannel(SocketChannel socketChannel) {
-        // 解码编码
+        // 解码
         socketChannel.pipeline().addLast(new StringDecoder(CharsetUtil.UTF_8));
+        // 编码
         socketChannel.pipeline().addLast(new StringEncoder(CharsetUtil.UTF_8));
-
-        socketChannel.pipeline().addLast(new ServerHandler());
+        // 逻辑实现
+        socketChannel.pipeline().addLast(new BroadServerHandler());
     }
 }
