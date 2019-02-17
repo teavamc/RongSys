@@ -53,13 +53,14 @@ public class NettyClient {
         * @return void
         */
     public void start() throws Exception {
-        // 创建一个新的 EventLoopGroup
+        // 创建一个新的 EventLoopGroup 类型是 异步 UDP 对象
         EventLoopGroup group = new NioEventLoopGroup();
         try {
+            // 创建一个 启动类 实例
             Bootstrap b = new Bootstrap();
             // 注册线程池
             b.group(group)
-                    // 使用NioSocketChannel来作为连接用的channel类
+                    // 使用NioSocketChannel来作为连接用的channel类 ，这里是 异步 UDP
                     .channel(NioSocketChannel.class)
                     // 绑定连接端口和host信息
                     .remoteAddress(new InetSocketAddress(this.host, this.port))

@@ -21,13 +21,13 @@ public class bConst {
     // 修改权限
     public static final String SESSION_QX = "QX";
     // 用户ID
-    public static final String SESSION_USERID = "USERID";
+    public static final String SESSION_USERID = "SX_USERID";
     // 用户名
-    public static final String SESSION_UNAME = "UNAME";
+    public static final String SESSION_UNAME = "SX_UNAME";
     // 登陆名
-    public static final String SESSION_USERNAME = "USERNAME";
+    public static final String SESSION_USERNAME = "SX_USERNAME";
     // 用户角色
-    public static final String SESSION_USERROLEID = "USERROLEID";
+    public static final String SESSION_USERROLEID = "SX_USERROLEID";
     // 用户所管理的所有下属区域列表(用户管理用)
     public static final String SESSION_USERAREALIST = "USERAREALIST";
     // 用户所管理的区域及所有下属区域列表(经纬度信息管理用)
