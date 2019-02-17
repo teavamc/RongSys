@@ -92,17 +92,33 @@
 				},
 				{
 					field : 'userlevel', 
-					title : '广播用户身份等级',
+					title : '广播用户类型',
 					sortable: true
 				},
 				{
+					field : '',
+					title : '登陆账号',
+					visible: true
+				},
+					{
+						field : 'aname',
+						title : '管理区域',
+						sortable: true
+					},
+				{
+					field : '',
+					title : '用户角色',
+					visible: true
+				},
+
+				{
 					field : 'uphone', 
-					title : '广播用户手机号码',
+					title : '联系号码',
 					sortable: true
 				},
 				{
 					field : 'uaddress', 
-					title : '广播用户地址',
+					title : '联系地址',
 					sortable: true
 				},
 				{
@@ -114,12 +130,8 @@
 					field : 'lastdate', 
 					title : '用户最后登录时间',
 					sortable: true
-				},
-				{
-					field : 'aname', 
-					title : '管理区域',
-					sortable: true
-				}]
+				}
+				]
             };
             $.table.init(options);
         });
