@@ -1,10 +1,9 @@
 package com.ruoyi.broad.service;
 
-import com.ruoyi.broad.domain.Conditions;
+import com.ruoyi.broad.domain.Bindex;
 import com.ruoyi.broad.domain.Management;
 import com.ruoyi.broad.domain.Managementgps;
-import com.ruoyi.common.annotation.DataSource;
-import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.broad.domain.Tersga;
 
 import java.util.List;
 
@@ -71,5 +70,40 @@ public interface IManagementService
 	 * @return 结果
 	 */
 	public List<Managementgps> selectManagementAll();
-	
+
+	/**
+	 * 按照终端地址进行运行状态的分组统计
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return java.util.List<com.ruoyi.broad.domain.Tersga>
+	 */
+	public List<Tersga> selecttersga();
+
+	/**
+	 * 回传目前设备挂载总数,运行数，停止数
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return com.ruoyi.broad.domain.Tersga
+	 */
+	public Tersga sumters();
+
+	/**
+	 * 按照终端地址进行运行状态的分组统计,包括分组地区、挂在数量、运行数量、停止数量
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return java.util.List<com.ruoyi.broad.domain.Tersga>
+	 */
+	public List<Tersga> sumterm();
+
+	/**
+	 * 统计终端数，运行数，停止运行数
+	 * @author 张超 teavamc
+	 * @date 2019/1/26
+	 * @param []
+	 * @return com.ruoyi.broad.mapper.BindexMapper
+	 */
+	public Bindex count();
 }

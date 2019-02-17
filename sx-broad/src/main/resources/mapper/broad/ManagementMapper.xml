@@ -27,6 +27,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="backupBatteryVoltage"    column="BackupBatteryVoltage"    />
     </resultMap>
 
+    <resultMap type="Tersga" id="TersgaResult">
+        <result property="tid"    column="tid"    />
+        <result property="sum"    column="sum"    />
+        <result property="run"    column="run"    />
+        <result property="down"    column="down"    />
+        <result property="req" column="req" />
+    </resultMap>
+
     <resultMap type="Managementgps" id="ManagementgpsResult">
         <result property="tid"    column="tid"    />
         <result property="longitude"    column="Longitude"    />
@@ -161,5 +169,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{tid}
         </foreach>
     </delete>
-    
+
+    <select id="selecttersga" resultMap="TersgaResult">
+        select
+            area.aname,
+            count(terminals.tid) as sum,
+            count(terminals.isuse = '1' or null) as run,
+            count(terminals.isuse = '0' or null) as down
+        from terminals,area
+        where terminals.aid = area.aid
+        group by area.aname
+    </select>
+
+    <select id="sumters" resultMap="TersgaResult">
+        select
+            count(tid) as sum,
+            count(isuse = '1' or null) as run,
+            count(isuse = '0' or null) as down
+        from terminals
+    </select>
+
+    <select id="sumterm" resultMap="TersgaResult">
+        select
+            area.aname,
+            count(terminals.tid) as sum,
+            count(terminals.isuse = '1' or null) as run,
+            count(terminals.isuse = '0' or null) as down,
+            count(terminal_maintain.createtime between '2018-03-10 07:00:00' and '2019-01-10 08:55:00') as  req
+        from
+            terminals,
+            area,
+            terminal_maintain
+        where
+            terminals.aid = area.aid
+            AND
+            terminals.tid = terminal_maintain.tid
+        group by
+            area.aname
+    </select>
 </mapper>

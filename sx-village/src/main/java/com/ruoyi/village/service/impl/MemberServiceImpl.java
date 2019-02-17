@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.common.utils.PageData;
+import com.ruoyi.village.domain.Mcount;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.MemberMapper;
@@ -89,5 +91,40 @@ public class MemberServiceImpl implements IMemberService
 	{
 		return memberMapper.deleteMemberByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 按组统计村民数据
+	 *
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public List<Mcount> countbygroup(){
+		return memberMapper.countbygroup();
+	}
+
+	/**
+	 * 统计村民和党员总数/男/女
+	 * @author 张超 teavamc
+	 * @date 2019/1/30
+	 * @return java.util.List<com.ruoyi.common.utils.PageData>
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public List<PageData> countpm(){
+		return memberMapper.countpm();
+	}
+
+
+	/**
+	 * 按照地区类型返回村民和党员的总数/男性/女性
+	 * @author 张超 teavamc
+	 * @date 2019/2/1
+	 * @return java.util.List<com.ruoyi.common.utils.PageData>
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public List<PageData> groupAreaCountPM(){
+		return memberMapper.groupAreaCountPM();
+	}
 }

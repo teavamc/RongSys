@@ -1,11 +1,11 @@
 package com.ruoyi;
 
+
 import org.mybatis.spring.annotation.MapperScan;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-
 /**
  * 启动程序
  * 
@@ -20,6 +20,7 @@ public class RuoYiApplication
     {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(RuoYiApplication.class, args);
-        System.out.println("老天保佑....融媒体平台顺利启动成功！！！\n");
     }
+
+
 }

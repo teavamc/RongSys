@@ -87,5 +87,16 @@ public class PartyworkServiceImpl implements IPartyworkService
 	{
 		return partyworkMapper.deletePartyworkByIds(Convert.toStrArray(ids));
 	}
+
+	/**
+	 * 按照值班时间推送最近五条信息
+	 *
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public List<Partywork> selectPartyworkListlimit5(){
+		return partyworkMapper.selectPartyworkListlimit5();
+	}
 	
 }

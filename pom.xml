@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
     <groupId>com.ruoyi</groupId>
     <artifactId>ruoyi</artifactId>
     <version>3.1</version>
@@ -11,7 +11,7 @@
     <name>RongSys</name>
 	<url>www.teavamc.com</url>
     <description>融媒体综合数据管理平台</description>
-    
+
     <properties>
 	    <ruoyi.version>3.1</ruoyi.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,7 +27,7 @@
 		<pagehelper.boot.version>1.2.5</pagehelper.boot.version>
 		<oshi.version>3.9.1</oshi.version>
 	</properties>
-	
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -50,11 +50,15 @@
 		<module>sx-broad</module>
         <module>sx-village</module>
         <module>sx-api</module>
+        <module>sx-broadWebSocket</module>
+        <module>sx-broadStreamSocket</module>
     </modules>
     <packaging>pom</packaging>
 
 
 	<dependencies>
+
+
 
 		<!--Spring框架基本的核心工具-->
 		<dependency>
@@ -79,11 +83,39 @@
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
 		</dependency>
-		
+
 		<!-- 日志工具类 -->
 		<dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
+        </dependency>
+
+		<!--Netty-->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>4.0.36.Final</version>
+		</dependency>
+
+        <!--JAVAX-->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+        </dependency>
+
+        <!--JAVAX Websocket-->
+        <dependency>
+            <groupId>javax.websocket</groupId>
+            <artifactId>javax.websocket-api</artifactId>
+            <version>1.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--springframework Websocket-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
         </dependency>
 
 	</dependencies>
