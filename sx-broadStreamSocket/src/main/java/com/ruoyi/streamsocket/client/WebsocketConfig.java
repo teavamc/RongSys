@@ -16,18 +16,20 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
  * @date 2019/2/16 15:57
  **/
 
-//
-//@Configuration
-//@EnableWebMvc
-//@EnableWebSocket
+//WebsocketConfig 注册类
+@Configuration
+@EnableWebSocket
 public class WebsocketConfig  implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        // TODO Auto-generated method stub
 
-        registry.addHandler(streamWebSocketHandler(), "/stream"); //提供符合W3C标准的Websocket数据
+        // 提供符合W3C标准的Websocket数据
+        // 注册WebSocket业务类，二参为地址
+        registry.addHandler(streamWebSocketHandler(), "/live");
     }
+
+    // 业务
     @Bean
     public WebSocketHandler streamWebSocketHandler() {
         return new StreamHandler();
