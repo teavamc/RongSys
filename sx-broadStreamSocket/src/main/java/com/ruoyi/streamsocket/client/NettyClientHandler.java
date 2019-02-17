@@ -19,20 +19,39 @@ import java.io.UnsupportedEncodingException;
  * @date 2019/2/16 15:55
  **/
 public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
-    // 消息的中止判断符
+    // 声明 消息的中止判断符
     public String EndChar = "cc";
-    // 消息的开始判断符
+    // 声明 消息的开始判断符
     public static String BeginChar = "aa";
+    // 声明 WebSocketSession 对象
     public WebSocketSession conn;
+    // 声明 message
     public String message;
+    // 声明 流的 id 号
     String streamid;
+    // 声明 ByteBuf 对象  encoded 用于编码
     ByteBuf encoded;
+    // 日志记录
     private static final Logger log = LoggerFactory.getLogger("streamclient");
     final static String UTF8 = "UTF8";
+    /**
+        * 初始化 NettyClientHandler 对象
+        * @author 张超 teavamc
+        * @date 2019/2/16
+        * @param [connection, message]
+        * @return
+        */
     public NettyClientHandler(WebSocketSession connection,String message){
         this.conn = connection;
         this.message = message;
     }
+    /**
+        * 激活通道
+        * @author 张超 teavamc
+        * @date 2019/2/16
+        * @param [ctx]
+        * @return void
+        */
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 //    	System.out.println("完成与服务器连接: "+ctx.channel().remoteAddress());

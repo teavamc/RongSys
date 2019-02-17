@@ -20,7 +20,8 @@ import java.util.List;
  * @date 2019/2/16 15:37
  **/
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
-    String address = "";//连接的客户端地址
+    //连接的客户端地址
+    String address = "";
     final static String UTF8 = "UTF8";
     // 消息的中止判断符
     public String EndChar = "cc";
