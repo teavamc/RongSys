@@ -15,7 +15,7 @@ import java.net.InetSocketAddress;
  * @ClassName WebSocketApplication
  * @date 2019/2/15 21:34
  **/
-@Component
+//@Component
 public class BroadWebSocketApplication implements CommandLineRunner {
     @Value("${netty.port}")
     private int port;
