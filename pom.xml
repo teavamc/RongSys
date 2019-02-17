@@ -118,6 +118,9 @@
             <artifactId>spring-websocket</artifactId>
         </dependency>
 
+        <!--iBatis-->
+
+
 	</dependencies>
 
 	<build>

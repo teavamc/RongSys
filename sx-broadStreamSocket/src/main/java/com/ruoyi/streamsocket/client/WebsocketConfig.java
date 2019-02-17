@@ -21,6 +21,13 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class WebsocketConfig  implements WebSocketConfigurer {
 
+    /**
+        * 注册 WebSocket 业务类
+        * @author 张超 teavamc
+        * @date 2019/2/17
+        * @param [registry]
+        * @return void
+        */
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
 
@@ -29,7 +36,14 @@ public class WebsocketConfig  implements WebSocketConfigurer {
         registry.addHandler(streamWebSocketHandler(), "/live");
     }
 
-    // 业务
+    /**
+        * WebSocket业务类
+        * @author 张超 teavamc
+        * @date 2019/2/17
+        * @param []
+        * @return org.springframework.web.socket.WebSocketHandler
+        */
+
     @Bean
     public WebSocketHandler streamWebSocketHandler() {
         return new StreamHandler();

@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 
 /**
  * @author 张超 teavamc
- * @Description:TODO
+ * @Description: 流媒体直播 客户端 业务类
  * @ClassName NettyClientHandler
  * @date 2019/2/16 15:55
  **/
@@ -55,8 +55,11 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 //    	System.out.println("完成与服务器连接: "+ctx.channel().remoteAddress());
+        // 将接受到的信息按照，分割成字符串数组
         String[] rs = message.split(":");
+        // 获取命令码
         String commd="";
+        // 获取 IMEI
         String imeilist="";
         if(rs.length>=2){
             commd=rs[0];
@@ -66,7 +69,9 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         }
         switch(commd){
             case "start":
-                String sendtext = streamid+":"+imeilist;
+                // 发送信息，流媒体节目id + imei 终端号
+                String sendtext = streamid+":" + imeilist;
+                // 转成 Byte 格式
                 SendToByte(ctx,"1","1",sendtext.getBytes(UTF8));
                 log.info("正常日志  记录：前台直播开始命令  信息：直播编号" +streamid);
                 break;
@@ -78,6 +83,13 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
 
     }
 
+    /**
+        * 线程处理 channelRead0
+        * @author 张超 teavamc
+        * @date 2019/2/17
+        * @param [ctx, msg]
+        * @return void
+        */
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
         ByteBuf buf = msg.readBytes(msg.readableBytes());
@@ -96,22 +108,30 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
             log.debug("跟踪日志  记录："+" 终端握手类型：" + byteType +"  信息：" + recievedata );
             String sendstr = "";
             switch(byteType){
-                case "0"://结束
-                    sendstr = byteType+":success";//表示streamserver发送指令成功
-                    conn.sendMessage(new TextMessage(sendstr));//找到streamid相同的发送指令
-                    ctx.close();//结束后关闭与server连接
+                //结束
+                case "0":
+                    //表示streamserver发送指令成功
+                    sendstr = byteType+":success";
+                    //找到streamid相同的发送指令
+                    conn.sendMessage(new TextMessage(sendstr));
+                    //结束后关闭与server连接
+                    ctx.close();
                     log.info("正常日志  记录：服务器直播结束命令返回  信息：直播" +streamid);
                     break;
-                case "1"://开始
+                //开始
+                case "1":
                     sendstr = byteType+":success";
-                    conn.sendMessage(new TextMessage(sendstr));//找到streamid相同的发送指令
+                    //找到streamid相同的发送指令
+                    conn.sendMessage(new TextMessage(sendstr));
                     log.info("正常日志  记录：服务器直播开始命令返回  信息：直播" +streamid);
                     //向服务器请求终端连接状态
                     SendToByte(ctx,"2","1",streamid.getBytes(UTF8));
                     break;
-                case "2"://终端连接状态
+                //终端连接状态
+                case "2":
                     sendstr=byteType+":"+recievedata;
-                    conn.sendMessage(new TextMessage(sendstr));//找到streamid相同的发送指令
+                    //找到streamid相同的发送指令
+                    conn.sendMessage(new TextMessage(sendstr));
                     log.info("正常日志  记录：服务器终端连接状态返回  信息：直播" +streamid);
 //        		if(!ctx.isRemoved()){
                     //向服务器请求终端连接状态,隔2秒发送一次请求
@@ -123,46 +143,65 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         }
     }
 
+    /**
+        * 异常抓取 关闭 ctx 线程
+        * @author 张超 teavamc
+        * @date 2019/2/17
+        * @param [ctx, cause]
+        * @return void
+        */
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
 //        cause.printStackTrace();
         ctx.close();
     }
+
+
     private void SendToByte(ChannelHandlerContext ctx,String byteType,String byteOrder, byte[] SendData){
         if (SendData != null && SendData.length != 0){
-            byte[] checkData = new byte[SendData.length+3];//用来计算校验和
+            //用来计算校验和
+            byte[] checkData = new byte[SendData.length + 3];
             try {
-                int buffersize = 7+SendData.length;
-                encoded = ctx.alloc().buffer(buffersize);//建立发送数据字节数组
-                //加上包头尾
-                encoded.writeByte(bConvert.hexStringToBytes(BeginChar)[0]);//将开始标示复制到发送数据中去
-                encoded.writeByte((byte)Integer.parseInt(byteType));//将类型复制到发送数据中去
+                int buffersize = 7 + SendData.length;
+                //建立发送数据字节数组
+                encoded = ctx.alloc().buffer(buffersize);
+                //加上包头尾  将开始标示复制到发送数据中去
+                encoded.writeByte(bConvert.hexStringToBytes(BeginChar)[0]);
+                //将类型复制到发送数据中去
+                encoded.writeByte((byte)Integer.parseInt(byteType));
                 byte[] l = bConvert.hexStringToBytes(Integer.toHexString(SendData.length+2));
                 if(l.length==1){
-                    encoded.writeByte(l[0]);//将包长复制到发送数据中去
+                    //将包长复制到发送数据中去
+                    encoded.writeByte(l[0]);
                     encoded.writeByte((byte)0);
                     checkData[0]=l[0];
                     checkData[1]=(byte)0;
                 }else if(l.length==2){
-                    encoded.writeByte(l[1]);//将包长复制到发送数据中去
+                    //将包长复制到发送数据中去
+                    encoded.writeByte(l[1]);
                     encoded.writeByte(l[0]);
                     checkData[1]=l[0];
                     checkData[0]=l[1];
                 }
-                encoded.writeByte((byte)Integer.parseInt(byteOrder));//将命令设置到发送数据中去
+                //将命令设置到发送数据中去
+                encoded.writeByte((byte)Integer.parseInt(byteOrder));
                 checkData[2] = (byte)Integer.parseInt(byteOrder);
-                encoded.writeBytes(SendData);//将数据字节复制到发送数据中去
+                //将数据字节复制到发送数据中去
+                encoded.writeBytes(SendData);
                 System.arraycopy(SendData, 0, checkData, 3, SendData.length);
                 String check = bConvert.checksum(checkData);
-                encoded.writeByte(bConvert.hexStringToBytes(check)[0]);//将校验复制到发送数据中去
-                encoded.writeByte(bConvert.hexStringToBytes(EndChar)[0]);//将结束标示复制到发送数据中去
-
+                //将校验复制到发送数据中去
+                encoded.writeByte(bConvert.hexStringToBytes(check)[0]);
+                //将结束标示复制到发送数据中去
+                encoded.writeByte(bConvert.hexStringToBytes(EndChar)[0]);
                 ctx.writeAndFlush(encoded);
             } catch (Exception ex) {
                 log.error("出错日志  记录："+ex.getMessage()+"  信息：ClientSocket错误,SendToByte  byteType:" + byteType + ",byteOrder:" + byteOrder);
             }
         }
     }
+
+
     public String parseResult(String str){
         byte[] content =bConvert.hexStringToBytes(str);
         String byteType="";
