@@ -67,6 +67,8 @@ public class LiveController extends BaseController {
         return prefix + "/streamlivetest";
     }
 
+
+
 //    /**
 //        * 设置 流媒体终端
 //        * @author 张超 teavamc

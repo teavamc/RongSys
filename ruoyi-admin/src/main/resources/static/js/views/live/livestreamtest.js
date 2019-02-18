@@ -6,8 +6,8 @@ swfobject.embedSWF("/stream/RtmpStreamer.swf", "rtmp-streamer", "270", "190", "9
 var ws = null;
 // 流媒体 id
 var streamid=null;
-// imei 的列表
-var imeilist=null;
+// imei 的列表 农大终端测试机器 IMEI 号码
+var imeilist= 862105024020277;
 // 流媒体状态 0:正在开启，1:已经开启直播，2:未直播或已经关闭直播，3:正在关闭
 var isstreamliving=2;
 
@@ -29,15 +29,15 @@ function setLiveButton(isliving){
     if(isliving==1){//已经开启直播，可以关闭直播
         $("#start").attr("disabled","disabled");
         $("#end").removeAttr("disabled");
-        $("#selectter").attr("disabled","disabled");
+        // $("#selectter").attr("disabled","disabled");
     }else if(isliving==2){//已经关闭直播，可以开启直播
         $("#end").attr("disabled","disabled");
         $("#start").removeAttr("disabled");
-        $("#selectter").removeAttr("disabled");
+        // $("#selectter").removeAttr("disabled");
     }else{//正在开启或关闭，不可以操作
         $("#end").attr("disabled","disabled");
         $("#start").attr("disabled","disabled");
-        $("#selectter").attr("disabled","disabled");
+        // $("#selectter").attr("disabled","disabled");
     }
 }
 

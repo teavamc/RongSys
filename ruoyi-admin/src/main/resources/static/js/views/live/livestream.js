@@ -3,6 +3,7 @@
 swfobject.embedSWF("/stream/RtmpStreamer.swf", "rtmp-streamer", "270", "190", "9", "static/stream/src/expressInstall.swf",{},{bgcolor:"#e5eaf1",wmode:"opaque"},{});
 //wmode,tranparent:透明，opaque:不透明,表示将Flash置于最底层
 
+//ws 对象
 var ws = null;
 // 流媒体 id
 var streamid=null;
