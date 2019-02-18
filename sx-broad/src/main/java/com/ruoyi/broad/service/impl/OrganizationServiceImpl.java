@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * 终端地域 服务层实现
  *
- * @author 张超
+ * @author 张鸿权
  * @date 2019-01-17
  */
 @Service
@@ -30,14 +30,14 @@ public class OrganizationServiceImpl implements IOrganizationService
 		/**
 		 * 查询终端地域信息
 		 *
-		 * @param tid 终端地域ID
+		 * @param aid 终端地域ID
 		 * @return 终端地域信息
 		 */
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
-		public Organization selectOrganizationById(String tid)
+		public Organization selectOrganizationById(String aid)
 		{
-			return organizationMapper.selectOrganizationById(tid);
+			return organizationMapper.selectOrganizationById(aid);
 		}
 
 

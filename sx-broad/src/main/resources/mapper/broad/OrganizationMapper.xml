@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join <include refid="areatableName"></include> a on t.aid = a.aid)
         left join <include refid="usertable"></include> u on t.userid = u.userid)
         left join ( select MAX(createdtime) as lastaccesstime,terminalid from <include refid="terreceivestable"></include> GROUP BY terminalid) access on access.terminalid=t.tid
-        order by createdtime desc
+
     </sql>
 	
     <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
@@ -87,7 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="selectOrganizationById" parameterType="String" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
-        where aid = #{aid}
+        where t.aid = #{aid}
     </select>
         
     <insert id="insertOrganization" parameterType="Organization">
