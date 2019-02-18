@@ -23,61 +23,23 @@ import java.util.Map;
 @Service
 public class OrganizationServiceImpl implements IOrganizationService
 {
+
 		@Autowired
 		private OrganizationMapper organizationMapper;
 
 		/**
 		 * 查询终端地域信息
 		 *
-		 * @param aid 终端地域ID
+		 * @param tid 终端地域ID
 		 * @return 终端地域信息
 		 */
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
-		public Organization selectOrganizationById(String aid)
+		public Organization selectOrganizationById(String tid)
 		{
-			return organizationMapper.selectOrganizationById(aid);
+			return organizationMapper.selectOrganizationById(tid);
 		}
 
-		/**
-		 * 查询终端地区树
-		 * @author 张超 teavamc
-		 * @date 2019/2/14
-		 * @param [organization]
-		 * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
-		 */
-		@Override
-		@DataSource(value = DataSourceType.SLAVE)
-		public List<Map<String, Object>> selectOrganizationTree(Organization organization){
-		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-		List<Organization> organizationList = organizationMapper.selectOrganizationList(organization);
-		trees = getTrees(organizationList);
-		return trees;
-	}
-
-
-		/**
-		 * 根据List生产tree，前提是模型中包含id和父id关系
-		 * @author 张超 teavamc
-		 * @date 2019/2/14
-		 * @param [organizationList]
-		 * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
-		 */
-		public List<Map<String, Object>> getTrees(List<Organization> organizationList)
-		{
-
-			List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-			for (Organization organization : organizationList)
-			{
-				Map<String, Object> organizationMap = new HashMap<String, Object>();
-				organizationMap.put("id", organization.getAid());
-				organizationMap.put("pId", organization.getParentaid());
-				organizationMap.put("name", organization.getAname());
-				organizationMap.put("title", organization.getAname());
-				trees.add(organizationMap);
-			}
-			return trees;
-		}
 
 		/**
 		 * 查询终端地域列表

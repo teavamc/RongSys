@@ -1,5 +1,6 @@
 package com.ruoyi.broad.service;
 
+import com.ruoyi.broad.domain.Area;
 import com.ruoyi.broad.domain.Organization;
 
 import java.util.List;
@@ -16,28 +17,19 @@ public interface IOrganizationService
 	/**
      * 查询终端地域信息
      * 
-     * @param aid 终端地域ID
+     * @param tid 终端地域ID
      * @return 终端地域信息
      */
-	public Organization selectOrganizationById(String aid);
+	public Organization selectOrganizationById(String tid);
 
 	/**
-	 * 查询终端地区树
+	 * 查询终端地域列表
 	 *
-	 * @param organization 部门信息
-	 * @return 所有部门信息
+	 * @param organization 终端地域信息
+	 * @return 终端地域集合
 	 */
-	public List<Map<String, Object>> selectOrganizationTree(Organization organization);
-
-
-	/**
-     * 查询终端地域列表
-     * 
-     * @param organization 终端地域信息
-     * @return 终端地域集合
-     */
 	public List<Organization> selectOrganizationList(Organization organization);
-	
+
 	/**
      * 新增终端地域
      * 
