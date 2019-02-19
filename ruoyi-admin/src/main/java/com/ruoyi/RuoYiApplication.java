@@ -6,6 +6,8 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+
 /**
  * 启动程序
  * 
@@ -13,7 +15,8 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
  */
 @SpringBootApplication(exclude = { DataSourceAutoConfiguration.class })
 @MapperScan({"com.ruoyi.*.mapper"})
-//@ComponentScan(value = "com.ruoyi.api.controller.broad")
+// 监听器
+@ServletComponentScan( value = "com.ruoyi.streamsocket.listener")
 public class RuoYiApplication
 {
     public static void main(String[] args)

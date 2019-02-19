@@ -3,6 +3,7 @@ package com.ruoyi.streamsocket.listener;
 import com.ruoyi.streamsocket.server.StreamServer;
 import javax.servlet.ServletContextListener;
 import javax.servlet.ServletContextEvent;
+import javax.servlet.annotation.WebListener;
 
 /**
  * @author 张超 teavamc
@@ -10,6 +11,8 @@ import javax.servlet.ServletContextEvent;
  * @ClassName StreamSocketListener
  * @date 2019/2/17 19:47
  **/
+// SpringBoot 监听器
+@WebListener
 public class StreamSocketListener implements ServletContextListener {
 
     // 流媒体线程
