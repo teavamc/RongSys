@@ -3,45 +3,131 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-area-edit" th:object="${organization}">
-            <input id="aid" name="aid" th:field="*{aid}"  type="hidden">
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">父地域ID：</label>
-				<div class="col-sm-8">
-					<input id="parentaid" name="parentaid" th:field="*{parentaid}" class="form-control" type="text">
-				</div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+	<form class="form-horizontal m" id="form-organization-edit" th:object="${organization}">
+		<input id="tid" name="tid" th:field="*{tid}"  type="hidden">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端设备名称：</label>
+			<div class="col-sm-8">
+				<input id="tname" name="tname" th:field="*{tname}" class="form-control" type="text">
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">地域名称：</label>
-				<div class="col-sm-8">
-					<input id="aname" name="aname" th:field="*{aname}" class="form-control" type="text">
-				</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">所属分组编号：</label>
+			<div class="col-sm-8">
+				<input id="aid" name="aid" th:field="*{aid}" class="form-control" type="text">
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">备注：</label>
-				<div class="col-sm-8">
-					<input id="note" name="note" th:field="*{note}" class="form-control" type="text">
-				</div>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">所属用户编号：</label>
+			<div class="col-sm-8">
+				<input id="userid" name="userid" th:field="*{userid}" class="form-control" type="text">
 			</div>
-		</form>
-    </div>
-    <div th:include="include::footer"></div>
-    <script type="text/javascript">
-		var prefix = ctx + "broad/organization"
-		$("#form-area-edit").validate({
-			rules:{
-				xxxx:{
-					required:true,
-				},
-			}
-		});
-		
-		function submitHandler() {
-	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-area-edit').serialize());
-	        }
-	    }
-	</script>
+		</div>
+
+		<div class="form-group">
+			<label class="col-sm-3 control-label">出厂编号：</label>
+			<div class="col-sm-8">
+				<input id="facid" name="facid" th:field="*{facid}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">安装地址：</label>
+			<div class="col-sm-8">
+				<input id="address" name="address" th:field="*{address}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">备注：</label>
+			<div class="col-sm-8">
+				<input id="note" name="note" th:field="*{note}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端接入通信网：</label>
+			<div class="col-sm-8">
+				<input id="comstand" name="comstand" th:field="*{comstand}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端接入广播电视网模式：</label>
+			<div class="col-sm-8">
+				<input id="broadtel" name="broadtel" th:field="*{broadtel}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端管理员名称：</label>
+			<div class="col-sm-8">
+				<input id="manager" name="manager" th:field="*{manager}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端管理员电话：</label>
+			<div class="col-sm-8">
+				<input id="managertel" name="managertel" th:field="*{managertel}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端交互时间：</label>
+			<div class="col-sm-8">
+				<input id="intertime" name="intertime" th:field="*{intertime}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">创建时间：</label>
+			<div class="col-sm-8">
+				<input id="createdtime" name="createdtime" th:field="*{createdtime}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">是否可用：</label>
+			<div class="col-sm-8">
+				<input id="isuse" name="isuse" th:field="*{isuse}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端手机号码：</label>
+			<div class="col-sm-8">
+				<input id="phone" name="phone" th:field="*{phone}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">RDS码：</label>
+			<div class="col-sm-8">
+				<input id="rds" name="rds" th:field="*{rds}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">调频接收频率(终端可收转广播频率 )：</label>
+			<div class="col-sm-8">
+				<input id="fmfrequency" name="fmfrequency" th:field="*{fmfrequency}" class="form-control" type="text">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 control-label">终端流量使用限制，单位MB：</label>
+			<div class="col-sm-8">
+				<input id="trafficlimit" name="trafficlimit" th:field="*{trafficlimit}" class="form-control" type="text">
+			</div>
+		</div>
+	</form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+	var prefix = ctx + "village/organization"
+	$("#form-organization-edit").validate({
+		rules:{
+			xxxx:{
+				required:true,
+			},
+		}
+	});
+
+	function submitHandler() {
+		if ($.validate.form()) {
+			$.operate.save(prefix + "/edit", $('#form-organization-edit').serialize());
+		}
+	}
+</script>
 </body>
 </html>
