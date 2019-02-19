@@ -57,7 +57,7 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Organization organization)
 	{
-		startPage();
+		startPage() ;
 		List<Organization> list = organizationService.selectOrganizationList(organization);
 		return getDataTable(list);
 	}
