@@ -72,5 +72,5 @@ public interface IOrganizationService
 	 * @return
 	 * @throws Exception
 	 */
-	/*public List<Organization> listTersByAids(PageData pd) throws Exception;*/
+	/*public List<Organization> listTersByAids(PageData pd) throws Exception; */
 }
