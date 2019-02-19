@@ -53,7 +53,7 @@ public class OrganizationServiceImpl implements IOrganizationService
 		@DataSource(value = DataSourceType.SLAVE)
 		public List<Organization> selectOrganizationList(Organization organization)
 		{
-			return organizationMapper.selectOrganizationList(organization);
+			return organizationMapper.selectOrganizationList(organization) ;
 		}
 
 		/**
