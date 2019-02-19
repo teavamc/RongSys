@@ -1,6 +1,9 @@
-// 流媒体插件
-
-swfobject.embedSWF("/stream/RtmpStreamer.swf", "rtmp-streamer", "270", "190", "9", "static/stream/src/expressInstall.swf",{},{bgcolor:"#e5eaf1",wmode:"opaque"},{});
+// 流媒体插件 RTMP推流
+swfobject.embedSWF("/stream/RtmpStreamer.swf",
+    "rtmp-streamer",
+    "270", "190", "9",
+    "/stream/src/expressInstall.swf",
+    {},{bgcolor:"#e5eaf1",wmode:"opaque"},{});
 //wmode,tranparent:透明，opaque:不透明,表示将Flash置于最底层
 
 //ws 对象
@@ -357,10 +360,14 @@ function Marqueeh() {
  * http://www.cnblogs.com/snowinmay/p/3373892.html
  */
 
+// 推流准备 与 开启
 var isReady = false;
 var isOpen = false;
 
 // Global method for ActionScript
+/**
+ * 设置推流器就绪
+ */
 function setSWFIsReady() {
     if (!isReady) {
         console.log('swf is ready!');
@@ -368,6 +375,10 @@ function setSWFIsReady() {
         thisMovie("rtmp-streamer").setShowText("录音未开始");
     }
 }
+
+/**
+ * 设置麦克风开启
+ */
 function mrophoneIsOpen() {
     if (!isOpen) {
         console.log('mrophone is open!');
@@ -376,37 +387,52 @@ function mrophoneIsOpen() {
     //麦克风打开之后向后台发送直播请求
     connectWS();//打开ws连接
 }
+
+/**
+ * 推流错误
+ * @param infocode
+ */
 function streamError(infocode){
     if (infocode != "NetConnection.Connect.Closed") {
         var msg="连接流媒体服务器出错！\n"+infocode;
         Dialog.alert(msg);
     }
 }
+
+/**
+ * 推流 推送流媒体
+ */
 function publishRtmp() {
     setMicQuality(10);
     //console.log('MicQuality:'+10);
     thisMovie("rtmp-streamer").publish("${rtmpAddress}", streamid,"正在使用麦克风...");
     setLiveButton(1);
-};
+}
 
+/**
+ * 推流结束
+ */
 function streamerDisconnect() {
     thisMovie("rtmp-streamer").disconnect("麦克风使用结束。");
     isOpen = false;
-};
+}
+
+/**
+ * 设置麦克风参数
+ * @param quality
+ */
 function setMicQuality(quality) {
     thisMovie("rtmp-streamer").setMicQuality(quality);
-};
+}
 function setMicRate (rate) {
     thisMovie("rtmp-streamer").setMicRate(rate);
-};
+}
 
 //搭建js与flash互通的环境
 function thisMovie(movieName) {
     if (navigator.appName.indexOf("Microsoft") != -1) {
-
         return window[movieName];
     } else {
-
         return document[movieName];
     }
 }

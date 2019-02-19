@@ -1,6 +1,9 @@
-// 流媒体插件
-
-swfobject.embedSWF("/stream/RtmpStreamer.swf", "rtmp-streamer", "270", "190", "9", "static/stream/src/expressInstall.swf",{},{bgcolor:"#e5eaf1",wmode:"opaque"},{});
+// 流媒体插件 RTMP推流
+swfobject.embedSWF("/stream/RtmpStreamer.swf",
+    "rtmp-streamer",
+    "270", "190", "9",
+    "/stream/src/expressInstall.swf",
+    {},{bgcolor:"#e5eaf1",wmode:"opaque"},{});
 //wmode,tranparent:透明，opaque:不透明,表示将Flash置于最底层
 
 var ws = null;
@@ -15,6 +18,7 @@ var isstreamliving=2;
  * 在加载之前
  */
 function onbeforeunload(){
+    // 按钮设置
     if(isstreamliving==0||isstreamliving==1){
         endlive();
     }
@@ -72,8 +76,10 @@ function connectWS() {
     }
     // 开启直播，打印提醒
     ws.onopen = function () {
+        // 滚动状态
         scrollStatus("text-info","正在开启直播...");
-        startsent();//向后台发送开始直播命令
+        //向后台发送开始直播命令
+        startsent();
         console.log('Info: WebSocket connection opened.\n 中文： WebSocket直播打开');
     };
 
@@ -81,6 +87,7 @@ function connectWS() {
     ws.onmessage = function (event) {
         //终端直播状态
         if(event.data.charAt(0)=="2"){
+            // 滚动状态
             scrollStatus("text-success","正在直播...");
             setLiveButton(1);
             //终端状态刷新
@@ -134,6 +141,7 @@ function connectWS() {
  * @returns {boolean}
  */
 function startlive(obj){
+    // 如果未选择则 提示要选择
     if(imeilist==null || imeilist==""){
         $(obj).tips({
             side:3,
@@ -143,8 +151,10 @@ function startlive(obj){
         });
         return false;
     }else{
+        // 设置 streamid 为当前时间
         streamid = getCurTime();
         setLiveButton(0);
+        // 推流
         publishRtmp();
     }
 }
@@ -154,8 +164,11 @@ function startlive(obj){
  */
 function startsent(){
     if (ws != null) {
+        // 拼接 nessage
         var message = "start:"+streamid+":"+imeilist;
+        // 控制台打印
         console.log('Sent Start ');
+        // 推送信息
         ws.send(message);
     } else {
         Dialog.alert('WebSocket 连接建立失败，请重新连接');
@@ -185,6 +198,7 @@ function endlive(){
 
 /**
  * 选择直播终端
+ * 弹窗 选择数
  * @param obj
  */
 function selectter(obj){
@@ -192,23 +206,35 @@ function selectter(obj){
     var diag = new top.Dialog();
     diag.Drag=true;
     diag.Title ="选择直播终端";
+
+    // 调用 setStreamTer 方法 ， 做一个 树状 选项弹窗
     if(imeilist==null)
         diag.URL = "<%=basePath%>stream/setStreamTer.do";
     else
         diag.URL = "<%=basePath%>stream/setStreamTer.do?selecttid="+imeilist;
+    //弹窗高度
     diag.Width = 300;
     diag.Height = 450;
+
     diag.CancelEvent = function(){
         if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
             scrollStatus("text-primary","未直播");
 // 			 		if(imeilist!=null){
+            // 表格内容为空
             $("#tbody").empty();
-// 			 		}
+
+            // 拿到页面中 selectter 标签的数值
             imeilist = diag.innerFrame.contentWindow.document.getElementById('selectter').value;
+
+            //将选中的数据作为Map 发送到后台，{设备号tids：设备串码imei}，接收处理的数据中
             $.post("stream/getTerByTid.do",{tids:imeilist},function(data){
+                // 拿到 终端 和 地区
                 if(data.terlistarr!=null){
+                    // 放入 json
                     var terjson = eval(data.terlistarr);
+                    // 长度是 直播的数量
                     $("#liveternum").text(terjson.length);
+                    // 遍历并拆分 在表格中展示 <table id="simple-table"> 中的 <tbody id="tbody">
                     $.each(terjson,function(i,item){
                         $("#tbody").append("<tr><td class='center'>"+item.tid+"</td> <td class='center'>"+item.tname+"</td>"+
                             "<td class='center'>"+item.aname+"</td> <td class='center'>"+item.uname+"</td>"+
@@ -218,8 +244,11 @@ function selectter(obj){
                 }
             });
         }
+
+        // 关闭弹窗
         diag.close();
     };
+
     diag.show();
 }
 
@@ -356,10 +385,14 @@ function Marqueeh() {
  * http://www.cnblogs.com/snowinmay/p/3373892.html
  */
 
+// 推流准备 与 开启
 var isReady = false;
 var isOpen = false;
 
 // Global method for ActionScript
+/**
+ * 设置推流器就绪
+ */
 function setSWFIsReady() {
     if (!isReady) {
         console.log('swf is ready!');
@@ -367,6 +400,10 @@ function setSWFIsReady() {
         thisMovie("rtmp-streamer").setShowText("录音未开始");
     }
 }
+
+/**
+ * 设置麦克风开启
+ */
 function mrophoneIsOpen() {
     if (!isOpen) {
         console.log('mrophone is open!');
@@ -375,12 +412,21 @@ function mrophoneIsOpen() {
     //麦克风打开之后向后台发送直播请求
     connectWS();//打开ws连接
 }
+
+/**
+ * 推流错误
+ * @param infocode
+ */
 function streamError(infocode){
     if (infocode != "NetConnection.Connect.Closed") {
         var msg="连接流媒体服务器出错！\n"+infocode;
         Dialog.alert(msg);
     }
 }
+
+/**
+ * 推流 推送流媒体
+ */
 function publishRtmp() {
     setMicQuality(10);
     //console.log('MicQuality:'+10);
@@ -388,11 +434,18 @@ function publishRtmp() {
     setLiveButton(1);
 }
 
+/**
+ * 推流结束
+ */
 function streamerDisconnect() {
     thisMovie("rtmp-streamer").disconnect("麦克风使用结束。");
     isOpen = false;
 }
 
+/**
+ * 设置麦克风参数
+ * @param quality
+ */
 function setMicQuality(quality) {
     thisMovie("rtmp-streamer").setMicQuality(quality);
 }
@@ -403,10 +456,8 @@ function setMicRate (rate) {
 //搭建js与flash互通的环境
 function thisMovie(movieName) {
     if (navigator.appName.indexOf("Microsoft") != -1) {
-
         return window[movieName];
     } else {
-
         return document[movieName];
     }
 }
