@@ -70,21 +70,21 @@ public class StreamServer {
             bootstrap.option(ChannelOption.SO_REUSEADDR, true);  //允许重复使用本地地址和端口
             bootstrap.childHandler(new NettyChannelHandler());
 
-            ChannelFuture channelFuture = bootstrap.bind(PORT).sync();
+    ChannelFuture channelFuture = bootstrap.bind(PORT).sync();
             if (channelFuture.isSuccess()) {
-                System.out.println("启动流媒体监听");
-                log.info("正常日志  信息： 开始启动StreamSocket监听，端口:" + PORT + "；" );
-            }
-            // 关闭连接
+        System.out.println("启动流媒体监听");
+        log.info("正常日志  信息： 开始启动StreamSocket监听，端口:" + PORT + "；" );
+    }
+    // 关闭连接
             channelFuture.channel().closeFuture().sync();
 
-        } catch (Exception e) {
-            log.info("启动流媒体服务异常，异常信息：" + e.getMessage());
+} catch (Exception e) {
+        log.info("启动流媒体服务异常，异常信息：" + e.getMessage());
         } finally {
-            boss.shutdownGracefully();
-            worker.shutdownGracefully();
+        boss.shutdownGracefully();
+        worker.shutdownGracefully();
         }
-    }
+        }
 
     private class NettyChannelHandler extends ChannelInitializer<SocketChannel> {
 

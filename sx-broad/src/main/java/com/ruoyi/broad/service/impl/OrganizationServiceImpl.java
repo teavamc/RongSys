@@ -23,8 +23,8 @@ import java.util.*;
 @Service
 public class OrganizationServiceImpl implements IOrganizationService
 {
-	@Resource(name = "daoSupport")
-	private DaoSupport dao;
+	/*@Resource(name = "daoSupport")
+	private DaoSupport dao;*/
 
 	@Autowired
 		private OrganizationMapper organizationMapper;
@@ -53,7 +53,7 @@ public class OrganizationServiceImpl implements IOrganizationService
 		@DataSource(value = DataSourceType.SLAVE)
 		public List<Organization> selectOrganizationList(Organization organization)
 		{
-			return organizationMapper.selectOrganizationList(organization);
+			return organizationMapper.selectOrganizationList(organization) ;
 		}
 
 		/**
@@ -100,32 +100,31 @@ public class OrganizationServiceImpl implements IOrganizationService
 		 * @param tid 终端IMEI
 		 * @return 终端信息
 		 */
-		@Override
+	/*	@Override
 		@DataSource(value = DataSourceType.SLAVE)
 		public Organization getOrgnzByOid(String tid)
 		{
 			return organizationMapper.selectOrganizationById(tid);
 		}
-
+*/
 		/**
 		 * 获取所选择终端的编号
 		 * @param pd
 		 * @return List<PageData>
 		 */
-		@Override
+	/*	@Override
 		@DataSource(value = DataSourceType.SLAVE)
 		public List<PageData> getTerInfoBytids(PageData pd) throws Exception {
 			return (List<PageData>) dao.findForList("OrganizationMapper.getTerInfoBytids",pd);
-		}
+		}*/
 
 		/**
 		 * 根据分组编号列表查询终端列表
 		 * @param pd
 		 * @return List<Organization>
 		 */
-		@SuppressWarnings("unchecked")
-		@Override
+		/*@Override
 		public List<Organization> listTersByAids(PageData pd) throws Exception {
 			return (List<Organization>) dao.findForList("OrganizationMapper.listTersByAids",pd);
-		}
+		}*/
 	}

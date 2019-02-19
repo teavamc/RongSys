@@ -63,9 +63,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
              <if test="tname != null  and tname != '' "> and tname = #{tname}</if>
-             <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
+             <if test="aid != null  and aid != '' "> and t.aid = #{aid}</if>
              <if test="aname != null  and aname != '' "> and aname = #{aname}</if>
-            <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
+            <if test="userid != null  and userid != '' "> and t.userid = #{userid}</if>
             <if test="uname != null  and uname != '' "> and uname = #{uname}</if>
             <if test="lastaccesstime != null  and lastaccesstime != '' "> and lastaccesstime = #{lastaccesstime}</if>
             <if test="facid != null  and facid != '' "> and facid = #{facid}</if>
@@ -126,9 +126,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{aid}
         </foreach>
     </delete>
-
     <!--通过单一IMEI获取机构 -->
-    <select id="getOrgnzByOid" parameterType="String" resultType="Organization">
+  <!--  <select id="getOrgnzByOid" parameterType="String" resultType="Organization">
         select
         t.tid as tid,
         tname,
@@ -170,44 +169,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join <include refid="areatableName"></include> a on t.aid = a.aid)
         left join <include refid="usertable"></include> u on t.uid = u.uid
         where t.tid = #{tid}
-    </select>
-
-<!--    &lt;!&ndash;根据tidsList去多查询终端信息&ndash;&gt;-->
-<!--    <select id="getTerInfoBytids" parameterType="pd" resultType="pd">-->
-<!--        select-->
-<!--        t.tid as tid,-->
-<!--        tname,-->
-<!--        t.aid as aid,aname,-->
-<!--        t.uid as uid,uname,-->
-<!--        t.isuse as isuse-->
-<!--        from	(<include refid="tableName"></include> t-->
-<!--        left join <include refid="areatableName"></include> a on t.aid = a.aid)-->
-<!--        left join <include refid="usertable"></include> u on t.uid = u.uid-->
-<!--        <where>-->
-<!--            <if test="terlist!=null and terlist!='' and terlist.size>0">-->
-<!--                t.tid in-->
-<!--                <foreach collection="terlist" index="index" item="item" open="(" separator="," close=")">-->
-<!--                    ${item}-->
-<!--                </foreach>-->
-<!--            </if>-->
-<!--        </where>-->
-<!--    </select>-->
-
-<!--    &lt;!&ndash;根据分组编号列表查询终端列表&ndash;&gt;-->
-<!--    <select id="listTersByAids" parameterType="pd" resultType="Organization">-->
-<!--        select-->
-<!--        tid,tname,t.aid as aid,aname,t.userid as userid,uname,facid,address,t.note as note,comstand,broadtel,manager,managertel,intertime,createdtime,t.isuse as isuse,phone,fmfrequency,rds,trafficlimit-->
-<!--        from-->
-<!--        (<include refid="tableName"></include> t-->
-<!--        left join <include refid="areatableName"></include> a on t.aid = a.aid)-->
-<!--        left join <include refid="usertable"></include> u on t.userid = u.userid-->
-<!--        <where>-->
-<!--            <choose>-->
-<!--                <when test="aid !=null and aid!=''" >-->
-<!--                    and t.aid like  CONCAT(#{aid},'%')-->
-<!--                </when>-->
-<!--                <otherwise>and t.aid is null</otherwise>-->
-<!--            </choose>-->
-<!--        </where>-->
-<!--    </select>-->
+    </select>-->
+    <!--根据tidsList去多查询终端信息-->
+   <!-- <select id="getTerInfoBytids" parameterType="HashMap" resultType="HashMap">
+        select
+        t.tid as tid,
+        tname,
+        t.aid as aid,aname,
+        t.uid as uid,uname,
+        t.isuse as isuse
+        from	(<include refid="tableName"></include> t
+        left join <include refid="areatableName"></include> a on t.aid = a.aid)
+        left join <include refid="usertable"></include> u on t.uid = u.uid
+        <where>
+            <if test="terlist!=null and terlist!='' and terlist.size>0">
+                t.tid in
+                <foreach collection="terlist" index="index" item="item" open="(" separator="," close=")">
+                    ${item}
+                </foreach>
+            </if>
+        </where>
+    </select>-->
+    <!--根据分组编号列表查询终端列表-->
+    <!--<select id="listTersByAids" parameterType="HashMap" resultType="Organization">
+        select
+        tid,tname,t.aid as aid,aname,t.userid as userid,uname,facid,address,t.note as note,comstand,broadtel,manager,managertel,intertime,createdtime,t.isuse as isuse,phone,fmfrequency,rds,trafficlimit
+        from
+        (<include refid="tableName"></include> t
+        left join <include refid="areatableName"></include> a on t.aid = a.aid)
+        left join <include refid="usertable"></include> u on t.userid = u.userid
+        <where>
+            <choose>
+                <when test="aid !=null and aid!=''" >
+                    and t.aid like  CONCAT(#{aid},'%')
+                </when>
+                <otherwise>and t.aid is null</otherwise>
+            </choose>
+        </where>
+    </select>-->
 </mapper>
