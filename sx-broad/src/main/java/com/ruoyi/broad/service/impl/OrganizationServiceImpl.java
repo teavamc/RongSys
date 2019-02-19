@@ -6,13 +6,13 @@ import com.ruoyi.broad.service.IOrganizationService;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import com.ruoyi.common.support.Convert;
+import com.ruoyi.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.ruoyi.broad.dao.DaoSupport;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * 终端地域 服务层实现
@@ -23,8 +23,10 @@ import java.util.Map;
 @Service
 public class OrganizationServiceImpl implements IOrganizationService
 {
+	@Resource(name = "daoSupport")
+	private DaoSupport dao;
 
-		@Autowired
+	@Autowired
 		private OrganizationMapper organizationMapper;
 
 		/**
@@ -92,31 +94,38 @@ public class OrganizationServiceImpl implements IOrganizationService
 		{
 			return organizationMapper.deleteOrganizationByIds(Convert.toStrArray(ids));
 		}
-//
-//	public List<Map<String, Object>> getTrees(List<SysDept> deptList, boolean isCheck, List<String> roleDeptList)
-//	{
-//
-//		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-//		for (SysDept dept : deptList)
-//		{
-//			if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()))
-//			{
-//				Map<String, Object> deptMap = new HashMap<String, Object>();
-//				deptMap.put("id", dept.getDeptId());
-//				deptMap.put("pId", dept.getParentId());
-//				deptMap.put("name", dept.getDeptName());
-//				deptMap.put("title", dept.getDeptName());
-//				if (isCheck)
-//				{
-//					deptMap.put("checked", roleDeptList.contains(dept.getDeptId() + dept.getDeptName()));
-//				}
-//				else
-//				{
-//					deptMap.put("checked", false);
-//				}
-//				trees.add(deptMap);
-//			}
-//		}
-//		return trees;
-//	}
+		/**
+		 * 查询终端信息
+		 *
+		 * @param tid 终端IMEI
+		 * @return 终端信息
+		 */
+		@Override
+		@DataSource(value = DataSourceType.SLAVE)
+		public Organization getOrgnzByOid(String tid)
+		{
+			return organizationMapper.selectOrganizationById(tid);
+		}
+
+	/**
+	 * 获取所选择终端的编号
+	 * @param pd
+	 * @return List<PageData>
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<PageData> getTerInfoBytids(PageData pd) throws Exception {
+		return (List<PageData>) dao.findForList("OrganizationMapper.getTerInfoBytids",pd);
+	}
+
+	/**
+	 * 根据分组编号列表查询终端列表
+	 * @param pd
+	 * @return List<Organization>
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Organization> listTersByAids(PageData pd) throws Exception {
+		return (List<Organization>) dao.findForList("OrganizationMapper.listTersByAids",pd);
+	}
 	}
