@@ -22,10 +22,8 @@ import org.springframework.web.socket.WebSocketSession;
 public class NettyClient {
 
     //从配置文件中获得 SERVER IP 和 SERVER PORT
-    @Value("${SX.SERVERIP}")
-    private  String host;
-    @Value("${SX.SERVERPORT}")
-    private  int port;
+    private  String host = "110.53.162.164";
+    private  int port = 8800;
 
 //    声明一个 WebSocketSession 对象 conn
     public WebSocketSession conn;

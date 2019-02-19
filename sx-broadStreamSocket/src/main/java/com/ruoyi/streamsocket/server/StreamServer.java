@@ -29,11 +29,8 @@ import org.springframework.beans.factory.annotation.Value;
 public class StreamServer {
 
 
-    @Value("${SX.SERVERPORT}")
-    private int SX_SERVERPORT;
-
-    @Value("${SX.SERVERbacklog}")
-    private int SX_SERVERbacklog;
+    private int SX_SERVERPORT = 8800;
+    private int SX_SERVERbacklog = 2000;
 
     private int PORT = 8800;//终端端口
     private static int Socketbacklog = 1000; //允许客户端数量
