@@ -59,18 +59,18 @@ public interface IOrganizationService
 	 * @param tid 终端IMEI
 	 * @return 终端信息
 	 */
-	public Organization getOrgnzByOid(String tid) throws Exception;
+	/*public Organization getOrgnzByOid(String tid) throws Exception;*/
 	/**
 	 * 根据终端imei列表获取终端部分信息
 	 * @param pd
 	 * @return
 	 */
-	public List<PageData> getTerInfoBytids(PageData pd) throws Exception;
+	/*public List<PageData> getTerInfoBytids(PageData pd) throws Exception;*/
 	/**
 	 * 根据分组编号列表查询终端列表
 	 * @param pd
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Organization> listTersByAids(PageData pd) throws Exception;
+	/*public List<Organization> listTersByAids(PageData pd) throws Exception;*/
 }
