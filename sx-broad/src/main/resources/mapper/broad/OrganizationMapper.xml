@@ -127,7 +127,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <!--通过ID获取机构 -->
+    <!--通过单一IMEI获取机构 -->
     <select id="getOrgnzByOid" parameterType="String" resultType="Organization">
         select
         t.tid as tid,
@@ -172,6 +172,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where t.tid = #{tid}
     </select>
 
+    <!--根据tidsList去多查询终端信息-->
     <select id="getTerInfoBytids" parameterType="pd" resultType="pd">
         select
         t.tid as tid,

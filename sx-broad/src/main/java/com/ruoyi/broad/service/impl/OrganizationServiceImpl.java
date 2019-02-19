@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 import java.util.*;
 
 /**
- * 终端地域 服务层实现
+ * 终端管理 服务层实现
  *
  * @author 张鸿权
  * @date 2019-01-17
@@ -30,10 +30,10 @@ public class OrganizationServiceImpl implements IOrganizationService
 		private OrganizationMapper organizationMapper;
 
 		/**
-		 * 查询终端地域信息
+		 * 查询终端地域
 		 *
 		 * @param aid 终端地域ID
-		 * @return 终端地域信息
+		 * @return 终端信息
 		 */
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
@@ -44,10 +44,10 @@ public class OrganizationServiceImpl implements IOrganizationService
 
 
 		/**
-		 * 查询终端地域列表
+		 * 查询终端列表
 		 *
-		 * @param organization 终端地域信息
-		 * @return 终端地域集合
+		 * @param organization 终端信息
+		 * @return 终端集合
 		 */
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
@@ -57,9 +57,9 @@ public class OrganizationServiceImpl implements IOrganizationService
 		}
 
 		/**
-		 * 新增终端地域
+		 * 新增终端
 		 *
-		 * @param organization 终端地域信息
+		 * @param organization 终端信息
 		 * @return 结果
 		 */
 		@Override
@@ -70,9 +70,9 @@ public class OrganizationServiceImpl implements IOrganizationService
 		}
 
 		/**
-		 * 修改终端地域
+		 * 修改终端
 		 *
-		 * @param organization 终端地域信息
+		 * @param organization 终端信息
 		 * @return 结果
 		 */
 		@Override
@@ -83,7 +83,7 @@ public class OrganizationServiceImpl implements IOrganizationService
 		}
 
 		/**
-		 * 删除终端地域对象
+		 * 删除终端对象
 		 *
 		 * @param ids 需要删除的数据ID
 		 * @return 结果
@@ -107,25 +107,25 @@ public class OrganizationServiceImpl implements IOrganizationService
 			return organizationMapper.selectOrganizationById(tid);
 		}
 
-	/**
-	 * 获取所选择终端的编号
-	 * @param pd
-	 * @return List<PageData>
-	 */
-	@Override
-	@DataSource(value = DataSourceType.SLAVE)
-	public List<PageData> getTerInfoBytids(PageData pd) throws Exception {
-		return (List<PageData>) dao.findForList("OrganizationMapper.getTerInfoBytids",pd);
-	}
+		/**
+		 * 获取所选择终端的编号
+		 * @param pd
+		 * @return List<PageData>
+		 */
+		@Override
+		@DataSource(value = DataSourceType.SLAVE)
+		public List<PageData> getTerInfoBytids(PageData pd) throws Exception {
+			return (List<PageData>) dao.findForList("OrganizationMapper.getTerInfoBytids",pd);
+		}
 
-	/**
-	 * 根据分组编号列表查询终端列表
-	 * @param pd
-	 * @return List<Organization>
-	 */
-	@SuppressWarnings("unchecked")
-	@Override
-	public List<Organization> listTersByAids(PageData pd) throws Exception {
-		return (List<Organization>) dao.findForList("OrganizationMapper.listTersByAids",pd);
-	}
+		/**
+		 * 根据分组编号列表查询终端列表
+		 * @param pd
+		 * @return List<Organization>
+		 */
+		@SuppressWarnings("unchecked")
+		@Override
+		public List<Organization> listTersByAids(PageData pd) throws Exception {
+			return (List<Organization>) dao.findForList("OrganizationMapper.listTersByAids",pd);
+		}
 	}
