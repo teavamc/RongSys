@@ -126,7 +126,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{aid}
         </foreach>
     </delete>
-
     <!--通过单一IMEI获取机构 -->
   <!--  <select id="getOrgnzByOid" parameterType="String" resultType="Organization">
         select
@@ -171,7 +170,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         left join <include refid="usertable"></include> u on t.uid = u.uid
         where t.tid = #{tid}
     </select>-->
-
     <!--根据tidsList去多查询终端信息-->
    <!-- <select id="getTerInfoBytids" parameterType="HashMap" resultType="HashMap">
         select
@@ -192,7 +190,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             </if>
         </where>
     </select>-->
-
     <!--根据分组编号列表查询终端列表-->
     <!--<select id="listTersByAids" parameterType="HashMap" resultType="Organization">
         select
