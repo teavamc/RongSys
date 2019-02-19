@@ -2,7 +2,7 @@ package com.ruoyi.system.mapper;
 
 import java.util.List;
 
-import com.ruoyi.system.domain.SysLoginIndex;
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.system.domain.SysLogininfor;
 
 /**
@@ -47,5 +47,5 @@ public interface SysLogininforMapper
      *
      * @return 结果
      */
-    public List<SysLoginIndex> selectLoginLogforIndex();
+    public List<PageData> selectLoginLogforIndex();
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.OrganizationMapper">
+    
+    <resultMap type="organization" id="OrganizationResult">
+        <result property="aid"    column="aid"    />
+        <result property="parentaid"    column="parentaid"    />
+        <result property="aname"    column="aname"    />
+        <result property="note"    column="note"    />
+    </resultMap>
+	
+	<sql id="selectOrganizationVo">
+        select aid, parentaid, aname, note from area
+    </sql>
+	
+    <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
+        <where>  
+            <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
+             <if test="parentaid != null  and parentaid != '' "> and parentaid = #{parentaid}</if>
+             <if test="aname != null  and aname != '' "> and aname = #{aname}</if>
+             <if test="note != null  and note != '' "> and note = #{note}</if>
+         </where>
+    </select>
+    
+    <select id="selectOrganizationById" parameterType="String" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
+        where aid = #{aid}
+    </select>
+        
+    <insert id="insertOrganization" parameterType="Organization">
+        insert into area
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="aid != null  and aid != ''  ">aid,</if>
+			<if test="parentaid != null  and parentaid != ''  ">parentaid,</if>
+			<if test="aname != null  and aname != ''  ">aname,</if>
+			<if test="note != null  and note != ''  ">note,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="aid != null  and aid != ''  ">#{aid},</if>
+			<if test="parentaid != null  and parentaid != ''  ">#{parentaid},</if>
+			<if test="aname != null  and aname != ''  ">#{aname},</if>
+			<if test="note != null  and note != ''  ">#{note},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateOrganization" parameterType="Organization">
+        update area
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="parentaid != null  and parentaid != ''  ">parentaid = #{parentaid},</if>
+            <if test="aname != null  and aname != ''  ">aname = #{aname},</if>
+            <if test="note != null  and note != ''  ">note = #{note},</if>
+        </trim>
+        where aid = #{aid}
+    </update>
+
+	<delete id="deleteOrganizationById" parameterType="String">
+        delete from area where aid = #{aid}
+    </delete>
+	
+    <delete id="deleteOrganizationByIds" parameterType="String">
+        delete from area where aid in
+        <foreach item="aid" collection="array" open="(" separator="," close=")">
+            #{aid}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -37,7 +37,7 @@ public class SwaggerConfig
                 .apiInfo(apiInfo())
                 .select()
                 // 指定当前包路径
-                .apis(basePackage("com.ruoyi.api.controller.broad"+splitor+"com.ruoyi.api.controller.village"))
+                .apis(basePackage("com.ruoyi.api.controller.broad"+splitor+"com.ruoyi.api.controller.village"+splitor+"com.ruoyi.api.controller.system"))
                 // 扫描所有 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build();
@@ -62,7 +62,6 @@ public class SwaggerConfig
         * 重写basePackage方法，使能够实现多包访问
         * @author 张超 teavamc
         * @date 2019/1/26
-        * @param [basePackage]
         * @return com.google.common.base.Predicate<springfox.documentation.RequestHandler>
         */
     public static Predicate<RequestHandler> basePackage(final String basePackage) {

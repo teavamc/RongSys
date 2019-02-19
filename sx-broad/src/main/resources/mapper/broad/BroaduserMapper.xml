@@ -37,10 +37,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="userlevel != null  and userlevel != '' ">and userlevel LIKE CONCAT(CONCAT('%', #{userlevel}),'%')</if>
              <if test="uphone != null  and uphone != '' "> and uphone LIKE CONCAT(CONCAT('%', #{uphone}),'%')</if>
              <if test="uaddress != null  and uaddress != '' "> and uaddress LIKE CONCAT(CONCAT('%', #{uaddress}),'%')</if>
-        <if test="isuse != null  and isuse != '' "> and isuse LIKE CONCAT(CONCAT('%', #{isuse}),'%')</if>
+             <if test="isuse != null  and isuse != '' "> and isuse LIKE CONCAT(CONCAT('%', #{isuse}),'%')</if>
              <if test="lastdate != null  and lastdate != '' "> and lastdate LIKE CONCAT(CONCAT('%', #{lastdate}),'%')</if>
              <if test="aname != null  and aname != '' "> and aname LIKE CONCAT(CONCAT('%', #{aname}),'%')</if>
          </where>
+         ORDER BY lastdate DESC
     </select>
     
     <select id="selectBroaduserById" parameterType="String" resultMap="BroaduserResult">
