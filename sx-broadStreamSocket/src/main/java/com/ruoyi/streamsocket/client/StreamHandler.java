@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 /**
  * @author 张超 teavamc
- * @Description:TODO
+ * @Description: 流媒体 WebSocket 处理类
  * @ClassName StreamHandler
  * @date 2019/2/16 15:57
  **/
@@ -23,10 +23,12 @@ public class StreamHandler  implements WebSocketHandler {
     private final ArrayList<WebSocketSession> streams = new ArrayList<WebSocketSession>();
     private final ArrayList<String> streamids = new ArrayList<String>();
     private final ArrayList<Boolean> streamstates = new ArrayList<Boolean>();
+
     //	private final ArrayList<VlcStreamThread> vlcthreads = new ArrayList<VlcStreamThread>();//vlc直播线程
+
     ExecutorService executorService =  Executors.newFixedThreadPool(100);
 
-    protected static final Logger log = LoggerFactory.getLogger("streamclient");
+    protected static final Logger log = LoggerFactory.getLogger(StreamHandler.class);
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus arg1)
@@ -52,6 +54,13 @@ public class StreamHandler  implements WebSocketHandler {
         log.info( "正常日志："+session.getRemoteAddress() + " 断开连接!" );
     }
 
+    /**
+        * 创建 WebSocket Session
+        * @author 张超 teavamc
+        * @date 2019/2/20
+        * @param [session]
+        * @return void
+        */
     @Override
     public void afterConnectionEstablished(WebSocketSession session)
             throws Exception {

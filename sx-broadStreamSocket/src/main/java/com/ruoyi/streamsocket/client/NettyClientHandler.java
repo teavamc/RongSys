@@ -32,7 +32,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     // 声明 ByteBuf 对象  encoded 用于编码
     ByteBuf encoded;
     // 日志记录
-    private static final Logger log = LoggerFactory.getLogger("streamclient");
+    private static final Logger log = LoggerFactory.getLogger(NettyClientHandler.class);
     final static String UTF8 = "UTF8";
     /**
         * 初始化 NettyClientHandler 对象
