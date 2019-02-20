@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!--表名 -->
     <sql id="tableName">
-		terminals
+		terminals2
 	</sql>
     <sql id="areatableName">
 		area

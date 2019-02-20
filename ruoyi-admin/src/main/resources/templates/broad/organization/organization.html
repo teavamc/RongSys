@@ -31,7 +31,7 @@
 	<div class="row">
 		<div class="col-sm-12 search-collapse">
 			<form id="user-form">
-				<input type="hidden" id="aid" name="aid">
+				<input type="hidden" id="aAid" name="aaid">
 				<input type="hidden" id="Parentaid" name="parentaid">
 				<div class="select-list">
 					<ul>
@@ -293,7 +293,7 @@
         $.tree.init(options);
 
         function zOnClick(event, treeId, treeNode) {
-            $("#aid").val(treeNode.id);
+            $("#aAid").val(treeNode.id);
             $("#Parentaid").val(treeNode.pId);
             $.table.search();
         }
