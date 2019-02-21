@@ -16,15 +16,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="loginTime"     column="login_time"        />
 	</resultMap>
 
-	<resultMap type="SysLoginIndex" id="SysLoginIndexResult">
-		<result property="loginName"     column="loginName"        />
-		<result property="user_name"     column="user_name"        />
-		<result property="ipaddr"        column="ipaddr"            />
-		<result property="loginLocation" column="loginLocation"    />
-		<result property="browser"       column="browser"           />
-		<result property="loginTime"     column="loginTime"        />
-	</resultMap>
-
 	<insert id="insertLogininfor" parameterType="SysLogininfor">
 		insert into sys_logininfor (login_name, status, ipaddr, login_location, browser, os, msg, login_time)
 		values (#{loginName}, #{status}, #{ipaddr}, #{loginLocation}, #{browser}, #{os}, #{msg}, sysdate())
@@ -51,7 +42,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</where>
 	</select>
 
-	<select id="selectLoginLogforIndex" resultMap="SysLoginIndexResult">
+	<select id="selectLoginLogforIndex" resultType="HashMap">
 		select
 			sys_logininfor.login_name as loginName,
 			sys_user.user_name as user_name,

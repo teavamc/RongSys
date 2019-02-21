@@ -6,7 +6,9 @@ import com.ruoyi.broad.service.IManagementService;
 import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
  *  接口业务处理封装
@@ -34,6 +36,13 @@ public class RongApiService {
         return res;
     }
 
+    /**
+        * 将其他业务中的HashMap(JavaBean)进行统一封装成API-JSON数据
+        * @author 张超 teavamc
+        * @date 2019/2/4
+            * @param [obj]
+            * @return com.ruoyi.api.domain.RongApiRes
+        */
     public static RongApiRes get_bean(Object obj){
         RongApiRes res = new RongApiRes();
         if(obj!=null){
@@ -44,5 +53,4 @@ public class RongApiService {
         }
         return res;
     }
-
 }
