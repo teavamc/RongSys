@@ -53,7 +53,6 @@ public class OrganizationController extends BaseController
 	 * 查询终端地域列表
 	 */
 	@RequiresPermissions("broad:organization:list")
-    @Log(title = "测试2222222222222222", businessType = BusinessType.INSERT)
 	@PostMapping("/list")
 	@ResponseBody
 	public TableDataInfo list(Organization organization)

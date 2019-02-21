@@ -31,8 +31,8 @@
 	<div class="row">
 		<div class="col-sm-12 search-collapse">
 			<form id="user-form">
-				<input type="hidden" id="aAid" name="aaid">
-				<input type="hidden" id="Parentaid" name="parentaid">
+				<input type="hidden" id="aid" name="aid">
+				<input type="hidden" id="tid" name="tid">
 				<div class="select-list">
 					<ul>
 
@@ -168,7 +168,7 @@
                 updateUrl: prefix + "/edit/{id}",
                 exportUrl: prefix + "/export",
                 modalName: "终端管理",
-                search: false,
+                search: true,
                 showExport: true,
                 columns: [{
                     checkbox: true
@@ -293,8 +293,14 @@
         $.tree.init(options);
 
         function zOnClick(event, treeId, treeNode) {
-            $("#aAid").val(treeNode.id);
-            $("#Parentaid").val(treeNode.pId);
+            $("#aid").val("01");
+          $("#tid").val(treeNode.pId);
+			var a = $("#aid").val();
+			var b = treeNode.id;
+			alert("aidval");
+           alert(a);
+			alert("treeNode.id");
+           alert(b);
             $.table.search();
         }
     }
