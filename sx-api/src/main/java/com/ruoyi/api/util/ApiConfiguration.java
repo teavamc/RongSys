@@ -3,7 +3,12 @@
 //import org.springframework.context.annotation.Configuration;
 //import org.springframework.web.servlet.config.annotation.CorsRegistry;
 //import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-//
+
+
+//注释原因，因目前使用Springboot中的@CrossOrigin进行跨域操作，打开/api路径，本配置因实现效果相同，暂不使用
+//时间：2019-01-26
+// 张超
+
 //@Configuration
 //public class ApiConfiguration {
 //

@@ -1,7 +1,9 @@
 package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Maintain;
-import java.util.List;	
+import com.ruoyi.broad.domain.Maintainx;
+
+import java.util.List;
 
 /**
  * 终端维护记录 数据层
@@ -58,5 +60,14 @@ public interface MaintainMapper
      * @return 结果
      */
 	public int deleteMaintainByIds(String[] tmids);
-	
+
+
+	/**
+	 * 连表查询设备维修记录和经纬度
+	 * @author 张超 teavamc
+	 * @date 2019/1/25
+	 * @param []
+	 * @return java.util.List<com.ruoyi.broad.domain.Maintainx>
+	 */
+	public List<Maintainx> selectlal();
 }

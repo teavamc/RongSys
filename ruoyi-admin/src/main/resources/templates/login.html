@@ -19,49 +19,57 @@
     <script>
         if(window.top!==window.self){window.top.location=window.location};
     </script>
+
+<!--    导入动态背景需要的库-->
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/views/login/prefixfree.min.js}"></script>
+    <script th:src="@{/js/views/login/stopExecutionOnTimeout.js}"></script>
+
 </head>
 
 <body class="signin">
 
-    <div class="signinpanel">
-        <div class="row">
-            <h1 class="text-center"><strong>欢迎登陆融媒体管理平台</strong></h1>
+<div class="stars"></div>
+
+<div class="signinpanel center">
+    <div class="row">
+        <h1 class="text-center"><strong>欢迎登陆融媒体管理平台</strong></h1>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-3">
+
         </div>
-        <br>
-        <div class="row">
-           <div class="col-sm-3">
-
-            </div>
-            <div class="col-sm-6">
-                <form id="signupForm">
-
-                    <input type="text"     name="username" class="form-control uname"     placeholder="用户名" value="admin"    />
-                    <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="admin123" />
-					<div class="row m-t" th:if="${captchaEnabled==true}">
-						<div class="col-xs-6">
-						    <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5">
-						</div>
-						<div class="col-xs-6">
-							<a href="javascript:void(0);" title="点击更换验证码">
-								<img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode" width="85%"/>
-							</a>
-						</div>
-					</div>
-                    <div class="checkbox-custom">
-				        <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
-				    </div>
-                    <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="signup-footer">
-            <div class="text-center">
-                &copy; 2018 All Rights Reserved.湖南农业大学信息院 <br>
-
-            </div>
+        <div class="col-sm-6">
+            <form id="signupForm">
+                <input type="text"     name="username" class="form-control uname"     placeholder="用户名" value="admin"    />
+                <input type="password" name="password" class="form-control pword"     placeholder="密码"   value="admin123" />
+                <div class="row m-t" th:if="${captchaEnabled==true}">
+                    <div class="col-xs-6">
+                        <input type="text" name="validateCode" class="form-control code" placeholder="验证码" maxlength="5">
+                    </div>
+                    <div class="col-xs-6">
+                        <a href="javascript:void(0);" title="点击更换验证码">
+                            <img th:src="@{captcha/captchaImage(type=${captchaType})}" class="imgcode" width="85%"/>
+                        </a>
+                    </div>
+                </div>
+                <div class="checkbox-custom">
+                    <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
+                </div>
+                <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
+            </form>
         </div>
     </div>
+
+    <div class="signup-footer">
+        <div class="text-center">
+            &copy; 2018 All Rights Reserved.湖南农业大学信息院 <br>
+
+        </div>
+    </div>
+</div>
+
 <script th:inline="javascript"> var ctx = [[@{/}]]; var captchaType = [[${captchaType}]]; </script>
 
 
@@ -76,5 +84,33 @@
 <script src="http://tajs.qq.com/stats?sId=62048022"></script>
 <script src="../static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=3.1.0}"></script>
 <script src="../static/ruoyi/login.js" th:src="@{/ruoyi/login.js}"></script>
+
+    <script>
+        $(document).ready(function () {
+            var stars = 800;
+            var $stars = $('.stars');
+            var r = 800;
+            for (var i = 0; i < stars; i++) {
+                if (window.CP.shouldStopExecution(1)) {
+                    break;
+                }
+                var $star = $('<div/>').addClass('star');
+                $stars.append($star);
+            }
+            window.CP.exitedLoop(1);
+            $('.star').each(function () {
+                var cur = $(this);
+                var s = 0.2 + Math.random() * 1;
+                var curR = r + Math.random() * 300;
+                cur.css({
+                    transformOrigin: '0 0 ' + curR + 'px',
+                    transform: ' translate3d(0,0,-' + curR + 'px) rotateY(' + Math.random() * 360 + 'deg) rotateX(' + Math.random() * -50 + 'deg) scale(' + s + ',' + s + ')'
+                });
+            });
+        });
+
+    </script>
+
 </body>
+
 </html>

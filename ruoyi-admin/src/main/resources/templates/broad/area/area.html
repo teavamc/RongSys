@@ -32,8 +32,8 @@
 	<div class="row">
 		<div class="col-sm-12 search-collapse">
 			<form id="user-form">
-				<input type="hidden" id="deptId" name="deptId">
-				<input type="hidden" id="parentId" name="parentId">
+				<input type="hidden" id="Aid" name="aid">
+				<input type="hidden" id="Parentaid" name="parentaid">
 				<div class="select-list">
 					<ul>
 
@@ -55,10 +55,10 @@
 		</div>
 
 		<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-			<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:user:add">
+			<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:area:add">
 				<i class="fa fa-plus"></i> 新增
 			</a>
-			<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:user:edit">
+			<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:area:edit">
 				<i class="fa fa-edit"></i> 修改
 			</a>
 		</div>
@@ -122,8 +122,8 @@
         $.tree.init(options);
 
         function zOnClick(event, treeId, treeNode) {
-            $("#deptId").val(treeNode.id);
-            $("#parentId").val(treeNode.pId);
+            $("#Aid").val(treeNode.id);
+            $("#Parentaid").val(treeNode.pId);
             $.table.search();
         }
     }
