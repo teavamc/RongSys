@@ -30,6 +30,13 @@ public class StreamHandler  implements WebSocketHandler {
 
     protected static final Logger log = LoggerFactory.getLogger(StreamHandler.class);
 
+    /**
+        * 连接关闭之前
+        * @author 张超 teavamc
+        * @date 2019/2/21
+        * @param [session, arg1]
+        * @return void
+        */
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus arg1)
             throws Exception {
@@ -55,7 +62,7 @@ public class StreamHandler  implements WebSocketHandler {
     }
 
     /**
-        * 创建 WebSocket Session
+        * 连接后 创建 WebSocket Session
         * @author 张超 teavamc
         * @date 2019/2/20
         * @param [session]
@@ -68,6 +75,13 @@ public class StreamHandler  implements WebSocketHandler {
         log.info( "正常日志："+session.getRemoteAddress() + ": 打开连接！"  );
     }
 
+    /**
+        * 业务信息处理 描述
+        * @author 张超 teavamc
+        * @date 2019/2/21
+        * @param [conn, message]
+        * @return void
+        */
     @Override
     public void handleMessage(WebSocketSession conn, WebSocketMessage<?> message)
             throws Exception {
@@ -110,6 +124,14 @@ public class StreamHandler  implements WebSocketHandler {
 
         System.out.println( conn.getRemoteAddress() + ": " + message.getPayload() );
     }
+
+    /**
+        * 发送指令 描述
+        * @author 张超 teavamc
+        * @date 2019/2/21
+        * @param [conn, msg]
+        * @return void
+        */
     private void sendCMDtoSocket(WebSocketSession conn,String msg){
         //给后台socket服务器发送命令
         executorService.execute(new Runnable(){

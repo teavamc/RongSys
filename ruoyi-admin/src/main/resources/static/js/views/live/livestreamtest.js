@@ -81,7 +81,7 @@ function connectWS() {
         scrollStatus("text-info","正在开启直播...");
         //向后台发送开始直播命令
         startsent();
-        console.log('Info: WebSocket connection opened.\n 中文： WebSocket直播打开');
+        console.log('Info:  WebSocket直播已打开');
     };
 
 
@@ -132,7 +132,7 @@ function connectWS() {
 //             		setShowCloseStatus();
             scrollStatus("text-danger","直播结束");
         }
-        console.log('Info: WebSocket connection closed, Code: ' + event.code + (event.reason == "" ? "" : ", Reason: " + event.reason));
+        console.log('Info: WebSocket 连接已关闭, Code: ' + event.code + (event.reason == "" ? "" : ", Reason: " + event.reason));
     };
 }
 
