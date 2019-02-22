@@ -30,18 +30,16 @@ function onbeforeunload(){
  */
 function setLiveButton(isliving){
     isstreamliving = isliving;
+    $("#test").text(imeilist);
     if(isliving==1){//已经开启直播，可以关闭直播
         $("#start").attr("disabled","disabled");
         $("#end").removeAttr("disabled");
-        // $("#selectter").attr("disabled","disabled");
     }else if(isliving==2){//已经关闭直播，可以开启直播
         $("#end").attr("disabled","disabled");
         $("#start").removeAttr("disabled");
-        // $("#selectter").removeAttr("disabled");
     }else{//正在开启或关闭，不可以操作
         $("#end").attr("disabled","disabled");
         $("#start").attr("disabled","disabled");
-        // $("#selectter").attr("disabled","disabled");
     }
 }
 
@@ -51,8 +49,10 @@ function setLiveButton(isliving){
 function connectWS() {
     // 当前地址
     var path = window.location.pathname;
+    console.log('path'+path);
     // 当前主机
     var hostaddress = window.location.host + path.substring(0,path.substr(1).indexOf('/')+1);
+    console.log('hostaddress'+hostaddress);
     // 后台控制器url
     // 控制推流器地址
     var target = "/stream";
@@ -62,13 +62,14 @@ function connectWS() {
     } else {
         target = 'wss://' + hostaddress + target;
     }
+    console.log('target'+target);
     //创建一个针对控制器的 webSocket 对象
     if ('WebSocket' in window) {
         ws = new WebSocket(target);
     } else if ('MozWebSocket' in window) {
         ws = new MozWebSocket(target);
     } else {
-        Dialog.alert('您的浏览器不支持 WebSocket！');
+        $.modal.confirm("您的浏览器不支持 WebSocket！");
         return;
     }
     // 如果没有ws对象 直播状态为2 设置对应按钮
@@ -104,7 +105,7 @@ function connectWS() {
                     break;
                 case "error:socketconnect":
                     scrollStatus("text-danger","开启失败");
-                    Dialog.alert('服务器 StreamSocket 连接失败，请联系管理员！');
+                    $.modal.confirm("服务器 StreamSocket 连接失败，请联系管理员！");
                     setLiveButton(2);
                     streamerDisconnect();
                     closeWS();
@@ -126,7 +127,7 @@ function connectWS() {
     // 直播关闭
     ws.onclose = function (event) {
         if(event.code==1006){
-            Dialog.alert('服务器 WebSocket 连接失败！');
+            $.modal.confirm("服务器 WebSocket 连接失败！");
             setLiveButton(2);
             streamerDisconnect();
 //             		setShowCloseStatus();
@@ -172,7 +173,7 @@ function startsent(){
         // 推送信息
         ws.send(message);
     } else {
-        Dialog.alert('WebSocket 连接建立失败，请重新连接');
+        $.modal.confirm("WebSocket 连接建立失败，请重新连接");
         setLiveButton(2);
     }
     if(streamid!=null)
@@ -197,61 +198,6 @@ function endlive(){
     }
 }
 
-// /**
-//  * 选择直播终端
-//  * 弹窗 选择数
-//  * @param obj
-//  */
-// function selectter(obj){
-//     top.jzts();
-//     var diag = new top.Dialog();
-//     diag.Drag=true;
-//     diag.Title ="选择直播终端";
-//
-//     // 调用 setStreamTer 方法 ， 做一个 树状 选项弹窗
-//     if(imeilist==null)
-//         diag.URL = "<%=basePath%>stream/setStreamTer.do";
-//     else
-//         diag.URL = "<%=basePath%>stream/setStreamTer.do?selecttid="+imeilist;
-//     //弹窗高度
-//     diag.Width = 300;
-//     diag.Height = 450;
-//
-//     diag.CancelEvent = function(){
-//         if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-//             scrollStatus("text-primary","未直播");
-// // 			 		if(imeilist!=null){
-//             // 表格内容为空
-//             $("#tbody").empty();
-//
-//             // 拿到页面中 selectter 标签的数值
-//             imeilist = diag.innerFrame.contentWindow.document.getElementById('selectter').value;
-//
-//             //将选中的数据作为Map 发送到后台，{设备号tids：设备串码imei}，接收处理的数据中
-//             $.post("stream/getTerByTid.do",{tids:imeilist},function(data){
-//                 // 拿到 终端 和 地区
-//                 if(data.terlistarr!=null){
-//                     // 放入 json
-//                     var terjson = eval(data.terlistarr);
-//                     // 长度是 直播的数量
-//                     $("#liveternum").text(terjson.length);
-//                     // 遍历并拆分 在表格中展示 <table id="simple-table"> 中的 <tbody id="tbody">
-//                     $.each(terjson,function(i,item){
-//                         $("#tbody").append("<tr><td class='center'>"+item.tid+"</td> <td class='center'>"+item.tname+"</td>"+
-//                             "<td class='center'>"+item.aname+"</td> <td class='center'>"+item.uname+"</td>"+
-//                             "<td class='center blue'>未直播</td>"+
-//                             "</tr>");
-//                     });
-//                 }
-//             });
-//         }
-//
-//         // 关闭弹窗
-//         diag.close();
-//     };
-//
-//     diag.show();
-// }
 
 /**
  * 获得当前时间
@@ -333,12 +279,6 @@ function addlog(type,streamid){
         if(data.terlistarr!=null){
             var terjson = eval(data.terlistarr);
             $("#liveternum").text(terjson.length);
-            $.each(terjson,function(i,item){
-                $("#tbody").append("<tr><td class='center'>"+item.tid+"</td> <td class='center'>"+item.tname+"</td>"+
-                    "<td class='center'>"+item.aname+"</td> <td class='center'>"+item.uname+"</td>"+
-                    "<td class='center blue'>未直播</td>"+
-                    "</tr>");
-            });
         }
     });
 }
@@ -421,7 +361,7 @@ function mrophoneIsOpen() {
 function streamError(infocode){
     if (infocode != "NetConnection.Connect.Closed") {
         var msg="连接流媒体服务器出错！\n"+infocode;
-        Dialog.alert(msg);
+        $.modal.confirm(msg);
     }
 }
 

@@ -31,7 +31,7 @@ import java.util.Map;
  * @date 2019/2/16 16:55
  **/
 @Controller
-@RequestMapping("/stream/live")
+@RequestMapping("/broad/live")
 public class LiveController extends BaseController {
 
     @Autowired
