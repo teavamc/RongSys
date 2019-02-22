@@ -10,6 +10,8 @@ import io.netty.channel.socket.SocketChannel;
 
 import java.net.InetSocketAddress;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -21,11 +23,11 @@ import org.springframework.web.socket.WebSocketSession;
  **/
 public class NettyClient {
 
-    //从配置文件中获得 SERVER IP 和 SERVER PORT
-    @Value("${SX.SERVERIP}")
-    private  String host;
-    @Value("${SX.SERVERPORT}")
-    private  int port;
+    private static final Logger log = LoggerFactory.getLogger(NettyClient.class);
+    //思信地址
+    private  String host = "110.53.162.164";
+//    交互端口
+    private  int port = 8800;
 
 //    声明一个 WebSocketSession 对象 conn
     public WebSocketSession conn;
@@ -60,7 +62,7 @@ public class NettyClient {
             Bootstrap b = new Bootstrap();
             // 注册线程池
             b.group(group)
-                    // 使用NioSocketChannel来作为连接用的channel类 ，这里是 异步 UDP
+                    // 使用NioSocketChannel来作为连接用的channel类 ， TCP Socket
                     .channel(NioSocketChannel.class)
                     // 绑定连接端口和host信息
                     .remoteAddress(new InetSocketAddress(this.host, this.port))
