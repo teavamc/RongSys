@@ -1,5 +1,8 @@
 //package com.ruoyi.streamsocket.listener;
 //
+//import com.ruoyi.broad.utils.bConst;
+//import com.ruoyi.broad.utils.bTools;
+//
 //import javax.servlet.ServletException;
 //import javax.servlet.http.HttpServlet;
 //import javax.servlet.http.HttpServletRequest;
@@ -17,12 +20,12 @@
 //
 //    public void init(){
 ////		String qztime = "0 * * * * ?";
-//        String date = Tools.readTxtFile(Const.TRAFFICRESEDATE);
+//        String date = bTools.readTxtFile(bConst.TRAFFICRESEDATE);
 //        String qztime = "0 0 0 "+Integer.parseInt(date)+" * ?";
-//        if(QuartzManager.checkExists(Const.TRAFFICRESEJOB)){
-//            QuartzManager.modifyJobTime(Const.TRAFFICRESEJOB, qztime);
+//        if(QuartzManager.checkExists(bConst.TRAFFICRESEJOB)){
+//            QuartzManager.modifyJobTime(bConst.TRAFFICRESEJOB, qztime);
 //        }else{
-//            QuartzManager.addJob(Const.TRAFFICRESEJOB, TrafficQuartzJob.class, qztime );
+//            QuartzManager.addJob(bConst.TRAFFICRESEJOB, TrafficQuartzJob.class, qztime );
 //        }
 //    }
 //

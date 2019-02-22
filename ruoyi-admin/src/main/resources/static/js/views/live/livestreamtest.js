@@ -55,7 +55,7 @@ function connectWS() {
     var hostaddress = window.location.host + path.substring(0,path.substr(1).indexOf('/')+1);
     // 后台控制器url
     // 控制推流器地址
-    var target = "/live_socket";
+    var target = "/stream";
     // 将http协议换成ws
     if (window.location.protocol == 'http:') {
         target = 'ws://' + hostaddress + target;
