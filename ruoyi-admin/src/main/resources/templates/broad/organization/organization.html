@@ -15,7 +15,6 @@
 					<i class="fa icon-grid"></i> 广播终端管理
 				</div>
 				<div class="box-tools pull-right">
-					<!--<a type="button" class="btn btn-box-tool menuItem" href="#" onclick="dept()" title="管理部门"><i class="fa fa-edit"></i></a>-->
 					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
 					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
 					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
@@ -32,11 +31,8 @@
 	<div class="row">
 		<div class="col-sm-12 search-collapse">
 			<form id="user-form">
-				<input type="hidden" id="Aid" name="aid">
-				<input type="hidden" id="Parentaid" name="parentaid">
-				<div class="select-list">
-					<ul>
-
+				<input type="hidden" id="aid" name="aid">
+				<input type="hidden" id="tid" name="tid">
 						<div class="select-list">
 							<ul>
 								<li>
@@ -46,9 +42,6 @@
 									终端设备名称：<input type="text" name="tname"/>
 								</li>
 
-								<li>
-									所属分组编号：<input type="text" name="aid"/>
-								</li>
 
 								<li>
 									区域名称：<input type="text" name="aname"/>
@@ -62,9 +55,9 @@
 									管理员姓名：<input type="text" name="uname"/>
 								</li>
 
-								<li>
+								<!--<li>
 									最后处理时间：<input type="text" name="lastaccesstime"/>
-								</li>
+								</li>-->
 
 								<li>
 									出厂编号：<input type="text" name="facid"/>
@@ -74,9 +67,9 @@
 									安装地址：<input type="text" name="address"/>
 								</li>
 
-								<li>
+								<!--<li>
 									备注：<input type="text" name="note"/>
-								</li>
+								</li>-->
 
 								<li>
 									终端接入通信网：<input type="text" name="comstand"/>
@@ -94,9 +87,9 @@
 									终端管理员电话：<input type="text" name="managertel"/>
 								</li>
 
-								<li>
+								<!--<li>
 									终端交互时间：<input type="text" name="intertime"/>
-								</li>
+								</li>-->
 
 								<li>
 									创建时间：<input type="text" name="createdtime"/>
@@ -118,9 +111,9 @@
 									调频接收频率(终端可收转广播频率 )：<input type="text" name="fmfrequency"/>
 								</li>
 
-								<li>
+								<!--<li>
 									终端流量使用限制，单位MB：<input type="text" name="trafficlimit"/>
-								</li>
+								</li>-->
 
 						<li>
 							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -133,10 +126,16 @@
 
 		<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
 			<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:organization:add">
-				<i class="fa fa-plus"></i> 新增
+				<i class="fa fa-plus"></i> 添加
 			</a>
 			<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:organization:edit">
 				<i class="fa fa-edit"></i> 修改
+			</a>
+			<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:organization:remove">
+				<i class="fa fa-remove"></i> 删除
+			</a>
+			<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:organization:export">
+				<i class="fa fa-download"></i> 导出
 			</a>
 		</div>
 
@@ -149,11 +148,6 @@
 <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
 <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('broad:organization:edit')}]];
-    var removeFlag = [[${@permission.hasPermi('broad:organization:remove')}]];
-
-    var datas = [[${@dict.getType('sys_normal_disable')}]];
-
     var prefix = ctx + "broad/organization";
 
     $(function() {
@@ -186,7 +180,7 @@
 					},
 					{
 						field : 'aid',
-						title : '所属分组编号',
+						title : '区域编号',
 						sortable: true
 					},
 					{
@@ -294,8 +288,8 @@
         $.tree.init(options);
 
         function zOnClick(event, treeId, treeNode) {
-            $("#Aid").val(treeNode.id);
-            $("#Parentaid").val(treeNode.pId);
+            $("#aid").val(treeNode.id);
+          	/*$("#tid").val(treeNode.pId);*/
             $.table.search();
         }
     }
