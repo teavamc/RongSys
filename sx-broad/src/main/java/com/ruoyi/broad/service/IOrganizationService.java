@@ -22,6 +22,14 @@ public interface IOrganizationService
 	public Organization selectOrganizationById(String aid);
 
 	/**
+	 * 查询终端地域信息
+	 *
+	 * @param tid 设备IMEI
+	 * @return 终端地域信息
+	 */
+	public Organization selectOrganizationByTid(String tid);
+
+	/**
 	 * 查询终端列表
 	 *
 	 * @param organization 终端信息

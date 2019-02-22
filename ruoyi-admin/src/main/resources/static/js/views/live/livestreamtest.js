@@ -54,7 +54,7 @@ function connectWS() {
     // 当前主机
     var hostaddress = window.location.host + path.substring(0,path.substr(1).indexOf('/')+1);
     // 后台控制器url
-    // 控制推流器地址
+    // 控制推流器地址 ws信息地址
     var target = "/live_socket";
     // 将http协议换成ws
     if (window.location.protocol == 'http:') {
@@ -197,61 +197,61 @@ function endlive(){
     }
 }
 
-/**
- * 选择直播终端
- * 弹窗 选择数
- * @param obj
- */
-function selectter(obj){
-    top.jzts();
-    var diag = new top.Dialog();
-    diag.Drag=true;
-    diag.Title ="选择直播终端";
-
-    // 调用 setStreamTer 方法 ， 做一个 树状 选项弹窗
-    if(imeilist==null)
-        diag.URL = "<%=basePath%>stream/setStreamTer.do";
-    else
-        diag.URL = "<%=basePath%>stream/setStreamTer.do?selecttid="+imeilist;
-    //弹窗高度
-    diag.Width = 300;
-    diag.Height = 450;
-
-    diag.CancelEvent = function(){
-        if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-            scrollStatus("text-primary","未直播");
-// 			 		if(imeilist!=null){
-            // 表格内容为空
-            $("#tbody").empty();
-
-            // 拿到页面中 selectter 标签的数值
-            imeilist = diag.innerFrame.contentWindow.document.getElementById('selectter').value;
-
-            //将选中的数据作为Map 发送到后台，{设备号tids：设备串码imei}，接收处理的数据中
-            $.post("stream/getTerByTid.do",{tids:imeilist},function(data){
-                // 拿到 终端 和 地区
-                if(data.terlistarr!=null){
-                    // 放入 json
-                    var terjson = eval(data.terlistarr);
-                    // 长度是 直播的数量
-                    $("#liveternum").text(terjson.length);
-                    // 遍历并拆分 在表格中展示 <table id="simple-table"> 中的 <tbody id="tbody">
-                    $.each(terjson,function(i,item){
-                        $("#tbody").append("<tr><td class='center'>"+item.tid+"</td> <td class='center'>"+item.tname+"</td>"+
-                            "<td class='center'>"+item.aname+"</td> <td class='center'>"+item.uname+"</td>"+
-                            "<td class='center blue'>未直播</td>"+
-                            "</tr>");
-                    });
-                }
-            });
-        }
-
-        // 关闭弹窗
-        diag.close();
-    };
-
-    diag.show();
-}
+// /**
+//  * 选择直播终端
+//  * 弹窗 选择数
+//  * @param obj
+//  */
+// function selectter(obj){
+//     top.jzts();
+//     var diag = new top.Dialog();
+//     diag.Drag=true;
+//     diag.Title ="选择直播终端";
+//
+//     // 调用 setStreamTer 方法 ， 做一个 树状 选项弹窗
+//     if(imeilist==null)
+//         diag.URL = "<%=basePath%>stream/setStreamTer.do";
+//     else
+//         diag.URL = "<%=basePath%>stream/setStreamTer.do?selecttid="+imeilist;
+//     //弹窗高度
+//     diag.Width = 300;
+//     diag.Height = 450;
+//
+//     diag.CancelEvent = function(){
+//         if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+//             scrollStatus("text-primary","未直播");
+// // 			 		if(imeilist!=null){
+//             // 表格内容为空
+//             $("#tbody").empty();
+//
+//             // 拿到页面中 selectter 标签的数值
+//             imeilist = diag.innerFrame.contentWindow.document.getElementById('selectter').value;
+//
+//             //将选中的数据作为Map 发送到后台，{设备号tids：设备串码imei}，接收处理的数据中
+//             $.post("stream/getTerByTid.do",{tids:imeilist},function(data){
+//                 // 拿到 终端 和 地区
+//                 if(data.terlistarr!=null){
+//                     // 放入 json
+//                     var terjson = eval(data.terlistarr);
+//                     // 长度是 直播的数量
+//                     $("#liveternum").text(terjson.length);
+//                     // 遍历并拆分 在表格中展示 <table id="simple-table"> 中的 <tbody id="tbody">
+//                     $.each(terjson,function(i,item){
+//                         $("#tbody").append("<tr><td class='center'>"+item.tid+"</td> <td class='center'>"+item.tname+"</td>"+
+//                             "<td class='center'>"+item.aname+"</td> <td class='center'>"+item.uname+"</td>"+
+//                             "<td class='center blue'>未直播</td>"+
+//                             "</tr>");
+//                     });
+//                 }
+//             });
+//         }
+//
+//         // 关闭弹窗
+//         diag.close();
+//     };
+//
+//     diag.show();
+// }
 
 /**
  * 获得当前时间

@@ -90,7 +90,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where t.aid = #{aid}
     </select>
 
-
+    <select id="selectOrganizationByTid" parameterType="String" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
+        where tid = #{tid}
+    </select>
 
     <!--下面对终端的增删改查是没有实现的-->
     <insert id="insertOrganization" parameterType="Organization">

@@ -44,6 +44,19 @@ public class OrganizationServiceImpl implements IOrganizationService
 
 
 		/**
+		 * 查询终端地域信息
+		 *
+		 * @param tid 设备IMEI
+		 * @return 终端地域信息
+		 */
+		@Override
+		@DataSource(value = DataSourceType.SLAVE)
+		public Organization selectOrganizationByTid(String tid){
+			return organizationMapper.selectOrganizationByTid(tid);
+		}
+
+
+		/**
 		 * 查询终端列表
 		 *
 		 * @param organization 终端信息

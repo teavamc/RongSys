@@ -24,8 +24,11 @@ import org.springframework.web.socket.WebSocketSession;
 public class NettyClient {
 
     private static final Logger log = LoggerFactory.getLogger(NettyClient.class);
-    //思信地址
-    private  String host = "110.53.162.164";
+//    //思信地址
+//    private  String host = "110.53.162.164";
+
+    // 张超服务器地址
+    private  String host = "120.79.42.11";
 //    交互端口
     private  int port = 8800;
 
