@@ -24,8 +24,9 @@ import org.springframework.web.socket.WebSocketSession;
 public class NettyClient {
 
     private static final Logger log = LoggerFactory.getLogger(NettyClient.class);
-    //从配置文件中获得 SERVER IP 和 SERVER PORT
+    //思信地址
     private  String host = "110.53.162.164";
+//    交互端口
     private  int port = 8800;
 
 //    声明一个 WebSocketSession 对象 conn
