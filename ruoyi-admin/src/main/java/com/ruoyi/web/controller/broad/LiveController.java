@@ -38,8 +38,10 @@ public class LiveController extends BaseController {
     private IOrganizationService organizationService;
 
     // 配置文件中拿到流媒体地址
-    @Value("${SX.rtmpAddress}")
-    private String rtmpAddress;
+//    @Value("${SX.rtmpAddress}")
+//    private String rtmpAddress;
+    // 张超服务器
+    private String rtmpAddress = "rtmp://120.79.42.11:1936/live";
     private String prefix = "broad/live";
 
     /**
