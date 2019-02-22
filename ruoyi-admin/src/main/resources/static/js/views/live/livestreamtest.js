@@ -54,7 +54,8 @@ function connectWS() {
     // 当前主机
     var hostaddress = window.location.host + path.substring(0,path.substr(1).indexOf('/')+1);
     // 后台控制器url
-    var target = "/stream";
+    // 控制推流器地址
+    var target = "/live_socket";
     // 将http协议换成ws
     if (window.location.protocol == 'http:') {
         target = 'ws://' + hostaddress + target;
@@ -80,7 +81,7 @@ function connectWS() {
         scrollStatus("text-info","正在开启直播...");
         //向后台发送开始直播命令
         startsent();
-        console.log('Info: WebSocket connection opened.\n 中文： WebSocket直播打开');
+        console.log('Info:  WebSocket直播已打开');
     };
 
 
@@ -131,7 +132,7 @@ function connectWS() {
 //             		setShowCloseStatus();
             scrollStatus("text-danger","直播结束");
         }
-        console.log('Info: WebSocket connection closed, Code: ' + event.code + (event.reason == "" ? "" : ", Reason: " + event.reason));
+        console.log('Info: WebSocket 连接已关闭, Code: ' + event.code + (event.reason == "" ? "" : ", Reason: " + event.reason));
     };
 }
 

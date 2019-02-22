@@ -32,8 +32,9 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     // 声明 ByteBuf 对象  encoded 用于编码
     ByteBuf encoded;
     // 日志记录
-    private static final Logger log = LoggerFactory.getLogger("streamclient");
+    private static final Logger log = LoggerFactory.getLogger(NettyClientHandler.class);
     final static String UTF8 = "UTF8";
+
     /**
         * 初始化 NettyClientHandler 对象
         * @author 张超 teavamc
@@ -45,6 +46,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         this.conn = connection;
         this.message = message;
     }
+
     /**
         * 激活通道
         * @author 张超 teavamc
@@ -53,6 +55,7 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         * @return void
         */
     @Override
+//    每个ChannelHandler通过add方法加入到ChannelPipeline中去的时候，会创建一个对应的ChannelHandlerContext，并且绑定，ChannelPipeline实际维护的是ChannelHandlerContext 的关系
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
 //    	System.out.println("完成与服务器连接: "+ctx.channel().remoteAddress());
         // 将接受到的信息按照，分割成字符串数组
@@ -93,8 +96,10 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, ByteBuf msg) throws Exception {
         ByteBuf buf = msg.readBytes(msg.readableBytes());
+//        将ByteBuf buf 转为十六进制
         String recstr = ByteBufUtil.hexDump(buf);
         if(recstr!=null && recstr!=""){
+
             String result = parseResult(recstr);
             String[] rs = result.split(":");
             String byteType="";
@@ -156,7 +161,13 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         ctx.close();
     }
 
-
+    /**
+    * 发送 Byte 指令
+    * @author 张超 teavamc
+    * @date 2019/2/22
+    * @param [ctx, byteType, byteOrder, SendData]
+    * @return void
+    */
     private void SendToByte(ChannelHandlerContext ctx,String byteType,String byteOrder, byte[] SendData){
         if (SendData != null && SendData.length != 0){
             //用来计算校验和
@@ -201,14 +212,23 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<ByteBuf> {
         }
     }
 
-
+/**
+    * 结果处理
+    * @author 张超 teavamc
+    * @date 2019/2/22
+    * @param [str]
+    * @return java.lang.String
+    */
     public String parseResult(String str){
+        // 16进制 转 byte[ ]
         byte[] content =bConvert.hexStringToBytes(str);
         String byteType="";
         String byteOrder="";
         String acceptData="";
         if(content.length>0){
+//            如果 content[0] 为 aa
             if(bConvert.byteToHexString(content[0]).equals(BeginChar)){
+//                数据类型为 content[1] 转换 int
                 byteType = bConvert.byteToInt(content[1])+"";
                 int byteLength = bConvert.byteToInt(content[2])+bConvert.byteToInt(content[3]);
                 byteOrder = bConvert.byteToInt(content[4])+"";
