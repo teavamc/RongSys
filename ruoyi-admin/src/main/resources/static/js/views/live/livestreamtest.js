@@ -289,7 +289,7 @@ var isOpen = false;
  */
 function setSWFIsReady() {
     if (!isReady) {
-        console.log('swf is ready!');
+        console.log('推流器已就绪');
         isReady = true;
         thisMovie("rtmp-streamer").setShowText("录音未开始");
     }
