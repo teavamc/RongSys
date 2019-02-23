@@ -10,7 +10,9 @@ var ws = null;
 // 流媒体 id
 var streamid=null;
 // imei 的列表 农大终端测试机器 IMEI 号码
-var imeilist= 862105024020277;
+var imeilist= "862105024020277";
+$("#test").html(imeilist);
+console.log('源码指定测试终端'+imeilist);
 // 流媒体状态 0:正在开启，1:已经开启直播，2:未直播或已经关闭直播，3:正在关闭
 var isstreamliving=2;
 
@@ -30,7 +32,6 @@ function onbeforeunload(){
  */
 function setLiveButton(isliving){
     isstreamliving = isliving;
-    $("#test").text(imeilist);
     if(isliving==1){//已经开启直播，可以关闭直播
         $("#start").attr("disabled","disabled");
         $("#end").removeAttr("disabled");
@@ -49,12 +50,9 @@ function setLiveButton(isliving){
 function connectWS() {
     // 当前地址
     var path = window.location.pathname;
-    console.log('path'+path);
     // 当前主机
     var hostaddress = window.location.host + path.substring(0,path.substr(1).indexOf('/')+1);
-    console.log('hostaddress'+hostaddress);
-    // 后台控制器url
-    // 控制推流器地址
+    // 后台wb控制器url
     var target = "/stream";
     // 将http协议换成ws
     if (window.location.protocol == 'http:') {
@@ -145,12 +143,7 @@ function connectWS() {
 function startlive(obj){
     // 如果未选择则 提示要选择
     if(imeilist==null || imeilist==""){
-        $(obj).tips({
-            side:3,
-            msg:'请选择直播终端',
-            bg:'#AE81FF',
-            time:2
-        });
+        $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
         return false;
     }else{
         // 设置 streamid 为当前时间
@@ -177,7 +170,7 @@ function startsent(){
         setLiveButton(2);
     }
     if(streamid!=null)
-        addlog("open",streamid);
+        addlog("open",streamid,imeilist);
 }
 
 
@@ -187,7 +180,7 @@ function startsent(){
 function endlive(){
     setLiveButton(3);
     scrollStatus("text-info","正在关闭直播...");
-    addlog("close",streamid);
+    addlog("close",streamid,imeilist);
     if(isOpen) streamerDisconnect();
     if (ws != null) {
         var message = "end:"+streamid;
@@ -267,20 +260,19 @@ function setShowCloseStatus(){
  * 增加直播日志
  * @param type
  * @param streamid
+ * @param imeilist
  */
-function addlog(type,streamid){
+function addlog(type,streamid,imeilist){
     var data ;
     if(type=="open"){
-        data= {streamid:streamid,type:type,imeilist:imeilist};
+        data= {streamid:streamid,type:type,tid:imeilist};
+        $("#tbody").append("<tr><td class='center'>"+data.tid+"</td> <td class='center'>"+data.streamid+"</td>"+
+            "<td class='center'>"+data.type+"</td></tr>");
     }else{
         data= {streamid:streamid,type:type};
+        $("#tbody").append("<tr><td class='center'>"+data.tid+"</td> <td class='center'>"+data.streamid+"</td>"+
+            "<td class='center'>"+data.type+"</td></tr>");
     }
-    $.post("stream/addLog.do",data,function(data){
-        if(data.terlistarr!=null){
-            var terjson = eval(data.terlistarr);
-            $("#liveternum").text(terjson.length);
-        }
-    });
 }
 
 
@@ -347,7 +339,7 @@ function setSWFIsReady() {
  */
 function mrophoneIsOpen() {
     if (!isOpen) {
-        console.log('mrophone is open!');
+        console.log('麦克风打开');
         isOpen = true;
     }
     //麦克风打开之后向后台发送直播请求
