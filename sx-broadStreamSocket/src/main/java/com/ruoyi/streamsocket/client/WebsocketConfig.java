@@ -38,7 +38,7 @@ public class WebsocketConfig  implements WebSocketConfigurer {
         // 提供符合W3C标准的Websocket数据
         // 注册WebSocket业务类，二参为地址
         // 前台推流器 推流的地址
-        String mapping = "/stream";
+        String mapping = "/broad/stream";
         registry.addHandler(streamWebSocketHandler(), mapping);
         log.info("WebSocket已注册，WB地址：" + mapping);
     }
@@ -50,7 +50,6 @@ public class WebsocketConfig  implements WebSocketConfigurer {
      * @param []
      * @return org.springframework.web.socket.WebSocketHandler
      */
-
     @Bean
     public WebSocketHandler streamWebSocketHandler() {
         return new StreamHandler();

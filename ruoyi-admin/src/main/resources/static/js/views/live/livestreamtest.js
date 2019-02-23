@@ -16,6 +16,8 @@ console.log('源码指定测试终端'+imeilist);
 // 流媒体状态 0:正在开启，1:已经开启直播，2:未直播或已经关闭直播，3:正在关闭
 var isstreamliving=2;
 
+var  rtmpAddress = "rtmp://110.53.162.164:1936/live";
+
 /**
  * 在加载之前
  */
@@ -91,7 +93,7 @@ function connectWS() {
             scrollStatus("text-success","正在直播...");
             setLiveButton(1);
             //终端状态刷新
-            refreshTerStatus(event.data.substring(2,event.data.length));
+            // refreshTerStatus(event.data.substring(2,event.data.length));
         }else{
             console.log('WS Received: ' + event.data);
             switch(event.data){
@@ -107,7 +109,7 @@ function connectWS() {
                     setLiveButton(2);
                     streamerDisconnect();
                     closeWS();
-                    setShowCloseStatus();
+                    // setShowCloseStatus();
                     break;
                 case "1:success":
                     scrollStatus("text-info","开始直播...");
@@ -115,7 +117,7 @@ function connectWS() {
                 case "0:success":
                     setLiveButton(2);
                     closeWS();
-                    setShowCloseStatus();
+                    // setShowCloseStatus();
                     scrollStatus("text-danger","直播结束");
                     break;
             }
@@ -212,24 +214,24 @@ function getCurTime(){
  * // 刷新终端状态
  * @param tidlist
  */
-function refreshTerStatus(tidlist){
-// 		var tidlength = tidlist.split(",");
-    var startternum=0;
-    var trs = $("#tbody").find("tr");
-    for(var i=0;i<trs.length;i++){
-        var tid = trs[i].children[0].innerText;
-        var terstatus = trs[i].children[4];
-        if(tidlist.indexOf(tid)!=-1){
-            terstatus.innerText = "正在直播...";
-            $(terstatus).attr("class","center green");
-            startternum++;
-        }else if(terstatus.innerText=="正在直播..."){
-            terstatus.innerText = "直播结束";
-            $(terstatus).attr("class","center red");
-        }
-    }
-    $("#startternum").text(startternum);
-}
+// function refreshTerStatus(tidlist){
+// // 		var tidlength = tidlist.split(",");
+//     var startternum=0;
+//     var trs = $("#tbody").find("tr");
+//     for(var i=0;i<trs.length;i++){
+//         var tid = trs[i].children[0].innerText;
+//         var terstatus = trs[i].children[4];
+//         if(tidlist.indexOf(tid)!=-1){
+//             terstatus.innerText = "正在直播...";
+//             $(terstatus).attr("class","center green");
+//             startternum++;
+//         }else if(terstatus.innerText=="正在直播..."){
+//             terstatus.innerText = "直播结束";
+//             $(terstatus).attr("class","center red");
+//         }
+//     }
+//     $("#startternum").text(startternum);
+// }
 
 /**
  * 关闭webSocket连接
@@ -241,20 +243,20 @@ function closeWS(){
     }
 }
 
-function setShowCloseStatus(){
-    streamid=null;
-    imeilist=null;
-    $("#startternum").text(0);
-    var trs = $("#tbody").find("tr");
-    for(var i=0;i<trs.length;i++){
-        var terstatus = trs[i].children[4].innerText;
-        if(terstatus=="正在直播..."){
-            var terstatus = trs[i].children[4];
-            terstatus.innerText = "直播结束";
-            $(terstatus).attr("class","center red");
-        }
-    }
-}
+// function setShowCloseStatus(){
+//     streamid=null;
+//     imeilist=null;
+//     $("#startternum").text(0);
+//     var trs = $("#tbody").find("tr");
+//     for(var i=0;i<trs.length;i++){
+//         var terstatus = trs[i].children[4].innerText;
+//         if(terstatus=="正在直播..."){
+//             var terstatus = trs[i].children[4];
+//             terstatus.innerText = "直播结束";
+//             $(terstatus).attr("class","center red");
+//         }
+//     }
+// }
 
 /**
  * 增加直播日志
@@ -265,12 +267,12 @@ function setShowCloseStatus(){
 function addlog(type,streamid,imeilist){
     var data ;
     if(type=="open"){
-        data= {streamid:streamid,type:type,tid:imeilist};
-        $("#tbody").append("<tr><td class='center'>"+data.tid+"</td> <td class='center'>"+data.streamid+"</td>"+
+        data= {streamid:streamid,type:type,imeilist:imeilist};
+        $("#tbody").append("<tr><td class='center'>"+data.imeilist+"</td> <td class='center'>"+data.streamid+"</td>"+
             "<td class='center'>"+data.type+"</td></tr>");
     }else{
-        data= {streamid:streamid,type:type};
-        $("#tbody").append("<tr><td class='center'>"+data.tid+"</td> <td class='center'>"+data.streamid+"</td>"+
+        data= {streamid:streamid,type:type,imeilist:imeilist};
+        $("#tbody").append("<tr><td class='center'>"+data.imeilist+"</td> <td class='center'>"+data.streamid+"</td>"+
             "<td class='center'>"+data.type+"</td></tr>");
     }
 }
@@ -363,7 +365,7 @@ function streamError(infocode){
 function publishRtmp() {
     setMicQuality(10);
     //console.log('MicQuality:'+10);
-    thisMovie("rtmp-streamer").publish("${rtmpAddress}", streamid,"正在使用麦克风...");
+    thisMovie("rtmp-streamer").publish(rtmpAddress, streamid,"正在使用麦克风...");
     setLiveButton(1);
 }
 
