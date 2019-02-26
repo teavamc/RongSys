@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								节目编号：<input type="text" name="fid"/>
+							</li>
+
+							<li>
+								节目名称：<input type="text" name="fname"/>
+							</li>
+
+							<li>
+								保存名称：<input type="text" name="filename"/>
+							</li>
+							<li>
+								是否公共：<input type="text" name="ispublic"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:per:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:per:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:per:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('broad:per:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('broad:per:remove')}]];
+        var prefix = ctx + "broad/per";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "节目单管理",
+				search: false,
+		        showExport: false,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'fid',
+                    align: 'center',
+					title : '节目编号',
+					visible: true
+				},
+				{
+					field : 'fname',
+					title : '节目名称',
+                    align: 'center',
+					sortable: true
+				},
+				{
+					field : 'filename',
+					title : '保存名称',
+                    align: 'center',
+					sortable: true
+				},
+				{
+					field : 'flenth',
+					title : '时长',
+                    align: 'center',
+					sortable: true
+				},
+				{
+					field : 'fsize',
+					title : '文件大小',
+                    align: 'center',
+					sortable: true
+				},
+				{
+					field : 'uname',
+					title : '上传者',
+                    align: 'center',
+					sortable: true
+				},
+				{
+					field : 'createdtime',
+					title : '创建时间',
+                    align: 'center',
+					sortable: true
+				},
+				{
+					field : 'ispublic',
+					title : '是否公共',
+                    align: 'center',
+					sortable: true,
+					width:"7%",
+					formatter:function (value) {
+						if(value == 0){
+						    var msg = "<span style='color:#e25e08;'>非公共</span>"
+						    return msg;
+						}else {
+                            var msg = "<span style='color:#13e21b;'>公共</span>"
+                            return msg;
+						}
+                    }
+				},
+				{
+                    title: '操作',
+		            align: 'center',
+                    visible: true,
+		            formatter: function(value, row, index) {
+		            	var msg = '<a class="btn btn-xs btn-primary">设为公共</a> ';
+                        var actions = '<a class="btn btn-xs btn-success">设为非公共</a>';
+                       if(row.ispublic == 0){
+                           return msg;
+					   }else {
+                           return actions;
+					   }
+		            }
+				},
+				{
+                    title: '试听',
+		            align: 'center',
+                    visible: true,
+		            formatter: function(value, row, index) {
+		            	var actions = '<a class="btn btn-xs btn-success">试听</a>';
+                       return actions;
+		            }
+				}]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
