@@ -14,10 +14,10 @@ public interface OrganizationMapper
 	/**
 	 * 查询终端地域信息
 	 *
-	 * @param aid 终端地域ID
+	 * @param tid 终端地域ID
 	 * @return 终端地域信息
 	 */
-	public Organization selectOrganizationById(String aid);
+	public Organization selectOrganizationById(String tid);
 
 	/**
 	 * 查询终端地域列表
@@ -46,17 +46,17 @@ public interface OrganizationMapper
 	/**
 	 * 删除终端地域
 	 *
-	 * @param aid 终端地域ID
+	 * @param tid 终端地域ID
 	 * @return 结果
 	 */
-	public int deleteOrganizationById(String aid);
+	public int deleteOrganizationById(String tid);
 
 	/**
 	 * 批量删除终端地域
 	 *
-	 * @param aids 需要删除的数据ID
+	 * @param tids 需要删除的数据ID
 	 * @return 结果
 	 */
-	public int deleteOrganizationByIds(String[] aids);
+	public int deleteOrganizationByIds(String[] tids);
 
 }

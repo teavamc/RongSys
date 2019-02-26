@@ -3,6 +3,8 @@ package com.ruoyi.web.controller.broad;
 import java.util.List;
 import java.util.Map;
 
+import com.ruoyi.broad.domain.Area;
+import com.ruoyi.broad.service.IAreaService;
 import com.ruoyi.system.domain.SysDept;
 import com.ruoyi.system.domain.SysRole;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -37,6 +39,8 @@ public class OrganizationController extends BaseController
 
 	@Autowired
 	private IOrganizationService organizationService;
+	@Autowired
+	private IAreaService areaService;
 
 	@RequiresPermissions("broad:organization:view")
 	@GetMapping()
@@ -53,7 +57,7 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Organization organization)
 	{
-		startPage();
+		startPage() ;
 		List<Organization> list = organizationService.selectOrganizationList(organization);
 		return getDataTable(list);
 	}
@@ -96,10 +100,10 @@ public class OrganizationController extends BaseController
 	/**
 	 * 修改终端地域
 	 */
-	@GetMapping("/edit/{aid}")
-	public String edit(@PathVariable("aid") String aid, ModelMap mmap)
+	@GetMapping("/edit/{tid}")
+	public String edit(@PathVariable("tid") String tid, ModelMap mmap)
 	{
-		Organization organization = organizationService.selectOrganizationById(aid);
+		Organization organization = organizationService.selectOrganizationById(tid);
 		mmap.put("organization", organization);
 		return prefix + "/edit";
 	}
@@ -131,10 +135,10 @@ public class OrganizationController extends BaseController
 	/**
 	 * 选择部门树
 	 */
-	@GetMapping("/selectOrganizationTree/{OrganizationId}")
-	public String selectOrganizationTree(@PathVariable("OrganizationId") String OrganizationId, ModelMap mmap)
+	@GetMapping("/selectOrganizationTree/{Aid}")
+	public String selectOrganizationTree(@PathVariable("Aid") String Aid, ModelMap mmap)
 	{
-		mmap.put("organization", organizationService.selectOrganizationById(OrganizationId));
+		mmap.put("organization", organizationService.selectOrganizationById(Aid));
 		return prefix + "/tree";
 	}
 
@@ -145,9 +149,8 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public List<Map<String, Object>> treeData()
 	{
-		List<Map<String, Object>> tree = organizationService.selectOrganizationTree(new Organization());
+		List<Map<String, Object>> tree = areaService.selectAreaTree(new Area());
 		return tree;
 	}
-
 
 }

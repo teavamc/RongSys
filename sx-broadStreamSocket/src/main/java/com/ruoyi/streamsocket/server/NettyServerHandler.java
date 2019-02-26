@@ -27,7 +27,7 @@ public class NettyServerHandler extends ChannelInboundHandlerAdapter {
     public String EndChar = "cc";
     // 消息的开始判断符
     public String BeginChar = "aa";
-    private static final Logger log = LoggerFactory.getLogger("streamsocket");
+    private static final Logger log = LoggerFactory.getLogger(NettyServerHandler.class);
     protected int senderlenth = 510;
     long starttime;
     ByteBuf encoded;
