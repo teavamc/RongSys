@@ -2,17 +2,22 @@ package com.ruoyi.web.controller.broad;
 
 import com.ruoyi.broad.domain.Program;
 import com.ruoyi.broad.service.IProgramService;
+import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
+import org.apache.poi.ss.formula.functions.T;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.framework.web.base.BaseController;
+import org.springframework.web.multipart.MultipartFile;
+import com.ruoyi.broad.utils.bFileUtil;
+
+import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 刘衍斌
@@ -36,7 +41,7 @@ public class PerController extends BaseController{
     }
 
     /**
-     * 查询终端地域列表
+     * 查询节目库列表
      */
     @RequiresPermissions("broad:per:list")
     @PostMapping("/list")
@@ -58,6 +63,32 @@ public class PerController extends BaseController{
         return prefix + "/add";
     }
 
+    /**
+     * 新增保存节目单
+     */
+    //@RequiresPermissions("broad:per:add")
+    @Log(title = "节目单新增", businessType = BusinessType.INSERT)
+    @PostMapping(value = "/add")
+    @ResponseBody
+    public AjaxResult addSave(@RequestParam(value = "files", required = false) MultipartFile files,
+                              @RequestParam(value = "filename", required = false) String filename,
+                              @RequestParam(value = "type", required = false) String type)
+    {
 
+        System.out.println(filename+">>>"+type+">>>"+files);
+        //图片上传调用工具类
+        try{
+            //保存图片
+            String path =  bFileUtil.saveImg(files);
+            System.out.println("成功"+path);
+            //return path;
+            return toAjax(1);
+        }catch (Exception e){
+            //return "上传图片失败";
+            System.out.println("失败");
+            return toAjax(0);
+        }
+
+    }
 
 }
