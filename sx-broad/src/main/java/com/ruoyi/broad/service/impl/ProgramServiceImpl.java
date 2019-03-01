@@ -31,4 +31,10 @@ public class ProgramServiceImpl implements IProgramService {
     public List<Program> selectProList(Program program) {
         return programMapper.selectProList(program);
     }
+
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public String getMaxFileidofYear(String year) {
+        return programMapper.getMaxFileidofYear(year);
+    }
 }

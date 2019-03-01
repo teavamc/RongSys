@@ -69,5 +69,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         LEFT JOIN <include refid="userstable"></include> ui on g.userid=ui.userid
         order by  createdtime desc,fid desc
     </select>
-    
+	<!--得到当年最大的文件标号-->
+	<select id="getMaxFileidofYear" parameterType="String" resultType="String">
+		SELECT SUBSTRING(MAX(SUBSTRING(filename,3)),1,5)
+		FROM <include refid="tableName"></include>
+		where SUBSTRING(filename,1,2) = SUBSTRING(#{year},3)
+	</select>
 </mapper>

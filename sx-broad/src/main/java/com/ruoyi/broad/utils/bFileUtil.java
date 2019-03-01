@@ -14,15 +14,14 @@ public class bFileUtil {
      * @param file
      * @return 返回相对路径
      */
-    public static String saveImg(MultipartFile file) {
+    public static String saveImg(MultipartFile file,String saveName) {
         //获取文件上传的根目录 C:\Users\wanghao/upload/img
-        String  path = bConstant.UPLOAD_PATH + bConstant.IMG_FILE_NAME;
+        String  path = bConstant.UPLOAD_PATH + bConstant.IMG_FILE_NAME; //改为bConstant.UPLOAD_PATH
 
         //拿到文件的后缀名和UUID进行拼接形成新的文件名
         //4ca64e85b1544c96b4a6154bb521476f.jpg
-        String saveName = bCommonUtil.getUuid() + "." + getFileSuffix(file.getOriginalFilename());
-
-        logger.info(" --- 图片保存路径：{}, 图片保存名称：{} --- ", path, saveName);
+        //String saveName = bCommonUtil.getUuid() + "." + getFileSuffix(file.getOriginalFilename());
+        logger.info(" --- 图片保存路径：{}, 图片保存名称：{},文件名称：{} --- ", path, saveName,file.getOriginalFilename());
 
         // 保存
         try {
@@ -37,7 +36,7 @@ public class bFileUtil {
             logger.debug("--- 图片保存异常：{} ---" + e.getMessage());
             return null;
         }
-        String filePath =  bConstant.VIRTUAL_IMG_PATH;;
+        String filePath =  bConstant.UPLOAD_PATH;;
         //返回相对路径  img/virtual/4ca64e85b1544c96b4a6154bb521476f.jpg
         return filePath + "/" + saveName;
     }
@@ -46,7 +45,7 @@ public class bFileUtil {
      * @param path
      * @return
      */
-    private static String getFileSuffix(String path) {
+    public static String getFileSuffix(String path) {
         return getFileSuffix(path, "2");
     }
 
@@ -56,7 +55,7 @@ public class bFileUtil {
      * @param type 1名称 2后缀
      * @return
      */
-    private static String getFileSuffix(String path, String type){
+    public static String getFileSuffix(String path, String type){
         if(StringUtils.isNotEmpty(path) && path.indexOf(".") > 0) {
             // 名称
             String name = path.substring(0, path.lastIndexOf("."));

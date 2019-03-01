@@ -111,4 +111,24 @@ public class Program extends BaseEntity {
     public void setFsize(Double fsize) {
         this.fsize = fsize;
     }
+
+    @Override
+    public String toString() {
+        return "Program{" +
+                "fid='" + fid + '\'' +
+                ", fname='" + fname + '\'' +
+                ", userid='" + userid + '\'' +
+                ", remark='" + remark + '\'' +
+                ", ispublic=" + ispublic +
+                ", filename='" + filename + '\'' +
+                ", address='" + address + '\'' +
+                ", urls='" + urls + '\'' +
+                ", createdtime='" + createdtime + '\'' +
+                ", flenth='" + flenth + '\'' +
+                ", fsize=" + fsize +
+                ", islisten=" + islisten +
+                ", ptype=" + ptype +
+                ", uname='" + uname + '\'' +
+                '}';
+    }
 }

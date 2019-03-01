@@ -2,6 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+
 <body class="gray-bg">
     
      <div class="container-div">
@@ -16,10 +17,6 @@
 
 							<li>
 								节目名称：<input type="text" name="fname"/>
-							</li>
-
-							<li>
-								保存名称：<input type="text" name="filename"/>
 							</li>
 							<li>
 								是否公共：<input type="text" name="ispublic"/>
@@ -50,11 +47,20 @@
 		</div>
 	</div>
     <div th:include="include :: footer"></div>
+
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('broad:per:edit')}]];
         var removeFlag = [[${@permission.hasPermi('broad:per:remove')}]];
         var prefix = ctx + "broad/per";
+        function listen(url){
 
+        }
+        function setpublic(fid){
+
+        }
+        function setUnpublic(fid){
+
+        }
         $(function() {
             var options = {
                 url: prefix + "/list",
@@ -131,8 +137,8 @@
 		            align: 'center',
                     visible: true,
 		            formatter: function(value, row, index) {
-		            	var msg = '<a class="btn btn-xs btn-primary">设为公共</a> ';
-                        var actions = '<a class="btn btn-xs btn-success">设为非公共</a>';
+		            	var msg = '<a class="btn btn-xs btn-primary" >设为公共</a> ';
+                        var actions = '<a class="btn btn-xs btn-success" >设为非公共</a>';
                        if(row.ispublic == 0){
                            return msg;
 					   }else {
@@ -145,7 +151,7 @@
 		            align: 'center',
                     visible: true,
 		            formatter: function(value, row, index) {
-		            	var actions = '<a class="btn btn-xs btn-success">试听</a>';
+		            	var actions = '<a class="btn btn-xs btn-success" >试听</a>';
                        return actions;
 		            }
 				}]
@@ -153,5 +159,6 @@
             $.table.init(options);
         });
     </script>
+
 </body>
 </html>

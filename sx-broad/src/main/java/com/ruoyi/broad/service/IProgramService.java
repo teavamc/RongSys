@@ -19,4 +19,10 @@ public interface IProgramService {
      * @return 结果
      */
     public List<Program> selectProList(Program program);
+    /**
+     * 得到当年文件最大编号
+     * @param year
+     * @return
+     */
+    public String getMaxFileidofYear(String year);
 }
