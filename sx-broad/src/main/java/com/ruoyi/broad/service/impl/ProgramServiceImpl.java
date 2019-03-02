@@ -37,4 +37,15 @@ public class ProgramServiceImpl implements IProgramService {
     public String getMaxFileidofYear(String year) {
         return programMapper.getMaxFileidofYear(year);
     }
+
+    /**
+     * 上传节目单
+     * @param program 节目单
+     * @return
+     */
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public int insertProgram(Program program) {
+        return 0;
+    }
 }

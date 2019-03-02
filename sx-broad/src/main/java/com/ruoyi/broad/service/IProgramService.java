@@ -25,4 +25,11 @@ public interface IProgramService {
      * @return
      */
     public String getMaxFileidofYear(String year);
+
+    /**
+     * 上传节目单
+     * @param program 节目单
+     * @return
+     */
+    public int insertProgram(Program program);
 }
