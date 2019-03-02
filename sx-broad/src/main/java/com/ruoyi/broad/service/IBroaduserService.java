@@ -1,12 +1,15 @@
 package com.ruoyi.broad.service;
 
 import com.ruoyi.broad.domain.Broaduser;
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
+
 import java.util.List;
 
 /**
  * 广播用户 服务层
  * 
- * @author 张超
+ * @author 张鸿权
  * @date 2019-01-18
  */
 public interface IBroaduserService 
@@ -42,5 +45,14 @@ public interface IBroaduserService
      * @return 结果
      */
 	public int deleteBroaduserByIds(String ids);
-	
+
+	/**
+	 * 新增广播用户信息
+	 *
+	 * @param userid 广播用户id
+	 * @return 结果
+	 */
+	@DataSource(value = DataSourceType.SLAVE)
+	public int insertBroaduser(String username);
+
 }

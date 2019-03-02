@@ -74,5 +74,17 @@ public class BroaduserServiceImpl implements IBroaduserService
 	{
 		return broaduserMapper.deleteBroaduserByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 新增广播用户信息
+	 *
+	 * @param userid 广播用户id
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public int insertBroaduser(String username)
+	{
+		return broaduserMapper.insertBroaduser(username);
+	}
 }
