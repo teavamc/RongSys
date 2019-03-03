@@ -13,6 +13,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="broadtime"    column="broadtime"    />
         <result property="remark"    column="Remark"    />
     </resultMap>
+
+    <resultMap type="ProgBroad" id="ProgBroadResult">
+        <result property="pid"    column="Pid"    />
+        <result property="ptp"    column="Ptp"    />
+        <result property="fN"    column="FN"    />
+        <result property="fid"    column="Fid"    />
+        <result property="bt"    column="Bt"    />
+        <result property="broadtime"    column="broadtime"    />
+        <result property="remark"    column="Remark"    />
+    </resultMap>
 	
 	<sql id="selectProListVo">
         select Pid, Ptp, FN, Fid, Bt, broadtime, Remark from pro_list
