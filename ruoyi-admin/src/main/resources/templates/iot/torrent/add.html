@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-torrent-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">终端imei：</label>
+				<div class="col-sm-8">
+					<input id="iMEI" name="iMEI" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">电池一电压：</label>
+				<div class="col-sm-8">
+					<input id="pow1" name="pow1" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">电池组电压：</label>
+				<div class="col-sm-8">
+					<input id="grouppow" name="grouppow" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">18V1输出电压：</label>
+				<div class="col-sm-8">
+					<input id="outv1" name="outv1" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">18V2输出电压：</label>
+				<div class="col-sm-8">
+					<input id="outv2" name="outv2" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">24V输出电压：</label>
+				<div class="col-sm-8">
+					<input id="v24" name="v24" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">28V输出电压：</label>
+				<div class="col-sm-8">
+					<input id="v28" name="v28" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">外部电压：</label>
+				<div class="col-sm-8">
+					<input id="extendpow" name="extendpow" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">太阳能电压：</label>
+				<div class="col-sm-8">
+					<input id="solarpow" name="solarpow" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">充电状态：</label>
+				<div class="col-sm-8">
+					<input id="charge" name="charge" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工作状态：</label>
+				<div class="col-sm-8">
+					<input id="work" name="work" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">采集时间：</label>
+				<div class="col-sm-8">
+					<input id="time" name="time" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">网络IP：</label>
+				<div class="col-sm-8">
+					<input id="iP" name="iP" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "iot/torrent"
+		$("#form-torrent-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-torrent-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>
