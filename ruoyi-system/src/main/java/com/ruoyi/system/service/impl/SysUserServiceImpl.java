@@ -345,4 +345,18 @@ public class SysUserServiceImpl implements ISysUserService
         }
         return idsStr.toString();
     }
+
+    /**
+     * 查找最大用户ID
+     *
+     * @param
+     * @return 结果
+     */
+    @Override
+    public int selectMaxUserId()
+    {
+        int count = userMapper.selectMaxUserId() + 1;
+
+        return count;
+    }
 }

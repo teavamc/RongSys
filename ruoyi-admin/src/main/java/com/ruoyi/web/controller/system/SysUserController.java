@@ -114,8 +114,10 @@ public class SysUserController extends BaseController
         user.setSalt(ShiroUtils.randomSalt());
         user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
         user.setCreateBy(ShiroUtils.getLoginName());
+        int id = userService.selectMaxUserId();
         if (user.getPlatform().equals("0")){
-            broaduserService.insertBroaduser(user.getLoginName());
+            String username = user.getLoginName();String uname = user.getUserName();String uphone = user.getPhonenumber();
+            broaduserService.insertBroaduser(username,uname,uphone);
         }
         return toAjax(userService.insertUser(user));
     }

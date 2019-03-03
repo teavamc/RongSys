@@ -177,5 +177,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
  		)
 	</insert>
-	
+
+	<select id="selectMaxUserId" resultType="int">
+		select max(user_id) from sys_user
+	</select>
 </mapper> 

@@ -17,7 +17,9 @@ public class Broaduser extends BaseEntity
 	/** 广播用户编号 */
 	private String userid;
 	/** 融媒体用户编号 */
-	private Long userId;
+	private Integer user_id;
+	/** 广播登录用户姓名 */
+	private String username;
 	/** 广播用户姓名 */
 	private String uname;
 	/** 广播用户身份等级 */
@@ -43,14 +45,24 @@ public class Broaduser extends BaseEntity
 		return userid;
 	}
 
-	public Long getUserId()
+	public Integer getUserId()
 	{
-		return userId;
+		return user_id;
 	}
 
-	public void setUserId(Long userId)
+	public void setUserId(Integer user_id)
 	{
-		this.userId = userId;
+		this.user_id = user_id;
+	}
+
+	public void setUsername(String username)
+	{
+		this.username = username;
+	}
+
+	public String getUsername()
+	{
+		return username;
 	}
 
 	public void setUname(String uname) 
@@ -120,7 +132,7 @@ public class Broaduser extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userid", getUserid())
-			.append("userId", getUserId())
+			.append("user_id", getUserId())
             .append("uname", getUname())
             .append("userlevel", getUserlevel())
             .append("uphone", getUphone())
@@ -128,6 +140,7 @@ public class Broaduser extends BaseEntity
             .append("isuse", getIsuse())
             .append("lastdate", getLastdate())
             .append("aname", getAname())
+			.append("username", getUsername())
             .toString();
     }
 }

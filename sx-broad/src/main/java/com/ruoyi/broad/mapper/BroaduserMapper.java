@@ -1,8 +1,6 @@
 package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Broaduser;
-import com.ruoyi.common.annotation.DataSource;
-import com.ruoyi.common.enums.DataSourceType;
 
 import java.util.List;
 
@@ -57,9 +55,8 @@ public interface BroaduserMapper
 	/**
 	 * 新增广播用户
 	 *
-	 * @param userid 广播用户io
+	 *
 	 * @return 结果
 	 */
-	@DataSource(value = DataSourceType.SLAVE)
-	public int insertBroaduser(String username);
+	public void insertBroaduser(String username,String uname,String uphone);
 }

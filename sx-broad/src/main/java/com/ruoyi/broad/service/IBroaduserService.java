@@ -1,8 +1,7 @@
 package com.ruoyi.broad.service;
 
 import com.ruoyi.broad.domain.Broaduser;
-import com.ruoyi.common.annotation.DataSource;
-import com.ruoyi.common.enums.DataSourceType;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -47,12 +46,13 @@ public interface IBroaduserService
 	public int deleteBroaduserByIds(String ids);
 
 	/**
-	 * 新增广播用户信息
 	 *
-	 * @param userid 广播用户id
-	 * @return 结果
+	 * @param user_id
+	 * @param username
+	 * @param uname
+	 * @param uphone
+	 * @return
 	 */
-	@DataSource(value = DataSourceType.SLAVE)
-	public int insertBroaduser(String username);
+	public void insertBroaduser(String username,String uname,String uphone);
 
 }
