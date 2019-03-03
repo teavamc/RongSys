@@ -61,24 +61,31 @@
             <version>${ruoyi.version}</version>
         </dependency>
 
-        <!-- 村务模块-->
+        <!-- 接口模块-->
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>sx-api</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
 
-        <!-- 广播通信模块-->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>sx-broadWebSocket</artifactId>
-            <version>${ruoyi.version}</version>
-        </dependency>
+<!--        &lt;!&ndash; 广播通信模块&ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.ruoyi</groupId>-->
+<!--            <artifactId>sx-broadWebSocket</artifactId>-->
+<!--            <version>${ruoyi.version}</version>-->
+<!--        </dependency>-->
 
         <!-- 广播通信模块-->
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>sx-broadStreamSocket</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
+        <!--物联网模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-iot</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
 
