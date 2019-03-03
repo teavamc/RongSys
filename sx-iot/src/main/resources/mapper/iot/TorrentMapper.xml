@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.iot.mapper.TorrentMapper">
+    
+    <resultMap type="Torrent" id="TorrentResult">
+        <result property="dataid"    column="dataid"    />
+        <result property="IMEI"    column="IMEI"    />
+        <result property="pow1"    column="pow1"    />
+        <result property="grouppow"    column="grouppow"    />
+        <result property="outv1"    column="outv1"    />
+        <result property="outv2"    column="outv2"    />
+        <result property="v24"    column="v24"    />
+        <result property="v28"    column="v28"    />
+        <result property="extendpow"    column="extendpow"    />
+        <result property="solarpow"    column="solarpow"    />
+        <result property="charge"    column="charge"    />
+        <result property="work"    column="work"    />
+        <result property="time"    column="time"    />
+        <result property="iP"    column="IP"    />
+    </resultMap>
+	
+	<sql id="selectTorrentVo">
+        select dataid, IMEI, pow1, grouppow, outv1, outv2, v24, v28, extendpow, solarpow, charge, work, time, IP from torrent
+    </sql>
+	
+    <select id="selectTorrentList" parameterType="Torrent" resultMap="TorrentResult">
+        <include refid="selectTorrentVo"/>
+        <where>  
+            <if test="dataid != null "> and dataid = #{dataid}</if>
+             <if test="IMEI != null  and IMEI != '' "> and IMEI = #{IMEI}</if>
+             <if test="pow1 != null  and pow1 != '' "> and pow1 = #{pow1}</if>
+             <if test="grouppow != null  and grouppow != '' "> and grouppow = #{grouppow}</if>
+             <if test="outv1 != null  and outv1 != '' "> and outv1 = #{outv1}</if>
+             <if test="outv2 != null  and outv2 != '' "> and outv2 = #{outv2}</if>
+             <if test="v24 != null  and v24 != '' "> and v24 = #{v24}</if>
+             <if test="v28 != null  and v28 != '' "> and v28 = #{v28}</if>
+             <if test="extendpow != null  and extendpow != '' "> and extendpow = #{extendpow}</if>
+             <if test="solarpow != null  and solarpow != '' "> and solarpow = #{solarpow}</if>
+             <if test="charge != null  and charge != '' "> and charge = #{charge}</if>
+             <if test="work != null  and work != '' "> and work = #{work}</if>
+             <if test="time != null "> and time = #{time}</if>
+             <if test="iP != null  and iP != '' "> and IP = #{iP}</if>
+         </where>
+         order by dataid desc
+    </select>
+    
+    <select id="selectTorrentById" parameterType="Integer" resultMap="TorrentResult">
+        <include refid="selectTorrentVo"/>
+        where dataid = #{dataid}
+    </select>
+        
+    <insert id="insertTorrent" parameterType="Torrent">
+        insert into torrent
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="dataid != null  ">dataid,</if>
+			<if test="IMEI != null  and IMEI != ''  ">IMEI,</if>
+			<if test="pow1 != null  and pow1 != ''  ">pow1,</if>
+			<if test="grouppow != null  and grouppow != ''  ">grouppow,</if>
+			<if test="outv1 != null  and outv1 != ''  ">outv1,</if>
+			<if test="outv2 != null  and outv2 != ''  ">outv2,</if>
+			<if test="v24 != null  and v24 != ''  ">v24,</if>
+			<if test="v28 != null  and v28 != ''  ">v28,</if>
+			<if test="extendpow != null  and extendpow != ''  ">extendpow,</if>
+			<if test="solarpow != null  and solarpow != ''  ">solarpow,</if>
+			<if test="charge != null  and charge != ''  ">charge,</if>
+			<if test="work != null  and work != ''  ">work,</if>
+			<if test="time != null  ">time,</if>
+			<if test="iP != null  and iP != ''  ">IP,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="dataid != null  ">#{dataid},</if>
+			<if test="IMEI != null  and IMEI != ''  ">#{IMEI},</if>
+			<if test="pow1 != null  and pow1 != ''  ">#{pow1},</if>
+			<if test="grouppow != null  and grouppow != ''  ">#{grouppow},</if>
+			<if test="outv1 != null  and outv1 != ''  ">#{outv1},</if>
+			<if test="outv2 != null  and outv2 != ''  ">#{outv2},</if>
+			<if test="v24 != null  and v24 != ''  ">#{v24},</if>
+			<if test="v28 != null  and v28 != ''  ">#{v28},</if>
+			<if test="extendpow != null  and extendpow != ''  ">#{extendpow},</if>
+			<if test="solarpow != null  and solarpow != ''  ">#{solarpow},</if>
+			<if test="charge != null  and charge != ''  ">#{charge},</if>
+			<if test="work != null  and work != ''  ">#{work},</if>
+			<if test="time != null  ">#{time},</if>
+			<if test="iP != null  and iP != ''  ">#{iP},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateTorrent" parameterType="Torrent">
+        update torrent
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="IMEI != null  and IMEI != ''  ">IMEI = #{IMEI},</if>
+            <if test="pow1 != null  and pow1 != ''  ">pow1 = #{pow1},</if>
+            <if test="grouppow != null  and grouppow != ''  ">grouppow = #{grouppow},</if>
+            <if test="outv1 != null  and outv1 != ''  ">outv1 = #{outv1},</if>
+            <if test="outv2 != null  and outv2 != ''  ">outv2 = #{outv2},</if>
+            <if test="v24 != null  and v24 != ''  ">v24 = #{v24},</if>
+            <if test="v28 != null  and v28 != ''  ">v28 = #{v28},</if>
+            <if test="extendpow != null  and extendpow != ''  ">extendpow = #{extendpow},</if>
+            <if test="solarpow != null  and solarpow != ''  ">solarpow = #{solarpow},</if>
+            <if test="charge != null  and charge != ''  ">charge = #{charge},</if>
+            <if test="work != null  and work != ''  ">work = #{work},</if>
+            <if test="time != null  ">time = #{time},</if>
+            <if test="iP != null  and iP != ''  ">IP = #{iP},</if>
+        </trim>
+        where dataid = #{dataid}
+    </update>
+
+	<delete id="deleteTorrentById" parameterType="Integer">
+        delete from torrent where dataid = #{dataid}
+    </delete>
+	
+    <delete id="deleteTorrentByIds" parameterType="String">
+        delete from torrent where dataid in 
+        <foreach item="dataid" collection="array" open="(" separator="," close=")">
+            #{dataid}
+        </foreach>
+    </delete>
+    
+</mapper>

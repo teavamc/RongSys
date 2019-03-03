@@ -12,10 +12,9 @@
 		<div class="box box-main">
 			<div class="box-header">
 				<div class="box-title">
-					<i class="fa icon-grid"></i> 广播终端区域
+					<i class="fa icon-grid"></i> 广播终端管理
 				</div>
 				<div class="box-tools pull-right">
-					<!--<a type="button" class="btn btn-box-tool menuItem" href="#" onclick="dept()" title="管理部门"><i class="fa fa-edit"></i></a>-->
 					<button type="button" class="btn btn-box-tool" id="btnExpand" title="展开" style="display:none;"><i class="fa fa-chevron-up"></i></button>
 					<button type="button" class="btn btn-box-tool" id="btnCollapse" title="折叠"><i class="fa fa-chevron-down"></i></button>
 					<button type="button" class="btn btn-box-tool" id="btnRefresh" title="刷新"><i class="fa fa-refresh"></i></button>
@@ -32,18 +31,89 @@
 	<div class="row">
 		<div class="col-sm-12 search-collapse">
 			<form id="user-form">
-				<input type="hidden" id="Aid" name="aid">
-				<input type="hidden" id="Parentaid" name="parentaid">
-				<div class="select-list">
-					<ul>
+				<input type="hidden" id="aid" name="aid">
+				<input type="hidden" id="tid" name="tid">
+						<div class="select-list">
+							<ul>
+								<li>
+									终端设备IMEI：<input type="text" name="tid"/>
+								</li>
+								<li>
+									终端设备名称：<input type="text" name="tname"/>
+								</li>
 
-						<li>
-							地区编号：<input type="text" name="aid"/>
-						</li>
 
-						<li>
-							地区名称：<input type="text" name="aname"/>
-						</li>
+								<li>
+									区域名称：<input type="text" name="aname"/>
+								</li>
+
+								<li>
+									所属用户编号：<input type="text" name="userid"/>
+								</li>
+
+								<li>
+									管理员姓名：<input type="text" name="uname"/>
+								</li>
+
+								<!--<li>
+									最后处理时间：<input type="text" name="lastaccesstime"/>
+								</li>-->
+
+								<li>
+									出厂编号：<input type="text" name="facid"/>
+								</li>
+
+								<li>
+									安装地址：<input type="text" name="address"/>
+								</li>
+
+								<!--<li>
+									备注：<input type="text" name="note"/>
+								</li>-->
+
+								<li>
+									终端接入通信网：<input type="text" name="comstand"/>
+								</li>
+
+								<li>
+									终端接入广播电视网模式：<input type="text" name="broadtel"/>
+								</li>
+
+								<li>
+									终端管理员名称：<input type="text" name="manager"/>
+								</li>
+
+								<li>
+									终端管理员电话：<input type="text" name="managertel"/>
+								</li>
+
+								<!--<li>
+									终端交互时间：<input type="text" name="intertime"/>
+								</li>-->
+
+								<li>
+									创建时间：<input type="text" name="createdtime"/>
+								</li>
+
+								<li>
+									是否可用：<input type="text" name="isuse"/>
+								</li>
+
+								<li>
+									终端手机号码：<input type="text" name="phone"/>
+								</li>
+
+								<li>
+									RDS码：<input type="text" name="rds"/>
+								</li>
+
+								<li>
+									调频接收频率(终端可收转广播频率 )：<input type="text" name="fmfrequency"/>
+								</li>
+
+								<!--<li>
+									终端流量使用限制，单位MB：<input type="text" name="trafficlimit"/>
+								</li>-->
 
 						<li>
 							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -56,10 +126,16 @@
 
 		<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
 			<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:organization:add">
-				<i class="fa fa-plus"></i> 新增
+				<i class="fa fa-plus"></i> 添加
 			</a>
 			<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:organization:edit">
 				<i class="fa fa-edit"></i> 修改
+			</a>
+			<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:organization:remove">
+				<i class="fa fa-remove"></i> 删除
+			</a>
+			<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:organization:export">
+				<i class="fa fa-download"></i> 导出
 			</a>
 		</div>
 
@@ -72,11 +148,6 @@
 <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
 <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('broad:organization:edit')}]];
-    var removeFlag = [[${@permission.hasPermi('broad:organization:remove')}]];
-
-    var datas = [[${@dict.getType('sys_normal_disable')}]];
-
     var prefix = ctx + "broad/organization";
 
     $(function() {
@@ -91,22 +162,117 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 exportUrl: prefix + "/export",
-                modalName: "终端地域",
+                modalName: "终端管理",
                 search: false,
                 showExport: true,
                 columns: [{
                     checkbox: true
                 },
-				{
-					field : 'aid',
-					title : '地域ID',
-					visible: true
-				},
-				{
-					field : 'aname',
-					title : '地域名称',
-					sortable: true
-				}]
+					{
+						field : 'tid',
+						title : '终端设备IMEI',
+						visible: true
+					},
+					{
+						field : 'tname',
+						title : '终端设备名称',
+						sortable: true
+					},
+					{
+						field : 'aid',
+						title : '区域编号',
+						sortable: true
+					},
+					{
+						field : 'aname',
+						title : '区域名称',
+						sortable: true
+					},
+					{
+						field : 'userid',
+						title : '所属用户编号',
+						sortable: true
+					},
+					{
+						field : 'uname',
+						title : '管理员姓名',
+						sortable: true
+					},
+					{
+						field : 'lastaccesstime',
+						title : '最后处理时间',
+						sortable: true
+					},
+					{
+						field : 'facid',
+						title : '出厂编号',
+						sortable: true
+					},
+					{
+						field : 'address',
+						title : '安装地址',
+						sortable: true
+					},
+					{
+						field : 'note',
+						title : '备注',
+						sortable: true
+					},
+					{
+						field : 'comstand',
+						title : '终端接入通信网',
+						sortable: true
+					},
+					{
+						field : 'broadtel',
+						title : '终端接入广播电视网模式',
+						sortable: true
+					},
+					{
+						field : 'manager',
+						title : '终端管理员名称',
+						sortable: true
+					},
+					{
+						field : 'managertel',
+						title : '终端管理员电话',
+						sortable: true
+					},
+					{
+						field : 'intertime',
+						title : '终端交互时间',
+						sortable: true
+					},
+					{
+						field : 'createdtime',
+						title : '创建时间',
+						sortable: true
+					},
+					{
+						field : 'isuse',
+						title : '是否可用',
+						sortable: true
+					},
+					{
+						field : 'phone',
+						title : '终端手机号码',
+						sortable: true
+					},
+					{
+						field : 'rds',
+						title : 'RDS码',
+						sortable: true
+					},
+					{
+						field : 'fmfrequency',
+						title : '调频接收频率(终端可收转广播频率 )',
+						sortable: true
+					},
+					{
+						field : 'trafficlimit',
+						title : '终端流量使用限制，单位MB',
+						sortable: true
+					}]
             };
         $.table.init(options);
     };
@@ -122,8 +288,8 @@
         $.tree.init(options);
 
         function zOnClick(event, treeId, treeNode) {
-            $("#Aid").val(treeNode.id);
-            $("#Parentaid").val(treeNode.pId);
+            $("#aid").val(treeNode.id);
+          	/*$("#tid").val(treeNode.pId);*/
             $.table.search();
         }
     }
