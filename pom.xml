@@ -51,6 +51,7 @@
         <module>sx-village</module>
         <module>sx-api</module>
         <module>sx-broadStreamSocket</module>
+        <module>sx-iot</module>
     </modules>
     <packaging>pom</packaging>
 
