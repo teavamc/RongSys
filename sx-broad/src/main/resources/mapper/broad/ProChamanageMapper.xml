@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.ProChamanageMapper">
+    
+    <resultMap type="ProChamanage" id="ProChamanageResult">
+        <result property="cid"    column="cid"    />
+        <result property="cname"    column="cname"    />
+        <result property="frequencies"    column="frequencies"    />
+        <result property="userid"    column="userid"    />
+        <result property="pronote"    column="pronote"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+	
+	<sql id="selectProChamanageVo">
+        select cid, cname, frequencies, userid, pronote, remark from pro_chamanage
+    </sql>
+	
+    <select id="selectProChamanageList" parameterType="ProChamanage" resultMap="ProChamanageResult">
+        <include refid="selectProChamanageVo"/>
+        <where>  
+            <if test="cid != null "> and cid = #{cid}</if>
+             <if test="cname != null  and cname != '' "> and cname = #{cname}</if>
+             <if test="frequencies != null  and frequencies != '' "> and frequencies = #{frequencies}</if>
+             <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
+             <if test="pronote != null  and pronote != '' "> and pronote = #{pronote}</if>
+             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
+         </where>
+    </select>
+    
+    <select id="selectProChamanageById" parameterType="Integer" resultMap="ProChamanageResult">
+        <include refid="selectProChamanageVo"/>
+        where cid = #{cid}
+    </select>
+        
+    <insert id="insertProChamanage" parameterType="ProChamanage">
+        insert into pro_chamanage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="cid != null  ">cid,</if>
+			<if test="cname != null  and cname != ''  ">cname,</if>
+			<if test="frequencies != null  and frequencies != ''  ">frequencies,</if>
+			<if test="userid != null  and userid != ''  ">userid,</if>
+			<if test="pronote != null  and pronote != ''  ">pronote,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="cid != null  ">#{cid},</if>
+			<if test="cname != null  and cname != ''  ">#{cname},</if>
+			<if test="frequencies != null  and frequencies != ''  ">#{frequencies},</if>
+			<if test="userid != null  and userid != ''  ">#{userid},</if>
+			<if test="pronote != null  and pronote != ''  ">#{pronote},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateProChamanage" parameterType="ProChamanage">
+        update pro_chamanage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="cname != null  and cname != ''  ">cname = #{cname},</if>
+            <if test="frequencies != null  and frequencies != ''  ">frequencies = #{frequencies},</if>
+            <if test="userid != null  and userid != ''  ">userid = #{userid},</if>
+            <if test="pronote != null  and pronote != ''  ">pronote = #{pronote},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+        </trim>
+        where cid = #{cid}
+    </update>
+
+	<delete id="deleteProChamanageById" parameterType="Integer">
+        delete from pro_chamanage where cid = #{cid}
+    </delete>
+	
+    <delete id="deleteProChamanageByIds" parameterType="String">
+        delete from pro_chamanage where cid in 
+        <foreach item="cid" collection="array" open="(" separator="," close=")">
+            #{cid}
+        </foreach>
+    </delete>
+    
+</mapper>
