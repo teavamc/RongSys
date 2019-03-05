@@ -58,5 +58,9 @@ public interface AreaMapper
      * @return 结果
      */
 	public int deleteAreaByIds(String[] aids);
-	
+
+	/**
+	 * 树
+	 */
+	public Area selectAllArea();
 }

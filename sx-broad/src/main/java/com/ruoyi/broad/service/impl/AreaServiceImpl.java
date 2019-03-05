@@ -132,31 +132,12 @@ public class AreaServiceImpl implements IAreaService
 	{
 		return areaMapper.deleteAreaByIds(Convert.toStrArray(ids));
 	}
-//
-//	public List<Map<String, Object>> getTrees(List<SysDept> deptList, boolean isCheck, List<String> roleDeptList)
-//	{
-//
-//		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-//		for (SysDept dept : deptList)
-//		{
-//			if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()))
-//			{
-//				Map<String, Object> deptMap = new HashMap<String, Object>();
-//				deptMap.put("id", dept.getDeptId());
-//				deptMap.put("pId", dept.getParentId());
-//				deptMap.put("name", dept.getDeptName());
-//				deptMap.put("title", dept.getDeptName());
-//				if (isCheck)
-//				{
-//					deptMap.put("checked", roleDeptList.contains(dept.getDeptId() + dept.getDeptName()));
-//				}
-//				else
-//				{
-//					deptMap.put("checked", false);
-//				}
-//				trees.add(deptMap);
-//			}
-//		}
-//		return trees;
-//	}
+
+	/**
+	 * 树
+	 *
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public Area selectAllArea(){return areaMapper.selectAllArea();};
 }

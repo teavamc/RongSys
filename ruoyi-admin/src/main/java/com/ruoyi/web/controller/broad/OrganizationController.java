@@ -103,8 +103,8 @@ public class OrganizationController extends BaseController
 	@GetMapping("/edit/{tid}")
 	public String edit(@PathVariable("tid") String tid, ModelMap mmap)
 	{
-		Organization organization = organizationService.selectOrganizationById(tid);
-		mmap.put("organization", organization);
+		/*Organization organization = organizationService.selectOrganizationById(tid);*/
+		/*mmap.put("organization", organization);*/
 		return prefix + "/edit";
 	}
 
@@ -135,12 +135,20 @@ public class OrganizationController extends BaseController
 	/**
 	 * 选择部门树
 	 */
-	@GetMapping("/selectOrganizationTree/{Aid}")
-	public String selectOrganizationTree(@PathVariable("Aid") String Aid, ModelMap mmap)
+//	@GetMapping("/selectOrganizationTree/{aid}")
+//	public String selectOrganizationTree(@PathVariable("aid") String aid, ModelMap mmap)
+//	{
+//		mmap.put("organization", organizationService.selectOrganizationById(aid));
+//		return prefix + "/tree";
+//	}
+
+	@GetMapping("/selectOrganizationTree")
+	public String selectOrganizationTree( ModelMap mmap)
 	{
-		mmap.put("organization", organizationService.selectOrganizationById(Aid));
+		mmap.put("organization", areaService.selectAllArea());
 		return prefix + "/tree";
 	}
+
 
 	/**
 	 * 加载部门列表树

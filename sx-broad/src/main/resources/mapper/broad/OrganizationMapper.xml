@@ -25,6 +25,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="trafficlimit"    column="trafficlimit"    />
     </resultMap>
 
+    <resultMap type="area" id="AreatreeResult">
+        <result property="aid"    column="aid"    />
+        <result property="aname"    column="aname"    />
+    </resultMap>
+
     <!--表名 -->
     <sql id="tableName">
 		terminals
@@ -85,9 +90,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </where>
     </select>
     
-    <select id="selectOrganizationById" parameterType="String" resultMap="OrganizationResult">
-        <include refid="selectOrganizationVo"/>
-        where t.aid = #{aid}
+    <select id="selectAllOrganization" resultMap="AreatreeResult">
+        select aid, aname from area
     </select>
 
     <select id="selectOrganizationByTid" parameterType="String" resultMap="OrganizationResult">

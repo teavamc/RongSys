@@ -35,11 +35,17 @@ public class OrganizationServiceImpl implements IOrganizationService
 		 * @param aid 终端地域ID
 		 * @return 终端信息
 		 */
+//		@Override
+//		@DataSource(value = DataSourceType.SLAVE)
+//		public Organization selectOrganizationById(String aid)
+//		{
+//			return organizationMapper.selectOrganizationById(aid);
+//		}
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
-		public Organization selectOrganizationById(String aid)
+		public Organization selectAllOrganization()
 		{
-			return organizationMapper.selectOrganizationById(aid);
+			return organizationMapper.selectAllOrganization();
 		}
 
 
