@@ -44,12 +44,12 @@ public class Torrent extends BaseEntity
 	/** 网络IP */
 	private String iP;
 
-	public void setDataid(Integer dataid) 
+	public void setDataid(Integer dataid)
 	{
 		this.dataid = dataid;
 	}
 
-	public Integer getDataid() 
+	public Integer getDataid()
 	{
 		return dataid;
 	}
@@ -58,115 +58,115 @@ public class Torrent extends BaseEntity
 		this.IMEI = IMEI;
 	}
 
-	public String getIMEI() 
+	public String getIMEI()
 	{
 		return IMEI;
 	}
-	public void setPow1(String pow1) 
+	public void setPow1(String pow1)
 	{
 		this.pow1 = pow1;
 	}
 
-	public String getPow1() 
+	public String getPow1()
 	{
 		return pow1;
 	}
-	public void setGrouppow(String grouppow) 
+	public void setGrouppow(String grouppow)
 	{
 		this.grouppow = grouppow;
 	}
 
-	public String getGrouppow() 
+	public String getGrouppow()
 	{
 		return grouppow;
 	}
-	public void setOutv1(String outv1) 
+	public void setOutv1(String outv1)
 	{
 		this.outv1 = outv1;
 	}
 
-	public String getOutv1() 
+	public String getOutv1()
 	{
 		return outv1;
 	}
-	public void setOutv2(String outv2) 
+	public void setOutv2(String outv2)
 	{
 		this.outv2 = outv2;
 	}
 
-	public String getOutv2() 
+	public String getOutv2()
 	{
 		return outv2;
 	}
-	public void setV24(String v24) 
+	public void setV24(String v24)
 	{
 		this.v24 = v24;
 	}
 
-	public String getV24() 
+	public String getV24()
 	{
 		return v24;
 	}
-	public void setV28(String v28) 
+	public void setV28(String v28)
 	{
 		this.v28 = v28;
 	}
 
-	public String getV28() 
+	public String getV28()
 	{
 		return v28;
 	}
-	public void setExtendpow(String extendpow) 
+	public void setExtendpow(String extendpow)
 	{
 		this.extendpow = extendpow;
 	}
 
-	public String getExtendpow() 
+	public String getExtendpow()
 	{
 		return extendpow;
 	}
-	public void setSolarpow(String solarpow) 
+	public void setSolarpow(String solarpow)
 	{
 		this.solarpow = solarpow;
 	}
 
-	public String getSolarpow() 
+	public String getSolarpow()
 	{
 		return solarpow;
 	}
-	public void setCharge(String charge) 
+	public void setCharge(String charge)
 	{
 		this.charge = charge;
 	}
 
-	public String getCharge() 
+	public String getCharge()
 	{
 		return charge;
 	}
-	public void setWork(String work) 
+	public void setWork(String work)
 	{
 		this.work = work;
 	}
 
-	public String getWork() 
+	public String getWork()
 	{
 		return work;
 	}
-	public void setTime(Date time) 
+	public void setTime(Date time)
 	{
 		this.time = time;
 	}
 
-	public Date getTime() 
+	public Date getTime()
 	{
 		return time;
 	}
-	public void setIP(String iP) 
+	public void setIP(String iP)
 	{
 		this.iP = iP;
 	}
 
-	public String getIP() 
+	public String getIP()
 	{
 		return iP;
 	}
