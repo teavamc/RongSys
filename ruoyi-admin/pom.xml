@@ -83,6 +83,13 @@
             <version>${ruoyi.version}</version>
         </dependency>
 
+        <!--山河预警模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-rivervis</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
 </dependencies>
 
     <build>
