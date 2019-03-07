@@ -67,7 +67,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 
-    <select id="selectAllArea"  resultMap="AreaResult">
-        select aid, parentaid, aname, note from area
+
+    <select id="selectAllArea" resultMap="AreaResult">
+        <include refid="selectAreaVo"/>
     </select>
 </mapper>

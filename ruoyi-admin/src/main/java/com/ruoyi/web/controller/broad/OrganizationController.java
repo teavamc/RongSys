@@ -135,19 +135,20 @@ public class OrganizationController extends BaseController
 	/**
 	 * 选择部门树
 	 */
-//	@GetMapping("/selectOrganizationTree/{aid}")
-//	public String selectOrganizationTree(@PathVariable("aid") String aid, ModelMap mmap)
-//	{
-//		mmap.put("organization", organizationService.selectOrganizationById(aid));
-//		return prefix + "/tree";
-//	}
-
-	@GetMapping("/selectOrganizationTree")
-	public String selectOrganizationTree( ModelMap mmap)
+	@GetMapping("/selectOrganizationTree/{aid}")
+	public String selectOrganizationTree(@PathVariable("aid") String aid, ModelMap mmap)
 	{
-		mmap.put("organization", areaService.selectAllArea());
+		mmap.put("organization", areaService.selectAreaById("01"));
 		return prefix + "/tree";
 	}
+
+	/*@GetMapping("/selectOrganizationTree")
+	public String selectOrganizationTree(ModelMap mmap)
+	{
+		*//*List<Area> organization = areaService.selectAllArea();*//*
+		mmap.put("organization", areaService.selectAllArea());
+		return prefix + "/tree";
+	}*/
 
 
 	/**
