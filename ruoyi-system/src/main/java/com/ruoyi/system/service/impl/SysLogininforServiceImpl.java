@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.support.Convert;
@@ -57,10 +59,22 @@ public class SysLogininforServiceImpl implements ISysLogininforService
 
     /**
      * 清空系统登录日志
+     *
      */
     @Override
     public void cleanLogininfor()
     {
         logininforMapper.cleanLogininfor();
+    }
+
+    /**
+     * 获取最近的8条访客记录传给前端
+     *
+     * @return 结果
+     */
+    @Override
+    public List<PageData> selectLoginLogforIndex()
+    {
+        return logininforMapper.selectLoginLogforIndex();
     }
 }

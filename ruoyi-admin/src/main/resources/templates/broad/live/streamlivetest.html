@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>流媒体直播</h5>
+                    <div class="ibox-tools">
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <p class="text-warning">测试直播IMEI为：<span id="test"></span></p>
+                    <div id="livestatus">
+                        <p class="text-primary" >未直播</p>
+                    </div>
+                    <div id="rtmp-streamer" >
+                        <h3>请先安装flash插件</h3>
+                        <p><a href="http://www.adobe.com/go/getflashplayer"><img src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="下载 Adobe Flash player 插件" /></a></p>
+                    </div>
+                    <div >
+                        <button id="start" class="btn btn-primary"   onclick="startlive(this);"  >
+                            <i  class="ace-icon fa fa-play bigger-110 "></i>&nbsp;开启直播</button>
+                        <button id="end" class="btn btn-danger"  disabled onclick="endlive();"   >
+                            <i  class="ace-icon fa fa-stop bigger-110 " ></i>&nbsp;关闭直播</button>
+                    </div>
+                    <div style="font-size:12px;margin-top:20px;">
+                        <p  class="text-warning" >直播终端：<span id="liveternum">0</span> 个，开启直播：<span id="startternum">0</span> 个</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>终端直播状态</h5>
+                </div>
+                <div class="ibox-content">
+                    <form action="" method="post" name="Form" id="Form">
+                        <table id="simple-table"  class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th class="center">终端IMEI</th>
+                                <th class="center">流媒体ID</th>
+                                <th class="center">记录状态</th>
+                            </tr>
+                            </thead>
+                            <tbody id="tbody">
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/content.min.js}"></script>
+<script th:src="@{/js/views/live/swfobject.min.js}"></script>
+<script th:src="@{/js/views/live/livestreamtest.js}"></script>
+</body>
+</html>

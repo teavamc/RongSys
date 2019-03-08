@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.system.domain.SysLogininfor;
 
 /**
@@ -39,4 +41,11 @@ public interface SysLogininforMapper
      * @return 结果
      */
     public int cleanLogininfor();
+
+    /**
+     * 获取最近的8条访客记录传给前端
+     *
+     * @return 结果
+     */
+    public List<PageData> selectLoginLogforIndex();
 }

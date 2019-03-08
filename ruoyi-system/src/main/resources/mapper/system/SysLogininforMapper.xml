@@ -41,6 +41,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
+
+	<select id="selectLoginLogforIndex" resultType="HashMap">
+		select
+			sys_logininfor.login_name as loginName,
+			sys_user.user_name as user_name,
+			sys_logininfor.ipaddr as ipaddr,
+			sys_logininfor.login_location as loginLocation,
+			sys_logininfor.browser as browser,
+			date_format(sys_logininfor.login_time,'%m-%d %T %p') as loginTime
+		from
+			sys_logininfor,sys_user
+		where
+			sys_logininfor.login_name = sys_user.login_name
+			AND
+			sys_logininfor.status = 0
+		order by sys_logininfor.login_time desc
+		limit 0,6
+	</select>
 	
 	<delete id="deleteLogininforByIds" parameterType="String">
  		delete from sys_logininfor where info_id in
