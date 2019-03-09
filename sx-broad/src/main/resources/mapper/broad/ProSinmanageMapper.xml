@@ -29,8 +29,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from pro_sinmanage as PS,
              userinfo as US
         where
-            PS.userid = US.userid
+            PS.userid = US.userid and
+            PS.scategory = "正常播出单"
          order by sfid desc
+    </select>
+
+    <select id="selectProSinmanageListForWarning" parameterType="ProSinmanage" resultMap="ProSinmanageResult">
+        select PS.sfid,
+               PS.scategory,
+               PS.createtime,
+               PS.broaddate,
+               US.uname as userid,
+               PS.remark,
+               PS.broadtimes
+        from pro_sinmanage as PS,
+             userinfo as US
+        where
+            PS.userid = US.userid and
+            PS.scategory = "紧急播出单"
+        order by sfid desc
     </select>
 
     <select id="selectProSinmanageListbySfid" parameterType="String" resultMap="ProSinmanageResult">
