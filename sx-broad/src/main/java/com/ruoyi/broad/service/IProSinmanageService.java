@@ -26,6 +26,15 @@ public interface IProSinmanageService
      * @return 节目播出单集合
      */
 	public List<ProSinmanage> selectProSinmanageList(ProSinmanage proSinmanage);
+
+
+	/**
+	 * 查询紧急节目播出单列表
+	 *
+	 * @param proSinmanage 节目播出单信息
+	 * @return 节目播出单集合
+	 */
+	public List<ProSinmanage> selectProSinmanageListForWarning(ProSinmanage proSinmanage);
 	
 	/**
      * 新增节目播出单
