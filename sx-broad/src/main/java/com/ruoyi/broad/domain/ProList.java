@@ -29,12 +29,12 @@ public class ProList extends BaseEntity
 	/** 备注 */
 	private String remark;
 
-	public void setPid(Integer pid) 
+	public void setPid(String pid)
 	{
 		this.pid = pid;
 	}
 
-	public Integer getPid() 
+	public String getPid()
 	{
 		return pid;
 	}
@@ -56,12 +56,12 @@ public class ProList extends BaseEntity
 	{
 		return fN;
 	}
-	public void setFid(Integer fid) 
+	public void setFid(String fid)
 	{
 		this.fid = fid;
 	}
 
-	public Integer getFid() 
+	public String getFid()
 	{
 		return fid;
 	}
