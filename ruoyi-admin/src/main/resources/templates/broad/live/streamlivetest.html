@@ -147,7 +147,7 @@
             var deptId = "100";
             var _url = "/broad/organization/selectOrganizationTree/01";
             var _title = '选择终端';
-            var _width = "380";
+            var _width = "1200";
             var _height = ($(window).height() - 50);
             layer.open({
                 type: 2,
@@ -169,12 +169,12 @@
 
         function doSubmit(index, layero){
             var tree = layero.find("iframe")[0].contentWindow.$._tree;
-            if ($.tree.notAllowParents(tree)) {
+           /* if ($.tree.notAllowParents(tree)) {*/
                 var body = layer.getChildFrame('body', index);
                 $("#treeId").val(body.find('#treeId').val());
                 $("#treeName").val(body.find('#treeName').val());
                 layer.close(index);
-            }
+            /*}*/
         }
     </script>
 

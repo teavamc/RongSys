@@ -123,14 +123,14 @@ public class OrganizationController extends BaseController
 	/**
 	 * 删除终端地域
 	 */
-	@RequiresPermissions("broad:organization:remove")
+	/*@RequiresPermissions("broad:organization:remove")
 	@Log(title = "终端地域", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
 	{
 		return toAjax(organizationService.deleteOrganizationByIds(ids));
-	}
+	}*/
 
 	/**
 	 * 选择部门树
@@ -139,16 +139,32 @@ public class OrganizationController extends BaseController
 	public String selectOrganizationTree(@PathVariable("aid") String aid, ModelMap mmap)
 	{
 		mmap.put("organization", areaService.selectAreaById("01"));
-		return prefix + "/tree";
+		/*return prefix + "/tree";*/
+		return prefix + "/listProBroadTree";
 	}
 
-	/*@GetMapping("/selectOrganizationTree")
-	public String selectOrganizationTree(ModelMap mmap)
+	/**
+	 * 加载节目单播出终端选择列表树
+	 */
+	@GetMapping("/listProBroadTree")
+	@ResponseBody
+	public List<Map<String, Object>> listProBroadTree()
 	{
-		*//*List<Area> organization = areaService.selectAllArea();*//*
-		mmap.put("organization", areaService.selectAllArea());
-		return prefix + "/tree";
-	}*/
+		List<Map<String, Object>> tree = areaService.selectAreaTree(new Area());
+		return tree;
+	}
+
+	/**
+	 * 查询节目单终端列表
+	 */
+	@PostMapping("/listProBroad")
+	@ResponseBody
+	public TableDataInfo listProBroad(Organization organization)
+	{
+		startPage() ;
+		List<Organization> list = organizationService.selectProBroadList(organization);
+		return getDataTable(list);
+	}
 
 
 	/**
@@ -162,4 +178,18 @@ public class OrganizationController extends BaseController
 		return tree;
 	}
 
+    @RequiresPermissions("broad:organization:remove")
+    @PostMapping("/addProIdAll")
+    @ResponseBody
+    public AjaxResult addProIdAll(String ids)
+    {
+        try
+        {
+            return toAjax(organizationService.addProIdAll(ids));
+        }
+        catch (Exception e)
+        {
+            return error(e.getMessage());
+        }
+    }
 }
