@@ -15,13 +15,13 @@ public class ProList extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** 节目编号 */
-	private Integer pid;
+	private String pid;
 	/** 操作记录 */
 	private String ptp;
 	/** 节目文件 */
 	private String fN;
 	/** 文件编号 */
-	private Integer fid;
+	private String fid;
 	/** 播放时间 */
 	private String bt;
 	/** 播放时长，只有电台转播有 */

@@ -43,7 +43,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
     <select id="selectProListListByPid" parameterType="String" resultMap="ProListResult">
-        <include refid="selectProListVo"/>
+        select
+               Pid,
+               Ptp,
+               FN,
+               Fid,
+               Bt,
+               broadtime,
+               Remark
+        from pro_list
         where
         pid = #{pid}
         order by Bt
