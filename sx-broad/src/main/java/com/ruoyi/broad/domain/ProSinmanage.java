@@ -15,7 +15,7 @@ public class ProSinmanage extends BaseEntity
 	private static final long serialVersionUID = 1L;
 	
 	/** 节目播出单IDSin */
-	private Integer sfid;
+	private String sfid;
 	/** 节目播出单类别 */
 	private String scategory;
 	/** 建立日期 */
@@ -27,14 +27,14 @@ public class ProSinmanage extends BaseEntity
 	/** 备注 */
 	private String remark;
 	/** 紧急播出单播放次数 */
-	private Integer broadtimes;
+	private String broadtimes;
 
-	public void setSfid(Integer sfid) 
+	public void setSfid(String sfid)
 	{
 		this.sfid = sfid;
 	}
 
-	public Integer getSfid() 
+	public String getSfid()
 	{
 		return sfid;
 	}
@@ -83,12 +83,12 @@ public class ProSinmanage extends BaseEntity
 	{
 		return remark;
 	}
-	public void setBroadtimes(Integer broadtimes) 
+	public void setBroadtimes(String broadtimes)
 	{
 		this.broadtimes = broadtimes;
 	}
 
-	public Integer getBroadtimes() 
+	public String getBroadtimes()
 	{
 		return broadtimes;
 	}
