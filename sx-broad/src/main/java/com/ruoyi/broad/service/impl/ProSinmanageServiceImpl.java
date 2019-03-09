@@ -87,5 +87,19 @@ public class ProSinmanageServiceImpl implements IProSinmanageService
 	{
 		return proSinmanageMapper.deleteProSinmanageByIds(Convert.toStrArray(ids));
 	}
-	
+
+
+	/**
+	 * 通过 sfid 查询节目编号List
+	 * @author 张超 teavamc
+	 * @date 2019/3/9
+	 * @param [sfids]
+	 * @return java.util.List<com.ruoyi.broad.domain.ProSinmanage>
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<ProSinmanage> selectProSinmanageListbySfid(String sfid){
+		return proSinmanageMapper.selectProSinmanageListbySfid(sfid);
+	}
+
 }

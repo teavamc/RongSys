@@ -41,6 +41,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </where>
          order by pid desc
     </select>
+
+    <select id="selectProListListByPid" parameterType="String" resultMap="ProListResult">
+        <include refid="selectProListVo"/>
+        where
+        pid = #{pid}
+        order by Bt
+    </select>
     
     <select id="selectProListById" parameterType="Integer" resultMap="ProListResult">
         <include refid="selectProListVo"/>

@@ -50,5 +50,15 @@ public interface IProSinmanageService
      * @return 结果
      */
 	public int deleteProSinmanageByIds(String ids);
+
+
+	/**
+	 * 通过 sfid 查询节目编号List
+	 * @author 张超 teavamc
+	 * @date 2019/3/9
+	 * @param [sfids]
+	 * @return java.util.List<com.ruoyi.broad.domain.ProSinmanage>
+	 */
+	public List<ProSinmanage> selectProSinmanageListbySfid(String sfid);
 	
 }

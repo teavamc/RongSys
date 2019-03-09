@@ -29,6 +29,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
              <if test="broadtimes != null "> and broadtimes = #{broadtimes}</if>
          </where>
+         order by sfid desc
+    </select>
+
+    <select id="selectProSinmanageListbySfid" parameterType="String" resultMap="ProSinmanageResult">
+        <include refid="selectProSinmanageVo"/>
+        where
+            sfid = #{sfid}
+        order by sfid desc
     </select>
     
     <select id="selectProSinmanageById" parameterType="Integer" resultMap="ProSinmanageResult">
