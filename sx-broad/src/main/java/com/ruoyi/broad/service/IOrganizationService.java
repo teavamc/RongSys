@@ -97,6 +97,6 @@ public interface IOrganizationService
 	 * @return 结果
 	 * @throws Exception 异常
 	 */
-	public int addProIdAll(String ids) throws Exception;
+//	public int addProIdAll(String ids) throws Exception;
 
 }

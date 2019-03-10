@@ -168,11 +168,11 @@ public class OrganizationServiceImpl implements IOrganizationService
 	 * @param ids 需要删除的数据ID
 	 * @return 结果
 	 */
-	@Override
+	/*@Override
 	public int addProIdAll(String ids) throws BusinessException
 	{
 		Long[] userIds = Convert.toLongArray(ids);
 
 		return  organizationMapper.addProIdAll(userIds);
-	}
+	}*/
 	}

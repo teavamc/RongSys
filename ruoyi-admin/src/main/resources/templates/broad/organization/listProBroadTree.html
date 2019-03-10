@@ -24,7 +24,7 @@
     <div class="row">
 
         <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-            <a class="btn btn-danger btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:organization:remove">
+            <a class="btn btn-danger btn-del disabled" onclick="addProIdAll()">
                 <i class="fa fa-remove"></i> 节目终端选择
             </a>
         </div>
@@ -49,7 +49,6 @@
     function queryAreaList() {
         var options = {
             url: prefix + "/listProBroad",
-            removeUrl: prefix + "/addProIdAll",
             modalName: "终端管理",
             search: false,
             columns: [{
@@ -103,10 +102,16 @@
         $('#btnExpand').show();
     });
 
-   /* $('#btnRefresh').click(function() {
-        queryAreaTree();
-    });*/
-
+    // 获取所选择终端IMEI号的方法
+     function addProIdAll() {
+        var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        var data = { "ids": rows.join() };
+        var test = data;var i;
+        for(i in test){
+            alert(test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
+        }
+         alert(JSON.stringify(data));/*这里显示的是所选择终端的IMEI号的json ps：{"ids":"111,222"}*/
+        }
 
 </script>
 </body>

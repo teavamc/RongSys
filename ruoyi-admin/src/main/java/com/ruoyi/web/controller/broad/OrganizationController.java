@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ruoyi.broad.domain.Area;
 import com.ruoyi.broad.service.IAreaService;
+import com.ruoyi.common.support.Convert;
 import com.ruoyi.system.domain.SysDept;
 import com.ruoyi.system.domain.SysRole;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -178,11 +179,12 @@ public class OrganizationController extends BaseController
 		return tree;
 	}
 
-    @RequiresPermissions("broad:organization:remove")
+    /*@RequiresPermissions("broad:organization:remove")
     @PostMapping("/addProIdAll")
     @ResponseBody
     public AjaxResult addProIdAll(String ids)
     {
+        Long[] userIds = Convert.toLongArray(ids);
         try
         {
             return toAjax(organizationService.addProIdAll(ids));
@@ -191,5 +193,5 @@ public class OrganizationController extends BaseController
         {
             return error(e.getMessage());
         }
-    }
+    }*/
 }
