@@ -55,6 +55,8 @@ public class ProSinmanageServiceImpl implements IProSinmanageService
 	 * @param proSinmanage 节目播出单信息
 	 * @return 节目播出单集合
 	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
 	public List<ProSinmanage> selectProSinmanageListForWarning(ProSinmanage proSinmanage){
 		return proSinmanageMapper.selectProSinmanageListForWarning(proSinmanage);
 	}
