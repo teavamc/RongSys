@@ -156,7 +156,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="phonenumber != null and phonenumber != ''">phonenumber,</if>
  			<if test="sex != null and sex != ''">sex,</if>
  			<if test="password != null and password != ''">password,</if>
- 			<if test="salt != null and salt != ''">salt,</if>
+ 			<if test="salt != null and salt != ''">salt,deleteUserByIds</if>
  			<if test="status != null and status != ''">status,</if>
  			<if test="createBy != null and createBy != ''">create_by,</if>
  			<if test="remark != null and remark != ''">remark,</if>
@@ -177,5 +177,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			sysdate()
  		)
 	</insert>
-	
+
+	<select id="selectMaxUserId" resultType="int">
+		select max(user_id) from sys_user
+	</select>
 </mapper> 

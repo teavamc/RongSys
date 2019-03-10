@@ -1,8 +1,16 @@
 <!DOCTYPE HTML>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
-<body class="gray-bg">
+<head th:include="include :: header">
+
+    <style>
+        #canvasOne {
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body class="gray-bg" onload="init();">
+
 <div class="container-div">
     <div class="row">
         <div class="col-sm-4">
@@ -29,7 +37,12 @@
                     </div>
                     <div style="font-size:12px;margin-top:20px;">
                         <p  class="text-warning" >直播终端：<span id="liveternum">0</span> 个，开启直播：<span id="startternum">0</span> 个</p></div>
+                    <div>
+                        <h1>直播声音频域图</h1>
+                        <canvas id="canvasOne" width="400"></canvas>
+                    </div>
                 </div>
+
             </div>
         </div>
         <div class="col-sm-8">
@@ -53,13 +66,114 @@
                     </form>
                 </div>
             </div>
-    </div>
-</div>
 
-<script th:src="@{/js/jquery.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/content.min.js}"></script>
-<script th:src="@{/js/views/live/swfobject.min.js}"></script>
-<script th:src="@{/js/views/live/livestreamtest.js}"></script>
+            <div class="ibox float-e-margins">
+                <input name="deptId"  type="hidden" id="treeId"/>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">选择终端：</label>
+                    <div class="col-sm-8">
+                        <input class="form-control" type="text" name="organName" onclick="selectOrganTree()" readonly="true" id="treeName">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <script th:src="@{/js/content.min.js}"></script>
+    <script th:src="@{/js/views/live/swfobject.min.js}"></script>
+    <script th:src="@{/js/views/live/livestreamtest.js}"></script>
+    <script th:src="@{/ajax/libs/select/select2.js}"></script>
+    <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+    <script>
+        var ctx;
+        var audioContext;
+        var analyser;
+        var mic;
+
+        function init() {
+            canvasOne = document.getElementById('canvasOne');
+            ctx = canvasOne.getContext("2d");
+        }
+
+        navigator.getMedia = ( navigator.getUserMedia ||
+            navigator.webkitGetUserMedia ||
+            navigator.mozGetUserMedia ||
+            navigator.msGetUserMedia);
+
+        navigator.getMedia ( { audio: true }, function (stream) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext);
+            mic = audioContext.createMediaStreamSource(stream);
+            analyser= audioContext.createAnalyser();
+            analyser.fftSize = 256;
+            mic.connect(analyser);
+            drawSpectrum();
+        },function(){});
+
+        function drawSpectrum() {
+            var WIDTH = canvasOne.width;
+            var HEIGHT= canvasOne.height;
+            var array =  new Uint8Array(128);
+            analyser.getByteFrequencyData(array);
+            ctx.clearRect(0, 0, WIDTH, HEIGHT);
+            for ( var i = 0; i < (array.length); i++ ){
+                var value = array[i];
+                ctx.fillRect(i*5,HEIGHT-value,3,HEIGHT);
+            }
+            requestAnimationFrame(drawSpectrum);
+        };
+    </script>
+    <script type="text/javascript">
+        var context1;
+        try {
+            context1 = new (window.AudioContext || window.webkitAudioContext);
+        } catch(e) {
+            throw new Error('The Web Audio API is unavailable');
+        }
+        window.addEventListener('load', function(e) {
+            drawSpectrumfa();
+        }, false);
+        function drawSpectrumfa() {
+            var array =  new Uint8Array(128);
+            requestAnimationFrame(drawSpectrumfa);
+        }
+
+
+        /*流媒体直播-选择终端树*/
+        function selectOrganTree() {
+            var _url = "/broad/organization/selectOrganizationTree/01";
+            var _title = '选择终端';
+            var _width = "1200";
+            var _height = ($(window).height() - 50);
+            layer.open({
+                type: 2,
+                maxmin: true,
+                shade: 0.3,
+                title: _title,
+                fix: false,
+                area: [_width + 'px', _height + 'px'],
+                content: _url,
+                shadeClose: true,
+                btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+                yes: function (index, layero) {
+                    doSubmit(index, layero)
+                }, cancel: function () {
+                    return true;
+                }
+            });
+        }
+
+        function doSubmit(index, layero){
+            var tree = layero.find("iframe")[0].contentWindow.$._tree;
+           /* if ($.tree.notAllowParents(tree)) {*/
+                var body = layer.getChildFrame('body', index);
+                $("#treeId").val(body.find('#treeId').val());
+                $("#treeName").val(body.find('#treeName').val());
+                layer.close(index);
+            /*}*/
+        }
+    </script>
+
 </body>
 </html>

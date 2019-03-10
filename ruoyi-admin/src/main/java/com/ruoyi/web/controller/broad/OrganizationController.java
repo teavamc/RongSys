@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ruoyi.broad.domain.Area;
 import com.ruoyi.broad.service.IAreaService;
+import com.ruoyi.common.support.Convert;
 import com.ruoyi.system.domain.SysDept;
 import com.ruoyi.system.domain.SysRole;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -103,8 +104,8 @@ public class OrganizationController extends BaseController
 	@GetMapping("/edit/{tid}")
 	public String edit(@PathVariable("tid") String tid, ModelMap mmap)
 	{
-		Organization organization = organizationService.selectOrganizationById(tid);
-		mmap.put("organization", organization);
+		/*Organization organization = organizationService.selectOrganizationById(tid);*/
+		/*mmap.put("organization", organization);*/
 		return prefix + "/edit";
 	}
 
@@ -123,24 +124,49 @@ public class OrganizationController extends BaseController
 	/**
 	 * 删除终端地域
 	 */
-	@RequiresPermissions("broad:organization:remove")
+	/*@RequiresPermissions("broad:organization:remove")
 	@Log(title = "终端地域", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
 	{
 		return toAjax(organizationService.deleteOrganizationByIds(ids));
-	}
+	}*/
 
 	/**
 	 * 选择部门树
 	 */
-	@GetMapping("/selectOrganizationTree/{Aid}")
-	public String selectOrganizationTree(@PathVariable("Aid") String Aid, ModelMap mmap)
+	@GetMapping("/selectOrganizationTree/{aid}")
+	public String selectOrganizationTree(@PathVariable("aid") String aid, ModelMap mmap)
 	{
-		mmap.put("organization", organizationService.selectOrganizationById(Aid));
-		return prefix + "/tree";
+		mmap.put("organization", areaService.selectAreaById("01"));
+		/*return prefix + "/tree";*/
+		return prefix + "/listProBroadTree";
 	}
+
+	/**
+	 * 加载节目单播出终端选择列表树
+	 */
+	@GetMapping("/listProBroadTree")
+	@ResponseBody
+	public List<Map<String, Object>> listProBroadTree()
+	{
+		List<Map<String, Object>> tree = areaService.selectAreaTree(new Area());
+		return tree;
+	}
+
+	/**
+	 * 查询节目单终端列表
+	 */
+	@PostMapping("/listProBroad")
+	@ResponseBody
+	public TableDataInfo listProBroad(Organization organization)
+	{
+		startPage() ;
+		List<Organization> list = organizationService.selectProBroadList(organization);
+		return getDataTable(list);
+	}
+
 
 	/**
 	 * 加载部门列表树
@@ -153,4 +179,19 @@ public class OrganizationController extends BaseController
 		return tree;
 	}
 
+    /*@RequiresPermissions("broad:organization:remove")
+    @PostMapping("/addProIdAll")
+    @ResponseBody
+    public AjaxResult addProIdAll(String ids)
+    {
+        Long[] userIds = Convert.toLongArray(ids);
+        try
+        {
+            return toAjax(organizationService.addProIdAll(ids));
+        }
+        catch (Exception e)
+        {
+            return error(e.getMessage());
+        }
+    }*/
 }
