@@ -44,17 +44,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectProListListByPid" parameterType="String" resultMap="ProListResult">
         select
-            PL.Pid,
-            PL.Ptp,
-            PL.FN,
-            PG.fname as Fid,
-            PL.Bt,
-            PL.broadtime,
-            PL.Remark
-        from pro_list as PL,programs as PG
+            a.Pid,
+            a.Ptp,
+            a.FN,
+            b.fname as Fid,
+            a.Bt,
+            a.broadtime,
+            a.Remark
+        from pro_list as a left join programs as b
+        on
+        a.fid= b.fid
         where
-        pid = #{pid} and
-        PL.fid = PG.fid
+        pid = #{pid}
         order by Bt
     </select>
     
