@@ -107,6 +107,28 @@ public class ProSinmanageController extends BaseController
 		return toAjax(proSinmanageService.insertProSinmanage(proSinmanage));
 	}
 
+
+	/*************************************************************************************************
+	 * 新增节目播出单
+	 */
+	@GetMapping("/addtest")
+	public String addtest()
+	{
+		return prefix + "/addtest";
+	}
+
+	/*************************************************************************************************
+	 * 新增保存节目播出单
+	 */
+//	@RequiresPermissions("broad:proSinmanage:addtest")
+	@Log(title = "新增节目播出单测试", businessType = BusinessType.INSERT)
+	@PostMapping("/addtest")
+	@ResponseBody
+	public AjaxResult addtestSave(ProSinmanage proSinmanage)
+	{
+		return toAjax(proSinmanageService.insertProSinmanage(proSinmanage));
+	}
+
 	/**
 	 * 修改节目播出单
 	 */
@@ -117,7 +139,7 @@ public class ProSinmanageController extends BaseController
 		mmap.put("proSinmanage", proSinmanage);
 	    return prefix + "/edit";
 	}
-	
+
 	/**
 	 * 修改保存节目播出单
 	 */
