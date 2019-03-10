@@ -62,6 +62,26 @@ public class ProSinmanageController extends BaseController
 		return getDataTable(list);
 	}
 
+//	@RequiresPermissions("broad:proSinmanage:viewwarning")
+	@GetMapping("/wproSinmanage")
+	public String proSinmanagewarning()
+	{
+		return prefix + "/wproSinmanage";
+	}
+
+	/**
+	 * 查询节目播出单列表
+	 */
+//	@RequiresPermissions("broad:proSinmanage:listwarning")
+	@PostMapping("/listwarning")
+	@ResponseBody
+	public TableDataInfo listwarning(ProSinmanage proSinmanage)
+	{
+		startPage();
+		List<ProSinmanage> list = proSinmanageService.selectProSinmanageListForWarning(proSinmanage);
+		return getDataTable(list);
+	}
+
 	/**
 	 * 打开节目单详情页
 	 */
