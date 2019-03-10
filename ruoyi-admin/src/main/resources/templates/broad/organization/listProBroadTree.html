@@ -28,7 +28,9 @@
                 <i class="fa fa-remove"></i> 节目终端选择
             </a>
         </div>
-
+    <div>
+        <input id="org" name="org"  width="50%" placeholder="">
+    </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table" data-mobile-responsive="true"></table>
         </div>
@@ -104,14 +106,22 @@
 
     // 获取所选择终端IMEI号的方法
      function addProIdAll() {
+       /*在选择终端前先获取一次文本框的值，为的是可以选择多个小组的终端*/
+        var originalValue = document.getElementById("org").value;
+        /*通过选择框去获取终端的IMEI号*/
         var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
         var data = { "ids": rows.join() };
-        var test = data;var i;
+        var test = data;
+        var i;
+        /*js for in循环遍历对象，获取key:value值*/
         for(i in test){
-            alert(test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
+            console.log(test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
         }
-         alert(JSON.stringify(data));/*这里显示的是所选择终端的IMEI号的json ps：{"ids":"111,222"}*/
-        }
+        var selectValue = test[i] + "," + originalValue ;
+        document.getElementById("org").value = selectValue;
+         /*这里显示的是所选择终端的IMEI号的json ps：{"ids":"111,222"}*/
+         /*alert(JSON.stringify(data));*/
+     }
 
 </script>
 </body>
