@@ -1,12 +1,16 @@
 package com.ruoyi.broad.domain;
 
+import com.ruoyi.common.base.BaseEntity;
+
 /**
- * @author 张超 teavamc
- * @Description:节目上传
- * @ClassName Program
- * @date 2019/2/25 18:37
+ * @program: RongSys-lyb
+ * @description: 节目上传
+ * @author: Mr.Liu
+ * @create: 2019-02-26 19:30
  **/
-public class Program {
+public class Program extends BaseEntity {
+    private static final long serialVersionUID = 1L;
+
     private String fid;//节目申请-节目ID
     private String fname;//节目名称
     private String userid;//用户ID
@@ -20,6 +24,14 @@ public class Program {
     private Double fsize;//文件大小
     private Boolean islisten;//是否审听
     private Boolean ptype;//节目类型，是否是录制节目
+    private String uname;//上传用户名
+
+    public String getUname() {
+        return uname;
+    }
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
     public String getFid() {
         return fid;
     }
@@ -98,5 +110,25 @@ public class Program {
     }
     public void setFsize(Double fsize) {
         this.fsize = fsize;
+    }
+
+    @Override
+    public String toString() {
+        return "Program{" +
+                "fid='" + fid + '\'' +
+                ", fname='" + fname + '\'' +
+                ", userid='" + userid + '\'' +
+                ", remark='" + remark + '\'' +
+                ", ispublic=" + ispublic +
+                ", filename='" + filename + '\'' +
+                ", address='" + address + '\'' +
+                ", urls='" + urls + '\'' +
+                ", createdtime='" + createdtime + '\'' +
+                ", flenth='" + flenth + '\'' +
+                ", fsize=" + fsize +
+                ", islisten=" + islisten +
+                ", ptype=" + ptype +
+                ", uname='" + uname + '\'' +
+                '}';
     }
 }
