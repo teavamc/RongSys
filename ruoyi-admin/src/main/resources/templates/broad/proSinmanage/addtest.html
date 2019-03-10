@@ -1,23 +1,98 @@
 <!DOCTYPE HTML>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
+<head th:include="include :: header">
+
+<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+<link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+<link href="../static/css/plugins/datapicker/datepicker3.css" th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet"/>
+
+</head>
 <body class="gray-bg">
 <div class="container-div">
     <div class="row">
-        <a id="appon" class="btn btn-white btn-sm" onclick="setPro('app-on');"  style="border: none;" >
-            <i id="nav-search-icon" class="ace-icon fa fa-play bigger-110 green"></i>&nbsp;开启功放</a>
-        <a id="appon" class="btn btn-white btn-sm" onclick="setPro('app-on');"  style="border: none;" >
-            <i id="nav-search-icon" class="ace-icon fa fa-play bigger-110 green"></i>&nbsp;开启功放</a>
-        <a id="appon" class="btn btn-white btn-sm" onclick="setPro('app-on');"  style="border: none;" >
-            <i id="nav-search-icon" class="ace-icon fa fa-play bigger-110 green"></i>&nbsp;开启功放</a>
-        <a id="appon" class="btn btn-white btn-sm" onclick="setPro('app-on');"  style="border: none;" >
-            <i id="nav-search-icon" class="ace-icon fa fa-play bigger-110 green"></i>&nbsp;开启功放</a>
+        <table style="margin-top:5px;">
+            <tr>
+                <td style="padding-left:2px;text-align: right;">播出日期：</td>
+                <td style="padding-left:2px;">
+                    <input class="date-picker"
+                           name="broaddate"
+                           id="broaddate"
+                           value="${date}"
+                           type="text"
+                           data-date-format="yyyy-mm-dd"
+                           data-date-end-date="+15d"
+                           data-date-start-date="0d"
+                           readonly="readonly"
+                           style="width:88px;"
+                           placeholder="播出日期"
+                           title="播出日期"/>
+                </td>
+                <td style="padding-left:2px;text-align: right;">连续天数：</td>
+                <td style="padding-left:2px;">
+                    <input  name="continuenum" id="continuenum"  value="1" type="number" min="1" max="15" step="1" style="width:88px;"  placeholder="连续天数" title="节目单连续播出天数"/></td>
+                <td style="vertical-align:top;padding-left:2px">
+                    <a class="btn btn-success btn-xs" onclick="save();"  title="保存">
+                        <i id="nav-search-icon" class="ace-icon fa fa-floppy-o bigger-110 white"></i>&nbsp;保存
+                    </a>
+                </td>
+                <!--<td style="vertical-align:top;padding-left:2px">-->
+                    <!--<a class="btn btn-light btn-xs" href="/broad/proSinmanage"  title="退出">-->
+                        <!--<i id="nav-search-icon" class="ace-icon fa fa-reply bigger-110 blue"></i>&nbsp;退出-->
+                    <!--</a>-->
+                <!--</td>-->
+            </tr>
+            <tr style="padding-top:15px;">
+                <td style="vertical-align:top;padding-left:2px">
+                    <a id="appon" class="btn btn-white btn-sm" onclick="setPro('app-on');"  style="border: none;" >
+                        <i id="nav-search-icon" class="ace-icon fa fa-play bigger-110 green"></i>&nbsp;开启功放
+                    </a>
+                </td>
+                <td style="vertical-align:top;padding-left:2px">
+                    <a class="btn btn-white btn-sm" onclick="setFile();" style="border: none;"  >
+                        <i id="nav-search-icon" class="ace-icon fa fa-music bigger-110 green"></i>&nbsp;文件转播
+                    </a>
+                </td>
+                <td style="vertical-align:top;padding-left:2px">
+                    <a class="btn btn-white btn-sm" onclick="setFM();"  style="border: none;" >
+                        <i id="nav-search-icon" class="ace-icon fa fa-bullhorn bigger-110 green"></i>&nbsp;电台播音
+                    </a>
+                </td>
+                <td style="vertical-align:top;padding-left:2px">
+                    <a id="appoff" class="btn btn-white btn-sm" onclick="setPro('app-off');"  style="border: none;" >
+                        <i id="nav-search-icon" class="ace-icon fa fa-stop bigger-110 green"></i>&nbsp;关闭功放
+                    </a>
+                </td>
+                <td style="vertical-align:top;padding-left:2px">
+                    <a id="appstop" class="btn btn-white btn-sm" onclick="setPro('stop');"  style="border: none;" >
+                        <i id="nav-search-icon" class="ace-icon fa fa-power-off bigger-110 green"></i>&nbsp;停止播放
+                    </a>
+                </td>
+            </tr>
+        </table>
+        <table id="simple-table"  class="table table-striped table-bordered table-hover" style="margin-top:5px;">
+            <thead>
+            <tr>
+                <th class="center">类型</th>
+                <th class="center">节目编号</th>
+                <th class="center">节目</th>
+                <th class="center">节目文件</th>
+                <th class="center">开始时间</th>
+                <th class="center">节目时长</th>
+                <th class="center">操作</th>
+            </tr>
+            </thead>
+
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
     </div>
 </div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/views/addpglist/addpglist.js}"></script>
+<script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
 <div th:include="include :: footer"></div>
-<script th:inline="javascript">
-
-</script>
 </body>
 </html>
