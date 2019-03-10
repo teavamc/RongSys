@@ -24,6 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<sql id="selectTorrentVo">
         select dataid, IMEI, pow1, grouppow, outv1, outv2, v24, v28, extendpow, solarpow, charge, work, time, IP from torrent
     </sql>
+
+    <select id="countall" resultType="Integer">
+        select
+               count(*)
+        from torrent
+    </select>
 	
     <select id="selectTorrentList" parameterType="Torrent" resultMap="TorrentResult">
         <include refid="selectTorrentVo"/>

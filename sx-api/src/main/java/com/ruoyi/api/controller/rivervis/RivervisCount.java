@@ -42,5 +42,19 @@ public class RivervisCount {
         return RongApiService.get_list(envDataService.selectEnvDataListLimit());
     }
 
+    /**
+     * 统计所有山洪数据
+     * @author 张超 teavamc
+     * @date 2019/3/10
+     * @param []
+     * @return com.ruoyi.api.domain.RongApiRes
+     */
+    @CrossOrigin
+    @GetMapping("/countall")
+    @ApiOperation(value = "统计所有山洪数据")
+    public RongApiRes countall(){
+        return RongApiService.get_bean(envDataService.countall());
+    }
+
 
 }

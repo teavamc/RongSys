@@ -19,6 +19,14 @@ public interface IEnvDataService
      */
 	public EnvData selectEnvDataById(Integer id);
 
+	/**
+	 * 统计山洪数据总数
+	 * @author 张超 teavamc
+	 * @date 2019/3/10
+	 * @param []
+	 * @return int
+	 */
+	public int countall();
 
 	/**
 	 * 查询环境监测列表 前20条数据

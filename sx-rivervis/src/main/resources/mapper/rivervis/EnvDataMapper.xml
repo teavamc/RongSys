@@ -25,9 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectEnvDataListLimit"  resultMap="EnvDataResult">
         select id, rain, flow, wlevel, ph, pm, temp, hum, aid, time, remark
         from env_data
-        order by time desc
+        order by time
         limit 0,20
   </select>
+
+    <select id="countall" resultType="Integer">
+        select
+            count(*)
+        from env_data
+    </select>
 	
     <select id="selectEnvDataList" parameterType="EnvData" resultMap="EnvDataResult">
         <include refid="selectEnvDataVo"/>

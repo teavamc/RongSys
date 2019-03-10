@@ -100,5 +100,18 @@ public class EnvDataServiceImpl implements IEnvDataService
 	{
 		return envDataMapper.deleteEnvDataByIds(Convert.toStrArray(ids));
 	}
+
+	/**
+	 * 统计山洪数据总数
+	 * @author 张超 teavamc
+	 * @date 2019/3/10
+	 * @param []
+	 * @return int
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXRIVERVIS)
+	public int countall(){
+		return envDataMapper.countall();
+	}
 	
 }
