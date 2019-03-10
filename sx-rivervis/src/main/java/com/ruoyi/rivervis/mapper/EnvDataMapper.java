@@ -26,6 +26,15 @@ public interface EnvDataMapper
      * @return 环境监测集合
      */
 	public List<EnvData> selectEnvDataList(EnvData envData);
+
+	/**
+	 * 查询环境监测列表 前20条数据
+	 *
+	 * @param envData 环境监测信息
+	 * @return 环境监测集合
+	 */
+	public List<EnvData> selectEnvDataListLimit();
+
 	
 	/**
      * 新增环境监测

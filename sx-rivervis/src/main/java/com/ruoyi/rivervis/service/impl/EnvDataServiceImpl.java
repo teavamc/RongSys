@@ -35,7 +35,20 @@ public class EnvDataServiceImpl implements IEnvDataService
 	{
 	    return envDataMapper.selectEnvDataById(id);
 	}
-	
+
+
+	/**
+	 * 查询环境监测列表 前20条数据
+	 *
+	 * @param envData 环境监测信息
+	 * @return 环境监测集合
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXRIVERVIS)
+	public List<EnvData> selectEnvDataListLimit(){
+		return envDataMapper.selectEnvDataListLimit();
+	}
+
 	/**
      * 查询环境监测列表
      * 
