@@ -18,7 +18,24 @@ public interface ITorrentService
      * @return 终端运转信息
      */
 	public Torrent selectTorrentById(Integer dataid);
-	
+
+
+	/**
+	 * 统计物联网数据条目
+	 *
+	 * @param dataid 终端运转ID
+	 * @return 终端运转信息
+	 */
+	public int countall();
+
+	/**
+	 * 统计物联网设备数量
+	 *
+	 * @param dataid 终端运转ID
+	 * @return 终端运转信息
+	 */
+	public int devicecount();
+
 	/**
      * 查询终端运转列表
      * 

@@ -30,7 +30,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                count(*)
         from torrent
     </select>
-	
+
+    <select id="devicecount" resultType="Integer">
+        select
+            count(*)
+        from client
+    </select>
+
     <select id="selectTorrentList" parameterType="Torrent" resultMap="TorrentResult">
         <include refid="selectTorrentVo"/>
         <where>  

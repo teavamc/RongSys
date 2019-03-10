@@ -9,6 +9,12 @@ function onload() {
     //首页图表 山洪全部可视化
     init_rvis();
     //系统监控数据加载
+
+    //物联网和山洪数据统计
+    init_iotdatacount();
+    init_rivisdatacount();
+    init_riotdevcount();
+
     init_sys_mon();
     //系统访问记录
     init_sys_loginlog();
@@ -64,6 +70,41 @@ function init_broad() {
         }
     });
 }
+
+function init_iotdatacount() {
+    $.ajax({
+        type: "GET",
+        url: "/api/iot/countall",
+        dataType: "json",
+        success: function(data){
+            $("#iotcount").html(data.data);
+        }
+    });
+}
+
+function init_rivisdatacount() {
+    $.ajax({
+        type: "GET",
+        url: "/api/rivervis/countall",
+        dataType: "json",
+        success: function(data){
+            $("#riverviscount").html(data.data);
+        }
+    });
+}
+
+function init_riotdevcount() {
+    $.ajax({
+        type: "GET",
+        url: "/api/iot/devicecount",
+        dataType: "json",
+        success: function(data){
+            $("#iotdevcount").html(data.data);
+        }
+    });
+}
+
+
 
 function init_village() {
     $.ajax({
