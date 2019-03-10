@@ -5,6 +5,7 @@ import com.ruoyi.broad.mapper.OrganizationMapper;
 import com.ruoyi.broad.service.IOrganizationService;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.support.Convert;
 import com.ruoyi.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,11 +36,17 @@ public class OrganizationServiceImpl implements IOrganizationService
 		 * @param aid 终端地域ID
 		 * @return 终端信息
 		 */
+//		@Override
+//		@DataSource(value = DataSourceType.SLAVE)
+//		public Organization selectOrganizationById(String aid)
+//		{
+//			return organizationMapper.selectOrganizationById(aid);
+//		}
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
-		public Organization selectOrganizationById(String aid)
+		public Organization selectAllOrganization()
 		{
-			return organizationMapper.selectOrganizationById(aid);
+			return organizationMapper.selectAllOrganization();
 		}
 
 
@@ -107,6 +114,20 @@ public class OrganizationServiceImpl implements IOrganizationService
 		{
 			return organizationMapper.deleteOrganizationByIds(Convert.toStrArray(ids));
 		}
+
+	/**
+	 * 查询节目单终端列表
+	 *
+	 * @param organization 终端信息
+	 * @return 终端集合
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Organization> selectProBroadList(Organization organization)
+	{
+		return organizationMapper.selectProBroadList(organization) ;
+	}
+
 		/**
 		 * 查询终端信息
 		 *
@@ -140,4 +161,18 @@ public class OrganizationServiceImpl implements IOrganizationService
 		public List<Organization> listTersByAids(PageData pd) throws Exception {
 			return (List<Organization>) dao.findForList("OrganizationMapper.listTersByAids",pd);
 		}*/
+
+	/**
+	 * 批量删除用户信息
+	 *
+	 * @param ids 需要删除的数据ID
+	 * @return 结果
+	 */
+	/*@Override
+	public int addProIdAll(String ids) throws BusinessException
+	{
+		Long[] userIds = Convert.toLongArray(ids);
+
+		return  organizationMapper.addProIdAll(userIds);
+	}*/
 	}

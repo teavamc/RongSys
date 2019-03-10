@@ -81,6 +81,9 @@ public class SysUser extends BaseEntity
     /** 岗位组 */
     private Long[] postIds;
 
+    /** 用户所属平台 */
+    private String platform;
+
     public Long getUserId()
     {
         return userId;
@@ -281,6 +284,15 @@ public class SysUser extends BaseEntity
         this.postIds = postIds;
     }
 
+    public String getPlatform()
+    {
+        return platform;
+    }
+
+    public void setPlatform(String platform)
+    {
+        this.platform = platform;
+    }
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -303,6 +315,7 @@ public class SysUser extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
+            .append("platform", getPlatform())
             .toString();
     }
 }

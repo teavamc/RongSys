@@ -105,4 +105,12 @@ public interface SysUserMapper
      * @return 结果
      */
     public SysUser checkEmailUnique(String email);
+
+    /**
+     * 查找最大用户ID
+     *
+     * @param 
+     * @return 结果
+     */
+    public int selectMaxUserId();
 }

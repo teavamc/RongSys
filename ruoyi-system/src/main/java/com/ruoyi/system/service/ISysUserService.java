@@ -138,4 +138,12 @@ public interface ISysUserService
      * @return 结果
      */
     public String selectUserPostGroup(Long userId);
+
+    /**
+     * 查找最大用户ID
+     *
+     * @param
+     * @return 结果
+     */
+    public int selectMaxUserId();
 }
