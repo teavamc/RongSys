@@ -13,19 +13,12 @@
 							<li>
 								节目名称：<input type="text" name="pname"/>
 							</li>
-
-
 							<li>
 								是否紧急：<input type="text" name="isemergency"/>
 							</li>
-
-
 							<li>
 								申请提交时间：<input type="text" name="submittime"/>
 							</li>
-
-
-
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
 								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -38,9 +31,6 @@
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
 				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:proreApply:add">
 					<i class="fa fa-plus"></i> 添加
-				</a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:proreApply:edit">
-					<i class="fa fa-edit"></i> 修改
 				</a>
 				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:proreApply:export">
 						<i class="fa fa-download"></i> 导出
@@ -67,9 +57,7 @@
                 modalName: "节目申请",
 				search: false,
 		        showExport: true,
-                columns: [{
-		            checkbox: true
-		        },
+                columns: [
 				{
 					field : 'paid', 
 					title : '节目ID',

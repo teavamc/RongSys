@@ -18,15 +18,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectProChamanageList" parameterType="ProChamanage" resultMap="ProChamanageResult">
-        <include refid="selectProChamanageVo"/>
-        <where>  
-            <if test="cid != null "> and cid = #{cid}</if>
-             <if test="cname != null  and cname != '' "> and cname = #{cname}</if>
-             <if test="frequencies != null  and frequencies != '' "> and frequencies = #{frequencies}</if>
-             <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
-             <if test="pronote != null  and pronote != '' "> and pronote = #{pronote}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
-         </where>
+        select pc.cid,
+               pc.cname,
+               pc.frequencies,
+               us.uname as userid,
+               pc.pronote,
+               pc.remark
+        from pro_chamanage as pc,userinfo as us
+        where
+            pc.userid = us.userid
+         order by cid desc
     </select>
     
     <select id="selectProChamanageById" parameterType="Integer" resultMap="ProChamanageResult">

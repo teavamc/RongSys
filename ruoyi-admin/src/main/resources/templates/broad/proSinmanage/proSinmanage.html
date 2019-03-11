@@ -6,53 +6,29 @@
     
      <div class="container-div">
 		<div class="row">
-			<div class="col-sm-12 search-collapse">
-				<form id="formId">
-					<div class="select-list">
-						<ul>
-							<li>
-								节目播出单类别：<input type="text" name="scategory"/>
-							</li>
-
-							<li>
-								建立日期：<input type="text" name="createtime"/>
-							</li>
-
-							<li>
-								播出日期：<input type="text" name="broaddate"/>
-							</li>
-
-							<li>
-								操作（所属）用户：<input type="text" name="userid"/>
-							</li>
-
-							<li>
-								备注：<input type="text" name="remark"/>
-							</li>
-
-							<li>
-								紧急播出单播放次数：<input type="text" name="broadtimes"/>
-							</li>
-
-							<li>
-								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
-							</li>
-						</ul>
-					</div>
-				</form>
-			</div>
+			<!--<div class="col-sm-12 search-collapse">-->
+				<!--<form id="formId">-->
+					<!--<div class="select-list">-->
+						<!--<ul>-->
+							<!--<li>-->
+								<!--节目播出单ID：<input type="text" name="sfid"/>-->
+							<!--</li>-->
+							<!--<li>-->
+								<!--<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>-->
+								<!--<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>-->
+							<!--</li>-->
+						<!--</ul>-->
+					<!--</div>-->
+				<!--</form>-->
+			<!--</div>-->
 			
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:proSinmanage:add">
-					<i class="fa fa-plus"></i> 添加
-				</a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:proSinmanage:edit">
-					<i class="fa fa-edit"></i> 修改
-				</a>
-				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:proSinmanage:remove">
-					<i class="fa fa-remove"></i> 删除
-				</a>
+				<!--<a class="btn btn-success" onclick="$.operate.add()">-->
+					<!--<i class="fa fa-plus"></i> 添加-->
+				<!--</a>-->
+				<!--<a class="btn btn-warning" href="/broad/proSinmanage/addtest">-->
+					<!--<i class="fa fa-plus"></i> 添加定点测试节目单-->
+				<!--</a>-->
 				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:proSinmanage:export">
 						<i class="fa fa-download"></i> 导出
 				 </a>
@@ -75,60 +51,47 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
+				detailUrl: prefix + "/detail/{id}",
                 modalName: "节目播出单",
 				search: false,
 		        showExport: true,
                 columns: [{
-		            checkbox: true
-		        },
-				{
 					field : 'sfid', 
-					title : '节目播出单IDSin',
-					visible: false
+					title : '播出单ID',
 				},
 				{
 					field : 'scategory', 
 					title : '节目播出单类别',
-					sortable: true
 				},
 				{
 					field : 'createtime', 
 					title : '建立日期',
-					sortable: true
 				},
 				{
 					field : 'broaddate', 
 					title : '播出日期',
-					sortable: true
 				},
 				{
 					field : 'userid', 
-					title : '操作（所属）用户',
-					sortable: true
+					title : '操作用户',
 				},
 				{
 					field : 'remark', 
 					title : '备注',
-					sortable: true
-				},
-				{
-					field : 'broadtimes', 
-					title : '紧急播出单播放次数',
-					sortable: true
-				},
-		        {
+				},{
 		            title: '操作',
 		            align: 'center',
 		            formatter: function(value, row, index) {
 		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.sfid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.sfid + '\')"><i class="fa fa-remove"></i>删除</a>');
+						actions.push('<a class="btn btn-success btn-xs ' + '"onclick="$.operate.detail(\'' + row.sfid + '\')"><i class="fa fa-edit"></i>查看详情</a> ');
 						return actions.join('');
 		            }
 		        }]
             };
             $.table.init(options);
         });
+
+
     </script>
 </body>
 </html>

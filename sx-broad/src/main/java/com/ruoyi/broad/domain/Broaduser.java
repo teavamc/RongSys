@@ -7,7 +7,7 @@ import com.ruoyi.common.base.BaseEntity;
 /**
  * 广播用户表 broaduser
  * 
- * @author 张超
+ * @author 张鸿权
  * @date 2019-01-18
  */
 public class Broaduser extends BaseEntity
@@ -16,6 +16,10 @@ public class Broaduser extends BaseEntity
 	
 	/** 广播用户编号 */
 	private String userid;
+	/** 融媒体用户编号 */
+	private Integer user_id;
+	/** 广播登录用户姓名 */
+	private String username;
 	/** 广播用户姓名 */
 	private String uname;
 	/** 广播用户身份等级 */
@@ -31,15 +35,36 @@ public class Broaduser extends BaseEntity
 	/** 管理区域 */
 	private String aname;
 
-	public void setUserid(String userid) 
+	public void setUserid(String userid)
 	{
 		this.userid = userid;
 	}
 
-	public String getUserid() 
+	public String getUserid()
 	{
 		return userid;
 	}
+
+	public Integer getUserId()
+	{
+		return user_id;
+	}
+
+	public void setUserId(Integer user_id)
+	{
+		this.user_id = user_id;
+	}
+
+	public void setUsername(String username)
+	{
+		this.username = username;
+	}
+
+	public String getUsername()
+	{
+		return username;
+	}
+
 	public void setUname(String uname) 
 	{
 		this.uname = uname;
@@ -107,6 +132,7 @@ public class Broaduser extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userid", getUserid())
+			.append("user_id", getUserId())
             .append("uname", getUname())
             .append("userlevel", getUserlevel())
             .append("uphone", getUphone())
@@ -114,6 +140,7 @@ public class Broaduser extends BaseEntity
             .append("isuse", getIsuse())
             .append("lastdate", getLastdate())
             .append("aname", getAname())
+			.append("username", getUsername())
             .toString();
     }
 }

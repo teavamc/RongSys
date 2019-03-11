@@ -89,8 +89,13 @@
             <artifactId>sx-rivervis</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-rivervis</artifactId>
+            <version>3.1</version>
+        </dependency>
 
-</dependencies>
+    </dependencies>
 
     <build>
         <plugins>

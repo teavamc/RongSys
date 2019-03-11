@@ -87,5 +87,29 @@ public class TorrentServiceImpl implements ITorrentService
 	{
 		return torrentMapper.deleteTorrentByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 统计物联网数据条目
+	 *
+	 * @param dataid 终端运转ID
+	 * @return 终端运转信息
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXINFOM)
+	public int countall(){
+		return torrentMapper.countall();
+	}
+
+	/**
+	 * 统计物联网设备数量
+	 *
+	 * @param dataid 终端运转ID
+	 * @return 终端运转信息
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXINFOM)
+	public int devicecount(){
+		return torrentMapper.devicecount();
+	}
+
 }

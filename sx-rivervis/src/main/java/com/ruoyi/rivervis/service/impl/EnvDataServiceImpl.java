@@ -35,7 +35,20 @@ public class EnvDataServiceImpl implements IEnvDataService
 	{
 	    return envDataMapper.selectEnvDataById(id);
 	}
-	
+
+
+	/**
+	 * 查询环境监测列表 前20条数据
+	 *
+	 * @param envData 环境监测信息
+	 * @return 环境监测集合
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXRIVERVIS)
+	public List<EnvData> selectEnvDataListLimit(){
+		return envDataMapper.selectEnvDataListLimit();
+	}
+
 	/**
      * 查询环境监测列表
      * 
@@ -86,6 +99,19 @@ public class EnvDataServiceImpl implements IEnvDataService
 	public int deleteEnvDataByIds(String ids)
 	{
 		return envDataMapper.deleteEnvDataByIds(Convert.toStrArray(ids));
+	}
+
+	/**
+	 * 统计山洪数据总数
+	 * @author 张超 teavamc
+	 * @date 2019/3/10
+	 * @param []
+	 * @return int
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXRIVERVIS)
+	public int countall(){
+		return envDataMapper.countall();
 	}
 	
 }

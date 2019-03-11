@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 
+import com.ruoyi.broad.domain.Broaduser;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -27,6 +28,7 @@ import com.ruoyi.system.service.ISysPostService;
 import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.system.service.ISysUserService;
 import com.ruoyi.framework.web.base.BaseController;
+import com.ruoyi.broad.service.IBroaduserService;
 
 /**
  * 用户信息
@@ -50,6 +52,9 @@ public class SysUserController extends BaseController
 
     @Autowired
     private SysPasswordService passwordService;
+
+    @Autowired
+    private IBroaduserService broaduserService;
 
     @RequiresPermissions("system:user:view")
     @GetMapping()
@@ -105,9 +110,15 @@ public class SysUserController extends BaseController
         {
             return error("不允许修改超级管理员用户");
         }
+
         user.setSalt(ShiroUtils.randomSalt());
         user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
         user.setCreateBy(ShiroUtils.getLoginName());
+        int id = userService.selectMaxUserId();
+        if (user.getPlatform().equals("0")){
+            String username = user.getLoginName();String uname = user.getUserName();String uphone = user.getPhonenumber();
+            broaduserService.insertBroaduser(username,uname,uphone);
+        }
         return toAjax(userService.insertUser(user));
     }
 

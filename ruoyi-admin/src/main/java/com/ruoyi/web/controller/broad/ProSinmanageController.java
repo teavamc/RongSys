@@ -1,6 +1,10 @@
 package com.ruoyi.web.controller.broad;
 
 import java.util.List;
+import java.util.logging.Logger;
+
+import com.ruoyi.broad.domain.ProList;
+import com.ruoyi.broad.service.IProListService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +37,11 @@ public class ProSinmanageController extends BaseController
 	
 	@Autowired
 	private IProSinmanageService proSinmanageService;
-	
+	@Autowired
+	private IProListService proListService;
+
+
+
 	@RequiresPermissions("broad:proSinmanage:view")
 	@GetMapping()
 	public String proSinmanage()
@@ -53,8 +61,38 @@ public class ProSinmanageController extends BaseController
         List<ProSinmanage> list = proSinmanageService.selectProSinmanageList(proSinmanage);
 		return getDataTable(list);
 	}
-	
-	
+
+//	@RequiresPermissions("broad:proSinmanage:viewwarning")
+	@GetMapping("/wproSinmanage")
+	public String proSinmanagewarning()
+	{
+		return prefix + "/wproSinmanage";
+	}
+
+	/**
+	 * 查询节目播出单列表
+	 */
+//	@RequiresPermissions("broad:proSinmanage:listwarning")
+	@PostMapping("/listwarning")
+	@ResponseBody
+	public TableDataInfo listwarning(ProSinmanage proSinmanage)
+	{
+		startPage();
+		List<ProSinmanage> list = proSinmanageService.selectProSinmanageListForWarning(proSinmanage);
+		return getDataTable(list);
+	}
+
+	/**
+	 * 打开节目单详情页
+	 */
+	@GetMapping("/detail/{sjid}")
+	public String detail(@PathVariable("sjid")String sjid,ModelMap mmap)
+	{
+		mmap.put("sjid",sjid);
+		mmap.put("listBySjid",proListService.selectProListListByPid(sjid));
+		return prefix + "/detail";
+	}
+
 	/**
 	 * 导出节目播出单列表
 	 */
@@ -89,6 +127,28 @@ public class ProSinmanageController extends BaseController
 		return toAjax(proSinmanageService.insertProSinmanage(proSinmanage));
 	}
 
+
+	/*************************************************************************************************
+	 * 新增节目播出单
+	 */
+	@GetMapping("/addtest")
+	public String addtest()
+	{
+		return prefix + "/addtest";
+	}
+
+	/*************************************************************************************************
+	 * 新增保存节目播出单
+	 */
+//	@RequiresPermissions("broad:proSinmanage:addtest")
+	@Log(title = "新增节目播出单测试", businessType = BusinessType.INSERT)
+	@PostMapping("/addtest")
+	@ResponseBody
+	public AjaxResult addtestSave(ProSinmanage proSinmanage)
+	{
+		return toAjax(proSinmanageService.insertProSinmanage(proSinmanage));
+	}
+
 	/**
 	 * 修改节目播出单
 	 */
@@ -99,7 +159,7 @@ public class ProSinmanageController extends BaseController
 		mmap.put("proSinmanage", proSinmanage);
 	    return prefix + "/edit";
 	}
-	
+
 	/**
 	 * 修改保存节目播出单
 	 */
