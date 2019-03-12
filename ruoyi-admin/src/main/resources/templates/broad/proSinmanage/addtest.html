@@ -68,10 +68,21 @@
                         <i id="nav-search-icon" class="ace-icon fa fa-power-off bigger-110 green"></i>&nbsp;停止播放
                     </a>
                 </td>
+                <td style="vertical-align:top;padding-left:10px;width: 700px">
+                    <div class="ibox float-e-margins">
+                        <input name="deptId"  type="hidden" id="treeId"/>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">选择终端：</label>
+                            <div class="col-sm-8">
+                                <input class="form-control" type="text" name="organName" onclick="selectOrganTree()" readonly="true" id="treeName">
+                            </div>
+                        </div>
+                    </div>
+                </td>
             </tr>
         </table>
         <table id="simple-table"  class="table table-striped table-bordered table-hover" style="margin-top:5px;">
-            <thead>
+            <thead style="max-height: 50px">
             <tr>
                 <th class="center">类型</th>
                 <th class="center">节目编号</th>
@@ -89,6 +100,47 @@
         </table>
     </div>
 </div>
+<script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+<script>
+
+/*流媒体直播-选择终端树*/
+    function selectOrganTree() {
+        var _url = "/broad/organization/selectOrganizationTree/01";
+        var _title = '选择终端';
+        var _width = "1200";
+        var _height = ($(window).height() - 50);
+        layer.open({
+            type: 2,
+            maxmin: true,
+            shade: 0.3,
+            title: _title,
+            fix: false,
+            area: [_width + 'px', _height + 'px'],
+            content: _url,
+            shadeClose: true,
+            btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+            yes: function (index, layero) {
+                doSubmit(index, layero)
+                //获取子页面关闭前的回调函数获取到的值
+                var res = $(layero).find("iframe")[0].contentWindow.callback();
+                //console.log(">>>",res.data_role.ids)
+                $("#treeName").val(res.data_role.ids)
+            }, cancel: function () {
+                return true;
+            }
+        });
+    }
+
+    function doSubmit(index, layero){
+        var tree = layero.find("iframe")[0].contentWindow.$._tree;
+        /* if ($.tree.notAllowParents(tree)) {*/
+        var body = layer.getChildFrame('body', index);
+        $("#treeId").val(body.find('#treeId').val());
+        $("#treeName").val(body.find('#treeName').val());
+        layer.close(index);
+        /*}*/
+    }
+</script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/views/addpglist/addpglist.js}"></script>

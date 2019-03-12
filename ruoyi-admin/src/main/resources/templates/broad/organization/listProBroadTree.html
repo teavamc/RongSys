@@ -115,7 +115,7 @@
         var i;
         /*js for in循环遍历对象，获取key:value值*/
         for(i in test){
-            console.log(test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
+            console.log("IMEI:",test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
         }
         var selectValue = test[i] + "," + originalValue ;
         document.getElementById("org").value = selectValue;
@@ -123,6 +123,24 @@
          /*alert(JSON.stringify(data));*/
      }
 
+     //提供给父页面获取选中的值
+     function callback() {
+         /*在选择终端前先获取一次文本框的值，为的是可以选择多个小组的终端*/
+         var originalValue = document.getElementById("org").value;
+         /*通过选择框去获取终端的IMEI号*/
+         var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+         var data = { "ids": rows.join() };
+         var test = data;
+         var i;
+         /*js for in循环遍历对象，获取key:value值*/
+         // for(i in test){
+         //     console.log("adsdsd",test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
+         // }
+         datas = {  //调用它的父页面A的input这个function
+             data_role:data,  //把data传入父页面A中的data_role，这里cllbackdata()是我另外计算data的一个函数，可以忽略
+         }
+         return datas;
+     }
 </script>
 </body>
 </html>
