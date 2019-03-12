@@ -133,5 +133,15 @@ public interface ProListMapper
 	 * @param pdlist
 	 */
 	public void addProTerminal(List<HashMap> pdlist) throws Exception;
-	
+
+
+	/**
+	    * 根据pid显示相应的播出单操作详情
+	    * @author 张超 teavamc
+	    * @date 2019/3/9
+	    * @param [pid]
+	    * @return java.util.List<com.ruoyi.broad.domain.Progbroad>
+	    */
+	public List<ProList> 	selectProListListByPid(String pid);
+
 }

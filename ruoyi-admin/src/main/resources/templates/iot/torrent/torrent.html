@@ -11,7 +11,7 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								终端imei：<input type="text" name="iMEI"/>
+								终端imei：<input type="text" name="IMEI"/>
 							</li>
 
 
@@ -35,6 +35,7 @@
 			</div>
 		</div>
 	</div>
+
     <div th:include="include :: footer"></div>
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('iot:torrent:edit')}]];
@@ -52,77 +53,60 @@
 				search: false,
 		        showExport: true,
                 columns: [{
-		            checkbox: true
-		        },
-				{
 					field : 'dataid', 
 					title : '数据id',
-					visible: true
 				},
 				{
 					field : 'IMEI',
 					title : 'IMEI',
-					sortable: false
 				},
 				{
 					field : 'pow1', 
 					title : '电池一电压',
-					sortable: false
 				},
 				{
 					field : 'grouppow', 
 					title : '电池组电压',
-					sortable: false
 				},
 				{
 					field : 'outv1', 
 					title : '18V1输出电压',
-					sortable: false
 				},
 				{
 					field : 'outv2', 
 					title : '18V2输出电压',
-					sortable: false
 				},
 				{
 					field : 'v24', 
 					title : '24V输出电压',
-					sortable: false
 				},
 				{
 					field : 'v28', 
 					title : '28V输出电压',
-					sortable: false
 				},
 				{
 					field : 'extendpow', 
 					title : '外部电压',
-					sortable: false
 				},
 				{
 					field : 'solarpow', 
 					title : '太阳能电压',
-					sortable: false
 				},
 				{
 					field : 'charge', 
 					title : '充电状态',
-					sortable: false
 				},
 				{
 					field : 'work', 
 					title : '工作状态',
-					sortable: false
 				},
 				{
 					field : 'time', 
 					title : '采集时间',
-					sortable: false
 				},
 				{
-					field : 'iP', 
+					field : 'IP',
 					title : '网络IP',
-					sortable: false
 				}]
             };
             $.table.init(options);

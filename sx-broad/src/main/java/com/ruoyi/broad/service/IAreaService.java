@@ -63,5 +63,11 @@ public interface IAreaService
      * @return 结果
      */
 	public int deleteAreaByIds(String ids);
-	
+
+
+	/**
+	 * 树
+	 * @return 终端地域信息
+	 */
+	public Area selectAllArea();
 }

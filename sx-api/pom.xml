@@ -46,9 +46,24 @@
             <version>${ruoyi.version}</version>
         </dependency>
 
+        <!--村务模块-->
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>sx-village</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
+        <!--物联网模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-iot</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
+        <!--山洪模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-rivervis</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
 

@@ -19,16 +19,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
     <select id="selectProSinmanageList" parameterType="ProSinmanage" resultMap="ProSinmanageResult">
+        select PS.sfid,
+               PS.scategory,
+               PS.createtime,
+               PS.broaddate,
+               US.uname as userid,
+               PS.remark,
+               PS.broadtimes
+        from pro_sinmanage as PS,
+             userinfo as US
+        where
+            PS.userid = US.userid and
+            PS.scategory = "正常播出单"
+         order by sfid desc
+    </select>
+
+    <select id="selectProSinmanageListForWarning" parameterType="ProSinmanage" resultMap="ProSinmanageResult">
+        select PS.sfid,
+               PS.scategory,
+               PS.createtime,
+               PS.broaddate,
+               US.uname as userid,
+               PS.remark,
+               PS.broadtimes
+        from pro_sinmanage as PS,
+             userinfo as US
+        where
+            PS.userid = US.userid and
+            PS.scategory = "紧急播出单"
+        order by sfid desc
+    </select>
+
+    <select id="selectProSinmanageListbySfid" parameterType="String" resultMap="ProSinmanageResult">
         <include refid="selectProSinmanageVo"/>
-        <where>  
-            <if test="sfid != null "> and sfid = #{sfid}</if>
-             <if test="scategory != null  and scategory != '' "> and scategory = #{scategory}</if>
-             <if test="createtime != null  and createtime != '' "> and createtime = #{createtime}</if>
-             <if test="broaddate != null  and broaddate != '' "> and broaddate = #{broaddate}</if>
-             <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
-             <if test="broadtimes != null "> and broadtimes = #{broadtimes}</if>
-         </where>
+        where
+            sfid = #{sfid}
+        order by sfid desc
     </select>
     
     <select id="selectProSinmanageById" parameterType="Integer" resultMap="ProSinmanageResult">
