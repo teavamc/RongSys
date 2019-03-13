@@ -32,7 +32,7 @@
                 <td style="padding-left:2px;">
                     <input  name="continuenum" id="continuenum"  value="1" type="number" min="1" max="15" step="1" style="width:88px;"  placeholder="连续天数" title="节目单连续播出天数"/></td>
                 <td style="vertical-align:top;padding-left:2px">
-                    <a class="btn btn-success btn-xs" onclick="save();"  title="保存">
+                    <a class="btn btn-success btn-xs" onclick="saves();"  title="保存" id="saves">
                         <i id="nav-search-icon" class="ace-icon fa fa-floppy-o bigger-110 white"></i>&nbsp;保存
                     </a>
                 </td>
@@ -140,9 +140,138 @@
         layer.close(index);
         /*}*/
     }
+function saves(){
+    if($("#tbody").children().length<=0){
+        //小tips
+        layer.tips('请添加节目','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+
+        return false;
+    }
+    if($("#broaddate").val()==""||$("#broaddate").val()==null){
+
+        layer.tips('请选择播出日期','#broaddate', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    var broaddate = $("#broaddate").val();
+    console.log("播出日期>>>",broaddate)
+    var trs = $("#tbody").find("tr");
+    var prolist="";
+    var onindex=-1,offindex=-1,stopindex=-1;
+    for(var i=0;i<trs.length;i++){
+        var type = trs[i].children[0].innerText;
+        var fid = trs[i].children[1].innerText;
+        var fn = trs[i].children[3].innerText;
+        var begintime = trs[i].children[4].innerText;
+        var broadtime = trs[i].children[5].innerText;
+        prolist+="{'ptp':'"+type+"','fid':'"+fid+"','fN':'"+fn+"','bt':'"+begintime+"','broadtime':'"+broadtime+"'},";
+        //console.log(prolist)
+        if(fn=='app-on'&& onindex==-1){
+            onindex=i;
+        }else if(fn=='app-off'){
+            offindex=i;
+        }else{
+            stopindex=i;
+        }
+    }
+    if(onindex<0){
+        layer.tips('请设置开启功放时间','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+
+    if(offindex<0){
+
+        layer.tips('请设置关闭功放时间','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    if(stopindex<0){
+        layer.tips('请设置停止播放时间','#saves', {
+            tips: [1, '#3595CC'],
+            time: 2000
+        });
+
+        return false;
+    }
+    if(onindex!=0 ||(offindex-onindex)<=0 || (stopindex-offindex)!=1){
+
+        layer.tips('请设置正确的节目顺序','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    //获取选择终端
+    //var nodes = zTree.getCheckedNodes();
+    var terids = $("#treeName").val()
+    console.log("选择的终端>>>",terids)
+    if(terids==""){
+        layer.tips('请选择播出终端','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+
+        return false;
+    }
+
+    var continuenum = $("#continuenum").val();
+    console.log("连续天数>>>",continuenum)
+    if(/^\d+$/.test(continuenum)) { //全为数字
+        if(parseInt(continuenum)<1||parseInt(continuenum)>15){
+            layer.tips('请输入1-15的数字','#saves', {
+                tips: [1, '#3595CC'],
+                time: 4000
+            });
+            return false;
+        }
+    }else{
+        layer.tips('请输入1-15的数字','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    prolist = "["+prolist.substring(0,prolist.length-1)+"]";
+    console.log("表单数据>>>",prolist)
+    $.ajax({
+        url: ctx+'broad/proSinmanage/addProList',
+        type: 'POST', //请求方法 GET or POST
+        async: true, //是否使用异步请求的方式
+        timeout: 3000, //请求超时的时间，以毫秒计
+        data: {
+            ProDate: broaddate,
+            ProDay:continuenum,
+            ProIMEI:terids,
+            ProData:JSON.stringify(prolist)
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+        },
+        error: function (res) {
+            console.log(res)
+        }
+    })
+    // $.post("<%=basePath%>probroad/addProBroad.do",{broaddate:broaddate,prolist:prolist,terids:terids,continuenum:continuenum},function(data){
+    //     if(data.result=="success"){
+    //         window.location.href="<%=basePath%>probroad/listProBroad.do";
+    //     }
+    // });
+}
 </script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.tips.js}"></script>
 <script th:src="@{/js/views/addpglist/addpglist.js}"></script>
 <script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
 <div th:include="include :: footer"></div>

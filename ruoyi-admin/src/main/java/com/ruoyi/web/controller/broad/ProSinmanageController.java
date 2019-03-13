@@ -1,19 +1,19 @@
 package com.ruoyi.web.controller.broad;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import com.ruoyi.broad.domain.ProList;
 import com.ruoyi.broad.service.IProListService;
+import com.ruoyi.common.json.JSON;
+import com.ruoyi.common.json.JSONObject;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.broad.domain.ProSinmanage;
@@ -114,7 +114,7 @@ public class ProSinmanageController extends BaseController
 	{
 	    return prefix + "/add";
 	}
-	
+
 	/**
 	 * 新增保存节目播出单
 	 */
@@ -183,5 +183,23 @@ public class ProSinmanageController extends BaseController
 	{		
 		return toAjax(proSinmanageService.deleteProSinmanageByIds(ids));
 	}
-	
+
+	@RequestMapping("/addProList")
+	@ResponseBody
+	public Map<String,Object> addProList(@RequestParam("ProDate") String ProData,
+										 @RequestParam("ProDay") String ProDay,
+										 @RequestParam("ProIMEI") String ProIMEI,
+										 @RequestParam("ProData") JSONObject.JSONArray ProLists){
+
+		System.out.println("ProData>>>"+ProData+">>>ProDay>>>"+ProDay+">>>ProIMEI>>>"+ProIMEI+">>>ProLists>>>"+ProLists);
+		//解析json数据
+		int length = ProLists.toString().length();
+		System.out.println(">>>"+ProLists.toString().substring(5,length-5));
+
+		Map<String, Object> map = new HashMap<>();
+		map.put("code",200);
+		return map;
+	}
+
+
 }
