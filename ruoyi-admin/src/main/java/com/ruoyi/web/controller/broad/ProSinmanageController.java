@@ -222,7 +222,7 @@ public class ProSinmanageController extends BaseController
 			i+=5;
 			lists.add(proList);
 		}
-		System.out.println(">>>"+lists);
+		System.out.println(">>>"+lists.toString());
 		Map<String, Object> map = new HashMap<>();
 		map.put("code",200);
 		return map;

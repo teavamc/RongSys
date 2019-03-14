@@ -257,9 +257,27 @@ function saves(){
         dataType: 'json',
         success: function (data) {
             console.log(data)
+            if(data.code=="200"){
+                layer.msg("成功", {
+                    icon: $.modal.icon("success"),
+                    time: 1000,
+                    shade: [0.1, '#8F8F8F']
+                })
+            }else {
+                layer.msg("错误", {
+                    icon: $.modal.icon("error"),
+                    time: 1000,
+                    shade: [0.1, '#8F8F8F']
+                })
+            }
         },
         error: function (res) {
             console.log(res)
+            layer.msg("服务器错误", {
+                icon: $.modal.icon("error"),
+                time: 1000,
+                shade: [0.1, '#8F8F8F']
+            })
         }
     })
     // $.post("<%=basePath%>probroad/addProBroad.do",{broaddate:broaddate,prolist:prolist,terids:terids,continuenum:continuenum},function(data){
