@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.broad;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -184,18 +185,44 @@ public class ProSinmanageController extends BaseController
 		return toAjax(proSinmanageService.deleteProSinmanageByIds(ids));
 	}
 
+	/**
+	 * 获取新增播出单详情数据
+	 * @param ProData
+	 * @param ProDay
+	 * @param ProIMEI
+	 * @param ProLists
+	 * @return
+	 */
 	@RequestMapping("/addProList")
 	@ResponseBody
 	public Map<String,Object> addProList(@RequestParam("ProDate") String ProData,
 										 @RequestParam("ProDay") String ProDay,
 										 @RequestParam("ProIMEI") String ProIMEI,
 										 @RequestParam("ProData") JSONObject.JSONArray ProLists){
-
-		System.out.println("ProData>>>"+ProData+">>>ProDay>>>"+ProDay+">>>ProIMEI>>>"+ProIMEI+">>>ProLists>>>"+ProLists);
-		//解析json数据
-		int length = ProLists.toString().length();
-		System.out.println(">>>"+ProLists.toString().substring(5,length-5));
-
+		System.out.println("ProData>>>"+ProData+">>>ProDay>>>"+ProDay+">>>ProIMEI>>>"+ProIMEI+">>>ProLists>>>"+ProLists.getClass());
+		List<String> list = new ArrayList<>();
+		for (int i=0;i<ProLists.size();i++){
+			String data = ProLists.get(i).toString()
+					.replace("{","")
+					.replace("}","")
+					.replace("[","")
+					.replace("]","")
+					.replace("\"","");
+			//System.out.println(">>>"+data.substring(data.indexOf(":")+2,data.length()-1));
+			list.add(data.substring(data.indexOf(":")+2,data.length()-1));
+		}
+		List<ProList> lists = new ArrayList<>();
+		for(int j=0,i=0;j<list.size()/5;j++){
+			ProList proList = new ProList();
+			proList.setPtp(list.get(i));
+			proList.setFid(list.get(i+1));
+			proList.setFN(list.get(i+2));
+			proList.setBt(list.get(i+3));
+			proList.setBroadtime(list.get(i+4));
+			i+=5;
+			lists.add(proList);
+		}
+		System.out.println(">>>"+lists);
 		Map<String, Object> map = new HashMap<>();
 		map.put("code",200);
 		return map;

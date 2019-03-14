@@ -242,7 +242,7 @@ function saves(){
         return false;
     }
     prolist = "["+prolist.substring(0,prolist.length-1)+"]";
-    console.log("表单数据>>>",prolist)
+    console.log("表单数据>>>",JSON.stringify(prolist))
     $.ajax({
         url: ctx+'broad/proSinmanage/addProList',
         type: 'POST', //请求方法 GET or POST
