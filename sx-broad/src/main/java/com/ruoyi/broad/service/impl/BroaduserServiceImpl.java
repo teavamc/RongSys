@@ -78,14 +78,12 @@ public class BroaduserServiceImpl implements IBroaduserService
 	/**
 	 * 新增广播用户信息
 	 *
-	 * @param username 广播用户id
 	 * @return 结果
 	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public void insertBroaduser(String username,String uname,String uphone)
+	public void insertBroaduser(Broaduser broaduser1)
 	{
-		username = "456";
-		 broaduserMapper.insertBroaduser(username,uname,uphone);
+		 broaduserMapper.insertBroaduser(broaduser1);
 	}
 }
