@@ -34,6 +34,8 @@ public class Broaduser extends BaseEntity
 	private String lastdate;
 	/** 管理区域 */
 	private String aname;
+	/** 用户所属地域编号 */
+	private String aid;
 
 	public void setUserid(String userid)
 	{
@@ -129,6 +131,16 @@ public class Broaduser extends BaseEntity
 		return aname;
 	}
 
+	public void setAid(String aid)
+	{
+		this.aid = aid;
+	}
+
+	public String getAid()
+	{
+		return aid;
+	}
+
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userid", getUserid())
@@ -141,6 +153,7 @@ public class Broaduser extends BaseEntity
             .append("lastdate", getLastdate())
             .append("aname", getAname())
 			.append("username", getUsername())
+			.append("aid", getAid())
             .toString();
     }
 }
