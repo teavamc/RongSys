@@ -53,6 +53,6 @@ public interface IBroaduserService
 	 * @param uphone
 	 * @return
 	 */
-	public void insertBroaduser(String username,String uname,String uphone);
+	public void insertBroaduser(Broaduser broaduser1);
 
 }
