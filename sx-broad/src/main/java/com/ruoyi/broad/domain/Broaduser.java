@@ -17,7 +17,7 @@ public class Broaduser extends BaseEntity
 	/** 广播用户编号 */
 	private String userid;
 	/** 融媒体用户编号 */
-	private Integer user_id;
+	private int sysuserId;
 	/** 广播登录用户姓名 */
 	private String username;
 	/** 广播用户姓名 */
@@ -47,14 +47,14 @@ public class Broaduser extends BaseEntity
 		return userid;
 	}
 
-	public Integer getUserId()
+	public int getSysuserId()
 	{
-		return user_id;
+		return sysuserId;
 	}
 
-	public void setUserId(Integer user_id)
+	public void setSysuserId(int sysuserId)
 	{
-		this.user_id = user_id;
+		this.sysuserId = sysuserId;
 	}
 
 	public void setUsername(String username)
@@ -144,7 +144,7 @@ public class Broaduser extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userid", getUserid())
-			.append("user_id", getUserId())
+			.append("sysuserId", getSysuserId())
             .append("uname", getUname())
             .append("userlevel", getUserlevel())
             .append("uphone", getUphone())
