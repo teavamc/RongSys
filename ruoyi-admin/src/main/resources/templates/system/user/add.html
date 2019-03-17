@@ -84,10 +84,10 @@
 				<label class="col-sm-3 control-label">管理平台：</label>
 				<div class="col-sm-8">
 					<label class="check-box">
-						<input name="platform" type="checkbox" th:value="0" onClick="doCheck(this)" th:text="应急广播">
+						<input name="platform" type="checkbox" th:value="0" th:text="应急广播">
 					</label>
 					<label class="check-box">
-						<input name="platform" type="checkbox" th:value="1" onClick="doCheck(this)" th:text="村务系统">
+						<input name="platform" type="checkbox" th:value="1"  th:text="村务系统">
 					</label>
 				</div>
 			</div>
@@ -278,16 +278,16 @@
                 layer.close(index);
             }
         }
-        var c=0,limit=1;
+      /* /!* var c=0,limit=1;*!/
         function doCheck(obj) {
-            /*obj.checked?c++:c--;
+            /!*obj.checked?c++:c--;
             if(c>limit){
                 obj.checked=false;
                 alert("只能选择一个");
                 c--;
-            }*/
+            }*!/
             alert("aaa");
-        }
+        }*/
     </script>
 </body>
 </html>
