@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.BroadTimeMapper">
+
+    <resultMap type="BroadTime" id="BroadTimeResult">
+        <result property="broadDate" column="broadDate"/>
+        <result property="bcount" column="bcount"/>
+        <result property="scategory" column="scategory"/>
+    </resultMap>
+
+    <select id="selectList" resultMap="BroadTimeResult">
+        select
+          broaddate,
+          count(broaddate) as bcount
+        from
+          pro_sinmanage
+        group by broaddate
+        order by broaddate DESC
+        limit 30
+    </select>
+
+    <select id="selectListByDate" resultMap="BroadTimeResult">
+        select
+          broaddate,
+          count(broaddate) as bcount
+        from
+          pro_sinmanage
+        group by broaddate
+        order by count(broaddate) DESC
+        limit 30
+    </select>
+
+    <select id="selectListByScategory" resultMap="BroadTimeResult">
+        select
+          scategory,
+          count(scategory) as bcount
+        from
+          pro_sinmanage
+        group by scategory
+        order by count(scategory) DESC
+        limit 30
+    </select>
+
+</mapper>
