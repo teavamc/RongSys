@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.village.domain.Villageuser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.WuserMapper;
@@ -50,7 +51,7 @@ public class WuserServiceImpl implements IWuserService
 	}
 	
     /**
-     * 新增用户基本
+     * 新增微信用户基本
      * 
      * @param wuser 用户基本信息
      * @return 结果
@@ -87,5 +88,17 @@ public class WuserServiceImpl implements IWuserService
 	{
 		return wuserMapper.deleteWuserByIds(Convert.toStrArray(ids));
 	}
-	
+
+	/**
+	 * 新增平台用户基本
+     *
+	 * @param villageuser 用户基本信息
+     * @return 结果
+     */
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public int insertVillageuser(Villageuser villageuser)
+	{
+		return wuserMapper.insertVillageuser(villageuser);
+	}
 }

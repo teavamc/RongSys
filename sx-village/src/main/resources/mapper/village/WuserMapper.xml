@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="Wuser" id="WuserResult">
         <result property="uid"    column="uid"    />
+        <result property="sysuserId"    column="sysuserId"    />
         <result property="uname"    column="uname"    />
         <result property="aid"    column="aid"    />
         <result property="wgroup"    column="wgroup"    />
@@ -161,5 +162,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{uid}
         </foreach>
     </delete>
-    
+
+    <insert id="insertVillageuser" parameterType="Wuser">
+       insert into tb_user_admin (
+        user_id,
+        loginid,
+        uname,
+        phone,
+        aid,
+        parentaid
+        ) values (
+        #{sysuserId},#{loginid},#{uname},#{phone},#{aid},(select parentaid from area where aid = #{aid})
+        )
+
+    </insert>
 </mapper>
