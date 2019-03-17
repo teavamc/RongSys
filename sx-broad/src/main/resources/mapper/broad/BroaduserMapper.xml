@@ -89,9 +89,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         userid,
         username,
         uname,
-        uphone
+        uphone,
+        aid
         ) values (
-        "11",#{username},#{uname},#{uphone}
+        "11",#{username},#{uname},#{uphone},#{aid}
         )
 
     </insert>
