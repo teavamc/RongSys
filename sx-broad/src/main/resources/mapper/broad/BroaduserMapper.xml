@@ -92,7 +92,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         uphone,
         aid
         ) values (
-        "11",#{username},#{uname},#{uphone},#{aid}
+        REPLACE(UUID(),"-",""),#{username},#{uname},#{uphone},#{aid}
         )
 
     </insert>
