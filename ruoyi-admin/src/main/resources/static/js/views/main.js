@@ -928,8 +928,8 @@ function init_bt_mbygroup() {
                 },
                 calculable : true,
                 grid: {
-                    left: '0%',
-                    right: '0%',
+                    left: '3%',
+                    right: '3%',
                     top: '5%',
                     bottom: '0%',
                     containLabel: true
@@ -999,8 +999,8 @@ function init_bd_mbygroup() {
                 },
                 calculable : true,
                 grid: {
-                    left: '0%',
-                    right: '0%',
+                    left: '3%',
+                    right: '3%',
                     top: '5%',
                     bottom: '0%',
                     containLabel: true
