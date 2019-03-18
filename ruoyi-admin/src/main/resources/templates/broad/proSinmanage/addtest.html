@@ -5,7 +5,7 @@
 
 <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
-<link href="../static/css/plugins/datapicker/datepicker3.css" th:href="@{/css/plugins/datapicker/datepicker3.css}" rel="stylesheet"/>
+
 
 </head>
 <body class="gray-bg">
@@ -15,16 +15,12 @@
             <tr>
                 <td style="padding-left:2px;text-align: right;">播出日期：</td>
                 <td style="padding-left:2px;">
-                    <input class="date-picker"
+                    <input class="laydate-icon form-control layer-date"
                            name="broaddate"
                            id="broaddate"
-                           value="${date}"
-                           type="text"
-                           data-date-format="yyyy-mm-dd"
-                           data-date-end-date="+15d"
-                           data-date-start-date="0d"
+                           value=""
                            readonly="readonly"
-                           style="width:88px;"
+                           style="width:120px;"
                            placeholder="播出日期"
                            title="播出日期"/>
                 </td>
@@ -49,7 +45,7 @@
                     </a>
                 </td>
                 <td style="vertical-align:top;padding-left:2px">
-                    <a class="btn btn-white btn-sm" onclick="setFile();" style="border: none;"  >
+                    <a class="btn btn-white btn-sm" onclick="doFile();" style="border: none;"  >
                         <i id="nav-search-icon" class="ace-icon fa fa-music bigger-110 green"></i>&nbsp;文件转播
                     </a>
                 </td>
@@ -102,7 +98,7 @@
 </div>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script>
-
+    var userId = [[${user.userId}]];
 /*流媒体直播-选择终端树*/
     function selectOrganTree() {
         var _url = "/broad/organization/selectOrganizationTree/01";
@@ -130,6 +126,36 @@
             }
         });
     }
+    //文件转播选择
+    function doFile() {
+        var _url = "/broad/proSinmanage/getdoFile";
+        var _title = '文件选择';
+        var _width = "1200";
+        var _height = ($(window).height() - 50);
+        layer.open({
+            type: 2,
+            maxmin: true,
+            shade: 0.3,
+            title: _title,
+            fix: false,
+            area: [_width + 'px', _height + 'px'],
+            content: _url,
+            shadeClose: true,
+            btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+            yes: function (index, layero) {
+                console.log("成功了》》》");
+                layer.close(index);
+                //doSubmit(index, layero)
+                //获取子页面关闭前的回调函数获取到的值
+                //var res = $(layero).find("iframe")[0].contentWindow.callback();
+                //console.log(">>>",res.data_role.ids)
+                //$("#treeName").val(res.data_role.ids)
+            }, cancel: function () {
+                return true;
+            }
+        });
+    }
+
 
     function doSubmit(index, layero){
         var tree = layero.find("iframe")[0].contentWindow.$._tree;
@@ -249,6 +275,7 @@ function saves(){
         async: true, //是否使用异步请求的方式
         timeout: 3000, //请求超时的时间，以毫秒计
         data: {
+            userId:userId,
             ProDate: broaddate,
             ProDay:continuenum,
             ProIMEI:terids,
@@ -291,7 +318,14 @@ function saves(){
 <script th:src="@{/js/bootstrap.min.js}"></script>
 <script th:src="@{/js/jquery.tips.js}"></script>
 <script th:src="@{/js/views/addpglist/addpglist.js}"></script>
-<script th:src="@{/js/plugins/datapicker/bootstrap-datepicker.js}"></script>
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<!--时间插件-->
+<script>
+    laydate({
+        elem:"#broaddate",
+        event:"focus"
+    });
+</script>
 <div th:include="include :: footer"></div>
 </body>
 </html>

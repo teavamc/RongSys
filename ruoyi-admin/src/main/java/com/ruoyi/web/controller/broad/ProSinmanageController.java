@@ -7,9 +7,12 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import com.ruoyi.broad.domain.ProList;
+import com.ruoyi.broad.domain.Program;
 import com.ruoyi.broad.service.IProListService;
+import com.ruoyi.broad.service.IProgramService;
 import com.ruoyi.common.json.JSON;
 import com.ruoyi.common.json.JSONObject;
+import com.ruoyi.system.domain.SysUser;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,7 +43,8 @@ public class ProSinmanageController extends BaseController
 	private IProSinmanageService proSinmanageService;
 	@Autowired
 	private IProListService proListService;
-
+	@Autowired
+	private IProgramService iProgramService;
 
 
 	@RequiresPermissions("broad:proSinmanage:view")
@@ -133,8 +137,10 @@ public class ProSinmanageController extends BaseController
 	 * 新增节目播出单
 	 */
 	@GetMapping("/addtest")
-	public String addtest()
+	public String addtest(ModelMap mmap)
 	{
+		SysUser user = getSysUser();
+		mmap.put("user", user);
 		return prefix + "/addtest";
 	}
 
@@ -150,6 +156,29 @@ public class ProSinmanageController extends BaseController
 		return toAjax(proSinmanageService.insertProSinmanage(proSinmanage));
 	}
 
+	/**
+	 * 返回节目单选择界面
+	 * @param mmap
+	 * @return
+	 */
+	@GetMapping("/getdoFile")
+	public String doFile(ModelMap mmap){
+		return prefix+"/listFile";
+	}
+
+	/**
+	 * 获取节目单数据
+	 * @param proSinmanage
+	 * @return
+	 */
+	@PostMapping("/listFile")
+	@ResponseBody
+	public TableDataInfo listFile(ProSinmanage proSinmanage)
+	{
+		startPage();
+		List<Program> list = iProgramService.selectProList(new Program());
+		return getDataTable(list);
+	}
 	/**
 	 * 修改节目播出单
 	 */
@@ -195,11 +224,10 @@ public class ProSinmanageController extends BaseController
 	 */
 	@RequestMapping("/addProList")
 	@ResponseBody
-	public Map<String,Object> addProList(@RequestParam("ProDate") String ProData,
-										 @RequestParam("ProDay") String ProDay,
-										 @RequestParam("ProIMEI") String ProIMEI,
+	public Map<String,Object> addProList(@RequestParam("userId") String userId,@RequestParam("ProDate") String ProData,
+										 @RequestParam("ProDay") String ProDay, @RequestParam("ProIMEI") String ProIMEI,
 										 @RequestParam("ProData") JSONObject.JSONArray ProLists){
-		System.out.println("ProData>>>"+ProData+">>>ProDay>>>"+ProDay+">>>ProIMEI>>>"+ProIMEI+">>>ProLists>>>"+ProLists.getClass());
+		System.out.println(">>>userId>>>"+userId+">>>ProData>>>"+ProData+">>>ProDay>>>"+ProDay+">>>ProIMEI>>>"+ProIMEI+">>>ProLists>>>"+ProLists.getClass());
 		List<String> list = new ArrayList<>();
 		for (int i=0;i<ProLists.size();i++){
 			String data = ProLists.get(i).toString()
