@@ -434,6 +434,8 @@ function init_rvis() {
             var hum = new Array();
             var common_time = new Array();
 
+            // 遍历服务器数据显示到页面
+
             for (i in pre_data){
                 rain.push(pre_data[i].rain);
                 flow.push(pre_data[i].flow);
