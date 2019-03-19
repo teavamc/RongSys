@@ -50,7 +50,7 @@
                     </a>
                 </td>
                 <td style="vertical-align:top;padding-left:2px">
-                    <a class="btn btn-white btn-sm" onclick="setFM();"  style="border: none;" >
+                    <a class="btn btn-white btn-sm" onclick="doCham();"  style="border: none;" >
                         <i id="nav-search-icon" class="ace-icon fa fa-bullhorn bigger-110 green"></i>&nbsp;电台播音
                     </a>
                 </td>
@@ -176,6 +176,45 @@
         $("#treeName").val(body.find('#treeName').val());
         layer.close(index);
         /*}*/
+    }
+    //电台选择
+    function doCham() {
+        var time = getTime();
+        var _url = "/broad/proSinmanage/getdoCham";
+        var _title = '电台选择';
+        var _width = "1200";
+        var _height = ($(window).height() - 50);
+        layer.open({
+            type: 2,
+            maxmin: true,
+            shade: 0.3,
+            title: _title,
+            fix: false,
+            area: [_width + 'px', _height + 'px'],
+            content: _url,
+            shadeClose: true,
+            btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+            yes: function (index, layero) {
+                layer.close(index);
+                //获取子页面关闭前的回调函数获取到的值
+                var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
+                console.log(">>>",res)
+                $("#tbody").append("<tr><td class='center'>电台播音</td> <td class='center'>"+res.data_fileID+"</td>"+
+                    "<td class='center'>"+res.data_filename+"</td> <td class='center'>"+res.data_file+"</td>"+
+                    "<td class='center'>"+time+"</td> <td class='center'>"+res.data_time+"</td>"+
+                    " <td class='center'>"+
+                    "<div class='action-buttons'>"+
+                    "<a class='green' onclick='editTime(this);'>"+
+                    "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
+                    "</a> <a class='red' onclick='deletePro(this);'>"+
+                    "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
+                    "</a> </div>"+
+                    "</td></tr>");
+                time = getTime(res.data_time);
+            }, cancel: function () {
+                return true;
+            }
+        });
     }
 function saves(){
     if($("#tbody").children().length<=0){
