@@ -12,9 +12,9 @@
     <div class="row">
         <table style="margin-top:5px;">
             <tr>
-                <td style="padding-left:2px;text-align: right;">重复次数：</td>
+                <td style="padding-left:2px;text-align: right;" id="fileid" class="" name="">重复次数：</td>
                 <td style="padding-left:2px;">
-                    <input  name="continuenum" id="continuenum"  value="1" type="number" min="1" max="15" step="1" style="width:88px;"
+                    <input  name="continuenum" id="continuenum"  value="1" type="number" min="1" max="15" step="1" style="width:88px;height: 30px;border-radius:5%"
                             placeholder="重复次数" title="重复次数"/></td>
                 <td style="padding-left:2px;text-align: right;">时间间隔：</td>
                 <td style="padding-left:2px;">
@@ -29,9 +29,9 @@
                 </td>
                 <td style="padding-left:2px;text-align: right;">节目：</td>
                 <td style="padding-left:2px;">
-                    <input  name="orgs" id="orgs"  value="" type="text" style="width:128px;" /></td>
+                    <input  name="" id="orgs"  value="" type="text" readonly style="width:128px;height: 30px;border-radius:5%" /></td>
                 <td style="vertical-align:top;padding-left:2px">
-                    <a class="btn btn-success btn-xs"  title="保存" id="saves">
+                    <a class="btn btn-success btn-xs"  title="保存" id="saves2">
                         <i id="nav-search-icon" class="ace-icon fa fa-floppy-o bigger-110 white"></i>&nbsp;保存
                     </a>
                 </td>
@@ -42,24 +42,34 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            节目名称：<input type="text" name="filename"/>
+                            节目名称：<input type="text" name="filename" style="width: 130px;"/>
                         </li>
 
                         <li>
-                            接受内容：<input type="text" name="rcontent"/>
+                            是否公共：<input type="text" name="ispublic" style="width: 50px;"/>
                         </li>
-
-                        <!--<li>-->
-                        <!--是否可用：<input type="text" name="isread"/>-->
-                        <!--</li>-->
-
-                        <!--<li>-->
-                        <!--接收时间：<input type="text" name="recivedtime"/>-->
-                        <!--</li>-->
-
-                        <!--<li>-->
-                        <!--是否有效：<input type="text" name="remark"/>-->
-                        <!--</li>-->
+                        <li>时长范围：</li>
+                        <li>
+                        <input class="laydate-icon form-control layer-date"
+                                    name="begindate"
+                                    id="begindate"
+                                    value="00:00:00"
+                                    readonly="readonly"
+                                    style="width:160px;"
+                                    placeholder="开始时间"
+                                    title="开始时间"/>
+                        </li>
+                        <li>--</li>
+                        <li>
+                        <input class="laydate-icon form-control layer-date"
+                                    name="enddate"
+                                    id="enddate"
+                                    value="00:00:00"
+                                    readonly="readonly"
+                                    style="width:160px;"
+                                    placeholder="截止时间"
+                                    title="截止时间"/>
+                        </li>
 
                         <li>
                             <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -82,8 +92,11 @@
      * 选择文件
      * @param fid
      */
-    function selectFiles(fname) {
+    function selectFiles(fname,fid,filename,flenth) {
         $("#orgs").attr("value",fname);
+        $("#fileid").attr("class",fid);
+        $("#fileid").attr("name",filename);
+        $("#orgs").attr("name",flenth);
     }
     var prefix = ctx + "broad/proSinmanage";
     $(function() {
@@ -144,7 +157,7 @@
 		            formatter: function(value, row, index) {
 		            	var actions = [];
 		            	actions.push('<a class="btn btn-success btn-xs" href="#"><i class="fa fa-edit"></i>试听</a> ');
-                        actions.push('<a class="btn btn-success btn-xs" href="#" onclick="selectFiles(\''+ row.fname +'\');"><i class="fa fa-edit"></i>选择</a> ');
+                        actions.push('<a class="btn btn-success btn-xs" href="#" onclick="selectFiles(\''+ row.fname+'\',\''+ row.fid+'\',\''+row.filename+'\',\''+row.flenth+'\');"><i class="fa fa-edit"></i>选择</a> ');
                       return actions.join('');
 		            }
 		        }
@@ -154,40 +167,23 @@
     });
 
 
-    // 获取所选择终端IMEI号的方法
-     function addProIdAll() {
-       /*在选择终端前先获取一次文本框的值，为的是可以选择多个小组的终端*/
-        var originalValue = document.getElementById("org").value;
-        /*通过选择框去获取终端的IMEI号*/
-        var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
-        var data = { "ids": rows.join() };
-        var test = data;
-        var i;
-        /*js for in循环遍历对象，获取key:value值*/
-        for(i in test){
-            console.log("IMEI:",test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
-        }
-        var selectValue = test[i] + "," + originalValue ;
-        document.getElementById("org").value = selectValue;
-         /*这里显示的是所选择终端的IMEI号的json ps：{"ids":"111,222"}*/
-         /*alert(JSON.stringify(data));*/
-     }
 
      //提供给父页面获取选中的值
-     function callback() {
+     function callbackfile() {
          /*在选择终端前先获取一次文本框的值，为的是可以选择多个小组的终端*/
-         var originalValue = document.getElementById("org").value;
-         /*通过选择框去获取终端的IMEI号*/
-         var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
-         var data = { "ids": rows.join() };
-         var test = data;
-         var i;
-         /*js for in循环遍历对象，获取key:value值*/
-         // for(i in test){
-         //     console.log("adsdsd",test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
-         // }
+         var fname = document.getElementById("orgs").value;
+         var fileID = $("#fileid").attr("class");
+         var filename = $("#fileid").attr("name");
+         var flenth = $("#orgs").attr("name");
+         var filenum = $("#continuenum").val();
+         var time = $("#broaddate").val();
          datas = {  //调用它的父页面A的input这个function
-             data_role:data,  //把data传入父页面A中的data_role，这里cllbackdata()是我另外计算data的一个函数，可以忽略
+             data_filenames:fname,  //把data传入父页面A中的data_role，这里cllbackfile()是我另外计算data的一个函数，可以忽略
+             data_fileID:fileID,
+             data_filename:filename,
+             data_file:flenth,
+             data_num:filenum,
+             data_time:time
          }
          return datas;
      }
@@ -205,6 +201,16 @@
         //执行一个laydate实例
         laydate.render({
             elem:"#broaddate",
+            type: 'time',
+        });
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#begindate",
+            type: 'time',
+        });
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#enddate",
             type: 'time',
         });
     });

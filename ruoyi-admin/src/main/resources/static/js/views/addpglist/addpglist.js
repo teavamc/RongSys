@@ -66,13 +66,7 @@ function editTime(obj){
 
 }
 
-/**
- * 选择文件
- * @param fid
- */
-function selectFiles(fname) {
-    $("#orgs").attr("value",fname);
-}
+
 
 /**
  * FM转播

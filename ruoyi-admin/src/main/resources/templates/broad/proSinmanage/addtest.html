@@ -128,6 +128,7 @@
     }
     //文件转播选择
     function doFile() {
+        var time = getTime();
         var _url = "/broad/proSinmanage/getdoFile";
         var _title = '文件选择';
         var _width = "1200";
@@ -143,20 +144,30 @@
             shadeClose: true,
             btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
             yes: function (index, layero) {
-                console.log("成功了》》》");
                 layer.close(index);
-                //doSubmit(index, layero)
                 //获取子页面关闭前的回调函数获取到的值
-                //var res = $(layero).find("iframe")[0].contentWindow.callback();
-                //console.log(">>>",res.data_role.ids)
-                //$("#treeName").val(res.data_role.ids)
+                var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
+                console.log(">>>重复次数"+res.data_num+">>>文件id"+res.data_fileID+">>>节目"+res.data_filenames+">>>节目文件"+res.data_filename+">>>时长"+res.data_file+">>>间隔时长"+res.data_time)
+                for(var i=1;i<=res.data_num;i++){
+                    $("#tbody").append("<tr><td class='center'>文件转播</td> <td class='center'>"+res.data_fileID+"</td>"+
+                        "<td class='center'>"+res.data_filenames+"</td> <td class='center'>"+res.data_filename+"</td>"+
+                        "<td class='center'>"+time+"</td> <td class='center'>"+res.data_file+"</td>"+
+                        " <td class='center'>"+
+                        "<div class='action-buttons'>"+
+                        "<a class='green' onclick='editTime(this);'>"+
+                        "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
+                        "</a> <a class='red' onclick='deletePro(this);'>"+
+                        "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
+                        "</a> </div>"+
+                        "</td></tr>");
+                    time = getTime(res.data_time);
+                }
             }, cancel: function () {
                 return true;
             }
         });
     }
-
-
+    //设备终端选择回调
     function doSubmit(index, layero){
         var tree = layero.find("iframe")[0].contentWindow.$._tree;
         /* if ($.tree.notAllowParents(tree)) {*/
