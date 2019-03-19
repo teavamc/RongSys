@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.ruoyi.broad.domain.ProChamanage;
 import com.ruoyi.broad.domain.ProList;
 import com.ruoyi.broad.domain.Program;
+import com.ruoyi.broad.service.IProChamanageService;
 import com.ruoyi.broad.service.IProListService;
 import com.ruoyi.broad.service.IProgramService;
 import com.ruoyi.common.json.JSON;
@@ -45,6 +47,8 @@ public class ProSinmanageController extends BaseController
 	private IProListService proListService;
 	@Autowired
 	private IProgramService iProgramService;
+	@Autowired
+	private IProChamanageService iProChamanageService;
 
 
 	@RequiresPermissions("broad:proSinmanage:view")
@@ -167,18 +171,40 @@ public class ProSinmanageController extends BaseController
 	}
 
 	/**
+	 * 返回节目单选择界面
+	 * @param mmap
+	 * @return
+	 */
+	@GetMapping("/getdoCham")
+	public String doCham(ModelMap mmap){
+		return prefix+"/listChamanage";
+	}
+	/**
 	 * 获取节目单数据
-	 * @param proSinmanage
+	 * @param program
 	 * @return
 	 */
 	@PostMapping("/listFile")
 	@ResponseBody
-	public TableDataInfo listFile(ProSinmanage proSinmanage)
+	public TableDataInfo listFile(Program program)
 	{
 		startPage();
-		List<Program> list = iProgramService.selectProList(new Program());
+		List<Program> list = iProgramService.selectProList(program);
 		return getDataTable(list);
 	}
+
+	/**
+	 * 返回电台数据
+	 * @param proChamanage
+	 * @return
+	 */
+	@PostMapping("/listCham")
+	@ResponseBody
+	public TableDataInfo listCham(ProChamanage proChamanage){
+		startPage();
+		return getDataTable(iProChamanageService.selectProChamanageList(proChamanage));
+	}
+
 	/**
 	 * 修改节目播出单
 	 */
