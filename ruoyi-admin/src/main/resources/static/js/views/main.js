@@ -433,6 +433,9 @@ function init_rvis() {
             var temp = new Array();
             var hum = new Array();
             var common_time = new Array();
+
+            // 遍历服务器数据显示到页面
+
             for (i in pre_data){
                 rain.push(pre_data[i].rain);
                 flow.push(pre_data[i].flow);
@@ -441,7 +444,7 @@ function init_rvis() {
                 pm.push(pre_data[i].pm);
                 temp.push(pre_data[i].temp);
                 hum.push(pre_data[i].hum);
-                common_time.push(pre_data[i].common_time);
+                common_time.push(pre_data[i].time);
             }
 
             var ec_rvis_rain = echarts.init(document.getElementById('rvis-rain'));
@@ -452,7 +455,8 @@ function init_rvis() {
             var ec_rvis_temp = echarts.init(document.getElementById('rvis-temp'));
             var ec_rvis_hum = echarts.init(document.getElementById('rvis-hum'));
 
-            ec_rvis_rain_option = {
+
+            ec_rvis_rain_option1 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -512,9 +516,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_rain.setOption(ec_rvis_rain_option);
+            ec_rvis_rain.setOption(ec_rvis_rain_option1);
 
-            ec_rvis_flow_option = {
+            ec_rvis_flow_option2 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -574,9 +578,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_flow.setOption(ec_rvis_flow_option);
+            ec_rvis_flow.setOption(ec_rvis_flow_option2);
 
-            ec_rvis_wlevel_option = {
+            ec_rvis_wlevel_option3 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -636,9 +640,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_wlevel.setOption(ec_rvis_wlevel_option);
+            ec_rvis_wlevel.setOption(ec_rvis_wlevel_option3);
 
-            ec_rvis_ph_option = {
+            ec_rvis_ph_option4 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -698,9 +702,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_ph.setOption(ec_rvis_ph_option);
+            ec_rvis_ph.setOption(ec_rvis_ph_option4);
 
-            ec_rvis_pm_option = {
+            ec_rvis_pm_option5 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -760,9 +764,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_pm.setOption(ec_rvis_pm_option);
+            ec_rvis_pm.setOption(ec_rvis_pm_option5);
 
-            ec_rvis_temp_option = {
+            ec_rvis_temp_option6 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -822,9 +826,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_temp.setOption(ec_rvis_temp_option);
+            ec_rvis_temp.setOption(ec_rvis_temp_option6);
 
-            ec_rvis_hum_option = {
+            ec_rvis_hum_option7 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -884,7 +888,7 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_hum.setOption(ec_rvis_hum_option);
+            ec_rvis_hum.setOption(ec_rvis_hum_option7);
 
 
 

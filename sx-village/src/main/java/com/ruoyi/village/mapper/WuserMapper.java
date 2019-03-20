@@ -1,5 +1,6 @@
 package com.ruoyi.village.mapper;
 
+import com.ruoyi.village.domain.Villageuser;
 import com.ruoyi.village.domain.Wuser;
 import java.util.List;	
 
@@ -58,5 +59,13 @@ public interface WuserMapper
      * @return 结果
      */
 	public int deleteWuserByIds(String[] uids);
-	
+
+	/**
+	 * 新增平台用户基本
+	 *
+	 * @param villageuser 用户基本信息
+	 * @return 结果
+	 */
+	public int insertVillageuser(Villageuser villageuser);
+
 }

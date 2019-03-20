@@ -355,7 +355,7 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public int selectMaxUserId()
     {
-        int count = userMapper.selectMaxUserId() + 1;
+        int count = userMapper.selectMaxUserId();
 
         return count;
     }
