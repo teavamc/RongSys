@@ -1,5 +1,6 @@
 package com.ruoyi.village.service;
 
+import com.ruoyi.village.domain.Villageuser;
 import com.ruoyi.village.domain.Wuser;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public interface IWuserService
 	public List<Wuser> selectWuserList(Wuser wuser);
 	
 	/**
-     * 新增用户基本
+     * 新增微信用户基本
      * 
      * @param wuser 用户基本信息
      * @return 结果
@@ -50,5 +51,12 @@ public interface IWuserService
      * @return 结果
      */
 	public int deleteWuserByIds(String ids);
-	
+
+	/**
+	 * 新增平台用户基本
+	 *
+	 * @param villageuser 用户基本信息
+	 * @return 结果
+	 */
+	public int insertVillageuser(Villageuser villageuser);
 }

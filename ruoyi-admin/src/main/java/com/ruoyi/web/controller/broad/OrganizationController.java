@@ -179,19 +179,12 @@ public class OrganizationController extends BaseController
 		return tree;
 	}
 
-    /*@RequiresPermissions("broad:organization:remove")
-    @PostMapping("/addProIdAll")
-    @ResponseBody
-    public AjaxResult addProIdAll(String ids)
-    {
-        Long[] userIds = Convert.toLongArray(ids);
-        try
-        {
-            return toAjax(organizationService.addProIdAll(ids));
-        }
-        catch (Exception e)
-        {
-            return error(e.getMessage());
-        }
-    }*/
+	/**
+	 * 选择区域树
+	 */
+	@GetMapping("/selectAidTree")
+	public String selectAidTree()
+	{
+		return prefix + "/aidTree";
+	}
 }

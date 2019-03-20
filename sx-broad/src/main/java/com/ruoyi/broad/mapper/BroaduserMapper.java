@@ -58,5 +58,5 @@ public interface BroaduserMapper
 	 *
 	 * @return 结果
 	 */
-	public void insertBroaduser(String username,String uname,String uphone);
+	public void insertBroaduser(Broaduser broaduser1);
 }
