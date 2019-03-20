@@ -31,6 +31,11 @@ function onload() {
     //首页图表 服务器性能可视化
     // init_3d_s_c();
 
+    //广播时间分布可视化
+    init_bt_mbygroup();
+    init_bd_mbygroup();
+    init_bds_mbygroup();
+
     //每15秒刷新系统监控数据
     setInterval(init_sys_mon, 15000);
     //每300秒刷新系统监控数据
@@ -428,6 +433,9 @@ function init_rvis() {
             var temp = new Array();
             var hum = new Array();
             var common_time = new Array();
+
+            // 遍历服务器数据显示到页面
+
             for (i in pre_data){
                 rain.push(pre_data[i].rain);
                 flow.push(pre_data[i].flow);
@@ -436,7 +444,7 @@ function init_rvis() {
                 pm.push(pre_data[i].pm);
                 temp.push(pre_data[i].temp);
                 hum.push(pre_data[i].hum);
-                common_time.push(pre_data[i].common_time);
+                common_time.push(pre_data[i].time);
             }
 
             var ec_rvis_rain = echarts.init(document.getElementById('rvis-rain'));
@@ -447,7 +455,8 @@ function init_rvis() {
             var ec_rvis_temp = echarts.init(document.getElementById('rvis-temp'));
             var ec_rvis_hum = echarts.init(document.getElementById('rvis-hum'));
 
-            ec_rvis_rain_option = {
+
+            ec_rvis_rain_option1 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -507,9 +516,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_rain.setOption(ec_rvis_rain_option);
+            ec_rvis_rain.setOption(ec_rvis_rain_option1);
 
-            ec_rvis_flow_option = {
+            ec_rvis_flow_option2 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -569,9 +578,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_flow.setOption(ec_rvis_flow_option);
+            ec_rvis_flow.setOption(ec_rvis_flow_option2);
 
-            ec_rvis_wlevel_option = {
+            ec_rvis_wlevel_option3 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -631,9 +640,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_wlevel.setOption(ec_rvis_wlevel_option);
+            ec_rvis_wlevel.setOption(ec_rvis_wlevel_option3);
 
-            ec_rvis_ph_option = {
+            ec_rvis_ph_option4 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -693,9 +702,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_ph.setOption(ec_rvis_ph_option);
+            ec_rvis_ph.setOption(ec_rvis_ph_option4);
 
-            ec_rvis_pm_option = {
+            ec_rvis_pm_option5 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -755,9 +764,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_pm.setOption(ec_rvis_pm_option);
+            ec_rvis_pm.setOption(ec_rvis_pm_option5);
 
-            ec_rvis_temp_option = {
+            ec_rvis_temp_option6 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -817,9 +826,9 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_temp.setOption(ec_rvis_temp_option);
+            ec_rvis_temp.setOption(ec_rvis_temp_option6);
 
-            ec_rvis_hum_option = {
+            ec_rvis_hum_option7 = {
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -879,7 +888,7 @@ function init_rvis() {
                     }
                 ]
             };
-            ec_rvis_hum.setOption(ec_rvis_hum_option);
+            ec_rvis_hum.setOption(ec_rvis_hum_option7);
 
 
 
@@ -888,6 +897,188 @@ function init_rvis() {
 
 
 
+}
+
+function init_bt_mbygroup() {
+    var bt_mbygroup = echarts.init(document.getElementById('bt_mbygroup'));
+    $.ajax({
+        type: "GET",
+        url: "/api/btime/bt",
+        datatype: "JSON",
+        success: function (data) {
+            var btygroup_data = data.data;
+            var x_data = new Array();
+            var y_data = new Array();
+            for(var i = 0; i < btygroup_data.length; i++) {
+                if (btygroup_data[i].bcount == '') {
+                    x_data.push('未知');
+                } else {
+                    y_data.push(parseInt(btygroup_data[i].bcount));
+                    x_data.push(btygroup_data[i].broadDate);
+                }
+            }
+            /*console.log(x_data);*/
+            /*console.log(y_data);*/
+            option = {
+                tooltip : {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        magicType : {show: true, type: ['line', 'bar']},
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : x_data,
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        axisLabel : {
+                            formatter: '{value}'
+                        }
+                    }
+                ],
+                series : [
+                    {
+                        type:'line',
+                        data: y_data,
+                        markLine : {
+                            data : [
+                                {type : 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                ]
+            };
+            bt_mbygroup.setOption(option);
+        }
+    });
+}
+
+function init_bd_mbygroup() {
+    var bd_mbygroup = echarts.init(document.getElementById('bd_mbygroup'));
+    $.ajax({
+        type: "GET",
+        url: "/api/btime/bd",
+        datatype: "JSON",
+        success: function (data) {
+            var bdygroup_data = data.data;
+            var x_data = new Array();
+            var y_data = new Array();
+            for(var i = 0; i < bdygroup_data.length; i++) {
+                if (bdygroup_data[i].bcount == '') {
+                    x_data.push('未知');
+                } else {
+                    y_data.push(parseInt(bdygroup_data[i].bcount));
+                    x_data.push(bdygroup_data[i].broadDate);
+                }
+            }
+            /*console.log(x_data);*/
+            /*console.log(y_data);*/
+            option = {
+                tooltip : {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        magicType : {show: true, type: ['line', 'bar']},
+                    }
+                },
+                calculable : true,
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        data : x_data,
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        axisLabel : {
+                            formatter: '{value}'
+                        }
+                    }
+                ],
+                series : [
+                    {
+                        type:'line',
+                        data: y_data,
+                        markLine : {
+                            data : [
+                                {type : 'average', name: '平均值'}
+                            ]
+                        }
+                    },
+                ]
+            };
+            bd_mbygroup.setOption(option);
+        }
+    });
+}
+
+function init_bds_mbygroup() {
+    var bds_mbygroup = echarts.init(document.getElementById('bds_mbygroup'));
+    $.ajax({
+        type: "GET",
+        url: "/api/btime/bds",
+        datatype: "JSON",
+        success: function (data) {
+            var bdsygroup_data = data.data;
+            var x_data = new Array();
+            var y_data = new Array();
+            for(var i = 0; i < bdsygroup_data.length; i++) {
+                if (bdsygroup_data[i].marea == '') {
+                    x_data.push('未知');
+                } else {
+                    x_data.push(bdsygroup_data[i].scategory);
+                    y_data.push(parseInt(bdsygroup_data[i].bcount));
+                    /*var y = new Object();
+                    y.name = bdsygroup_data[i].scategory;
+                    y.value = parseInt(bdsygroup_data[i].bcount);
+                    y_data.push(y);*/
+                }
+            }
+            /*console.log(bdsygroup_data);*/
+            console.log(x_data);
+            console.log(y_data);
+            option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient : 'vertical',
+                    x : 'left',
+                    data: x_data
+                },
+                calculable : true,
+                series : [
+                    {
+                        name:'访问来源',
+                        type:'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data:[
+                            /*y_data*/
+                            {value:y_data[0], name: x_data[0]},
+                            {value:y_data[1], name: x_data[1]}
+                        ]
+                    }
+                ]
+            };
+
+            bds_mbygroup.setOption(option);
+        }
+    });
 }
 
 function init_ec_mbygroup() {
