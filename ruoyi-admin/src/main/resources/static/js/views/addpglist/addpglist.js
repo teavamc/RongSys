@@ -19,7 +19,7 @@ function setPro(obj){
     }else{
         type="停止播放";
     }
-    $("#tbody").append("<tr><td class='center'>"+type+"</td> <td class='center'></td>"+
+    $("#tbody").append("<tr style='max-height: 50px;min-height: 50px'><td class='center'>"+type+"</td> <td class='center'></td>"+
         "<td class='center'></td> <td class='center'>"+obj+"</td>"+
         "<td class='center'>"+time+"</td> <td class='center'></td>"+
         " <td class='center'>"+
@@ -65,6 +65,8 @@ function editTime(obj){
     diag.show();
 
 }
+
+
 
 /**
  * FM转播
