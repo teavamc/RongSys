@@ -1,19 +1,25 @@
 package com.ruoyi.web.controller.broad;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
+import com.ruoyi.broad.domain.ProChamanage;
 import com.ruoyi.broad.domain.ProList;
+import com.ruoyi.broad.domain.Program;
+import com.ruoyi.broad.service.IProChamanageService;
 import com.ruoyi.broad.service.IProListService;
+import com.ruoyi.broad.service.IProgramService;
+import com.ruoyi.common.json.JSON;
+import com.ruoyi.common.json.JSONObject;
+import com.ruoyi.system.domain.SysUser;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.broad.domain.ProSinmanage;
@@ -39,7 +45,10 @@ public class ProSinmanageController extends BaseController
 	private IProSinmanageService proSinmanageService;
 	@Autowired
 	private IProListService proListService;
-
+	@Autowired
+	private IProgramService iProgramService;
+	@Autowired
+	private IProChamanageService iProChamanageService;
 
 
 	@RequiresPermissions("broad:proSinmanage:view")
@@ -114,7 +123,7 @@ public class ProSinmanageController extends BaseController
 	{
 	    return prefix + "/add";
 	}
-	
+
 	/**
 	 * 新增保存节目播出单
 	 */
@@ -132,8 +141,10 @@ public class ProSinmanageController extends BaseController
 	 * 新增节目播出单
 	 */
 	@GetMapping("/addtest")
-	public String addtest()
+	public String addtest(ModelMap mmap)
 	{
+		SysUser user = getSysUser();
+		mmap.put("user", user);
 		return prefix + "/addtest";
 	}
 
@@ -147,6 +158,51 @@ public class ProSinmanageController extends BaseController
 	public AjaxResult addtestSave(ProSinmanage proSinmanage)
 	{
 		return toAjax(proSinmanageService.insertProSinmanage(proSinmanage));
+	}
+
+	/**
+	 * 返回节目单选择界面
+	 * @param mmap
+	 * @return
+	 */
+	@GetMapping("/getdoFile")
+	public String doFile(ModelMap mmap){
+		return prefix+"/listFile";
+	}
+
+	/**
+	 * 返回节目单选择界面
+	 * @param mmap
+	 * @return
+	 */
+	@GetMapping("/getdoCham")
+	public String doCham(ModelMap mmap){
+		return prefix+"/listChamanage";
+	}
+	/**
+	 * 获取节目单数据
+	 * @param program
+	 * @return
+	 */
+	@PostMapping("/listFile")
+	@ResponseBody
+	public TableDataInfo listFile(Program program)
+	{
+		startPage();
+		List<Program> list = iProgramService.selectProList(program);
+		return getDataTable(list);
+	}
+
+	/**
+	 * 返回电台数据
+	 * @param proChamanage
+	 * @return
+	 */
+	@PostMapping("/listCham")
+	@ResponseBody
+	public TableDataInfo listCham(ProChamanage proChamanage){
+		startPage();
+		return getDataTable(iProChamanageService.selectProChamanageList(proChamanage));
 	}
 
 	/**
@@ -183,5 +239,48 @@ public class ProSinmanageController extends BaseController
 	{		
 		return toAjax(proSinmanageService.deleteProSinmanageByIds(ids));
 	}
-	
+
+	/**
+	 * 获取新增播出单详情数据
+	 * @param ProData
+	 * @param ProDay
+	 * @param ProIMEI
+	 * @param ProLists
+	 * @return
+	 */
+	@RequestMapping("/addProList")
+	@ResponseBody
+	public Map<String,Object> addProList(@RequestParam("userId") String userId,@RequestParam("ProDate") String ProData,
+										 @RequestParam("ProDay") String ProDay, @RequestParam("ProIMEI") String ProIMEI,
+										 @RequestParam("ProData") JSONObject.JSONArray ProLists){
+		System.out.println(">>>userId>>>"+userId+">>>ProData>>>"+ProData+">>>ProDay>>>"+ProDay+">>>ProIMEI>>>"+ProIMEI+">>>ProLists>>>"+ProLists.getClass());
+		List<String> list = new ArrayList<>();
+		for (int i=0;i<ProLists.size();i++){
+			String data = ProLists.get(i).toString()
+					.replace("{","")
+					.replace("}","")
+					.replace("[","")
+					.replace("]","")
+					.replace("\"","");
+			//System.out.println(">>>"+data.substring(data.indexOf(":")+2,data.length()-1));
+			list.add(data.substring(data.indexOf(":")+2,data.length()-1));
+		}
+		List<ProList> lists = new ArrayList<>();
+		for(int j=0,i=0;j<list.size()/5;j++){
+			ProList proList = new ProList();
+			proList.setPtp(list.get(i));
+			proList.setFid(list.get(i+1));
+			proList.setFN(list.get(i+2));
+			proList.setBt(list.get(i+3));
+			proList.setBroadtime(list.get(i+4));
+			i+=5;
+			lists.add(proList);
+		}
+		System.out.println(">>>"+lists.toString());
+		Map<String, Object> map = new HashMap<>();
+		map.put("code",200);
+		return map;
+	}
+
+
 }

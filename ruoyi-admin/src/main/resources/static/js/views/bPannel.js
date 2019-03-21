@@ -151,7 +151,7 @@ function init_bd_mbygroup() {
     });
 }
 
-function init_ds_mbygroup() {
+function init_bds_mbygroup() {
     var bds_mbygroup = echarts.init(document.getElementById('bds_mbygroup'));
     $.ajax({
         type: "GET",
@@ -201,7 +201,6 @@ function init_ds_mbygroup() {
                     }
                 ]
             };
-
             bds_mbygroup.setOption(bds_option);
         }
     });
