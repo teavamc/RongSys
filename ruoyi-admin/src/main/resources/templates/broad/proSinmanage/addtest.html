@@ -98,6 +98,7 @@
 </div>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script>
+
     var userId = [[${user.userId}]];
 /*流媒体直播-选择终端树*/
     function selectOrganTree() {
@@ -128,7 +129,17 @@
     }
     //文件转播选择
     function doFile() {
-        var time = getTime();
+        var baseTime = "08:00:00";
+        if($("#broaddate").val() == ""){
+            layer.tips('请选择播出日期','#broaddate', {
+                tips: [1, '#3595CC'],
+                time: 4000
+            });
+            return false;
+        }
+        var data = $("#broaddate").val();
+        var time = getTime(data+" "+baseTime);
+        //console.log("timeFile="+time);
         var _url = "/broad/proSinmanage/getdoFile";
         var _title = '文件选择';
         var _width = "1200";
@@ -160,7 +171,7 @@
                         "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
                         "</a> </div>"+
                         "</td></tr>");
-                    time = getTime(res.data_time);
+                    time = getTime(data+" "+baseTime);
                 }
             }, cancel: function () {
                 return true;
@@ -179,7 +190,17 @@
     }
     //电台选择
     function doCham() {
-        var time = getTime();
+        var baseTime = "08:00:00";
+        if($("#broaddate").val() == ""){
+            layer.tips('请选择播出日期','#broaddate', {
+                tips: [1, '#3595CC'],
+                time: 4000
+            });
+            return false;
+        }
+        var data = $("#broaddate").val();
+        var times = getTime(data+" "+baseTime);
+        //console.log("timeCham="+time);
         var _url = "/broad/proSinmanage/getdoCham";
         var _title = '电台选择';
         var _width = "1200";
@@ -198,10 +219,10 @@
                 layer.close(index);
                 //获取子页面关闭前的回调函数获取到的值
                 var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
-                console.log(">>>",res)
+                //console.log(">>>",res)
                 $("#tbody").append("<tr><td class='center'>电台播音</td> <td class='center'>"+res.data_fileID+"</td>"+
                     "<td class='center'>"+res.data_filename+"</td> <td class='center'>"+res.data_file+"</td>"+
-                    "<td class='center'>"+time+"</td> <td class='center'>"+res.data_time+"</td>"+
+                    "<td class='center'>"+times+"</td> <td class='center'>"+res.data_time+"</td>"+
                     " <td class='center'>"+
                     "<div class='action-buttons'>"+
                     "<a class='green' onclick='editTime(this);'>"+
@@ -210,7 +231,7 @@
                     "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
                     "</a> </div>"+
                     "</td></tr>");
-                time = getTime(res.data_time);
+                times = getTime(data+" "+baseTime);
             }, cancel: function () {
                 return true;
             }
@@ -363,6 +384,7 @@ function saves(){
     //     }
     // });
 }
+
 </script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
