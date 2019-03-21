@@ -2,7 +2,7 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>节目单</title>
+    <title>广播面板</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!--360浏览器优先以webkit内核解析-->
     <link rel="shortcut icon" href="favicon.ico">
@@ -24,7 +24,6 @@
 
 </head>
 <body class="gray-bg" onload="bonLoad()">
-<h1>广播面板</h1>
 <div class="row  border-bottom  dashboard-header">
     <div class="wrapper wrapper-content">
         <div class="row">
@@ -85,6 +84,28 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>操作类型</h5>
+                        <div class="ibox-tools">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-superpowers"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a onclick="init_ptp_mbygroup()">原始数据</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="echarts" id="ptp_mbygroup"></div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
