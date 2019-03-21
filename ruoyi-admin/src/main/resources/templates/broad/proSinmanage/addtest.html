@@ -98,7 +98,7 @@
 </div>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script>
-    var prointerval = 5;
+    var baseTime = "08:00:00";
     var userId = [[${user.userId}]];
 /*流媒体直播-选择终端树*/
     function selectOrganTree() {
@@ -137,7 +137,7 @@
             return false;
         }
         var data = $("#broaddate").val();
-        var time = getTime(data);
+        var time = getTime(data+" "+baseTime);
         console.log("timeFile="+time);
         var _url = "/broad/proSinmanage/getdoFile";
         var _title = '文件选择';
@@ -170,7 +170,7 @@
                         "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
                         "</a> </div>"+
                         "</td></tr>");
-                    time = getTime(res.data_time);
+                    time = getTime(data+" "+res.data_time);
                     console.log("timeFile="+time);
                 }
             }, cancel: function () {
@@ -198,7 +198,7 @@
             return false;
         }
         var data = $("#broaddate").val();
-        var time = getTime(data);
+        var time = getTime(data+" "+baseTime);
         console.log("timeCham="+time);
         var _url = "/broad/proSinmanage/getdoCham";
         var _title = '电台选择';
@@ -230,7 +230,7 @@
                     "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
                     "</a> </div>"+
                     "</td></tr>");
-                time = getTime(res.data_time);
+                time = getTime(data+" "+res.data_time);
                 console.log("timeChams="+time);
             }, cancel: function () {
                 return true;
