@@ -4,7 +4,7 @@
 
 function bonLoad() {
     init_bd_mbygroup();
-    init_ds_mbygroup();
+    init_bds_mbygroup();
     init_bt_mbygroup();
     init_ptp_mbygroup();
 }
@@ -123,7 +123,7 @@ function init_bd_mbygroup() {
                     {
                         type: 'category',
                         boundaryGap: false,
-                        data: x_data,
+                        data: x_data
                     }
                 ],
                 yAxis: [
@@ -143,7 +143,7 @@ function init_bd_mbygroup() {
                                 {type: 'average', name: '平均值'}
                             ]
                         }
-                    },
+                    }
                 ]
             };
             bd_mbygroup.setOption(bd_option);
@@ -229,6 +229,7 @@ function init_ptp_mbygroup() {
             }
             console.log(sum);
             ptp_option =  {
+                color: ['#6761c1'],
                 grid: {
                     left: '3%',
                     right: '3%',
@@ -240,7 +241,7 @@ function init_ptp_mbygroup() {
                     trigger: 'axis'
                 },
                 toolbox: {
-                    show : true,
+                    show : true
                 },
                 polar : [
                     {
@@ -261,7 +262,7 @@ function init_ptp_mbygroup() {
                             {
                                 name: '操作记录',
                                 value : y_data
-                            },
+                            }
                         ]
                     }
                 ]
