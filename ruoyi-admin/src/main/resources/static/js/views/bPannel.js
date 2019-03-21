@@ -4,8 +4,9 @@
 
 function bonLoad() {
     init_bd_mbygroup();
-    init_bds_mbygroup();
+    init_ds_mbygroup();
     init_bt_mbygroup();
+    init_ptp_mbygroup();
 }
 
 function init_bt_mbygroup() {
@@ -99,7 +100,7 @@ function init_bd_mbygroup() {
             }
             /*console.log(x_data);*/
             /*console.log(y_data);*/
-            option = {
+            bd_option = {
                 color: ['#00fc1a'],
                 tooltip: {
                     trigger: 'axis'
@@ -145,7 +146,7 @@ function init_bd_mbygroup() {
                     },
                 ]
             };
-            bd_mbygroup.setOption(option);
+            bd_mbygroup.setOption(bd_option);
         }
     });
 }
@@ -175,7 +176,7 @@ function init_bds_mbygroup() {
             /*console.log(bdsygroup_data);*/
             /*console.log(x_data);
              console.log(y_data);*/
-            option = {
+            bds_option = {
                 tooltip: {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -200,8 +201,72 @@ function init_bds_mbygroup() {
                     }
                 ]
             };
+            bds_mbygroup.setOption(bds_option);
+        }
+    });
+}
 
-            bds_mbygroup.setOption(option);
+function init_ptp_mbygroup() {
+    var ptp_mbygroup = echarts.init(document.getElementById('ptp_mbygroup'));
+    $.ajax({
+        type: "GET",
+        url: "/api/bp/ptp",
+        datatype: "JSON",
+        success: function (data) {
+            var ptpygroup_data = data.data;
+            var x_data = new Array();
+            var y_data = new Array();
+            var sum = 0;
+            for (var i = 0; i < ptpygroup_data.length; i++) {
+                if (ptpygroup_data[i].ptp == '') {
+                    x_data.push('未知');
+                } else {
+                    x_data.push(ptpygroup_data[i].ptp);
+                    y_data.push(parseInt(ptpygroup_data[i].count));
+                    sum = sum > y_data[i] ? sum : y_data[i];
+                }
+                sum /= 5;
+            }
+            console.log(sum);
+            ptp_option =  {
+                grid: {
+                    left: '3%',
+                    right: '3%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                toolbox: {
+                    show : true,
+                },
+                polar : [
+                    {
+                        indicator : [
+                            { text: x_data[0], max: sum+y_data[0]},
+                            { text: x_data[1], max: sum+y_data[1]},
+                            { text: x_data[2], max: sum+y_data[2]},
+                            { text: x_data[3], max: sum+y_data[3]},
+                            { text: x_data[4], max: sum+y_data[4]}
+                        ]
+                    }
+                ],
+                calculable : true,
+                series : [
+                    {
+                        type: 'radar',
+                        data : [
+                            {
+                                name: '操作记录',
+                                value : y_data
+                            },
+                        ]
+                    }
+                ]
+            };
+            ptp_mbygroup.setOption(ptp_option);
         }
     });
 }
