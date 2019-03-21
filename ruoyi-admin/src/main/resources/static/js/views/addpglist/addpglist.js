@@ -273,6 +273,48 @@ function save(){
     });
 }
 
+//js日期格式化函数yyyy-MM-dd
+function data_string(datetimeStr) {
+    var mydateint = Date.parse(datetimeStr);//数值格式的时间
+    if (!isNaN(mydateint)) {
+        var mydate = new Date(mydateint);
+        return mydate;
+    }
+    var mydate = new Date(datetimeStr);//字符串格式时间
+    var monthstr = mydate.getMonth() + 1;
+    if (!isNaN(monthstr)) {//转化成功
+        return mydate;
+    }//字符串格式时间转化失败
+    var dateParts = datetimeStr.split(" ");
+    var dateToday = new Date();
+    var year = dateToday.getFullYear();
+    var month = dateToday.getMonth();
+    var day = dateToday.getDate();
+    if (dateParts.length >= 1) {
+        var dataPart = dateParts[0].split("-");//yyyy-mm-dd  格式时间
+        if (dataPart.length == 1) {
+            dataPart = dateParts[0].split("/");//yyyy/mm/dd格式时间
+        }
+        if (dataPart.length == 3) {
+            year = Math.floor(dataPart[0]);
+            month = Math.floor(dataPart[1]) - 1;
+            day = Math.floor(dataPart[2]);
+        }
+    }
+    if (dateParts.length == 2) {//hh:mm:ss格式时间
+        var timePart = dateParts[1].split(":");//hh:mm:ss格式时间
+        if (timePart.length == 3) {
+            var hour = Math.floor(timePart[0]);
+            var minute = Math.floor(timePart[1]);
+            var second = Math.floor(timePart[2]);
+            return new Date(year, month, day, hour, minute, second);
+        }
+    }
+    else {
+        return new Date(year, month, day);
+    }
+
+}
 /**
  * 获得时间
  * @param intervaltime
@@ -280,34 +322,42 @@ function save(){
  */
 function getTime(intervaltime){
     var time="08:00:00";
+    var TimeValue = intervaltime + " " +time;
+    var TimeNILL = data_string(TimeValue)
+    console.log("???"+TimeNILL); //字符串转时间
     var trs = $("#tbody").find("tr");
     if(trs.length>0){
         var lasttime = trs[trs.length-1].cells[4].innerText;
+        console.log("lasttime="+lasttime);
         var timelenth = trs[trs.length-1].cells[5].innerText;
+        if(timelenth.length==0){
+            timelenth = "00:00:00";
+        }
+        console.log("timelenth="+timelenth);
         var seconds =0;
-        if(timelenth!=null &&timelenth!=""){
+        if(timelenth!=null &&timelenth.length>0){
             var H = parseInt(timelenth.split(":")[0]);
             var M = parseInt(timelenth.split(":")[1]);
             var S = parseInt(timelenth.split(":")[2]);
             seconds = H * 3600  + M * 60  + S ;
+            console.log(seconds)
         }
-        if(intervaltime!=null &&intervaltime!=""){
+        if(intervaltime!=null &&intervaltime.toString().length>10){
             var H = parseInt(intervaltime.split(":")[0]);
             var M = parseInt(intervaltime.split(":")[1]);
             var S = parseInt(intervaltime.split(":")[2]);
             seconds += H * 3600  + M * 60  + S ;
+            console.log(seconds)
         }
-// 			var timestr = "2017-01-20 "+lasttime;
-// 			timestr=timestr.replace(/-/g,'/');
-// 			var date=new Date(timestr);
-        var date=new Date();
-        date.setHours(lasttime.substring(0,2),lasttime.substring(3,5),lasttime.substring(6,8));
-        date.setSeconds(date.getSeconds()+seconds+prointerval);
-        time = date.format("yyyy-MM-dd hh:mm:ss").substring(11,19);
-// 			time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        TimeNILL.setHours(lasttime.substring(0,2),lasttime.substring(3,5),lasttime.substring(6,8));
+        TimeNILL.setSeconds(TimeNILL.getSeconds()+seconds+prointerval);
+        console.log(">>>"+TimeNILL.toString());
+        time = TimeNILL.format("yyyy-MM-dd hh:mm:ss").substring(11,19);
+        console.log(">>>"+TimeNILL.format("yyyy-MM-dd hh:mm:ss"))
     }
     return time;
 }
+
 
 Date.prototype.format = function(format) {
     var o = {

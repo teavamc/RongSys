@@ -98,6 +98,7 @@
 </div>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script>
+    var prointerval = 5;
     var userId = [[${user.userId}]];
 /*流媒体直播-选择终端树*/
     function selectOrganTree() {
@@ -128,7 +129,16 @@
     }
     //文件转播选择
     function doFile() {
-        var time = getTime();
+        if($("#broaddate").val() == ""){
+            layer.tips('请选择播出日期','#broaddate', {
+                tips: [1, '#3595CC'],
+                time: 4000
+            });
+            return false;
+        }
+        var data = $("#broaddate").val();
+        var time = getTime(data);
+        console.log("timeFile="+time);
         var _url = "/broad/proSinmanage/getdoFile";
         var _title = '文件选择';
         var _width = "1200";
@@ -161,6 +171,7 @@
                         "</a> </div>"+
                         "</td></tr>");
                     time = getTime(res.data_time);
+                    console.log("timeFile="+time);
                 }
             }, cancel: function () {
                 return true;
@@ -179,7 +190,16 @@
     }
     //电台选择
     function doCham() {
-        var time = getTime();
+        if($("#broaddate").val() == ""){
+            layer.tips('请选择播出日期','#broaddate', {
+                tips: [1, '#3595CC'],
+                time: 4000
+            });
+            return false;
+        }
+        var data = $("#broaddate").val();
+        var time = getTime(data);
+        console.log("timeCham="+time);
         var _url = "/broad/proSinmanage/getdoCham";
         var _title = '电台选择';
         var _width = "1200";
@@ -211,6 +231,7 @@
                     "</a> </div>"+
                     "</td></tr>");
                 time = getTime(res.data_time);
+                console.log("timeChams="+time);
             }, cancel: function () {
                 return true;
             }
@@ -363,6 +384,7 @@ function saves(){
     //     }
     // });
 }
+
 </script>
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:src="@{/js/bootstrap.min.js}"></script>
