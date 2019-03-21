@@ -88,7 +88,7 @@
                                     <i class="fa fa-wrench fa-3x"></i>
                                 </div>
                                 <div class="col-xs-9 text-right">
-                                    <span> 物联网设备数据总量 </span>
+                                    <span> 物联网数据量 </span>
                                     <h2 id="iotcount" class="font-bold">None</h2>
                                 </div>
                             </div>
@@ -184,6 +184,65 @@
                                     <span> 女性党员 </span>
                                     <h2 id="count_pw" class="font-bold">None</h2>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>广播时间(最近)分布可视化</h5>
+                                <div class="ibox-tools">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-superpowers"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a onclick="init_bt_mbygroup()">原始数据</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="echarts" id="bt_mbygroup" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>广播时间(最多)分布可视化</h5>
+                                <div class="ibox-tools">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-superpowers"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a onclick="init_bd_mbygroup()">原始数据</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="echarts" id="bd_mbygroup" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>广播类型分布可视化</h5>
+                                <div class="ibox-tools">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                        <i class="fa fa-superpowers"></i>
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-user">
+                                        <li><a onclick="init_bds_mbygroup()">原始数据</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="echarts" id="bds_mbygroup" ></div>
                             </div>
                         </div>
                     </div>

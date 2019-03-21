@@ -84,6 +84,9 @@ public class SysUser extends BaseEntity
     /** 用户所属平台 */
     private String platform;
 
+    /** 用户所属地域编号 */
+    private String aid;
+
     public Long getUserId()
     {
         return userId;
@@ -293,6 +296,18 @@ public class SysUser extends BaseEntity
     {
         this.platform = platform;
     }
+
+    public void setAid(String aid)
+    {
+        this.aid = aid;
+    }
+
+    public String getAid()
+    {
+        return aid;
+    }
+
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -316,6 +331,7 @@ public class SysUser extends BaseEntity
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
             .append("platform", getPlatform())
+            .append("aid", getAid())
             .toString();
     }
 }

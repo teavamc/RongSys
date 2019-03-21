@@ -226,6 +226,7 @@ function init_ptp_mbygroup() {
                     y_data.push(parseInt(ptpygroup_data[i].count));
                     sum = sum > y_data[i] ? sum : y_data[i];
                 }
+                sum /= 5;
             }
             console.log(sum);
             ptp_option =  {
@@ -245,11 +246,11 @@ function init_ptp_mbygroup() {
                 polar : [
                     {
                         indicator : [
-                            { text: x_data[0], max: sum},
-                            { text: x_data[1], max: sum},
-                            { text: x_data[2], max: sum},
-                            { text: x_data[3], max: sum},
-                            { text: x_data[4], max: sum}
+                            { text: x_data[0], max: sum+y_data[0]},
+                            { text: x_data[1], max: sum+y_data[1]},
+                            { text: x_data[2], max: sum+y_data[2]},
+                            { text: x_data[3], max: sum+y_data[3]},
+                            { text: x_data[4], max: sum+y_data[4]}
                         ]
                     }
                 ],
