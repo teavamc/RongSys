@@ -330,6 +330,7 @@ function data_string(datetimeStr) {
  * @returns {string}
  */
 function getTime(intervaltime){
+    var basenum = 5;  //5秒钟延迟播放
     var TimeNILL = data_string(intervaltime)
     var restData = intervaltime;
     console.log("???"+TimeNILL); //字符串转时间
@@ -369,10 +370,11 @@ function getTime(intervaltime){
         //     seconds += H * 3600  + M * 60  + S ;
         //     console.log(">>>2 前一个的文件时长<<<"+intervaltime+"---"+seconds)
         // }
-        restData = addTime(intervaltime,seconds-28800);
+        var Se = seconds-28800+basenum;
+        restData = addTime(intervaltime,Se);  //后面的是：前一个tr标签的播放开始时间+文件时长-08：00：00（28800s）+间隔时间
         // TimeNILL.setHours(lasttime.substring(0,2),lasttime.substring(3,5),lasttime.substring(6,8));
         // TimeNILL.setSeconds(TimeNILL.getSeconds()+seconds+prointerval);
-        console.log(">>>"+restData);
+        console.log(Se+">>>"+restData);
         // time = TimeNILL.format("yyyy-MM-dd hh:mm:ss").substring(11,19);
         // console.log(">>>"+TimeNILL.format("yyyy-MM-dd hh:mm:ss"))
     }
