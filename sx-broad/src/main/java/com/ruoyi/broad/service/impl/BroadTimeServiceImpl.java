@@ -2,7 +2,7 @@ package com.ruoyi.broad.service.impl;
 
 import com.ruoyi.broad.domain.BroadTime;
 import com.ruoyi.broad.mapper.BroadTimeMapper;
-import com.ruoyi.broad.service.BroadTimeService;
+import com.ruoyi.broad.service.IBroadTimeService;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import java.util.List;
  * @date 2019-01-15
  */
 @Service
-public class BroadTimeServiceImpl implements BroadTimeService {
+public class BroadTimeServiceImpl implements IBroadTimeService {
     @Autowired
     private BroadTimeMapper broadTimeMapper;
 
