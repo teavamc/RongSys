@@ -1,5 +1,6 @@
 var zTree;
 var prointerval = 5;
+var baseTime = "08:00:00";
 if("${prointerval}"!=""){//节目单时间间隔
     prointerval=parseInt("${prointerval}");
 }
@@ -10,7 +11,15 @@ if("${prointerval}"!=""){//节目单时间间隔
  */
 function setPro(obj){
     var type="";
-    var time = getTime();
+    if($("#broaddate").val() == ""){
+        layer.tips('请选择播出日期','#broaddate', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    var data = $("#broaddate").val();
+    var time = getTime(data+" "+baseTime);
     //选择填充进tbody
     if(obj=="app-on"){
         type="开启功放";
@@ -19,7 +28,7 @@ function setPro(obj){
     }else{
         type="停止播放";
     }
-    $("#tbody").append("<tr><td class='center'>"+type+"</td> <td class='center'></td>"+
+    $("#tbody").append("<tr style='max-height: 50px;min-height: 50px'><td class='center'>"+type+"</td> <td class='center'></td>"+
         "<td class='center'></td> <td class='center'>"+obj+"</td>"+
         "<td class='center'>"+time+"</td> <td class='center'></td>"+
         " <td class='center'>"+
@@ -65,6 +74,8 @@ function editTime(obj){
     diag.show();
 
 }
+
+
 
 /**
  * FM转播
@@ -271,40 +282,122 @@ function save(){
     });
 }
 
+//js日期格式化函数yyyy-MM-dd
+function data_string(datetimeStr) {
+    var mydateint = Date.parse(datetimeStr);//数值格式的时间
+    if (!isNaN(mydateint)) {
+        var mydate = new Date(mydateint);
+        return mydate;
+    }
+    var mydate = new Date(datetimeStr);//字符串格式时间
+    var monthstr = mydate.getMonth() + 1;
+    if (!isNaN(monthstr)) {//转化成功
+        return mydate;
+    }//字符串格式时间转化失败
+    var dateParts = datetimeStr.split(" ");
+    var dateToday = new Date();
+    var year = dateToday.getFullYear();
+    var month = dateToday.getMonth();
+    var day = dateToday.getDate();
+    if (dateParts.length >= 1) {
+        var dataPart = dateParts[0].split("-");//yyyy-mm-dd  格式时间
+        if (dataPart.length == 1) {
+            dataPart = dateParts[0].split("/");//yyyy/mm/dd格式时间
+        }
+        if (dataPart.length == 3) {
+            year = Math.floor(dataPart[0]);
+            month = Math.floor(dataPart[1]) - 1;
+            day = Math.floor(dataPart[2]);
+        }
+    }
+    if (dateParts.length == 2) {//hh:mm:ss格式时间
+        var timePart = dateParts[1].split(":");//hh:mm:ss格式时间
+        if (timePart.length == 3) {
+            var hour = Math.floor(timePart[0]);
+            var minute = Math.floor(timePart[1]);
+            var second = Math.floor(timePart[2]);
+            return new Date(year, month, day, hour, minute, second);
+        }
+    }
+    else {
+        return new Date(year, month, day);
+    }
+
+}
 /**
  * 获得时间
  * @param intervaltime
  * @returns {string}
  */
 function getTime(intervaltime){
-    var time="08:00:00";
+    var basenum = 5;  //5秒钟延迟播放
+    var TimeNILL = data_string(intervaltime)
+    var restData = intervaltime;
+    console.log("???"+TimeNILL); //字符串转时间
     var trs = $("#tbody").find("tr");
-    if(trs.length>0){
+    if(trs.length>1){
         var lasttime = trs[trs.length-1].cells[4].innerText;
+
         var timelenth = trs[trs.length-1].cells[5].innerText;
+        if(timelenth.length==0){
+            timelenth = "00:00:00";
+        }
+        console.log(lasttime+"---"+timelenth)
         var seconds =0;
-        if(timelenth!=null &&timelenth!=""){
+        if(lasttime!=null&&lasttime!=""){
+            var H2 = parseInt(lasttime.split(":")[0]);
+            var M2 = parseInt(lasttime.split(":")[1]);
+            var S2 = parseInt(lasttime.split(":")[2]);
+            console.log("H2="+H2+"M2="+M2+"S2="+S2)
+            seconds += H2 * 3600  + M2 * 60  + S2 ;
+            console.log("<<<1 前一个的播放开始时间>>>"+lasttime+"---"+seconds)
+        }
+        if(timelenth!=null &&timelenth.length>0){
             var H = parseInt(timelenth.split(":")[0]);
             var M = parseInt(timelenth.split(":")[1]);
             var S = parseInt(timelenth.split(":")[2]);
-            seconds = H * 3600  + M * 60  + S ;
-        }
-        if(intervaltime!=null &&intervaltime!=""){
-            var H = parseInt(intervaltime.split(":")[0]);
-            var M = parseInt(intervaltime.split(":")[1]);
-            var S = parseInt(intervaltime.split(":")[2]);
+            console.log("H="+H+"M="+M+"S="+S)
             seconds += H * 3600  + M * 60  + S ;
-        }
-// 			var timestr = "2017-01-20 "+lasttime;
-// 			timestr=timestr.replace(/-/g,'/');
-// 			var date=new Date(timestr);
-        var date=new Date();
-        date.setHours(lasttime.substring(0,2),lasttime.substring(3,5),lasttime.substring(6,8));
-        date.setSeconds(date.getSeconds()+seconds+prointerval);
-        time = date.format("yyyy-MM-dd hh:mm:ss").substring(11,19);
-// 			time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+
+            console.log(">>>2 前一个的文件时长<<<"+timelenth+"---"+seconds)
+        } //2017-11-11 80:00:00
+        // if(intervaltime!=null &&intervaltime.toString().split(" ")[1]!="08:00:00"){
+        //     var numTime = intervaltime.toString().split(" ")[1];
+        //     console.log("numTime="+numTime)
+        //     var H = parseInt(numTime.split(":")[0]);
+        //     var M = parseInt(numTime.split(":")[1]);
+        //     var S = parseInt(numTime.split(":")[2]);
+        //     seconds += H * 3600  + M * 60  + S ;
+        //     console.log(">>>2 前一个的文件时长<<<"+intervaltime+"---"+seconds)
+        // }
+        var Se = seconds-28800+basenum;
+        restData = addTime(intervaltime,Se);  //后面的是：前一个tr标签的播放开始时间+文件时长-08：00：00（28800s）+间隔时间
+        // TimeNILL.setHours(lasttime.substring(0,2),lasttime.substring(3,5),lasttime.substring(6,8));
+        // TimeNILL.setSeconds(TimeNILL.getSeconds()+seconds+prointerval);
+        console.log(Se+">>>"+restData);
+        // time = TimeNILL.format("yyyy-MM-dd hh:mm:ss").substring(11,19);
+        // console.log(">>>"+TimeNILL.format("yyyy-MM-dd hh:mm:ss"))
     }
-    return time;
+    return restData.toString().split(" ")[1];
+}
+
+//时间相加
+function addTime(d,num) {
+    var d = new Date(d.substring(0,4),
+        d.substring(5,7)-1,
+        d.substring(8,10),
+        d.substring(11,13),
+        d.substring(14,16),
+        d.substring(17,19));
+    d.setTime(d.getTime()+num*1000);
+    //console.log(d.toLocaleString());
+    return d.getFullYear()+"-"
+        +(d.getMonth()+1)
+        +"-"+d.getDate()
+        +" "+d.getHours().toString()
+        +":"+d.getMinutes().toString()
+        +":"+d.getSeconds().toString();
+
 }
 
 Date.prototype.format = function(format) {
