@@ -67,6 +67,10 @@
         from
         <include refid="tableName"></include> g
         LEFT JOIN <include refid="userstable"></include> ui on g.userid=ui.userid
+        <where>
+            <if test="fid != null and fid != '' "> and fid like '%${fid}%'</if>
+            <if test="fname != null  and fname != '' "> and fname like '%${fname}%'</if>
+        </where>
         order by  createdtime desc,fid desc
     </select>
     <!--得到当年最大的文件标号-->
