@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.broad;
 
 import com.ruoyi.broad.domain.Broaduser;
 import com.ruoyi.broad.service.IBroaduserService;
+import com.ruoyi.broad.service.ITextmessagesService;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
@@ -29,12 +30,14 @@ public class TextmessagesController extends BaseController
     private String prefix = "broad/textmessages";
 	
 	@Autowired
+	private ITextmessagesService iTextmessagesService;
 	//private IBroaduserService broaduserService;
 	
 	//@RequiresPermissions("broad:broaduser:view")
 	@GetMapping()
-	public String broaduser()
+	public String broaduser(ModelMap mmap)
 	{
+		mmap.put("typeNum",iTextmessagesService.selectTypeNum());
 	    return prefix + "/textmessages";
 	}
 
