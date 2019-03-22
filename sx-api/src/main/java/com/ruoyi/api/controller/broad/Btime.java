@@ -2,7 +2,7 @@ package com.ruoyi.api.controller.broad;
 
 import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
-import com.ruoyi.broad.service.BroadTimeService;
+import com.ruoyi.broad.service.IBroadTimeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 @Api(value = "根据时间和地区对广播数目的统计")
 public class Btime {
     @Autowired
-    private BroadTimeService broadTimeService;
+    private IBroadTimeService broadTimeService;
 
     @CrossOrigin
     @GetMapping("/bt")
