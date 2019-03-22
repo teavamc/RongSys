@@ -13,6 +13,19 @@ public class typenum {
     /** 数量 */
     private  String num;
 
+    /**
+     电话号码
+     */
+    private String telnumber;
+
+    public String getTelnumber() {
+        return telnumber;
+    }
+
+    public void setTelnumber(String telnumber) {
+        this.telnumber = telnumber;
+    }
+
     public String getTextnum() {
         return textnum;
     }
@@ -29,9 +42,10 @@ public class typenum {
         this.num = num;
     }
 
-    public typenum(String textnum, String num) {
+    public typenum(String textnum, String num, String telnumber) {
         this.textnum = textnum;
         this.num = num;
+        this.telnumber = telnumber;
     }
 
     public typenum() {
@@ -42,6 +56,7 @@ public class typenum {
         return "typenum{" +
                 "textnum='" + textnum + '\'' +
                 ", num='" + num + '\'' +
+                ", telnumber='" + telnumber + '\'' +
                 '}';
     }
 }

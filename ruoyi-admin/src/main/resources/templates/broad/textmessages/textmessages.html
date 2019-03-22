@@ -16,23 +16,17 @@
     <!--首页js-->
     <script th:src="@{/js/views/main.js}"></script>
 </head>
-<body>
+<body class="gray-bg" onload="onload()">
 <div class="button-style">
-<button type="button" class="btn btn-w-m btn-warning" data-toggle="modal" data-target="#pop">系统说明</button>
-<button type="button" class="btn btn-w-m btn-primary" onclick="flush_broad()">刷新广播数据</button>
-<button type="button" class="btn btn-w-m btn-primary" onclick="flush_village()">刷新村务数据</button>
-<button type="button" class="btn btn-w-m btn-primary" onclick="flush_sys_mon()">刷新服务器数据</button>
+<button type="button" class="btn btn-w-m btn-primary" onclick="flush_broad()">刷新数据</button>
 </div>
 <div class="row" >
     <div class="col-sm-2" th:each="obj : ${typeNum}">
         <div class="widget style1 blue-bg">
             <div class="row vertical-align">
-                <div class="col-xs-3">
-                    <i class="fa fa-check fa-3x"></i>
-                </div>
                 <div class="col-xs-9 text-right">
                     <span th:text="${obj.textnum}">***</span>
-                    <h2 id="count_dev" class="font-bold" th:text="${obj.num}">***</h2>
+                    <h3 id="count_dev" class="font-bold" th:text="${obj.telnumber}">***</h3>
                 </div>
             </div>
         </div>

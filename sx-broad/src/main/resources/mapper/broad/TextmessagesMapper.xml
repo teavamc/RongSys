@@ -8,9 +8,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap id="TypeNumMap" type="com.ruoyi.broad.domain.typenum">
         <result column="textnum" property="textnum"/>
         <result column="num" property="num"/>
+        <result column="telnumber" property="telnumber"/>
     </resultMap>
 	
     <select id="selectTypeNum" resultMap="TypeNumMap">
-          select telperson as textnum ,count(*) as num from terminaltels group by telperson
+          select telperson as textnum ,count(*) as num ,tel as telnumber from terminaltels group by telperson
     </select>
 </mapper>
