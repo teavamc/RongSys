@@ -25,8 +25,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                pc.pronote,
                pc.remark
         from pro_chamanage as pc,userinfo as us
-        where
+        <where>
             pc.userid = us.userid
+            <if test="cid != null and cid != ''"> and pc.cid like '%${cid}%'</if>
+            <if test="cname != null and cname != ''"> and pc.cname like '%${cname}%'</if>
+            <if test="frequencies != null  and frequencies != ''"> and pc.frequencies like '%${frequencies}%'</if>
+            <if test="userid != null  and userid != ''"> and pc.userid like '%${userid}%'</if>
+            <if test="pronote != null and pronote != ''"> and pc.pronote like '%${pronote}%'</if>
+            <if test="remark != null  and remark != ''"> and pc.remark like '%${remark}%'</if>
+        </where>
          order by cid desc
     </select>
     
