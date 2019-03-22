@@ -920,6 +920,7 @@ function init_bt_mbygroup() {
             /*console.log(x_data);*/
             /*console.log(y_data);*/
             option = {
+                color: ['#06edfc'],
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -930,6 +931,13 @@ function init_bt_mbygroup() {
                     }
                 },
                 calculable : true,
+                grid: {
+                    left: '3%',
+                    right: '3%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
                 xAxis : [
                     {
                         type : 'category',
@@ -983,6 +991,7 @@ function init_bd_mbygroup() {
             /*console.log(x_data);*/
             /*console.log(y_data);*/
             option = {
+                color: ['#00fc1a'],
                 tooltip : {
                     trigger: 'axis'
                 },
@@ -993,6 +1002,13 @@ function init_bd_mbygroup() {
                     }
                 },
                 calculable : true,
+                grid: {
+                    left: '3%',
+                    right: '3%',
+                    top: '5%',
+                    bottom: '0%',
+                    containLabel: true
+                },
                 xAxis : [
                     {
                         type : 'category',
@@ -1048,8 +1064,8 @@ function init_bds_mbygroup() {
                 }
             }
             /*console.log(bdsygroup_data);*/
-            console.log(x_data);
-            console.log(y_data);
+            /*console.log(x_data);
+            console.log(y_data);*/
             option = {
                 tooltip : {
                     trigger: 'item',
