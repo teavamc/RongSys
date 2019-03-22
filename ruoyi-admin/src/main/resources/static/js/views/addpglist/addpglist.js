@@ -54,24 +54,49 @@ function deletePro(obj){
  * @param obj
  */
 function editTime(obj){
-    top.jzts();
-    var diag = new top.Dialog();
-    diag.Drag=true;
-    diag.Title ="设置开始时间";
-    diag.URL = "<%=basePath%>probroad/setTime.do?time="+$(obj).parent().parent().prev().prev().text();
-    diag.Width = 400;
-    diag.Height = 250;
-    diag.CancelEvent = function(){
-        if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-            var time = diag.innerFrame.contentWindow.document.getElementById('begintime').value;
-            if(time.length==5){
-                time=time+":00";
-            }
-            $(obj).parent().parent().prev().prev().text(time);
+    var time = $(obj).parent().parent().prev().prev().text();
+    console.log("TIME="+time)
+    var _url = "/broad/proSinmanage/getTime?time="+time;
+    var _title = '修改时间';
+    var _width = "600";
+    var _height = ($(window).height() - 250);
+    layer.open({
+        type: 2,
+        maxmin: true,
+        shade: 0.3,
+        title: _title,
+        fix: false,
+        area: [_width + 'px', _height + 'px'],
+        content: _url,
+        shadeClose: true,
+        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        yes: function (index, layero) {
+            layer.close(index);
+            //获取子页面关闭前的回调函数获取到的值
+            var res = $(layero).find("iframe")[0].contentWindow.callback();
+            $(obj).parent().parent().prev().prev().text(res);
+        }, cancel: function () {
+            return true;
         }
-        diag.close();
-    };
-    diag.show();
+    });
+    // top.jzts();
+    // var diag = new top.Dialog();
+    // diag.Drag=true;
+    // diag.Title ="设置开始时间";
+    // diag.URL = "<%=basePath%>probroad/setTime.do?time="+$(obj).parent().parent().prev().prev().text();
+    // diag.Width = 400;
+    // diag.Height = 250;
+    // diag.CancelEvent = function(){
+    //     if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+    //         var time = diag.innerFrame.contentWindow.document.getElementById('begintime').value;
+    //         if(time.length==5){
+    //             time=time+":00";
+    //         }
+    //         $(obj).parent().parent().prev().prev().text(time);
+    //     }
+    //     diag.close();
+    // };
+    // diag.show();
 
 }
 

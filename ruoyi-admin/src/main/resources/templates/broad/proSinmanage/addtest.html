@@ -391,11 +391,25 @@ function saves(){
 <script th:src="@{/js/jquery.tips.js}"></script>
 <script th:src="@{/js/views/addpglist/addpglist.js}"></script>
 <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
 <!--时间插件-->
 <script>
     laydate({
         elem:"#broaddate",
         event:"focus"
+    });
+    laydate({
+        elem:"#broaddate",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#broad",
+            type: 'time',
+        });
     });
 </script>
 <div th:include="include :: footer"></div>
