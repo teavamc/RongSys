@@ -2,23 +2,43 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
-<body class="gray-bg">
+<body class="gray-bg" onload="onload()">
 
 <div class="container-div">
 <!--TODO 后续改为Ajax局部刷新，参考暮云圈-->
-    <div class="row" >
-        <div class="col-sm-2" th:each="obj : ${typeNum}">
-            <div class="widget style1 blue-bg">
-                <div class="row vertical-align">
-                    <div class="col-xs-9 text-right">
-                        <span th:text="${obj.textnum}">***</span>
-                        <h3 id="count_dev" class="font-bold" th:text="${obj.telnumber}">***</h3>
+    <div class="wrapper wrapper-content">
+        <div class="row" >
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>业务频率图</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="echarts" id="tel_freq" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-2" th:each="obj : ${typeNum}">
+                <div class="widget style1 blue-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-9 text-right">
+                            <span th:text="${obj.textnum}">***</span>
+                            <h3 id="count_dev" class="font-bold" th:text="${obj.telnumber}">***</h3>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 </div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!--页面js-->
+<script th:src="@{/js/views/textmessages.js}"></script>
+<!--echarts 可视化图形 插件-->
+<script th:src="@{/js/plugins/echarts/echarts.min.js}"></script>
+<script th:src="@{/js/plugins/echarts/echarts-gl.min.js}"></script>
 </body>
 </html>
