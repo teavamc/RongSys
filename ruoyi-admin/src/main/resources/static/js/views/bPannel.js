@@ -11,6 +11,8 @@ function bonLoad() {
     init_bd_terminlgroup();
     /*统计在线终端数，下线终端数，及百分比*/
     init_bd_terminalstate();
+    init_bl_terminalstate();
+    init_bip_terminalstate();
 }
 
 function init_bt_mbygroup() {
@@ -231,8 +233,8 @@ function init_ptp_mbygroup() {
                 }
                 sum /= 5;
             }
-            console.log(sum);
-            ptp_option =  {
+            /*console.log(sum);*/
+            ptp_option = {
                 color: ['#6761c1'],
                 grid: {
                     left: '3%',
@@ -241,31 +243,32 @@ function init_ptp_mbygroup() {
                     bottom: '0%',
                     containLabel: true
                 },
-                tooltip : {
+                tooltip: {
                     trigger: 'axis'
                 },
                 toolbox: {
-                    show : true
+                    show: true
                 },
-                polar : [
+                polar: [
                     {
-                        indicator : [
-                            { text: x_data[0], max: sum+y_data[0]},
-                            { text: x_data[1], max: sum+y_data[1]},
-                            { text: x_data[2], max: sum+y_data[2]},
-                            { text: x_data[3], max: sum+y_data[3]},
-                            { text: x_data[4], max: sum+y_data[4]}
+                        indicator: [
+                            {text: x_data[0], max: sum + y_data[0]},
+                            {text: x_data[1], max: sum + y_data[1]},
+                            {text: x_data[2], max: sum + y_data[2]},
+                            {text: x_data[3], max: sum + y_data[3]},
+                            {text: x_data[4], max: sum + y_data[4]}
                         ]
                     }
                 ],
-                calculable : true,
-                series : [
+                calculable: true,
+                series: [
                     {
+                        name: '操作类型',
                         type: 'radar',
-                        data : [
+                        data: [
                             {
                                 name: '操作记录',
-                                value : y_data
+                                value: y_data
                             }
                         ]
                     }
@@ -286,31 +289,23 @@ function init_bd_terminlgroup() {
             var bd_data = data.data;
             var x_data = new Array;
             var y_data = new Array;
-            for(i in bd_data){
-                if(bd_data[i] == null){
+            for (i in bd_data) {
+                if (bd_data[i] == null) {
                     x_data.push('未知');
-                }else {
+                } else {
                     x_data.push(bd_data[i].tmid);
                     y_data.push(bd_data[i].time);
                 }
             }
             option = {
-
                 grid: {
-                    left: '5%',
-                    right: '5%',
+                    top: '5%',
+                    left: '0%',
+                    right: '3%',
                     bottom: 80
                 },
-                toolbox: {
-                    feature: {
-                        dataZoom: {
-                            yAxisIndex: 'none'
-                        },
-                        restore: {},
-                        saveAsImage: {}
-                    }
-                },
-                tooltip : {
+                toolbox: {},
+                tooltip: {
                     trigger: 'axis',
                     axisPointer: {
                         type: 'cross',
@@ -320,8 +315,9 @@ function init_bd_terminlgroup() {
                         }
                     }
                 },
+                color: ['#1265fc'],
                 legend: {
-                    data:['流量','降雨量'],
+                    data: ['流量', '降雨量'],
                     x: 'left'
                 },
                 dataZoom: [
@@ -338,12 +334,12 @@ function init_bd_terminlgroup() {
                         end: 85
                     }
                 ],
-                xAxis : [
+                xAxis: [
                     {
-                        type : 'category',
-                        boundaryGap : false,
+                        type: 'category',
+                        boundaryGap: false,
                         axisLine: {onZero: false},
-                        data : y_data.map(function (str) {
+                        data: y_data.map(function (str) {
                             return str.replace(' ', '\n')
                         })
                     }
@@ -358,17 +354,16 @@ function init_bd_terminlgroup() {
                         name: '',
                         nameLocation: 'start',
                         max: 80,
-                        type: 'value',
+                        type: 'value'
                     }
                 ],
                 series: [
                     {
-                        name:'终端维护量',
-                        type:'line',
-                        yAxisIndex:1,
+                        name: '终端维护量',
+                        type: 'line',
+                        yAxisIndex: 1,
                         animation: false,
-                        areaStyle: {
-                        },
+                        areaStyle: {},
                         lineStyle: {
                             width: 1
                         },
@@ -402,25 +397,25 @@ function init_bd_terminalstate() {
             var bd_run = data.data.run;
             var bd_stop = data.data.stop;
             option = {
-                tooltip : {
+                tooltip: {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
                 legend: {
                     orient: 'vertical',
                     left: 'left',
-                    data: ['终端总数','在线终端数','离线终端数']
+                    data: ['终端总数', '在线终端数', '离线终端数']
                 },
-                series : [
+                series: [
                     {
                         name: '访问来源',
                         type: 'pie',
-                        radius : '55%',
+                        radius: '55%',
                         center: ['50%', '60%'],
-                        data:[
-                            {value:bd_device, name:'终端总数'},
-                            {value:bd_run, name:'在线终端数'},
-                            {value:bd_stop, name:'离线终端数'},
+                        data: [
+                            {value: bd_device, name: '终端总数'},
+                            {value: bd_run, name: '在线终端数'},
+                            {value: bd_stop, name: '离线终端数'}
                         ],
                         itemStyle: {
                             emphasis: {
@@ -438,4 +433,126 @@ function init_bd_terminalstate() {
 
     });
 
+}
+
+function init_bl_terminalstate() {
+    var bl_mygroup = echarts.init(document.getElementById('bl_mygroup'));
+    $.ajax({
+        type: "GET",
+        url: "/api/bp/bl",
+        datatype: "JSON",
+        success: function (data) {
+            var bd_data = data.data;
+            var x_data = new Array;
+            var y_data = new Array;
+            for (i in bd_data) {
+                if (bd_data[i] == null) {
+                    x_data.push('未知');
+                } else {
+                    x_data.push(bd_data[i].count);
+                    y_data.push(bd_data[i].lenth);
+                }
+            }
+            init_bl_option = {
+                tooltip: {
+                    formatter: "{a}: <br/>{b} min : {c}"
+                },
+                color: ['#c161ae'],
+                angleAxis: {},
+                radiusAxis: {
+                    type: 'category',
+                    data: y_data
+                },
+                polar: {},
+                series: [{
+                    name: '数目',
+                    type: 'bar',
+                    data: x_data,
+                    coordinateSystem: 'polar'
+                }]
+            };
+
+            bl_mygroup.setOption(init_bl_option);
+        }
+    });
+}
+
+function init_bip_terminalstate() {
+    var bip_mygroup = echarts.init(document.getElementById('bip_mygroup'));
+    $.ajax({
+        type: "GET",
+        url: "/api/bp/bip",
+        datatype: "JSON",
+        success: function (data) {
+            var bd_data = data.data;
+            var x_data = new Array;
+            var y_data = new Array;
+            for (i in bd_data) {
+                if (bd_data[i] == null) {
+                    x_data.push('未知');
+                } else {
+                    x_data.push(bd_data[i].count);
+                    y_data.push(bd_data[i].isPublic);
+                }
+            }
+            init_bip_option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    },
+                    formatter: function (params) {
+                        var tar = params[1];
+                        return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'category',
+                    splitLine: {show: false},
+                    data: y_data
+                },
+                yAxis: {
+                    type: 'value'
+                },
+                series: [
+                    {
+                        name: '辅助',
+                        type: 'bar',
+                        stack: '总量',
+                        itemStyle: {
+                            normal: {
+                                barBorderColor: 'rgba(0,0,0,0)',
+                                color: 'rgba(0,0,0,0)'
+                            },
+                            emphasis: {
+                                barBorderColor: 'rgba(0,0,0,0)',
+                                color: 'rgba(0,0,0,0)'
+                            }
+                        },
+                        data: [0, x_data[2], 0]
+                    },
+                    {
+                        name: '是否公共',
+                        type: 'bar',
+                        stack: '总量',
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'inside'
+                            }
+                        },
+                        data: x_data
+                    }
+                ]
+            };
+
+            bip_mygroup.setOption(init_bip_option);
+        }
+    });
 }
