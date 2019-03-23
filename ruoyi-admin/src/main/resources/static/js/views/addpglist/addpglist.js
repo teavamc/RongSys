@@ -54,24 +54,49 @@ function deletePro(obj){
  * @param obj
  */
 function editTime(obj){
-    top.jzts();
-    var diag = new top.Dialog();
-    diag.Drag=true;
-    diag.Title ="设置开始时间";
-    diag.URL = "<%=basePath%>probroad/setTime.do?time="+$(obj).parent().parent().prev().prev().text();
-    diag.Width = 400;
-    diag.Height = 250;
-    diag.CancelEvent = function(){
-        if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-            var time = diag.innerFrame.contentWindow.document.getElementById('begintime').value;
-            if(time.length==5){
-                time=time+":00";
-            }
-            $(obj).parent().parent().prev().prev().text(time);
+    var time = $(obj).parent().parent().prev().prev().text();
+    console.log("TIME="+time)
+    var _url = "/broad/proSinmanage/getTime?time="+time;
+    var _title = '修改时间';
+    var _width = "600";
+    var _height = ($(window).height() - 250);
+    layer.open({
+        type: 2,
+        maxmin: true,
+        shade: 0.3,
+        title: _title,
+        fix: false,
+        area: [_width + 'px', _height + 'px'],
+        content: _url,
+        shadeClose: true,
+        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        yes: function (index, layero) {
+            layer.close(index);
+            //获取子页面关闭前的回调函数获取到的值
+            var res = $(layero).find("iframe")[0].contentWindow.callback();
+            $(obj).parent().parent().prev().prev().text(res);
+        }, cancel: function () {
+            return true;
         }
-        diag.close();
-    };
-    diag.show();
+    });
+    // top.jzts();
+    // var diag = new top.Dialog();
+    // diag.Drag=true;
+    // diag.Title ="设置开始时间";
+    // diag.URL = "<%=basePath%>probroad/setTime.do?time="+$(obj).parent().parent().prev().prev().text();
+    // diag.Width = 400;
+    // diag.Height = 250;
+    // diag.CancelEvent = function(){
+    //     if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+    //         var time = diag.innerFrame.contentWindow.document.getElementById('begintime').value;
+    //         if(time.length==5){
+    //             time=time+":00";
+    //         }
+    //         $(obj).parent().parent().prev().prev().text(time);
+    //     }
+    //     diag.close();
+    // };
+    // diag.show();
 
 }
 
@@ -333,7 +358,7 @@ function getTime(intervaltime){
     var basenum = 5;  //5秒钟延迟播放
     var TimeNILL = data_string(intervaltime)
     var restData = intervaltime;
-    console.log("???"+TimeNILL); //字符串转时间
+    //console.log("???"+TimeNILL); //字符串转时间
     var trs = $("#tbody").find("tr");
     if(trs.length>1){
         var lasttime = trs[trs.length-1].cells[4].innerText;
@@ -342,43 +367,47 @@ function getTime(intervaltime){
         if(timelenth.length==0){
             timelenth = "00:00:00";
         }
-        console.log(lasttime+"---"+timelenth)
+        //console.log(lasttime+"---"+timelenth)
         var seconds =0;
         if(lasttime!=null&&lasttime!=""){
             var H2 = parseInt(lasttime.split(":")[0]);
             var M2 = parseInt(lasttime.split(":")[1]);
             var S2 = parseInt(lasttime.split(":")[2]);
-            console.log("H2="+H2+"M2="+M2+"S2="+S2)
+            //console.log("H2="+H2+"M2="+M2+"S2="+S2)
             seconds += H2 * 3600  + M2 * 60  + S2 ;
-            console.log("<<<1 前一个的播放开始时间>>>"+lasttime+"---"+seconds)
+            //console.log("<<<1 前一个的播放开始时间>>>"+lasttime+"---"+seconds)
         }
         if(timelenth!=null &&timelenth.length>0){
             var H = parseInt(timelenth.split(":")[0]);
             var M = parseInt(timelenth.split(":")[1]);
             var S = parseInt(timelenth.split(":")[2]);
-            console.log("H="+H+"M="+M+"S="+S)
+            //console.log("H="+H+"M="+M+"S="+S)
             seconds += H * 3600  + M * 60  + S ;
-
-            console.log(">>>2 前一个的文件时长<<<"+timelenth+"---"+seconds)
+            //console.log(">>>2 前一个的文件时长<<<"+timelenth+"---"+seconds)
         } //2017-11-11 80:00:00
-        // if(intervaltime!=null &&intervaltime.toString().split(" ")[1]!="08:00:00"){
-        //     var numTime = intervaltime.toString().split(" ")[1];
-        //     console.log("numTime="+numTime)
-        //     var H = parseInt(numTime.split(":")[0]);
-        //     var M = parseInt(numTime.split(":")[1]);
-        //     var S = parseInt(numTime.split(":")[2]);
-        //     seconds += H * 3600  + M * 60  + S ;
-        //     console.log(">>>2 前一个的文件时长<<<"+intervaltime+"---"+seconds)
-        // }
         var Se = seconds-28800+basenum;
         restData = addTime(intervaltime,Se);  //后面的是：前一个tr标签的播放开始时间+文件时长-08：00：00（28800s）+间隔时间
-        // TimeNILL.setHours(lasttime.substring(0,2),lasttime.substring(3,5),lasttime.substring(6,8));
-        // TimeNILL.setSeconds(TimeNILL.getSeconds()+seconds+prointerval);
-        console.log(Se+">>>"+restData);
-        // time = TimeNILL.format("yyyy-MM-dd hh:mm:ss").substring(11,19);
-        // console.log(">>>"+TimeNILL.format("yyyy-MM-dd hh:mm:ss"))
+       // console.log(Se+">>>"+restData);
+
     }
-    return restData.toString().split(" ")[1];
+    var nule = restData.toString().split(" ")[1];
+    if(nule!=null &&nule.length>0){
+        var H,M,S;
+        H = parseInt(nule.split(":")[0]);
+        M = parseInt(nule.split(":")[1]);
+        S = parseInt(nule.split(":")[2]);
+        if(H<9){
+            H = '0'+H;
+        }
+        if(M<9){
+            M = '0'+M;
+        }
+        if(S<9){
+            S = '0'+S;
+        }
+        nule = H+":"+M+":"+S;
+    }
+    return nule;
 }
 
 //时间相加
