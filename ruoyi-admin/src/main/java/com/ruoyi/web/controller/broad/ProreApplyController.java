@@ -96,7 +96,7 @@ public class ProreApplyController extends BaseController
 	 * 新增保存节目申请
 	 */
 	@RequiresPermissions("broad:proreApply:add")
-	@Log(title = "节目申请", businessType = BusinessType.INSERT)
+	@Log(title = "新增节目申请", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(ProreApply proreApply)
@@ -119,7 +119,7 @@ public class ProreApplyController extends BaseController
 	 * 修改保存节目申请
 	 */
 	@RequiresPermissions("broad:proreApply:edit")
-	@Log(title = "节目申请", businessType = BusinessType.UPDATE)
+	@Log(title = "修改节目申请", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(ProreApply proreApply)
@@ -131,7 +131,7 @@ public class ProreApplyController extends BaseController
 	 * 删除节目申请
 	 */
 	@RequiresPermissions("broad:proreApply:remove")
-	@Log(title = "节目申请", businessType = BusinessType.DELETE)
+	@Log(title = "删除节目申请", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
