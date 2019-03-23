@@ -66,7 +66,8 @@ spring:
     restart:
       # 热部署开关
       enabled: true
-
+      #需要实时更新的目录
+      additional-paths: resources/**,static/**,templates/**
 # MyBatis
 mybatis:
   # 搜索指定包别名

@@ -84,7 +84,7 @@ public class SendmessagesController extends BaseController
 	 * 新增保存短信发送记录
 	 */
 	@RequiresPermissions("system:sendmessages:add")
-	@Log(title = "短信发送记录", businessType = BusinessType.INSERT)
+	@Log(title = "新增短信发送记录", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Sendmessages sendmessages)
@@ -107,7 +107,7 @@ public class SendmessagesController extends BaseController
 	 * 修改保存短信发送记录
 	 */
 	@RequiresPermissions("system:sendmessages:edit")
-	@Log(title = "短信发送记录", businessType = BusinessType.UPDATE)
+	@Log(title = "修改短信发送记录", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Sendmessages sendmessages)
@@ -119,7 +119,7 @@ public class SendmessagesController extends BaseController
 	 * 删除短信发送记录
 	 */
 	@RequiresPermissions("system:sendmessages:remove")
-	@Log(title = "短信发送记录", businessType = BusinessType.DELETE)
+	@Log(title = "删除短信发送记录", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
