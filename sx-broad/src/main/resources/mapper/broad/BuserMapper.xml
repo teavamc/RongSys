@@ -32,23 +32,47 @@
     <select id="selectProgramsByLenth" resultMap="BuserResult">
         select
           count(flenth) as count,
-          '小于四分钟' as lenth
+          '0~1' as lenth
         from
           programs
         where
-          flenth between '00:00:01' and '00:03:00'
+          flenth between '00:00:01' and '00:01:00'
         union
         select
           count(flenth) as count,
-          '四到五分钟' as lenth
+          '1~2' as lenth
+        from
+          programs
+        where
+          flenth between '00:01:01' and '00:02:00'
+        union
+        select
+          count(flenth) as count,
+          '2~3' as lenth
+        from
+          programs
+        where
+          flenth between '00:02:01' and '00:03:00'
+        union
+        select
+          count(flenth) as count,
+          '3~4' as lenth
+        from
+          programs
+        where
+          flenth between '00:03:01' and '00:04:00'
+        union
+        select
+          count(flenth) as count,
+          '4~5' as lenth
         from
           programs
         where
           flenth between '00:03:00' and '00:04:00'
         union
         select
-        count(flenth) as count,
-          '大于五分钟' as lenth
+          count(flenth) as count,
+          '>5' as lenth
         from
           programs
         where
@@ -75,6 +99,7 @@
         from
           programs
         where ispublic = 0
+        group by ispublic DESC
     </select>
 
     <select id="selectProgramsPtp" resultMap="BuserResult">
