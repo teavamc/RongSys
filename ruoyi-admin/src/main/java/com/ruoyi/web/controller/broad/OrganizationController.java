@@ -196,8 +196,8 @@ public class OrganizationController extends BaseController
 /*    @Log(title = "终端地域", businessType = BusinessType.DELETE)*/
     @PostMapping( "/rdsSet")
     @ResponseBody
-    public AjaxResult rdsSetUrl(String ids)
+    public AjaxResult rdsSetUrl(String ids, String number)
     {
-        return toAjax(organizationService.updateRdsByIds(ids));
+        return toAjax(organizationService.updateRdsByIds(ids,number));
     }
 }

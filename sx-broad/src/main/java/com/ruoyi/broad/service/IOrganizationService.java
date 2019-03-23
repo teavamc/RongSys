@@ -104,5 +104,5 @@ public interface IOrganizationService
 	 *
 	 * @return
 	 */
-	public int updateRdsByIds(String ids);
+	public int updateRdsByIds(String ids , String number);
 }

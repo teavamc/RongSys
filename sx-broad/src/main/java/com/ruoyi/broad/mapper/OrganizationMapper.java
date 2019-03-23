@@ -90,5 +90,5 @@ public interface OrganizationMapper
 	 * @param ids 需要修改终端的RDS码
 	 * @return 结果
 	 */
-	public int updateRdsByIds(String[] ids);
+	public int updateRdsByIds(String[] ids,String number);
 }

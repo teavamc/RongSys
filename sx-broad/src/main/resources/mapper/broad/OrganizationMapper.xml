@@ -197,8 +197,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
     </select>
     <update id="updateRdsByIds" >
-        update  tb_organization set rds = "123" where tid in
-        <foreach item="tid" collection="array" open="(" separator="," close=")">
+        update  tb_organization set rds = #{arg0} where tid in
+        <foreach item="tid" collection="#{arg1}" open="(" separator="," close=")">
             #{tid}
         </foreach>
     </update>

@@ -139,9 +139,9 @@ public class OrganizationServiceImpl implements IOrganizationService
  */
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
-		public int updateRdsByIds(String id )
+		public int updateRdsByIds(String id , String number)
 		{
-			return organizationMapper.updateRdsByIds(Convert.toStrArray(id));
+			return organizationMapper.updateRdsByIds(Convert.toStrArray(id),number);
 		}
 
 		/**
