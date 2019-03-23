@@ -17,7 +17,7 @@ public interface OrganizationMapper
 	 * @param aid 终端地域ID
 	 * @return 终端地域信息
 	 */
-//	public Organization selectOrganizationById(String aid);
+	/*public Organization selectOrganizationById(String aid);*/
 	public Organization selectAllOrganization();
 	/**
 	 * 查询终端地域信息
@@ -83,4 +83,12 @@ public interface OrganizationMapper
 	 * @throws Exception 异常
 	 */
 	public int addProIdAll(Long[] ids);
+
+	/**
+	 *  设置终端的RDS码
+	 *
+	 * @param ids 需要修改终端的RDS码
+	 * @return 结果
+	 */
+	public int updateRdsByIds(String[] ids,String number);
 }

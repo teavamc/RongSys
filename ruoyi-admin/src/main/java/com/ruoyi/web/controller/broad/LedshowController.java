@@ -81,7 +81,7 @@ public class LedshowController extends BaseController
 	 * 新增保存led显示
 	 */
 	@RequiresPermissions("broad:ledshow:add")
-	@Log(title = "led显示", businessType = BusinessType.INSERT)
+	@Log(title = "新增led显示公告", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Ledshow ledshow)
@@ -104,7 +104,7 @@ public class LedshowController extends BaseController
 	 * 修改保存led显示
 	 */
 	@RequiresPermissions("broad:ledshow:edit")
-	@Log(title = "led显示", businessType = BusinessType.UPDATE)
+	@Log(title = "修改led显示", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Ledshow ledshow)
@@ -116,7 +116,7 @@ public class LedshowController extends BaseController
 	 * 删除led显示
 	 */
 	@RequiresPermissions("broad:ledshow:remove")
-	@Log(title = "led显示", businessType = BusinessType.DELETE)
+	@Log(title = "删除led显示", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)

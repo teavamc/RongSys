@@ -81,7 +81,7 @@ public class ProListController extends BaseController
 	 * 新增保存节目单记录
 	 */
 	@RequiresPermissions("broad:proList:add")
-	@Log(title = "节目单记录", businessType = BusinessType.INSERT)
+	@Log(title = "新增节目单记录", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(ProList proList)
@@ -104,7 +104,7 @@ public class ProListController extends BaseController
 	 * 修改保存节目单记录
 	 */
 	@RequiresPermissions("broad:proList:edit")
-	@Log(title = "节目单记录", businessType = BusinessType.UPDATE)
+	@Log(title = "修改节目单记录", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(ProList proList)
@@ -116,7 +116,7 @@ public class ProListController extends BaseController
 	 * 删除节目单记录
 	 */
 	@RequiresPermissions("broad:proList:remove")
-	@Log(title = "节目单记录", businessType = BusinessType.DELETE)
+	@Log(title = "删除节目单记录", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
