@@ -57,7 +57,7 @@ public class Bpuser {
 
     @CrossOrigin
     @GetMapping("/ptp")
-    @ApiOperation(value = "广播查询记录")
+    @ApiOperation(value = "广播操作类型查询")
     public RongApiRes selectProgramsPtp() {
         List pre = buserService.selectProgramsPtp();
         RongApiRes test = RongApiService.get_list(pre);
