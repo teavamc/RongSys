@@ -227,8 +227,8 @@ function init_ptp_mbygroup() {
                 }
                 sum /= 5;
             }
-            console.log(sum);
-            ptp_option =  {
+            /*console.log(sum);*/
+            ptp_option = {
                 color: ['#6761c1'],
                 grid: {
                     left: '3%',
@@ -237,31 +237,31 @@ function init_ptp_mbygroup() {
                     bottom: '0%',
                     containLabel: true
                 },
-                tooltip : {
+                tooltip: {
                     trigger: 'axis'
                 },
                 toolbox: {
-                    show : true
+                    show: true
                 },
-                polar : [
+                polar: [
                     {
-                        indicator : [
-                            { text: x_data[0], max: sum+y_data[0]},
-                            { text: x_data[1], max: sum+y_data[1]},
-                            { text: x_data[2], max: sum+y_data[2]},
-                            { text: x_data[3], max: sum+y_data[3]},
-                            { text: x_data[4], max: sum+y_data[4]}
+                        indicator: [
+                            {text: x_data[0], max: sum + y_data[0]},
+                            {text: x_data[1], max: sum + y_data[1]},
+                            {text: x_data[2], max: sum + y_data[2]},
+                            {text: x_data[3], max: sum + y_data[3]},
+                            {text: x_data[4], max: sum + y_data[4]}
                         ]
                     }
                 ],
-                calculable : true,
-                series : [
+                calculable: true,
+                series: [
                     {
                         type: 'radar',
-                        data : [
+                        data: [
                             {
                                 name: '操作记录',
-                                value : y_data
+                                value: y_data
                             }
                         ]
                     }
