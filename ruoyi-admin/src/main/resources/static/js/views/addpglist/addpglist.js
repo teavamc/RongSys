@@ -1,5 +1,6 @@
 var zTree;
 var prointerval = 5;
+var baseTime = "08:00:00";
 if("${prointerval}"!=""){//节目单时间间隔
     prointerval=parseInt("${prointerval}");
 }
@@ -10,7 +11,15 @@ if("${prointerval}"!=""){//节目单时间间隔
  */
 function setPro(obj){
     var type="";
-    var time = getTime();
+    if($("#broaddate").val() == ""){
+        layer.tips('请选择播出日期','#broaddate', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    var data = $("#broaddate").val();
+    var time = getTime(data+" "+baseTime);
     //选择填充进tbody
     if(obj=="app-on"){
         type="开启功放";
@@ -45,24 +54,49 @@ function deletePro(obj){
  * @param obj
  */
 function editTime(obj){
-    top.jzts();
-    var diag = new top.Dialog();
-    diag.Drag=true;
-    diag.Title ="设置开始时间";
-    diag.URL = "<%=basePath%>probroad/setTime.do?time="+$(obj).parent().parent().prev().prev().text();
-    diag.Width = 400;
-    diag.Height = 250;
-    diag.CancelEvent = function(){
-        if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-            var time = diag.innerFrame.contentWindow.document.getElementById('begintime').value;
-            if(time.length==5){
-                time=time+":00";
-            }
-            $(obj).parent().parent().prev().prev().text(time);
+    var time = $(obj).parent().parent().prev().prev().text();
+    console.log("TIME="+time)
+    var _url = "/broad/proSinmanage/getTime?time="+time;
+    var _title = '修改时间';
+    var _width = "600";
+    var _height = ($(window).height() - 250);
+    layer.open({
+        type: 2,
+        maxmin: true,
+        shade: 0.3,
+        title: _title,
+        fix: false,
+        area: [_width + 'px', _height + 'px'],
+        content: _url,
+        shadeClose: true,
+        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        yes: function (index, layero) {
+            layer.close(index);
+            //获取子页面关闭前的回调函数获取到的值
+            var res = $(layero).find("iframe")[0].contentWindow.callback();
+            $(obj).parent().parent().prev().prev().text(res);
+        }, cancel: function () {
+            return true;
         }
-        diag.close();
-    };
-    diag.show();
+    });
+    // top.jzts();
+    // var diag = new top.Dialog();
+    // diag.Drag=true;
+    // diag.Title ="设置开始时间";
+    // diag.URL = "<%=basePath%>probroad/setTime.do?time="+$(obj).parent().parent().prev().prev().text();
+    // diag.Width = 400;
+    // diag.Height = 250;
+    // diag.CancelEvent = function(){
+    //     if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+    //         var time = diag.innerFrame.contentWindow.document.getElementById('begintime').value;
+    //         if(time.length==5){
+    //             time=time+":00";
+    //         }
+    //         $(obj).parent().parent().prev().prev().text(time);
+    //     }
+    //     diag.close();
+    // };
+    // diag.show();
 
 }
 
@@ -273,40 +307,126 @@ function save(){
     });
 }
 
+//js日期格式化函数yyyy-MM-dd
+function data_string(datetimeStr) {
+    var mydateint = Date.parse(datetimeStr);//数值格式的时间
+    if (!isNaN(mydateint)) {
+        var mydate = new Date(mydateint);
+        return mydate;
+    }
+    var mydate = new Date(datetimeStr);//字符串格式时间
+    var monthstr = mydate.getMonth() + 1;
+    if (!isNaN(monthstr)) {//转化成功
+        return mydate;
+    }//字符串格式时间转化失败
+    var dateParts = datetimeStr.split(" ");
+    var dateToday = new Date();
+    var year = dateToday.getFullYear();
+    var month = dateToday.getMonth();
+    var day = dateToday.getDate();
+    if (dateParts.length >= 1) {
+        var dataPart = dateParts[0].split("-");//yyyy-mm-dd  格式时间
+        if (dataPart.length == 1) {
+            dataPart = dateParts[0].split("/");//yyyy/mm/dd格式时间
+        }
+        if (dataPart.length == 3) {
+            year = Math.floor(dataPart[0]);
+            month = Math.floor(dataPart[1]) - 1;
+            day = Math.floor(dataPart[2]);
+        }
+    }
+    if (dateParts.length == 2) {//hh:mm:ss格式时间
+        var timePart = dateParts[1].split(":");//hh:mm:ss格式时间
+        if (timePart.length == 3) {
+            var hour = Math.floor(timePart[0]);
+            var minute = Math.floor(timePart[1]);
+            var second = Math.floor(timePart[2]);
+            return new Date(year, month, day, hour, minute, second);
+        }
+    }
+    else {
+        return new Date(year, month, day);
+    }
+
+}
 /**
  * 获得时间
  * @param intervaltime
  * @returns {string}
  */
 function getTime(intervaltime){
-    var time="08:00:00";
+    var basenum = 5;  //5秒钟延迟播放
+    var TimeNILL = data_string(intervaltime)
+    var restData = intervaltime;
+    //console.log("???"+TimeNILL); //字符串转时间
     var trs = $("#tbody").find("tr");
-    if(trs.length>0){
+    if(trs.length>1){
         var lasttime = trs[trs.length-1].cells[4].innerText;
+
         var timelenth = trs[trs.length-1].cells[5].innerText;
+        if(timelenth.length==0){
+            timelenth = "00:00:00";
+        }
+        //console.log(lasttime+"---"+timelenth)
         var seconds =0;
-        if(timelenth!=null &&timelenth!=""){
+        if(lasttime!=null&&lasttime!=""){
+            var H2 = parseInt(lasttime.split(":")[0]);
+            var M2 = parseInt(lasttime.split(":")[1]);
+            var S2 = parseInt(lasttime.split(":")[2]);
+            //console.log("H2="+H2+"M2="+M2+"S2="+S2)
+            seconds += H2 * 3600  + M2 * 60  + S2 ;
+            //console.log("<<<1 前一个的播放开始时间>>>"+lasttime+"---"+seconds)
+        }
+        if(timelenth!=null &&timelenth.length>0){
             var H = parseInt(timelenth.split(":")[0]);
             var M = parseInt(timelenth.split(":")[1]);
             var S = parseInt(timelenth.split(":")[2]);
-            seconds = H * 3600  + M * 60  + S ;
-        }
-        if(intervaltime!=null &&intervaltime!=""){
-            var H = parseInt(intervaltime.split(":")[0]);
-            var M = parseInt(intervaltime.split(":")[1]);
-            var S = parseInt(intervaltime.split(":")[2]);
+            //console.log("H="+H+"M="+M+"S="+S)
             seconds += H * 3600  + M * 60  + S ;
-        }
-// 			var timestr = "2017-01-20 "+lasttime;
-// 			timestr=timestr.replace(/-/g,'/');
-// 			var date=new Date(timestr);
-        var date=new Date();
-        date.setHours(lasttime.substring(0,2),lasttime.substring(3,5),lasttime.substring(6,8));
-        date.setSeconds(date.getSeconds()+seconds+prointerval);
-        time = date.format("yyyy-MM-dd hh:mm:ss").substring(11,19);
-// 			time = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+            //console.log(">>>2 前一个的文件时长<<<"+timelenth+"---"+seconds)
+        } //2017-11-11 80:00:00
+        var Se = seconds-28800+basenum;
+        restData = addTime(intervaltime,Se);  //后面的是：前一个tr标签的播放开始时间+文件时长-08：00：00（28800s）+间隔时间
+       // console.log(Se+">>>"+restData);
+
     }
-    return time;
+    var nule = restData.toString().split(" ")[1];
+    if(nule!=null &&nule.length>0){
+        var H,M,S;
+        H = parseInt(nule.split(":")[0]);
+        M = parseInt(nule.split(":")[1]);
+        S = parseInt(nule.split(":")[2]);
+        if(H<9){
+            H = '0'+H;
+        }
+        if(M<9){
+            M = '0'+M;
+        }
+        if(S<9){
+            S = '0'+S;
+        }
+        nule = H+":"+M+":"+S;
+    }
+    return nule;
+}
+
+//时间相加
+function addTime(d,num) {
+    var d = new Date(d.substring(0,4),
+        d.substring(5,7)-1,
+        d.substring(8,10),
+        d.substring(11,13),
+        d.substring(14,16),
+        d.substring(17,19));
+    d.setTime(d.getTime()+num*1000);
+    //console.log(d.toLocaleString());
+    return d.getFullYear()+"-"
+        +(d.getMonth()+1)
+        +"-"+d.getDate()
+        +" "+d.getHours().toString()
+        +":"+d.getMinutes().toString()
+        +":"+d.getSeconds().toString();
+
 }
 
 Date.prototype.format = function(format) {

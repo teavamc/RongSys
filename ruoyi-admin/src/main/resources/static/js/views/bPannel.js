@@ -7,6 +7,10 @@ function bonLoad() {
     init_bds_mbygroup();
     init_bt_mbygroup();
     init_ptp_mbygroup();
+    /*统计故障终端，按时间分布*/
+    init_bd_terminlgroup();
+    /*统计在线终端数，下线终端数，及百分比*/
+    init_bd_terminalstate();
 }
 
 function init_bt_mbygroup() {
@@ -270,4 +274,168 @@ function init_ptp_mbygroup() {
             ptp_mbygroup.setOption(ptp_option);
         }
     });
+}
+
+function init_bd_terminlgroup() {
+    var bd_terminlgroup = echarts.init(document.getElementById('bd_terminlgroup'));
+    $.ajax({
+        type: "GET",
+        url: "/api/terminal/bt",
+        datatype: "JSON",
+        success: function (data) {
+            var bd_data = data.data;
+            var x_data = new Array;
+            var y_data = new Array;
+            for(i in bd_data){
+                if(bd_data[i] == null){
+                    x_data.push('未知');
+                }else {
+                    x_data.push(bd_data[i].tmid);
+                    y_data.push(bd_data[i].time);
+                }
+            }
+            option = {
+
+                grid: {
+                    left: '5%',
+                    right: '5%',
+                    bottom: 80
+                },
+                toolbox: {
+                    feature: {
+                        dataZoom: {
+                            yAxisIndex: 'none'
+                        },
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'cross',
+                        animation: false,
+                        label: {
+                            backgroundColor: '#505765'
+                        }
+                    }
+                },
+                legend: {
+                    data:['流量','降雨量'],
+                    x: 'left'
+                },
+                dataZoom: [
+                    {
+                        show: true,
+                        realtime: true,
+                        start: 65,
+                        end: 85
+                    },
+                    {
+                        type: 'inside',
+                        realtime: true,
+                        start: 65,
+                        end: 85
+                    }
+                ],
+                xAxis : [
+                    {
+                        type : 'category',
+                        boundaryGap : false,
+                        axisLine: {onZero: false},
+                        data : y_data.map(function (str) {
+                            return str.replace(' ', '\n')
+                        })
+                    }
+                ],
+                yAxis: [
+                    {
+                        name: '',
+                        type: 'value',
+                        max: 80
+                    },
+                    {
+                        name: '',
+                        nameLocation: 'start',
+                        max: 80,
+                        type: 'value',
+                    }
+                ],
+                series: [
+                    {
+                        name:'终端维护量',
+                        type:'line',
+                        yAxisIndex:1,
+                        animation: false,
+                        areaStyle: {
+                        },
+                        lineStyle: {
+                            width: 1
+                        },
+                        markArea: {
+                            silent: true,
+                            data: [[{
+                                xAxis: '2009/9/10\n7:00'
+                            }, {
+                                xAxis: '2009/9/20\n7:00'
+                            }]]
+                        },
+                        data: x_data
+                    }
+                ]
+            };
+
+            bd_terminlgroup.setOption(option);
+        }
+    });
+
+}
+
+function init_bd_terminalstate() {
+    var bd_terminalstate = echarts.init(document.getElementById('bd_terminalstate'));
+    $.ajax({
+        type: "GET",
+        url: "/api/bcount/bindex",
+        datatype: "JSON",
+        success: function (data) {
+            var bd_device = data.data.dev;
+            var bd_run = data.data.run;
+            var bd_stop = data.data.stop;
+            option = {
+                tooltip : {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    left: 'left',
+                    data: ['终端总数','在线终端数','离线终端数']
+                },
+                series : [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius : '55%',
+                        center: ['50%', '60%'],
+                        data:[
+                            {value:bd_device, name:'终端总数'},
+                            {value:bd_run, name:'在线终端数'},
+                            {value:bd_stop, name:'离线终端数'},
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        }
+                    }
+                ]
+            };
+
+            bd_terminalstate.setOption(option);
+        }
+
+    });
+
 }
