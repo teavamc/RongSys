@@ -83,4 +83,12 @@ public interface OrganizationMapper
 	 * @throws Exception 异常
 	 */
 	public int addProIdAll(Long[] ids);
+
+	/**
+	 *  设置终端的RDS码
+	 *
+	 * @param ids 需要修改终端的RDS码
+	 * @return 结果
+	 */
+	public int updateRdsByIds(String[] ids);
 }

@@ -1,7 +1,6 @@
 package com.ruoyi.broad.service;
 
 import com.ruoyi.broad.domain.Organization;
-import com.ruoyi.common.utils.PageData;
 
 import java.util.List;
 
@@ -100,4 +99,10 @@ public interface IOrganizationService
 	 */
 //	public int addProIdAll(String ids) throws Exception;
 
+	/**
+	 * 设置终端的RDS码
+	 *
+	 * @return
+	 */
+	public int updateRdsByIds(String ids);
 }
