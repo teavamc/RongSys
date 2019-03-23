@@ -29,6 +29,8 @@ import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
 
+import javax.websocket.server.PathParam;
+
 /**
  * 节目播出单 信息操作处理
  * 
@@ -178,6 +180,17 @@ public class ProSinmanageController extends BaseController
 	@GetMapping("/getdoCham")
 	public String doCham(ModelMap mmap){
 		return prefix+"/listChamanage";
+	}
+	/**
+	 * 返回时间修改界面
+	 * @param mmap
+	 * @return
+	 */
+	@GetMapping("/getTime")
+	public String doTime(@PathParam("time") String time, ModelMap mmap){
+		System.out.println(">>>"+time);
+		mmap.put("oddtime",time);
+		return prefix+"/time";
 	}
 	/**
 	 * 获取节目单数据

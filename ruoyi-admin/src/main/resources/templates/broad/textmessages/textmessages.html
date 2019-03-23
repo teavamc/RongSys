@@ -1,374 +1,44 @@
-<!doctype html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <title>短信终端</title>
-    <script type="text/javascript" src="js/move.js"></script>
-    <script type="text/javascript" src="js/tuozhuai.js"></script>
-    <style type="text/css">
-        html, body, div, p, img, a {
-            margin: 0 auto;
-            padding: 0;
-        }
-        html, body {
-            height: 100%;
-        }
-        body {
-            padding: 0px 20px;
-            box-sizing: border-box;
-            font-family: "微软雅黑";
-            font-size: 14px;
-            background-color: #252525;
-        }
-        .img_100 img {
-            width: 100%;
-            max-width: 100%;
-        }
-        .margin_bottom_15 {
-            margin-bottom: 15px;
-        }
-        .text_center {
-            text-align: center;
-        }
-        .drag_div {
-            margin-top: 30px;
-            width: 1300px;
-            height: 760px;
-            overflow: hidden;
-            position: relative;
-        }
-        .drag_div>div {
-            background: #fff;
-            padding: 5px;
-            box-sizing: border-box;
-            overflow: hidden;
-        }
-        .drag_div>div.one {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 20%;
-            height: 240px;
-        }
-        .drag_div>div.two {
-            position: absolute;
-            top: 260px;
-            left: 0;
-            width: 20%;
-            height: 240px;
-        }
-        .drag_div>div.three {
-            position: absolute;
-            top: 520px;
-            left: 0;
-            width: 20%;
-            height: 240px;
-        }
-        .drag_div>div.four {
-            position: absolute;
-            top: 0px;
-            left: 21%;
-            width: 37%;
-            height: 760px;
-        }
-        .drag_div>div.five {
-            position: absolute;
-            top: 0px;
-            left: 59%;
-            width: 20%;
-            height: 280px;
-        }
-        .drag_div>div.six {
-            position: absolute;
-            top: 300px;
-            left: 59%;
-            width: 20%;
-            height: 220px;
-        }
-        .drag_div>div.seven {
-            position: absolute;
-            top: 540px;
-            left: 59%;
-            width: 20%;
-            height: 220px;
-        }
-        .drag_div>div.eight {
-            position: absolute;
-            top: 0px;
-            left: 80%;
-            width: 20%;
-            height: 280px;
-        }
-        .drag_div>div.nine {
-            position: absolute;
-            top: 300px;
-            left: 80%;
-            width: 20%;
-            height: 220px;
-        }
-        .drag_div>div.ten {
-            position: absolute;
-            top: 540px;
-            left: 80%;
-            width: 20%;
-            height: 220px;
-        }
-        .drag_div>div.one img, .drag_div>div.two img, .drag_div>div.three img {
-            width: 100%;
-            height: 180px;
-        }
-        .drag_div>div.four img {
-            width: 100%;
-            height: 700px;
-        }
-        .drag_div>div.five img, .drag_div>div.eight img {
-            width: 100%;
-            height: 220px;
-        }
-        .drag_div>div.six img, .drag_div>div.seven img, .drag_div>div.nine img, .drag_div>div.ten img {
-            width: 100%;
-            height: 160px;
-        }
-    </style>
-</head>
-<body>
-<div class="drag_div" id="drag_div">
-    <div class="one">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第一张</p>
-    </div>
-    <div class="two">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第二张</p>
-    </div>
-    <div class="three">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第三张</p>
-    </div>
-    <div class="four">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第四张</p>
-    </div>
-    <div class="five">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第五张</p>
-    </div>
-    <div class="six">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第六张</p>
-    </div>
-    <div class="seven">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第七张</p>
-    </div>
-    <div class="eight">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第八张</p>
-    </div>
-    <div class="nine">
-        <p class="img_100 margin_bottom_15"><img src="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/126332367.jpg?sign=f611b87ec50dc5ed71b0e3d20cc026a7&t=1553002066"></p>
-        <p class="text_center">我是第九张</p>
-    </div>
-    <div class="ten">
-        <p class="img_100 margin_bottom_15"><img src="images/a10.png"></p>
-        <p class="text_center">我是第十张</p>
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg" onload="onload()">
+
+<div class="container-div">
+<!--TODO 后续改为Ajax局部刷新，参考暮云圈-->
+    <div class="wrapper wrapper-content">
+        <div class="row" >
+            <div class="col-sm-12">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>业务频率图</h5>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="echarts" id="tel_freq" ></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-sm-2" th:each="obj : ${typeNum}">
+                <div class="widget style1 blue-bg">
+                    <div class="row vertical-align">
+                        <div class="col-xs-9 text-right">
+                            <span th:text="${obj.textnum}">***</span>
+                            <h3 id="count_dev" class="font-bold" th:text="${obj.telnumber}">***</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
-<script>
-    function getClass(cls){
-        var ret = [];
-        var els = document.getElementsByTagName("*");
-        for (var i = 0; i < els.length; i++){
-            //判断els[i]中是否存在cls这个className;.indexOf("cls")判断cls存在的下标，如果下标>=0则存在;
-            if(els[i].className === cls || els[i].className.indexOf("cls")>=0 || els[i].className.indexOf(" cls")>=0 || els[i].className.indexOf(" cls ")>0){
-                ret.push(els[i]);
-            }
-        }
-        return ret;
-    }
-    function getStyle(obj,attr){//解决JS兼容问题获取正确的属性值
-        return obj.currentStyle?obj.currentStyle[attr]:getComputedStyle(obj,false)[attr];
-    }
-    function startMove(obj,json,fun){
-        clearInterval(obj.timer);
-        obj.timer = setInterval(function(){
-            var isStop = true;
-            for(var attr in json){
-                var iCur = 0;
-                //判断运动的是不是透明度值
-                if(attr=="opacity"){
-                    iCur = parseInt(parseFloat(getStyle(obj,attr))*100);
-                }else{
-                    iCur = parseInt(getStyle(obj,attr));
-                }
-                var ispeed = (json[attr]-iCur)/8;
-                //运动速度如果大于0则向下取整，如果小于0想上取整；
-                ispeed = ispeed>0?Math.ceil(ispeed):Math.floor(ispeed);
-                //判断所有运动是否全部完成
-                if(iCur!=json[attr]){
-                    isStop = false;
-                }
-                //运动开始
-                if(attr=="opacity"){
-                    obj.style.filter = "alpha:(opacity:"+(json[attr]+ispeed)+")";
-                    obj.style.opacity = (json[attr]+ispeed)/100;
-                }else{
-                    obj.style[attr] = iCur+ispeed+"px";
-                }
-            }
-            //判断是否全部完成
-            if(isStop){
-                clearInterval(obj.timer);
-                if(fun){
-                    fun();
-                }
-            }
-        },30);
-    }
-
-    window.onload = function() {
-        var oUl= document.getElementById("drag_div");
-        var aLi = oUl.getElementsByTagName('div');
-        var disX = 0;
-        var disY = 0;
-        var minZindex = 1;
-        var aPos =[];
-        for(var i=0;i<aLi.length;i++){
-            var t = aLi[i].offsetTop;
-            var l = aLi[i].offsetLeft;
-            aLi[i].style.top = t+"px";
-            aLi[i].style.left = l+"px";
-            aPos[i] = {left:l,top:t};
-            aLi[i].index = i;
-        }
-        for(var i=0;i<aLi.length;i++){
-            aLi[i].style.position = "absolute";
-            aLi[i].style.margin = 0;
-            setDrag(aLi[i]);
-        }
-        //拖拽
-        function setDrag(obj){
-            obj.onmouseover = function(){
-                obj.style.cursor = "move";
-            }
-            obj.onmousedown = function(event){
-                var scrollTop = document.documentElement.scrollTop||document.body.scrollTop;
-                var scrollLeft = document.documentElement.scrollLeft||document.body.scrollLeft;
-                obj.style.zIndex = minZindex++;
-                //当鼠标按下时计算鼠标与拖拽对象的距离
-                disX = event.clientX +scrollLeft-obj.offsetLeft;
-                disY = event.clientY +scrollTop-obj.offsetTop;
-                document.onmousemove=function(event){
-                    //当鼠标拖动时计算div的位置
-                    var l = event.clientX -disX +scrollLeft;
-                    var t = event.clientY -disY + scrollTop;
-                    obj.style.left = l + "px";
-                    obj.style.top = t + "px";
-                    /*for(var i=0;i<aLi.length;i++){
-                        aLi[i].className = "";
-                        if(obj==aLi[i])continue;//如果是自己则跳过自己不加红色虚线
-                        if(colTest(obj,aLi[i])){
-                            aLi[i].className = "active";
-                        }
-                    }*/
-                    for(var i=0;i<aLi.length;i++){
-                        aLi[i].className = aLi[i].className;
-                    }
-                    var oNear = findMin(obj);
-
-
-                    if(oNear){
-                        //oNear.className = "active";
-                    }
-                }
-                document.onmouseup = function(){
-                    document.onmousemove = null;//当鼠标弹起时移出移动事件
-                    document.onmouseup = null;//移出up事件，清空内存
-                    //检测是否普碰上，在交换位置
-                    var oNear = findMin(obj);
-                    if(oNear){
-                        var width1=oNear.clientWidth;
-                        var height1=oNear.clientHeight;
-                        var width2=obj.clientWidth;
-                        var height2=obj.clientHeight;
-                        console.log(width1+width2)
-                        console.log(oNear.className);
-                        console.log(obj.className)
-                        var className1=obj.className;
-                        var className2=oNear.className;
-                        obj.className=className2;
-                        oNear.className=className1;
-                        oNear.style.zIndex = minZindex++;
-                        obj.style.zIndex = minZindex++;
-                        startMove(oNear,aPos[obj.index]);
-                        startMove(obj,aPos[oNear.index]);
-                        //交换index
-                        oNear.index += obj.index;
-                        obj.index = oNear.index - obj.index;
-                        oNear.index = oNear.index - obj.index;
-
-
-                        obj.clientWidth=width2;
-                        obj.clientHeight=height2;
-
-                        oNear.clientWidth=width1;
-                        oNear.clientHeight=height1;
-
-                    }else{
-
-                        startMove(obj,aPos[obj.index]);
-                    }
-                }
-                clearInterval(obj.timer);
-                return false;//低版本出现禁止符号
-            }
-        }
-        //碰撞检测
-        function colTest(obj1,obj2){
-            var t1 = obj1.offsetTop;
-            var r1 = obj1.offsetWidth+obj1.offsetLeft;
-            var b1 = obj1.offsetHeight+obj1.offsetTop;
-            var l1 = obj1.offsetLeft;
-
-            var t2 = obj2.offsetTop;
-            var r2 = obj2.offsetWidth+obj2.offsetLeft;
-            var b2 = obj2.offsetHeight+obj2.offsetTop;
-            var l2 = obj2.offsetLeft;
-
-            if(t1>b2||r1<l2||b1<t2||l1>r2){
-                return false;
-            }else{
-                return true;
-            }
-        }
-        //勾股定理求距离
-        function getDis(obj1,obj2){
-            var a = obj1.offsetLeft-obj2.offsetLeft;
-            var b = obj1.offsetTop-obj2.offsetTop;
-            return Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
-        }
-        //找到距离最近的
-        function findMin(obj){
-            var minDis = 999999999;
-            var minIndex = -1;
-            for(var i=0;i<aLi.length;i++){
-                if(obj==aLi[i])continue;
-                if(colTest(obj,aLi[i])){
-                    var dis = getDis(obj,aLi[i]);
-                    if(dis<minDis){
-                        minDis = dis;
-                        minIndex = i;
-                    }
-                }
-            }
-            if(minIndex==-1){
-                return null;
-            }else{
-                return aLi[minIndex];
-            }
-        }
-    }
-</script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<!--页面js-->
+<script th:src="@{/js/views/textmessages.js}"></script>
+<!--echarts 可视化图形 插件-->
+<script th:src="@{/js/plugins/echarts/echarts.min.js}"></script>
+<script th:src="@{/js/plugins/echarts/echarts-gl.min.js}"></script>
 </body>
 </html>
