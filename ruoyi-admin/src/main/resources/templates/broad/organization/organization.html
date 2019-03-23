@@ -120,6 +120,14 @@
 			<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:organization:remove">
 				<i class="fa fa-remove"></i> 删除
 			</a>
+
+			<a class="btn btn-danger btn-del disabled" onclick="rdsSet()">
+				<i class="fa fa-remove"></i> RDS设置
+			</a>
+			<a class="btn btn-danger btn-del disabled" onclick="fmfrequency()">
+				<i class="fa fa-remove"></i> 调频接收频率
+			</a>
+
 			<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:organization:export">
 				<i class="fa fa-download"></i> 导出
 			</a>
@@ -148,6 +156,7 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 exportUrl: prefix + "/export",
+				rdsSetUrl: prefix + "/rdsSet",
                 modalName: "终端管理",
                 search: false,
                 showExport: true,
@@ -295,8 +304,12 @@
     $('#btnRefresh').click(function() {
         queryAreaTree();
     });
-
-
+	function rdsSet() {
+		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+		var url = $.table._option.rdsSetUrl;
+		var data = {"ids": rows.join(),"number": "456"};
+		$.operate.submit(url, "post", "json", data);
+	}
 </script>
 </body>
 </html>
