@@ -21,14 +21,9 @@
     <!--echarts 可视化图形 插件-->
     <script th:src="@{/js/plugins/echarts/echarts.min.js}"></script>
     <script th:src="@{/js/plugins/echarts/echarts-gl.min.js}"></script>
-    <script th:src="@{/js/jquery.min.js}"></script>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
-    <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
-    <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
-    <link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
-    <link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+
 </head>
-<body class="gray-bg" onload="bonLoad();select();$.table.search()">
+<body class="gray-bg" onload="bonLoad()">
 <div class="row  border-bottom  dashboard-header">
     <div class="wrapper wrapper-content">
         <div class="row">
@@ -110,6 +105,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-sm-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
@@ -228,6 +224,7 @@
         $.table.init(options);
     }
 </script>
+
 <!--jquery图表float插件-->
 <script th:src="@{/js/plugins/flot/jquery.flot.js}"></script>
 <script th:src="@{/js/plugins/flot/jquery.flot.tooltip.min.js}"></script>
