@@ -16,10 +16,11 @@ public interface IOrganizationService
 	/**
      * 查询终端地域信息
      *
-     * @param aid 终端地域ID
+     * @param tid 终端地域ID
      * @return 终端地域信息
      */
-	/*public Organization selectOrganizationById(String aid);*/
+	public Organization selectOrganizationById(String tid);
+
 	public Organization selectAllOrganization();
 	/**
 	 * 查询终端地域信息

@@ -134,13 +134,13 @@ public class OrganizationServiceImpl implements IOrganizationService
 		 * @param tid 终端IMEI
 		 * @return 终端信息
 		 */
-	/*	@Override
+		@Override
 		@DataSource(value = DataSourceType.SLAVE)
-		public Organization getOrgnzByOid(String tid)
+		public Organization selectOrganizationById(String tid)
 		{
-			return organizationMapper.selectOrganizationById(tid);
+			return organizationMapper.selectOrganizationByTid(tid);
 		}
-*/
+
 		/**
 		 * 获取所选择终端的编号
 		 * @param pd

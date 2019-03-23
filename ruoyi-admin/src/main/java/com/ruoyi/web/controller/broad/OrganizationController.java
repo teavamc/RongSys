@@ -104,8 +104,8 @@ public class OrganizationController extends BaseController
 	@GetMapping("/edit/{tid}")
 	public String edit(@PathVariable("tid") String tid, ModelMap mmap)
 	{
-		/*Organization organization = organizationService.selectOrganizationById(tid);*/
-		/*mmap.put("organization", organization);*/
+		Organization organization = organizationService.selectOrganizationById(tid);
+		mmap.put("organization", organization);
 		return prefix + "/edit";
 	}
 
@@ -124,14 +124,14 @@ public class OrganizationController extends BaseController
 	/**
 	 * 删除终端地域
 	 */
-	/*@RequiresPermissions("broad:organization:remove")
+	@RequiresPermissions("broad:organization:remove")
 	@Log(title = "终端地域", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
 	{
 		return toAjax(organizationService.deleteOrganizationByIds(ids));
-	}*/
+	}
 
 	/**
 	 * 选择部门树
