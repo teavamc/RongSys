@@ -74,7 +74,7 @@ public class PerController extends BaseController{
      * 新增保存节目单
      */
     //@RequiresPermissions("broad:per:add")
-    @Log(title = "节目单新增", businessType = BusinessType.INSERT)
+    @Log(title = "新增节目单", businessType = BusinessType.INSERT)
     @PostMapping(value = "/add")
     @ResponseBody
     public AjaxResult addSave(@RequestParam(value = "files") MultipartFile file,
