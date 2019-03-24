@@ -81,7 +81,7 @@ public class WeaController extends BaseController
 	 * 新增保存天气公告
 	 */
 	@RequiresPermissions("broad:wea:add")
-	@Log(title = "天气公告", businessType = BusinessType.INSERT)
+	@Log(title = "新增天气公告", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Wea wea)
@@ -104,7 +104,7 @@ public class WeaController extends BaseController
 	 * 修改保存天气公告
 	 */
 	@RequiresPermissions("broad:wea:edit")
-	@Log(title = "天气公告", businessType = BusinessType.UPDATE)
+	@Log(title = "修改天气公告", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Wea wea)
@@ -116,7 +116,7 @@ public class WeaController extends BaseController
 	 * 删除天气公告
 	 */
 	@RequiresPermissions("broad:wea:remove")
-	@Log(title = "天气公告", businessType = BusinessType.DELETE)
+	@Log(title = "删除天气公告", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)

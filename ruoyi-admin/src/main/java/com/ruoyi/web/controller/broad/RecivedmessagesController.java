@@ -81,7 +81,7 @@ public class RecivedmessagesController extends BaseController
 	 * 新增保存短信接收记录
 	 */
 	@RequiresPermissions("system:recivedmessages:add")
-	@Log(title = "短信接收记录", businessType = BusinessType.INSERT)
+	@Log(title = "新增短信接收记录", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Recivedmessages recivedmessages)
@@ -104,7 +104,7 @@ public class RecivedmessagesController extends BaseController
 	 * 修改保存短信接收记录
 	 */
 	@RequiresPermissions("system:recivedmessages:edit")
-	@Log(title = "短信接收记录", businessType = BusinessType.UPDATE)
+	@Log(title = "修改短信接收记录", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Recivedmessages recivedmessages)
@@ -116,7 +116,7 @@ public class RecivedmessagesController extends BaseController
 	 * 删除短信接收记录
 	 */
 	@RequiresPermissions("system:recivedmessages:remove")
-	@Log(title = "短信接收记录", businessType = BusinessType.DELETE)
+	@Log(title = "删除短信接收记录", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
