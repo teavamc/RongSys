@@ -81,7 +81,7 @@ public class ProChamanageController extends BaseController
 	 * 新增保存节目转播管理
 	 */
 	@RequiresPermissions("broad:proChamanage:add")
-	@Log(title = "节目转播管理", businessType = BusinessType.INSERT)
+	@Log(title = "新增节目转播管理", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(ProChamanage proChamanage)
@@ -104,7 +104,7 @@ public class ProChamanageController extends BaseController
 	 * 修改保存节目转播管理
 	 */
 	@RequiresPermissions("broad:proChamanage:edit")
-	@Log(title = "节目转播管理", businessType = BusinessType.UPDATE)
+	@Log(title = "修改节目转播管理", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(ProChamanage proChamanage)
@@ -116,7 +116,7 @@ public class ProChamanageController extends BaseController
 	 * 删除节目转播管理
 	 */
 	@RequiresPermissions("broad:proChamanage:remove")
-	@Log(title = "节目转播管理", businessType = BusinessType.DELETE)
+	@Log(title = "删除节目转播管理", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)

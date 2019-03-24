@@ -1,6 +1,8 @@
 package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Organization;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -17,7 +19,7 @@ public interface OrganizationMapper
 	 * @param aid 终端地域ID
 	 * @return 终端地域信息
 	 */
-//	public Organization selectOrganizationById(String aid);
+	/*public Organization selectOrganizationById(String aid);*/
 	public Organization selectAllOrganization();
 	/**
 	 * 查询终端地域信息
@@ -83,4 +85,20 @@ public interface OrganizationMapper
 	 * @throws Exception 异常
 	 */
 	public int addProIdAll(Long[] ids);
+
+	/**
+	 *  设置终端的RDS码
+	 *
+	 * @param ids 需要修改终端的RDS码
+	 * @return 结果
+	 */
+	public int updateRdsByIds(@Param("ids") String[] ids, @Param("number")String number);
+
+	/**
+	 *  设置终端的频率码
+	 *
+	 * @param ids 需要修改终端的RDS码
+	 * @return 结果
+	 */
+	public int updateFmfrequencyByIds(@Param("ids") String[] ids, @Param("number")String number);
 }
