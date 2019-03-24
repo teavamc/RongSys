@@ -133,15 +133,26 @@ public class OrganizationServiceImpl implements IOrganizationService
 		}
 
 		/**
- * 设置终端的RDS码
- *
- * @return
- */
+		 * 设置终端的RDS码
+		 *
+		 * @return
+		 */
 		@Override
 		@DataSource(value = DataSourceType.SLAVE)
 		public int updateRdsByIds(String id , String number)
 		{
 			return organizationMapper.updateRdsByIds(Convert.toStrArray(id),number);
+		}
+
+		/**
+		* 设置终端的频率码
+ 		** @return
+		*/
+		@Override
+		@DataSource(value = DataSourceType.SLAVE)
+		public int updateFmfrequencyByIds(String id , String number)
+		{
+			return organizationMapper.updateFmfrequencyByIds(Convert.toStrArray(id),number);
 		}
 
 		/**

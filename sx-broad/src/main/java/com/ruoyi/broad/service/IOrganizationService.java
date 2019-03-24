@@ -105,4 +105,11 @@ public interface IOrganizationService
 	 * @return
 	 */
 	public int updateRdsByIds(String ids , String number);
+
+	/**
+	 * 设置终端的Fmfrequency码
+	 *
+	 * @return
+	 */
+	public int updateFmfrequencyByIds(String ids , String number);
 }

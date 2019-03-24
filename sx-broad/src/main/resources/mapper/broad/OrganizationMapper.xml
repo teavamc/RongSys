@@ -203,4 +203,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </update>
 
+    <update id="updateFmfrequencyByIds" >
+        update  tb_organization set fmfrequency = #{number} where tid in
+        <foreach item="tid" collection="ids" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </update>
 </mapper>

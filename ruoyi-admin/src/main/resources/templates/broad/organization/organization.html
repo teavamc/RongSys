@@ -160,6 +160,7 @@
                 updateUrl: prefix + "/edit/{id}",
                 exportUrl: prefix + "/export",
 				rdsSetUrl: prefix + "/rdsSet",
+                fmfrequencyUrl: prefix + "/fmfrequencySet",
                 modalName: "终端管理",
                 search: false,
                 showExport: true,
@@ -319,8 +320,21 @@
 			var data = {"ids": rows.join(),"number": rdsNumber};
 			$.operate.submit(url, "post", "json", data);
 		});
-
 	}
+
+    function fmfrequency() {
+        var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        if (rows.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        $.modal.confirm("确认要更加选中的" + rows.length + "条数据的频率吗?", function() {
+            var url = $.table._option.fmfrequencyUrl;
+            var fmfrequencyNumber = document.getElementById("fmfrequencyNum").value;
+            var data = {"ids": rows.join(),"number": fmfrequencyNumber};
+            $.operate.submit(url, "post", "json", data);
+        });
+    }
 </script>
 </body>
 </html>

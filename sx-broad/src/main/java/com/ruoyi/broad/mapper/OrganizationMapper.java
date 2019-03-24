@@ -93,4 +93,12 @@ public interface OrganizationMapper
 	 * @return 结果
 	 */
 	public int updateRdsByIds(@Param("ids") String[] ids, @Param("number")String number);
+
+	/**
+	 *  设置终端的频率码
+	 *
+	 * @param ids 需要修改终端的RDS码
+	 * @return 结果
+	 */
+	public int updateFmfrequencyByIds(@Param("ids") String[] ids, @Param("number")String number);
 }

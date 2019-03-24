@@ -198,4 +198,14 @@ public class OrganizationController extends BaseController
     {
         return toAjax(organizationService.updateRdsByIds(ids,number));
     }
+
+    /**
+     * 设置终端的fmfrequency码
+     */
+    @PostMapping( "/fmfrequencySet")
+    @ResponseBody
+    public AjaxResult fmfrequencySet(String ids, String number)
+    {
+        return toAjax(organizationService.updateFmfrequencyByIds(ids,number));
+    }
 }
