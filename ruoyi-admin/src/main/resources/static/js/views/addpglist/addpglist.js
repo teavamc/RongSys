@@ -509,10 +509,9 @@ function doFile() {
             var filenames = res.data_filenames;
             var filename = res.data_filename;
             var filetime = res.data_file;
-            var title = "文件转播";
            // console.log(">>>重复次数"+res.data_num+">>>文件id"+res.data_fileID+">>>节目"+res.data_filenames+">>>节目文件"+res.data_filename+">>>时长"+res.data_file+">>>间隔时长"+res.data_time)
             for(var i=1;i<=res.data_num;i++){
-                $("#tbody").append("<tr><td class='center'>title</td> <td class='center'>"+id+"</td>"+
+                $("#tbody").append("<tr><td class='center'>文件转播</td> <td class='center'>"+id+"</td>"+
                     "<td class='center'>"+filenames+"</td> <td class='center'>"+filename+"</td>"+
                     "<td class='center'>"+time+"</td> <td class='center'>"+filetime+"</td>"+
                     " <td class='center'>"+
