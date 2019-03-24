@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header">
+
+<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+<link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+
+
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+            <tr>
+                <td style="padding-left:2px;text-align: right;">播出时间：</td>
+                <td style="padding-left:2px;">
+                    <input class="laydate-icon form-control layer-date"
+                           name="broad"
+                           id="broad"
+                           th:value="${oddtime}"
+                           readonly="readonly"
+                           style="width:120px;"
+                           placeholder="播出时间"
+                           title="播出时间"/>
+                </td>
+            </tr>
+    </div>
+</div>
+<script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.tips.js}"></script>
+<script th:src="@{/js/views/addpglist/addpglist.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<!--时间插件-->
+<script>
+    function callback(){
+        return $("#broad").val();
+    }
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
+<div th:include="include :: footer"></div>
+</body>
+</html>
