@@ -14,7 +14,6 @@ function bonLoad() {
     init_bl_terminalstate();
     init_bip_terminalstate();
 }
-
 function init_bt_mbygroup() {
     var bt_mbygroup = echarts.init(document.getElementById('bt_mbygroup'));
     $.ajax({
