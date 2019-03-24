@@ -42,6 +42,10 @@ public class SysUser extends BaseEntity
     @Excel(name = "手机号码")
     private String phonenumber;
 
+    /** 手机MEI号码 */
+    @Excel(name = "手机IMEI号码")
+    private String phoneimei;
+
     /** 用户性别 */
     @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
     private String sex;
@@ -165,6 +169,16 @@ public class SysUser extends BaseEntity
     public void setPhonenumber(String phonenumber)
     {
         this.phonenumber = phonenumber;
+    }
+
+    public String getPhoneimei()
+    {
+        return phoneimei;
+    }
+
+    public void setPhoneimei(String phoneimei)
+    {
+        this.phoneimei = phoneimei;
     }
 
     public String getSex()
@@ -317,6 +331,7 @@ public class SysUser extends BaseEntity
             .append("userName", getUserName())
             .append("email", getEmail())
             .append("phonenumber", getPhonenumber())
+            .append("phoneimei", getPhoneimei())
             .append("sex", getSex())
             .append("avatar", getAvatar())
             .append("password", getPassword())
