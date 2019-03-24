@@ -446,3 +446,293 @@ Date.prototype.format = function(format) {
             format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
     return format;
 }
+
+/*流媒体直播-选择终端树*/
+function selectOrganTree() {
+    var _url = "/broad/organization/selectOrganizationTree/01";
+    var _title = '选择终端';
+    var _width = "1200";
+    var _height = ($(window).height() - 50);
+    layer.open({
+        type: 2,
+        maxmin: true,
+        shade: 0.3,
+        title: _title,
+        fix: false,
+        area: [_width + 'px', _height + 'px'],
+        content: _url,
+        shadeClose: true,
+        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        yes: function (index, layero) {
+            doSubmit(index, layero)
+            //获取子页面关闭前的回调函数获取到的值
+            var res = $(layero).find("iframe")[0].contentWindow.callback();
+            //console.log(">>>",res.data_role.ids)
+            $("#treeName").val(res.data_role.ids)
+        }, cancel: function () {
+            return true;
+        }
+    });
+}
+//文件转播选择
+function doFile() {
+    var baseTime = "08:00:00";
+    if($("#broaddate").val() == ""){
+        layer.tips('请选择播出日期','#broaddate', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    var data = $("#broaddate").val();
+    var time = getTime(data+" "+baseTime);
+    //console.log("timeFile="+time);
+    var _url = "/broad/proSinmanage/getdoFile";
+    var _title = '文件选择';
+    var _width = "1200";
+    var _height = ($(window).height() - 50);
+    layer.open({
+        type: 2,
+        maxmin: true,
+        shade: 0.3,
+        title: _title,
+        fix: false,
+        area: [_width + 'px', _height + 'px'],
+        content: _url,
+        shadeClose: true,
+        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        yes: function (index, layero) {
+            layer.close(index);
+            //获取子页面关闭前的回调函数获取到的值
+            var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
+            var id = res.data_fileID;
+            var filenames = res.data_filenames;
+            var filename = res.data_filename;
+            var filetime = res.data_file;
+            var title = "文件转播";
+           // console.log(">>>重复次数"+res.data_num+">>>文件id"+res.data_fileID+">>>节目"+res.data_filenames+">>>节目文件"+res.data_filename+">>>时长"+res.data_file+">>>间隔时长"+res.data_time)
+            for(var i=1;i<=res.data_num;i++){
+                $("#tbody").append("<tr><td class='center'>title</td> <td class='center'>"+id+"</td>"+
+                    "<td class='center'>"+filenames+"</td> <td class='center'>"+filename+"</td>"+
+                    "<td class='center'>"+time+"</td> <td class='center'>"+filetime+"</td>"+
+                    " <td class='center'>"+
+                    "<div class='action-buttons'>"+
+                    "<a class='green' onclick='editTime(this);'>"+
+                    "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
+                    "</a> <a class='red' onclick='deletePro(this);'>"+
+                    "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
+                    "</a> </div>"+
+                    "</td></tr>");
+                time = getTime(data+" "+baseTime);
+            }
+        }, cancel: function () {
+            return true;
+        }
+    });
+}
+//设备终端选择回调
+function doSubmit(index, layero){
+    var tree = layero.find("iframe")[0].contentWindow.$._tree;
+    /* if ($.tree.notAllowParents(tree)) {*/
+    var body = layer.getChildFrame('body', index);
+    $("#treeId").val(body.find('#treeId').val());
+    $("#treeName").val(body.find('#treeName').val());
+    layer.close(index);
+    /*}*/
+}
+//电台选择
+function doCham() {
+    var baseTime = "08:00:00";
+    if($("#broaddate").val() == ""){
+        layer.tips('请选择播出日期','#broaddate', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    var data = $("#broaddate").val();
+    var times = getTime(data+" "+baseTime);
+    //console.log("timeCham="+time);
+    var _url = "/broad/proSinmanage/getdoCham";
+    var _title = '电台选择';
+    var _width = "1200";
+    var _height = ($(window).height() - 50);
+    layer.open({
+        type: 2,
+        maxmin: true,
+        shade: 0.3,
+        title: _title,
+        fix: false,
+        area: [_width + 'px', _height + 'px'],
+        content: _url,
+        shadeClose: true,
+        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        yes: function (index, layero) {
+            layer.close(index);
+            //获取子页面关闭前的回调函数获取到的值
+            var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
+            //console.log(">>>",res)
+            $("#tbody").append("<tr><td class='center'>电台播音</td> <td class='center'>"+res.data_fileID+"</td>"+
+                "<td class='center'>"+res.data_filename+"</td> <td class='center'>"+res.data_file+"</td>"+
+                "<td class='center'>"+times+"</td> <td class='center'>"+res.data_time+"</td>"+
+                " <td class='center'>"+
+                "<div class='action-buttons'>"+
+                "<a class='green' onclick='editTime(this);'>"+
+                "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
+                "</a> <a class='red' onclick='deletePro(this);'>"+
+                "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
+                "</a> </div>"+
+                "</td></tr>");
+            times = getTime(data+" "+baseTime);
+        }, cancel: function () {
+            return true;
+        }
+    });
+}
+function saves(){
+    if($("#tbody").children().length<=0){
+        //小tips
+        layer.tips('请添加节目','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+
+        return false;
+    }
+    if($("#broaddate").val()==""||$("#broaddate").val()==null){
+
+        layer.tips('请选择播出日期','#broaddate', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    var broaddate = $("#broaddate").val();
+    console.log("播出日期>>>",broaddate)
+    var trs = $("#tbody").find("tr");
+    var prolist="";
+    var onindex=-1,offindex=-1,stopindex=-1;
+    for(var i=0;i<trs.length;i++){
+        var type = trs[i].children[0].innerText;
+        var fid = trs[i].children[1].innerText;
+        var fn = trs[i].children[3].innerText;
+        var begintime = trs[i].children[4].innerText;
+        var broadtime = trs[i].children[5].innerText;
+        prolist+="{'ptp':'"+type+"','fid':'"+fid+"','fN':'"+fn+"','bt':'"+begintime+"','broadtime':'"+broadtime+"'},";
+        //console.log(prolist)
+        if(fn=='app-on'&& onindex==-1){
+            onindex=i;
+        }else if(fn=='app-off'){
+            offindex=i;
+        }else{
+            stopindex=i;
+        }
+    }
+    if(onindex<0){
+        layer.tips('请设置开启功放时间','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+
+    if(offindex<0){
+
+        layer.tips('请设置关闭功放时间','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    if(stopindex<0){
+        layer.tips('请设置停止播放时间','#saves', {
+            tips: [1, '#3595CC'],
+            time: 2000
+        });
+
+        return false;
+    }
+    if(onindex!=0 ||(offindex-onindex)<=0 || (stopindex-offindex)!=1){
+
+        layer.tips('请设置正确的节目顺序','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    //获取选择终端
+    //var nodes = zTree.getCheckedNodes();
+    var terids = $("#treeName").val()
+    console.log("选择的终端>>>",terids)
+    if(terids==""){
+        layer.tips('请选择播出终端','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+
+        return false;
+    }
+
+    var continuenum = $("#continuenum").val();
+    console.log("连续天数>>>",continuenum)
+    if(/^\d+$/.test(continuenum)) { //全为数字
+        if(parseInt(continuenum)<1||parseInt(continuenum)>15){
+            layer.tips('请输入1-15的数字','#saves', {
+                tips: [1, '#3595CC'],
+                time: 4000
+            });
+            return false;
+        }
+    }else{
+        layer.tips('请输入1-15的数字','#saves', {
+            tips: [1, '#3595CC'],
+            time: 4000
+        });
+        return false;
+    }
+    prolist = "["+prolist.substring(0,prolist.length-1)+"]";
+    console.log("表单数据>>>",JSON.stringify(prolist))
+    $.ajax({
+        url: ctx+'broad/proSinmanage/addProList',
+        type: 'POST', //请求方法 GET or POST
+        async: true, //是否使用异步请求的方式
+        timeout: 3000, //请求超时的时间，以毫秒计
+        data: {
+            userId:userId,
+            ProDate: broaddate,
+            ProDay:continuenum,
+            ProIMEI:terids,
+            ProData:JSON.stringify(prolist)
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+            if(data.code=="200"){
+                layer.msg("成功", {
+                    icon: $.modal.icon("success"),
+                    time: 1000,
+                    shade: [0.1, '#8F8F8F']
+                })
+            }else {
+                layer.msg("错误", {
+                    icon: $.modal.icon("error"),
+                    time: 1000,
+                    shade: [0.1, '#8F8F8F']
+                })
+            }
+        },
+        error: function (res) {
+            console.log(res)
+            layer.msg("服务器错误", {
+                icon: $.modal.icon("error"),
+                time: 1000,
+                shade: [0.1, '#8F8F8F']
+            })
+        }
+    })
+    // $.post("<%=basePath%>probroad/addProBroad.do",{broaddate:broaddate,prolist:prolist,terids:terids,continuenum:continuenum},function(data){
+    //     if(data.result=="success"){
+    //         window.location.href="<%=basePath%>probroad/listProBroad.do";
+    //     }
+    // });
+}
