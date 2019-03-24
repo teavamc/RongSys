@@ -1058,14 +1058,14 @@ function init_bds_mbygroup() {
                     x_data.push(bdsygroup_data[i].scategory);
                     y_data.push(parseInt(bdsygroup_data[i].bcount));
                     /*var y = new Object();
-                    y.name = bdsygroup_data[i].scategory;
-                    y.value = parseInt(bdsygroup_data[i].bcount);
-                    y_data.push(y);*/
+                     y.name = bdsygroup_data[i].scategory;
+                     y.value = parseInt(bdsygroup_data[i].bcount);
+                     y_data.push(y);*/
                 }
             }
             /*console.log(bdsygroup_data);*/
             /*console.log(x_data);
-            console.log(y_data);*/
+             console.log(y_data);*/
             option = {
                 tooltip : {
                     trigger: 'item',

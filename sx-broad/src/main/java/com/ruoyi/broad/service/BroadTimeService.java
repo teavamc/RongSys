@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface BroadTimeService {
 
-    public List<com.ruoyi.broad.domain.BroadTime> selectList();
+    public List<BroadTime> selectList();
 
-    public List<com.ruoyi.broad.domain.BroadTime> selectListByDate();
+    public List<BroadTime> selectListByDate();
 
     public  List<BroadTime> selectListByScategory();
 }
