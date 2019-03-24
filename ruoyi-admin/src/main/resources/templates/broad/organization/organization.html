@@ -121,6 +121,7 @@
 				<i class="fa fa-remove"></i> 删除
 			</a>
 
+			<input type="text" name="rdsNum"/>
 			<a class="btn btn-danger btn-del disabled" onclick="rdsSet()">
 				<i class="fa fa-remove"></i> RDS设置
 			</a>
@@ -306,9 +307,17 @@
     });
 	function rdsSet() {
 		var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
-		var url = $.table._option.rdsSetUrl;
-		var data = {"ids": rows.join(),"number": "456"};
-		$.operate.submit(url, "post", "json", data);
+		if (rows.length == 0) {
+			$.modal.alertWarning("请至少选择一条记录");
+			return;
+		}
+		$.modal.confirm("确认要更加选中的" + rows.length + "条数据的RDS码吗?", function() {
+			var url = $.table._option.rdsSetUrl;
+			var rdsNumber = document.getElementById("rdsNum").value;
+			var data = {"ids": rows.join(),"number": rdsNumber};
+			$.operate.submit(url, "post", "json", data);
+		});
+
 	}
 </script>
 </body>

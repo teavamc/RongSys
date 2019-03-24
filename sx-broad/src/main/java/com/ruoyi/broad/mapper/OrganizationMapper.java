@@ -1,6 +1,8 @@
 package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Organization;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -90,5 +92,5 @@ public interface OrganizationMapper
 	 * @param ids 需要修改终端的RDS码
 	 * @return 结果
 	 */
-	public int updateRdsByIds(String[] ids,String number);
+	public int updateRdsByIds(@Param("ids") String[] ids, @Param("number")String number);
 }

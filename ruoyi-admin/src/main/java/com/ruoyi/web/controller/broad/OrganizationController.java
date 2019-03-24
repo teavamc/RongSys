@@ -192,8 +192,6 @@ public class OrganizationController extends BaseController
     /**
      * 设置终端的RDS码
      */
-/*    @RequiresPermissions("broad:organization:remove")*/
-/*    @Log(title = "终端地域", businessType = BusinessType.DELETE)*/
     @PostMapping( "/rdsSet")
     @ResponseBody
     public AjaxResult rdsSetUrl(String ids, String number)
