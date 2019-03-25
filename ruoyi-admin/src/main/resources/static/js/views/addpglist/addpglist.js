@@ -505,24 +505,27 @@ function doFile() {
             layer.close(index);
             //获取子页面关闭前的回调函数获取到的值
             var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
-            var id = res.data_fileID;
-            var filenames = res.data_filenames;
-            var filename = res.data_filename;
-            var filetime = res.data_file;
-           // console.log(">>>重复次数"+res.data_num+">>>文件id"+res.data_fileID+">>>节目"+res.data_filenames+">>>节目文件"+res.data_filename+">>>时长"+res.data_file+">>>间隔时长"+res.data_time)
+            var id = res.data_fileID.toString().replace("[","").replace("]","").replace("\"","").split(",");
+            var filenames = res.data_filenames.toString().replace("[","").replace("]","").replace("\"","").split(",");
+            var filename = res.data_filename.toString().replace("[","").replace("]","").replace("\"","").split(",");
+            var filetime = res.data_file.toString().replace("[","").replace("]","").replace("\"","").split(",");
+           //console.log(">>>重复次数"+res.data_num+">>>文件id"+res.data_fileID+">>>节目"+res.data_filenames+">>>节目文件"+res.data_filename+">>>时长"+res.data_file+">>>间隔时长"+res.data_time)
+            //console.log(">>>重复次数"+res.data_num+">>>文件id"+id+">>>节目"+filenames+">>>节目文件"+filename+">>>时长"+filetime+">>>间隔时长"+res.data_time)
             for(var i=1;i<=res.data_num;i++){
-                $("#tbody").append("<tr><td class='center'>文件转播</td> <td class='center'>"+id+"</td>"+
-                    "<td class='center'>"+filenames+"</td> <td class='center'>"+filename+"</td>"+
-                    "<td class='center'>"+time+"</td> <td class='center'>"+filetime+"</td>"+
-                    " <td class='center'>"+
-                    "<div class='action-buttons'>"+
-                    "<a class='green' onclick='editTime(this);'>"+
-                    "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
-                    "</a> <a class='red' onclick='deletePro(this);'>"+
-                    "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
-                    "</a> </div>"+
-                    "</td></tr>");
-                time = getTime(data+" "+baseTime);
+                for(var j=0;j<res.data_length;j++){
+                    $("#tbody").append("<tr><td class='center'>文件转播</td> <td class='center'>"+id[j]+"</td>"+
+                        "<td class='center'>"+filenames[j]+"</td> <td class='center'>"+filename[j]+"</td>"+
+                        "<td class='center'>"+time+"</td> <td class='center'>"+filetime[j]+"</td>"+
+                        " <td class='center'>"+
+                        "<div class='action-buttons'>"+
+                        "<a class='green' onclick='editTime(this);'>"+
+                        "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
+                        "</a> <a class='red' onclick='deletePro(this);'>"+
+                        "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
+                        "</a> </div>"+
+                        "</td></tr>");
+                    time = getTime(data+" "+baseTime);
+                }
             }
         }, cancel: function () {
             return true;

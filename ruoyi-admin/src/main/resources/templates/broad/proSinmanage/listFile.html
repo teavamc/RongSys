@@ -29,7 +29,7 @@
                 </td>
                 <td style="padding-left:2px;text-align: right;">节目：</td>
                 <td style="padding-left:2px;">
-                    <input  name="" id="orgs"  value="" type="text" readonly style="width:128px;height: 30px;border-radius:5%" /></td>
+                    <input  name="" id="orgs"  value="" type="text" readonly style="width:328px;height: 30px;border-radius:5%" /></td>
 
             </tr>
         </table>
@@ -84,15 +84,28 @@
 <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
 
 <script th:inline="javascript">
+    var fids = new Array();
+    var flenths = new Array();
+    var fnames = new Array();
+    var filenames = new Array();
+    var temp = 0;
     /**
      * 选择文件
      * @param fid
      */
     function selectFiles(fname,fid,filename,flenth) {
-        $("#orgs").attr("value",fname);
+        var num = $("#orgs").val();
+        var test = num+","+fname;
+
+        fnames[temp] = fname;
+        $("#orgs").attr("value",test);
+        fids[temp] = fid;
         $("#fileid").attr("class",fid);
+        filenames[temp] = filename;
         $("#fileid").attr("name",filename);
+        flenths[temp] = flenth;
         $("#orgs").attr("name",flenth);
+        temp++;
     }
     var prefix = ctx + "broad/proSinmanage";
     $(function() {
@@ -174,12 +187,13 @@
          var filenum = $("#continuenum").val();
          var time = $("#broaddate").val();
          datas = {  //调用它的父页面A的input这个function
-             data_filenames:fname,  //把data传入父页面A中的data_role，这里cllbackfile()是我另外计算data的一个函数，可以忽略
-             data_fileID:fileID,
-             data_filename:filename,
-             data_file:flenth,
+             data_filenames:fnames,  //把data传入父页面A中的data_role，这里cllbackfile()是我另外计算data的一个函数，可以忽略
+             data_fileID:fids,
+             data_filename:filenames,
+             data_file:flenths,
              data_num:filenum,
-             data_time:time
+             data_time:time,
+             data_length:temp
          }
          return datas;
      }
