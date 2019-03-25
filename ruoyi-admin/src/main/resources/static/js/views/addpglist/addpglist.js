@@ -58,8 +58,8 @@ function editTime(obj){
     console.log("TIME="+time)
     var _url = "/broad/proSinmanage/getTime?time="+time;
     var _title = '修改时间';
-    var _width = "600";
-    var _height = ($(window).height() - 250);
+    var _width = "500";
+    var _height = ($(window).height() - 350);
     layer.open({
         type: 2,
         maxmin: true,
