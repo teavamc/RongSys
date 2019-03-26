@@ -5,14 +5,10 @@ import com.ruoyi.broad.mapper.OrganizationMapper;
 import com.ruoyi.broad.service.IOrganizationService;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
-import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.support.Convert;
-import com.ruoyi.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.ruoyi.broad.dao.DaoSupport;
 
-import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -30,12 +26,7 @@ public class OrganizationServiceImpl implements IOrganizationService
 	@Autowired
 		private OrganizationMapper organizationMapper;
 
-		/**
-		 * 查询终端地域
-		 *
-		 * @param aid 终端地域ID
-		 * @return 终端信息
-		 */
+
 //		@Override
 //		@DataSource(value = DataSourceType.SLAVE)
 //		public Organization selectOrganizationById(String aid)
@@ -134,13 +125,36 @@ public class OrganizationServiceImpl implements IOrganizationService
 		 * @param tid 终端IMEI
 		 * @return 终端信息
 		 */
-	/*	@Override
+		@Override
 		@DataSource(value = DataSourceType.SLAVE)
-		public Organization getOrgnzByOid(String tid)
+		public Organization selectOrganizationById(String tid)
 		{
-			return organizationMapper.selectOrganizationById(tid);
+			return organizationMapper.selectOrganizationByTid(tid);
 		}
-*/
+
+		/**
+		 * 设置终端的RDS码
+		 *
+		 * @return
+		 */
+		@Override
+		@DataSource(value = DataSourceType.SLAVE)
+		public int updateRdsByIds(String id , String number)
+		{
+			return organizationMapper.updateRdsByIds(Convert.toStrArray(id),number);
+		}
+
+		/**
+		* 设置终端的频率码
+ 		** @return
+		*/
+		@Override
+		@DataSource(value = DataSourceType.SLAVE)
+		public int updateFmfrequencyByIds(String id , String number)
+		{
+			return organizationMapper.updateFmfrequencyByIds(Convert.toStrArray(id),number);
+		}
+
 		/**
 		 * 获取所选择终端的编号
 		 * @param pd

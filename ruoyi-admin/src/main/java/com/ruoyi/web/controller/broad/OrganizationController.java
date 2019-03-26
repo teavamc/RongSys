@@ -8,6 +8,7 @@ import com.ruoyi.broad.service.IAreaService;
 import com.ruoyi.common.support.Convert;
 import com.ruoyi.system.domain.SysDept;
 import com.ruoyi.system.domain.SysRole;
+import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -104,8 +105,8 @@ public class OrganizationController extends BaseController
 	@GetMapping("/edit/{tid}")
 	public String edit(@PathVariable("tid") String tid, ModelMap mmap)
 	{
-		/*Organization organization = organizationService.selectOrganizationById(tid);*/
-		/*mmap.put("organization", organization);*/
+		Organization organization = organizationService.selectOrganizationById(tid);
+		mmap.put("organization", organization);
 		return prefix + "/edit";
 	}
 
@@ -124,14 +125,14 @@ public class OrganizationController extends BaseController
 	/**
 	 * 删除终端地域
 	 */
-	/*@RequiresPermissions("broad:organization:remove")
+	@RequiresPermissions("broad:organization:remove")
 	@Log(title = "终端地域", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
 	{
 		return toAjax(organizationService.deleteOrganizationByIds(ids));
-	}*/
+	}
 
 	/**
 	 * 选择部门树
@@ -187,4 +188,24 @@ public class OrganizationController extends BaseController
 	{
 		return prefix + "/aidTree";
 	}
+
+    /**
+     * 设置终端的RDS码
+     */
+    @PostMapping( "/rdsSet")
+    @ResponseBody
+    public AjaxResult rdsSetUrl(String ids, String number)
+    {
+        return toAjax(organizationService.updateRdsByIds(ids,number));
+    }
+
+    /**
+     * 设置终端的fmfrequency码
+     */
+    @PostMapping( "/fmfrequencySet")
+    @ResponseBody
+    public AjaxResult fmfrequencySet(String ids, String number)
+    {
+        return toAjax(organizationService.updateFmfrequencyByIds(ids,number));
+    }
 }
