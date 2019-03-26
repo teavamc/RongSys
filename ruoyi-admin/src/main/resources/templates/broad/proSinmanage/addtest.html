@@ -77,30 +77,68 @@
                 </td>
             </tr>
         </table>
-        <table id="simple-tables"  class="table" style="margin-top:5px;">
-            <thead style="max-height: 50px">
-            <tr style="height: 50px">
-                <th class="center">类型</th>
-                <th class="center">节目编号</th>
-                <th class="center">节目</th>
-                <th class="center">节目文件</th>
-                <th class="center">开始时间</th>
-                <th class="center">节目时长</th>
-                <th class="center">操作</th>
-            </tr>
-            </thead>
+        <div class="ibox">
+            <div class="ibox-content">
+                <table id="simple-tables"  class="table" style="margin-top:5px;">
+                    <thead style="max-height: 50px">
+                    <tr style="height: 50px">
+                        <th class="center">类型</th>
+                        <th class="center">节目编号</th>
+                        <th class="center">节目</th>
+                        <th class="center">节目文件</th>
+                        <th class="center">开始时间</th>
+                        <th class="center">节目时长</th>
+                        <th class="center">操作</th>
+                        <th class="center">上移</th>
+                    </tr>
+                    </thead>
+                        <tbody id="tbody" style="height: 60px">
 
-            <tbody id="tbody" style="height: auto">
-
-            </tbody>
-        </table>
+                        </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
 <script>
-
     var userId = [[${user.userId}]];
+</script>
+<script type="text/javascript">
+    //使表格行上移，接收参数为链接对象
+    function moveUp(_a){
+        //通过链接对象获取表格行的引用
+        var _row=_a.parentNode.parentNode.parentNode;
+        //如果不是第一行，则与上一行交换顺序
+        if(_row.previousSibling)swapNode(_row,_row.previousSibling);
+    }
 
+    //使表格行下移，接收参数为链接对象
+    function moveDown(_a){
+        //通过链接对象获取表格行的引用
+        var _row=_a.parentNode.parentNode.parentNode;
+        //如果不是最后一行，则与下一行交换顺序
+        if(_row.nextSibling)swapNode(_row,_row.nextSibling);
+    }
+
+    //定义通用的函数交换两个结点的位置
+    function swapNode(node1,node2){
+        //获取父结点
+        var _parent=node1.parentNode;
+        //获取两个结点的相对位置
+        var _t1=node1.nextSibling;
+        var _t2=node2.nextSibling;
+        //将node2插入到原来node1的位置
+        if(_t1)
+            _parent.insertBefore(node2,_t1);
+        else
+            _parent.appendChild(node2);
+        //将node1插入到原来node2的位置
+        if(_t2)
+            _parent.insertBefore(node1,_t2);
+        else
+            _parent.appendChild(node1);
+    }
 
 </script>
 <script th:src="@{/js/jquery.min.js}"></script>
@@ -128,6 +166,9 @@
             type: 'time',
         });
     });
+</script>
+<script>
+    $(document).ready(function(){$(".sortable-list").sortable({connectWith:".connectList"}).disableSelection()});
 </script>
 <div th:include="include :: footer"></div>
 </body>
