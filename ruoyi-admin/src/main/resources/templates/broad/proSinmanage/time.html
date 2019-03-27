@@ -6,24 +6,26 @@
 <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
 <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
 
-
+<style>
+    .parent {width:100%;height:100%;border:2px solid #000;display:table-cell;vertical-align:middle;text-align: center;}
+    .child {width:100%;height:100%;display:inline-block;}
+</style>
 </head>
 <body class="gray-bg">
-<div class="container-div">
-    <div class="row">
-            <tr>
-                <td style="padding-left:2px;text-align: right;">播出时间：</td>
-                <td style="padding-left:2px;">
-                    <input class="laydate-icon form-control layer-date"
-                           name="broad"
-                           id="broad"
-                           th:value="${oddtime}"
-                           readonly="readonly"
-                           style="width:120px;"
-                           placeholder="播出时间"
-                           title="播出时间"/>
-                </td>
-            </tr>
+<div class="container-div parent">
+    <div style="" class="child">
+            <label style="margin-left: 35%">播出时间：</label>
+                <input class="laydate-icon form-control layer-date"
+                       name="broad"
+                       id="broad"
+                       th:value="${oddtime}"
+                       readonly="readonly"
+                       style="height:50px;width:140px;margin-left: 35%"
+                       placeholder="播出时间"
+                       title="播出时间"/>
+        <div style="margin-top: 10%">
+            <label style="color: #ffad10;size: 20em">时间插件显示不了请更换为IE内核浏览器</label>
+        </div>
     </div>
 </div>
 <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>

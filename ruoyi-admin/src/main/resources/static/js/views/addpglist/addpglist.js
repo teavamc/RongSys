@@ -28,7 +28,7 @@ function setPro(obj){
     }else{
         type="停止播放";
     }
-    $("#tbody").append("<tr style='max-height: 50px;min-height: 50px'><td class='center'>"+type+"</td> <td class='center'></td>"+
+    $("#tbody").append("<tr style='max-height: 70px;min-height:70px'><td class='center'>"+type+"</td> <td class='center'></td>"+
         "<td class='center'></td> <td class='center'>"+obj+"</td>"+
         "<td class='center'>"+time+"</td> <td class='center'></td>"+
         " <td class='center'>"+
@@ -38,7 +38,8 @@ function setPro(obj){
         "</a> <a class='red' onclick='deletePro(this);'>"+
         "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
         "</a> </div>"+
-        "</td></tr>");
+        "</td><td class='center'><div class='action-buttons'><a class='red'>"+
+        "<i class='ace-icon fa fa-stop-circle bigger-120'></i></a></div></td></tr>");
 }
 
 /**
@@ -58,8 +59,8 @@ function editTime(obj){
     console.log("TIME="+time)
     var _url = "/broad/proSinmanage/getTime?time="+time;
     var _title = '修改时间';
-    var _width = "600";
-    var _height = ($(window).height() - 250);
+    var _width = "500";
+    var _height = ($(window).height() - 300);
     layer.open({
         type: 2,
         maxmin: true,
@@ -354,7 +355,7 @@ function data_string(datetimeStr) {
  * @param intervaltime
  * @returns {string}
  */
-function getTime(intervaltime){
+function getTime(intervaltime,times){
     var basenum = 5;  //5秒钟延迟播放
     var TimeNILL = data_string(intervaltime)
     var restData = intervaltime;
@@ -375,6 +376,14 @@ function getTime(intervaltime){
             var S2 = parseInt(lasttime.split(":")[2]);
             //console.log("H2="+H2+"M2="+M2+"S2="+S2)
             seconds += H2 * 3600  + M2 * 60  + S2 ;
+            //console.log("<<<1 前一个的播放开始时间>>>"+lasttime+"---"+seconds)
+        }
+        if(times!=null&&times!=""){
+            var H3 = parseInt(times.split(":")[0]);
+            var M3 = parseInt(times.split(":")[1]);
+            var S3 = parseInt(times.split(":")[2]);
+            //console.log("H3="+H3+"M3="+M3+"S3="+S3)
+            seconds += H3 * 3600  + M3 * 60  + S3 ;
             //console.log("<<<1 前一个的播放开始时间>>>"+lasttime+"---"+seconds)
         }
         if(timelenth!=null &&timelenth.length>0){
@@ -485,7 +494,7 @@ function doFile() {
         return false;
     }
     var data = $("#broaddate").val();
-    var time = getTime(data+" "+baseTime);
+
     //console.log("timeFile="+time);
     var _url = "/broad/proSinmanage/getdoFile";
     var _title = '文件选择';
@@ -505,24 +514,31 @@ function doFile() {
             layer.close(index);
             //获取子页面关闭前的回调函数获取到的值
             var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
-            var id = res.data_fileID;
-            var filenames = res.data_filenames;
-            var filename = res.data_filename;
-            var filetime = res.data_file;
-           // console.log(">>>重复次数"+res.data_num+">>>文件id"+res.data_fileID+">>>节目"+res.data_filenames+">>>节目文件"+res.data_filename+">>>时长"+res.data_file+">>>间隔时长"+res.data_time)
+            var id = res.data_fileID.toString().replace("[","").replace("]","").replace("\"","").split(",");
+            var filenames = res.data_filenames.toString().replace("[","").replace("]","").replace("\"","").split(",");
+            var filename = res.data_filename.toString().replace("[","").replace("]","").replace("\"","").split(",");
+            var filetime = res.data_file.toString().replace("[","").replace("]","").replace("\"","").split(",");
+           //console.log(">>>重复次数"+res.data_num+">>>文件id"+res.data_fileID+">>>节目"+res.data_filenames+">>>节目文件"+res.data_filename+">>>时长"+res.data_file+">>>间隔时长"+res.data_time)
+           // console.log(">>>重复次数"+res.data_num+">>>文件id"+id+">>>节目"+filenames+">>>节目文件"+filename+">>>时长"+filetime+">>>间隔时长"+res.data_time)
+            var time = getTime(data+" "+baseTime,res.data_time);
             for(var i=1;i<=res.data_num;i++){
-                $("#tbody").append("<tr><td class='center'>文件转播</td> <td class='center'>"+id+"</td>"+
-                    "<td class='center'>"+filenames+"</td> <td class='center'>"+filename+"</td>"+
-                    "<td class='center'>"+time+"</td> <td class='center'>"+filetime+"</td>"+
-                    " <td class='center'>"+
-                    "<div class='action-buttons'>"+
-                    "<a class='green' onclick='editTime(this);'>"+
-                    "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
-                    "</a> <a class='red' onclick='deletePro(this);'>"+
-                    "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
-                    "</a> </div>"+
-                    "</td></tr>");
-                time = getTime(data+" "+baseTime);
+                for(var j=0;j<res.data_length;j++){
+                    $("#tbody").append("<tr><td class='center'>文件转播</td> <td class='center'>"+id[j]+"</td>"+
+                        "<td class='center'>"+filenames[j]+"</td> <td class='center'>"+filename[j]+"</td>"+
+                        "<td class='center'>"+time+"</td> <td class='center'>"+filetime[j]+"</td>"+
+                        " <td class='center'>"+
+                        "<div class='action-buttons'>"+
+                        "<a class='green' onclick='editTime(this);'>"+
+                        "<i class='ace-icon fa fa-pencil-square-o bigger-130' title='修改'></i>"+
+                        "</a> <a class='red' onclick='deletePro(this);'>"+
+                        "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
+                        "</a> </div>"+
+                        "</td><td class='center'><div class='action-buttons'><a class='red' onclick='moveUp(this)'>"+
+                        "<i class='ace-icon fa fa-arrow-up bigger-120' title='上移'></i></a>&nbsp;&nbsp;" +
+                        "<a class='red' onclick='moveDown(this)'>" +
+                        "<i class='ace-icon fa fa-arrow-down bigger-120' title='下移'></i></a></div></td></tr>");
+                    time = getTime(data+" "+baseTime,res.data_time);
+                }
             }
         }, cancel: function () {
             return true;
@@ -550,7 +566,7 @@ function doCham() {
         return false;
     }
     var data = $("#broaddate").val();
-    var times = getTime(data+" "+baseTime);
+
     //console.log("timeCham="+time);
     var _url = "/broad/proSinmanage/getdoCham";
     var _title = '电台选择';
@@ -571,6 +587,7 @@ function doCham() {
             //获取子页面关闭前的回调函数获取到的值
             var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
             //console.log(">>>",res)
+            var times = getTime(data+" "+baseTime,res.data_time);
             $("#tbody").append("<tr><td class='center'>电台播音</td> <td class='center'>"+res.data_fileID+"</td>"+
                 "<td class='center'>"+res.data_filename+"</td> <td class='center'>"+res.data_file+"</td>"+
                 "<td class='center'>"+times+"</td> <td class='center'>"+res.data_time+"</td>"+
@@ -581,8 +598,11 @@ function doCham() {
                 "</a> <a class='red' onclick='deletePro(this);'>"+
                 "<i class='ace-icon fa fa-trash-o bigger-120' title='删除'></i>"+
                 "</a> </div>"+
-                "</td></tr>");
-            times = getTime(data+" "+baseTime);
+                "</td><td class='center'><div class='action-buttons'><a class='red' onclick='moveUp(this)'>"+
+                "<i class='ace-icon fa fa-arrow-up bigger-120' title='上移'></i></a>&nbsp;&nbsp;" +
+                "<a class='red' onclick='moveDown(this)'>" +
+                "<i class='ace-icon fa fa-arrow-down bigger-120' title='下移'></i></a></div></td></tr>");
+            times = getTime(data+" "+baseTime,res.data_time);
         }, cancel: function () {
             return true;
         }
@@ -734,4 +754,9 @@ function saves(){
     //         window.location.href="<%=basePath%>probroad/listProBroad.do";
     //     }
     // });
+}
+
+function moveBy(obj) {
+    console.log($(obj).parent().parent().parent().parent().get(this))
+    console.log($(obj).parent().parent().parent())
 }
