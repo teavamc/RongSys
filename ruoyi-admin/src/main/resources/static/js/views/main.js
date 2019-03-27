@@ -213,13 +213,25 @@ function init_sys_loginlog() {
             var log_info = '';
             for (log in l_log){
                 log_info += '<tr>' +
+                    '<td>' + l_log[log].login_name +
+                    '</td>' +
                     '<td>' + l_log[log].user_name +
+                    '</td>' +
+                    '<td>' + l_log[log].dept_name +
+                    '</td>' +
+                    '<td>' + l_log[log].role_name +
                     '</td>' +
                     '<td>' + l_log[log].ipaddr +
                     '</td>' +
+                    '<td>' + l_log[log].login_location +
+                    '</td>' +
                     '<td>' + l_log[log].loginTime +
                     '</td>' +
-                    '<td>' + l_log[log].loginLocation +
+                    '<td>' + l_log[log].msg +
+                    '</td>' +
+                    '<td>' + l_log[log].times +
+                    '</td>' +
+                    '<td>' + l_log[log].browser +
                     '</td>' +
                     '</tr>';
             }
@@ -227,10 +239,16 @@ function init_sys_loginlog() {
             $("#sys_login_log").html('<table class="table table-hover">' +
                 '<thead>' +
                 '<tr>' +
-                '<th>用户</th>' +
+                '<th>用户名</th>' +
+                '<th>真实姓名</th>' +
+                '<th>所在部门</th>' +
+                '<th>用户角色</th>' +
                 '<th>IP地址</th>' +
-                '<th>登陆时间</th>' +
                 '<th>登陆地点</th>' +
+                '<th>登陆时间</th>' +
+                '<th>登陆状态</th>' +
+                '<th>30天内登陆数</th>' +
+                '<th>浏览器</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +
