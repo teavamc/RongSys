@@ -10,7 +10,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="num" property="num"/>
         <result column="telnumber" property="telnumber"/>
     </resultMap>
-	
+    <resultMap id="TextMessagesMap" type="com.ruoyi.broad.domain.Textmessages">
+        <result column="telid" property="telid"/>
+        <result column="tid" property="tid"/>
+        <result column="tel" property="tel"/>
+        <result column="telperson" property="telperson"/>
+        <result column="isuse" property="isuse"/>
+    </resultMap>
+
+    <select id="selectTextMessages" resultMap="TextMessagesMap">
+        select
+        telid,
+        tid,
+        tel,
+        telperson,
+        isuse
+        from
+        terminaltels
+        order by
+        telid asc
+    </select>
     <select id="selectTypeNum" resultMap="TypeNumMap">
           select telperson as textnum ,count(*) as num ,tel as telnumber from terminaltels group by telperson
     </select>

@@ -11,6 +11,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="userName"     column="user_name"    />
 		<result property="email"        column="email"        />
 		<result property="phonenumber"  column="phonenumber"  />
+		<result property="phoneimei"  column="phoneimei"  />
 		<result property="sex"          column="sex"          />
 		<result property="avatar"       column="avatar"       />
 		<result property="password"     column="password"     />
@@ -46,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<sql id="selectUserVo">
-        select  u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.phonenumber, u.sex, u.avatar, u.password, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_time, u.remark,
+        select  u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.phonenumber, u.phoneimei, u.sex, u.avatar, u.password, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_time, u.remark,
        		    d.dept_id, d.parent_id, d.dept_name, d.order_num, d.status as dept_status,
        		    r.role_id, r.role_name, r.role_key, r.role_sort, r.data_scope, r.status as role_status
 		from sys_user u
@@ -56,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </sql>
 	
 	<select id="selectUserList" parameterType="SysUser" resultMap="SysUserResult">
-		select u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.phonenumber, u.password, u.sex, u.avatar, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.dept_name from sys_user u
+		select u.user_id, u.dept_id, u.login_name, u.user_name, u.email, u.phonenumber, u.phoneimei, u.password, u.sex, u.avatar, u.salt, u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.dept_name from sys_user u
 		left join sys_dept d on u.dept_id = d.dept_id
 		where u.del_flag = '0'
 		<if test="loginName != null and loginName != ''">
@@ -64,6 +65,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		</if>
 		<if test="status != null and status != ''">
 			AND u.status = #{status}
+		</if>
+		<if test="phoneimei != null and phoneimei != ''">
+			AND u.phoneimei like concat('%', #{phoneimei}, '%')
 		</if>
 		<if test="phonenumber != null and phonenumber != ''">
 			AND u.phonenumber like concat('%', #{phonenumber}, '%')
@@ -132,6 +136,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="userName != null and userName != ''">user_name = #{userName},</if>
  			<if test="email != null and email != ''">email = #{email},</if>
  			<if test="phonenumber != null and phonenumber != ''">phonenumber = #{phonenumber},</if>
+			<if test="phoneimei != null and phoneimei != ''">phoneimei = #{phoneimei},</if>
  			<if test="sex != null and sex != ''">sex = #{sex},</if>
  			<if test="avatar != null and avatar != ''">avatar = #{avatar},</if>
  			<if test="password != null and password != ''">password = #{password},</if>
@@ -154,6 +159,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="userName != null and userName != ''">user_name,</if>
  			<if test="email != null and email != ''">email,</if>
  			<if test="phonenumber != null and phonenumber != ''">phonenumber,</if>
+			<if test="phoneimei != null and phoneimei != ''">phoneimei,</if>
  			<if test="sex != null and sex != ''">sex,</if>
  			<if test="password != null and password != ''">password,</if>
  			<if test="salt != null and salt != ''">salt,</if>
@@ -167,6 +173,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="userName != null and userName != ''">#{userName},</if>
  			<if test="email != null and email != ''">#{email},</if>
  			<if test="phonenumber != null and phonenumber != ''">#{phonenumber},</if>
+			<if test="phoneimei != null and phoneimei != ''">#{phoneimei},</if>
  			<if test="sex != null and sex != ''">#{sex},</if>
  			<if test="password != null and password != ''">#{password},</if>
  			<if test="salt != null and salt != ''">#{salt},</if>

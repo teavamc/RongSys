@@ -1,5 +1,6 @@
 package com.ruoyi.broad.service.impl;
 
+import com.ruoyi.broad.domain.Textmessages;
 import com.ruoyi.broad.domain.typenum;
 import com.ruoyi.broad.mapper.TextmessagesMapper;
 import com.ruoyi.broad.service.ITextmessagesService;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @Description: 获取短信终端类型及数量$
+ * @Description: 获取短信终端类型及数量以及号码$
  * @Param: $
  * @return: $
  * @Author: 戴誉琪
@@ -32,4 +33,7 @@ public class TextmessagesServiceImpl  implements ITextmessagesService {
     public List<typenum> selectTypeNum() {
         return textmessagesMapper.selectTypeNum();
     }
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public List<Textmessages> selectTextMessages(){ return  textmessagesMapper.selectTextMessages();}
 }

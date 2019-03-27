@@ -17,7 +17,7 @@ public class Textmessages extends BaseEntity {
     /** 电话号码*/
     private String tel;
     /** 电话号码所属人*/
-    private String telpersion;
+    private String telperson;
     /** 是否可用*/
     private int isuse;
 
@@ -28,18 +28,18 @@ public class Textmessages extends BaseEntity {
                 "telid='" + telid + '\'' +
                 ", tid='" + tid + '\'' +
                 ", tel='" + tel + '\'' +
-                ", telpersion='" + telpersion + '\'' +
+                ", telpersion='" + telperson + '\'' +
                 ", isuse=" + isuse +
                 '}';
     }
 
     public Textmessages(String telid, String tid, String tel,
-                        String telpersion,
+                        String telperson,
                         int isuse) {
         this.telid = telid;
         this.tid = tid;
         this.tel = tel;
-        this.telpersion = telpersion;
+        this.telperson = telperson;
         this.isuse = isuse;
     }
 
@@ -76,12 +76,12 @@ public class Textmessages extends BaseEntity {
         this.tel = tel;
     }
 
-    public String getTelpersion() {
-        return telpersion;
+    public String getTelperson() {
+        return telperson;
     }
 
-    public void setTelpersion(String telpersion) {
-        this.telpersion = telpersion;
+    public void setTelperson(String telperson) {
+        this.telperson = telperson;
     }
 
     public int getIsuse() {

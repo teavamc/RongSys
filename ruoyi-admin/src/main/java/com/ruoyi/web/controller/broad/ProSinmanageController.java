@@ -193,6 +193,16 @@ public class ProSinmanageController extends BaseController
 		return prefix+"/time";
 	}
 	/**
+	 * 返回音频播放界面
+	 * @param mmap
+	 * @return
+	 */
+	@GetMapping("/getAudio")
+	public String doAudio(@PathParam("url") String url, ModelMap mmap){
+		mmap.put("AudioUrl",url);
+		return prefix+"/audio";
+	}
+	/**
 	 * 获取节目单数据
 	 * @param program
 	 * @return
