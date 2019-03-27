@@ -10,6 +10,7 @@ function main_onload() {
     init_iotdatacount();
     init_rivisdatacount();
     init_riotdevcount();
+
     //系统监控
     init_sys_mon();
     //系统访问记录
@@ -17,8 +18,8 @@ function main_onload() {
 
     //每15秒刷新系统监控数据
     setInterval(init_sys_mon, 15000);
-    //每300秒刷新登陆数据数据
-    setInterval(init_sys_loginlog, 300000);
+    //每30秒刷新登陆数据数据
+    setInterval(init_sys_loginlog, 30000);
 }
 // 系统说明
 function info_pop() {
@@ -247,8 +248,8 @@ function init_sys_loginlog() {
                 '<th>登陆地点</th>' +
                 '<th>登陆时间</th>' +
                 '<th>登陆状态</th>' +
-                '<th>30天内登陆数</th>' +
-                '<th>浏览器</th>' +
+                '<th>30天内登陆次数</th>' +
+                '<th>使用的浏览器</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +
