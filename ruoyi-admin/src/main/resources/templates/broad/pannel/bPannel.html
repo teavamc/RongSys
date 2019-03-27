@@ -181,15 +181,61 @@
             </div>
 
         </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12 select-table table-striped">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>三维广播分组可视化</h5>
+                        <div class="ibox-tools">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-superpowers"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a onclick="sort_3d_bt()">排序数据</a>
+                                </li>
+                                <li><a onclick="init_3d_bt()">原始数据</a>
+                                </li>
+                            </ul>
+                            <!--                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="echarts" id="3d_bt"  style="height:400px;" ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>广播地域分布可视化</h5>
+                        <div class="ibox-tools">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <i class="fa fa-superpowers"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li><a onclick="sort_ec_bt()">排序</a>
+                                </li>
+                                <li><a onclick="init_ec_bt()">原始数据</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="echarts" id="bt_sum" style="height:400px;" ></div>
+                    </div>
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-12 select-table table-striped">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-content">
+                        <table id="bootstrap-table" data-mobile-responsive="true"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 </div>
