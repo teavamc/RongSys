@@ -760,3 +760,13 @@ function moveBy(obj) {
     console.log($(obj).parent().parent().parent().parent().get(this))
     console.log($(obj).parent().parent().parent())
 }
+/**
+ * 时间重排测试
+ */
+function timeAuto(obj) {
+    var objs = $(obj).parent().parent().parent().parent()
+    console.log(objs[0])
+    for (var i=2;i<objs[0].length;i++){
+        console.log(">>>>"+(objs[0][i]))
+    }
+}

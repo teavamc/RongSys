@@ -107,6 +107,7 @@
 <script type="text/javascript">
     //使表格行上移，接收参数为链接对象
     function moveUp(_a){
+        timeAuto(_a);
         //通过链接对象获取表格行的引用
         var _row=_a.parentNode.parentNode.parentNode;
         //如果不是第一行，则与上一行交换顺序
@@ -115,6 +116,7 @@
 
     //使表格行下移，接收参数为链接对象
     function moveDown(_a){
+        timeAuto(_a);
         //通过链接对象获取表格行的引用
         var _row=_a.parentNode.parentNode.parentNode;
         //如果不是最后一行，则与下一行交换顺序
