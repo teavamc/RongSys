@@ -44,20 +44,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectLoginLogforIndex" resultType="HashMap">
 		select
-			sys_logininfor.login_name as loginName,
-			sys_user.user_name as user_name,
-			sys_logininfor.ipaddr as ipaddr,
-			sys_logininfor.login_location as loginLocation,
-			sys_logininfor.browser as browser,
-			date_format(sys_logininfor.login_time,'%m-%d %T %p') as loginTime
+		sys_logininfor.login_name,
+		sys_logininfor.msg,
+		sys_user.user_name,
+		sys_dept.dept_name,
+		sys_role.role_name,
+		sys_logininfor.ipaddr,
+		sys_logininfor.login_location,
+		sys_logininfor.browser,
+		date_format(sys_logininfor.login_time,'%m月%d日 %T') as loginTime,
+		(select
+		count(sys_logininfor_2.login_name)
 		from
-			sys_logininfor,sys_user
+		sys_logininfor as sys_logininfor_2
 		where
-			sys_logininfor.login_name = sys_user.login_name
-			AND
-			sys_logininfor.status = 0
-		order by sys_logininfor.login_time desc
-		limit 0,6
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(login_time)
+		AND
+		sys_logininfor.login_name = sys_logininfor_2.login_name
+		)as times
+		from
+		sys_logininfor as sys_logininfor,sys_user,sys_dept,sys_user_role,sys_role
+		where
+		sys_logininfor.login_name = sys_user.login_name
+		AND
+		sys_user.dept_id = sys_dept.dept_id
+		AND
+		sys_user_role.user_id = sys_user.user_id
+		AND
+		sys_user_role.role_id = sys_role.role_id
+		order by info_id desc
+		limit 0,10
 	</select>
 	
 	<delete id="deleteLogininforByIds" parameterType="String">
