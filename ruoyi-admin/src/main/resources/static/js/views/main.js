@@ -118,32 +118,32 @@ function init_sys_mon() {
             $("#sys_mon_cpu").html('<table class="table table-hover">\n' +
                 '<thead>' +
                 '<tr>' +
-                '<th>处理器参数</th>' +
+                '<th>CPU</th>' +
                 '<th>参考值</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' +
                 '<tr>' +
                 '</td>' +
-                '<td>核心数</td>' +
-                '<td id="" class="text-warning">' + data.data.cpu.cpuNum + " 线程" +
+                '<td>核心</td>' +
+                '<td id="" class="text-warning">' + data.data.cpu.cpuNum + " 核心" +
                 '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '</td>' +
-                '<td>用户使用率</td>' +
+                '<td>用户</td>' +
                 '<td id="" class="text-navy">' + data.data.cpu.used + "%" +
                 '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '</td>' +
-                '<td>系统使用率</td>' +
+                '<td>系统</td>' +
                 '<td id="" class="text-warning">' + data.data.cpu.sys + "%" +
                 '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '</td>' +
-                '<td>当前空闲率</td>' +
+                '<td>空闲</td>' +
                 '<td id="" class="text-navy">' + data.data.cpu.free + "%" +
                 '</td>' +
                 '</tr>' +
@@ -240,16 +240,16 @@ function init_sys_loginlog() {
             $("#sys_login_log").html('<table class="table table-hover">' +
                 '<thead>' +
                 '<tr>' +
-                '<th>用户名</th>' +
-                '<th>真实姓名</th>' +
-                '<th>所在部门</th>' +
-                '<th>用户角色</th>' +
-                '<th>IP地址</th>' +
-                '<th>登陆地点</th>' +
-                '<th>登陆时间</th>' +
-                '<th>登陆状态</th>' +
-                '<th>30天内登陆次数</th>' +
-                '<th>使用的浏览器</th>' +
+                '<th>用户</th>' +
+                '<th>姓名</th>' +
+                '<th>部门</th>' +
+                '<th>角色</th>' +
+                '<th>IP</th>' +
+                '<th>地点</th>' +
+                '<th>时间</th>' +
+                '<th>状态</th>' +
+                '<th>月次数</th>' +
+                '<th>浏览器</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +
