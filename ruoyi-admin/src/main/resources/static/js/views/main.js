@@ -14,16 +14,13 @@ function main_onload() {
     init_sys_mon();
     //系统访问记录
     init_sys_loginlog();
-    //广播时间分布可视化
-    init_bt_mbygroup();
-    init_bd_mbygroup();
-    init_bds_mbygroup();
+
     //每15秒刷新系统监控数据
     setInterval(init_sys_mon, 15000);
-    //每300秒刷新系统监控数据
+    //每300秒刷新登陆数据数据
     setInterval(init_sys_loginlog, 300000);
 }
-
+// 系统说明
 function info_pop() {
     $('#pop').html('<div class="modal-dialog">' +
         '<div class="modal-content animated flipInY">' +
@@ -43,7 +40,7 @@ function info_pop() {
         '</div>' +
         '</div>')
 }
-
+// 广播信息
 function init_broad() {
     $.ajax({
         type: "GET",
@@ -57,7 +54,7 @@ function init_broad() {
         }
     });
 }
-
+// 物联网信息
 function init_iotdatacount() {
     $.ajax({
         type: "GET",
@@ -68,7 +65,7 @@ function init_iotdatacount() {
         }
     });
 }
-
+// 山洪信息
 function init_rivisdatacount() {
     $.ajax({
         type: "GET",
@@ -79,7 +76,7 @@ function init_rivisdatacount() {
         }
     });
 }
-
+// 山洪预警信息
 function init_riotdevcount() {
     $.ajax({
         type: "GET",
@@ -90,7 +87,7 @@ function init_riotdevcount() {
         }
     });
 }
-
+// 村务初始化
 function init_village() {
     $.ajax({
         type:"GET",
@@ -107,7 +104,7 @@ function init_village() {
         }
     });
 }
-
+// 系统监控
 function init_sys_mon() {
     $.ajax({
         type:"GET",
@@ -202,7 +199,7 @@ function init_sys_mon() {
         }
     })
 }
-
+// 系统登陆
 function init_sys_loginlog() {
     $.ajax({
         type: "GET",
@@ -242,213 +239,4 @@ function init_sys_loginlog() {
         }
     })
 
-}
-
-function init_bt_mbygroup() {
-    var bt_mbygroup = echarts.init(document.getElementById('bt_mbygroup'));
-    $.ajax({
-        type: "GET",
-        url: "/api/btime/bt",
-        datatype: "JSON",
-        success: function (data) {
-            var btygroup_data = data.data;
-            var x_data = new Array();
-            var y_data = new Array();
-            for(var i = 0; i < btygroup_data.length; i++) {
-                if (btygroup_data[i].bcount == '') {
-                    x_data.push('未知');
-                } else {
-                    y_data.push(parseInt(btygroup_data[i].bcount));
-                    x_data.push(btygroup_data[i].broadDate);
-                }
-            }
-            /*console.log(x_data);*/
-            /*console.log(y_data);*/
-            option = {
-                color: ['#06edfc'],
-                tooltip : {
-                    trigger: 'axis'
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        magicType : {show: true, type: ['line', 'bar']},
-                    }
-                },
-                calculable : true,
-                grid: {
-                    left: '3%',
-                    right: '3%',
-                    top: '5%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : x_data,
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        axisLabel : {
-                            formatter: '{value}'
-                        }
-                    }
-                ],
-                series : [
-                    {
-                        type:'line',
-                        data: y_data,
-                        markLine : {
-                            data : [
-                                {type : 'average', name: '平均值'}
-                            ]
-                        }
-                    },
-                ]
-            };
-            bt_mbygroup.setOption(option);
-        }
-    });
-}
-
-function init_bd_mbygroup() {
-    var bd_mbygroup = echarts.init(document.getElementById('bd_mbygroup'));
-    $.ajax({
-        type: "GET",
-        url: "/api/btime/bd",
-        datatype: "JSON",
-        success: function (data) {
-            var bdygroup_data = data.data;
-            var x_data = new Array();
-            var y_data = new Array();
-            for(var i = 0; i < bdygroup_data.length; i++) {
-                if (bdygroup_data[i].bcount == '') {
-                    x_data.push('未知');
-                } else {
-                    y_data.push(parseInt(bdygroup_data[i].bcount));
-                    x_data.push(bdygroup_data[i].broadDate);
-                }
-            }
-            /*console.log(x_data);*/
-            /*console.log(y_data);*/
-            option = {
-                color: ['#00fc1a'],
-                tooltip : {
-                    trigger: 'axis'
-                },
-                toolbox: {
-                    show : true,
-                    feature : {
-                        magicType : {show: true, type: ['line', 'bar']},
-                    }
-                },
-                calculable : true,
-                grid: {
-                    left: '3%',
-                    right: '3%',
-                    top: '5%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        boundaryGap : false,
-                        data : x_data,
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value',
-                        axisLabel : {
-                            formatter: '{value}'
-                        }
-                    }
-                ],
-                series : [
-                    {
-                        type:'line',
-                        data: y_data,
-                        markLine : {
-                            data : [
-                                {type : 'average', name: '平均值'}
-                            ]
-                        }
-                    },
-                ]
-            };
-            bd_mbygroup.setOption(option);
-        }
-    });
-}
-
-function init_bds_mbygroup() {
-    var bds_mbygroup = echarts.init(document.getElementById('bds_mbygroup'));
-    $.ajax({
-        type: "GET",
-        url: "/api/btime/bds",
-        datatype: "JSON",
-        success: function (data) {
-            var bdsygroup_data = data.data;
-            var x_data = new Array();
-            var y_data = new Array();
-            for(var i = 0; i < bdsygroup_data.length; i++) {
-                if (bdsygroup_data[i].marea == '') {
-                    x_data.push('未知');
-                } else {
-                    x_data.push(bdsygroup_data[i].scategory);
-                    y_data.push(parseInt(bdsygroup_data[i].bcount));
-                    /*var y = new Object();
-                     y.name = bdsygroup_data[i].scategory;
-                     y.value = parseInt(bdsygroup_data[i].bcount);
-                     y_data.push(y);*/
-                }
-            }
-            /*console.log(bdsygroup_data);*/
-            /*console.log(x_data);
-             console.log(y_data);*/
-            option = {
-                tooltip : {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
-                },
-                legend: {
-                    orient : 'vertical',
-                    x : 'left',
-                    data: x_data
-                },
-                calculable : true,
-                series : [
-                    {
-                        name:'访问来源',
-                        type:'pie',
-                        radius : '55%',
-                        center: ['50%', '60%'],
-                        data:[
-                            /*y_data*/
-                            {value:y_data[0], name: x_data[0]},
-                            {value:y_data[1], name: x_data[1]}
-                        ]
-                    }
-                ]
-            };
-
-            bds_mbygroup.setOption(option);
-        }
-    });
-}
-
-//找到包含value的值 在arr数组中的下标
-function arrIndex(arr, value) {
-    var i = arr.length;
-    while (i--) {
-        if (arr[i] === value) {
-            return i;
-        }
-    }
-    return false;
 }
