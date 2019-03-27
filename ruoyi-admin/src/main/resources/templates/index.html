@@ -62,8 +62,10 @@
                  <li class="active">
                     <a href="index.html"><i class="fa fa-home"></i> <span class="nav-label">控制台</span> <span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
-                        <li class="active"><a class="menuItem" th:href="@{/system/main}">数据面板</a></li>
-                        <li class="active"><a class="menuItem" th:href="@{/broad/pannel}">广播面板</a></li>
+                        <li ><a class="menuItem" th:href="@{/system/main}">核心控制台</a></li>
+                        <li ><a class="menuItem" th:href="@{/broad/pannel}">广播数据</a></li>
+                        <li ><a class="menuItem" th:href="@{/village/pannel}">社区数据</a></li>
+                        <li ><a class="menuItem" th:href="@{/river/pannel}">山洪数据</a></li>
                     </ul>
                 </li>
                 <li th:each="menu : ${menus}">
