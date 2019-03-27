@@ -16,10 +16,10 @@ function main_onload() {
     //系统访问记录
     init_sys_loginlog();
 
-    //每15秒刷新系统监控数据
-    setInterval(init_sys_mon, 15000);
-    //每30秒刷新登陆数据数据
-    setInterval(init_sys_loginlog, 30000);
+    // //每15秒刷新系统监控数据
+    // setInterval(init_sys_mon, 15000);
+    // //每30秒刷新登陆数据数据
+    // setInterval(init_sys_loginlog, 30000);
 }
 // 系统说明
 function info_pop() {
@@ -112,7 +112,7 @@ function init_sys_mon() {
         url:"/api/sys_mon/mi",
         dataType:"json",
         success:function (data) {
-            $("#mon_flush_time").html('<span>'+ '最后更新:  ' + data.time +
+            $("#mon_flush_time").html('<span>'+ data.time + ' 更新' +
                 '</span>');
 
             $("#sys_mon_cpu").html('<table class="table table-hover">\n' +
@@ -152,22 +152,22 @@ function init_sys_mon() {
             );
 
             $("#sys_mon_line").html(' <table class="table table-hover">' +
-                '<h2>' + "内存:" + data.data.mem.usage + "%" +
-                '</h2>' +
+                '<h3>' + "内存:" + data.data.mem.usage + "%" +
+                '</h3>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' +  data.data.mem.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h2>' + "JVM:" + data.data.jvm.usage + "%" +
-                '</h2>' +
+                '<h3>' + "JVM:" + data.data.jvm.usage + "%" +
+                '</h3>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.jvm.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h2>' + "CPU:" + data.data.cpu.used + "%" +
-                '</h2>' +
+                '<h3>' + "CPU:" + data.data.cpu.used + "%" +
+                '</h3>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.cpu.used + "%" +
                 '" class="progress-bar"></div>' +
@@ -189,8 +189,8 @@ function init_sys_mon() {
             $("#sys_mon_disk").html('<table class="table table-hover margin bottom">\n' +
                 '<thead>' +
                 '<tr>' +
-                '<th>磁盘类型</th>' +
-                '<th>已用百分比</th>' +
+                '<th>磁盘</th>' +
+                '<th>已用</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + diskinfo +
@@ -207,7 +207,7 @@ function init_sys_loginlog() {
         url: "/api/sys_log/l_log",
         dataType: "json",
         success: function (data) {
-            $("#llog_flush_time").html('<span>'+ '最后更新:  ' + data.time +
+            $("#llog_flush_time").html('<span>' + data.time + ' 更新' +
                 '</span>');
 
             var l_log = data.data;
