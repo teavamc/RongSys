@@ -30,7 +30,7 @@ function setPro(obj){
     }
     $("#tbody").append("<tr style='max-height: 70px;min-height:70px'><td class='center'>"+type+"</td> <td class='center'></td>"+
         "<td class='center'></td> <td class='center'>"+obj+"</td>"+
-        "<td class='center'>"+time+"</td> <td class='center'></td>"+
+        "<td class='center' name='00:00:00'>"+time+"</td> <td class='center'>00:00:00</td>"+
         " <td class='center'>"+
         "<div class='action-buttons'>"+
         "<a class='green' onclick='editTime(this);'>"+
@@ -419,6 +419,7 @@ function getTime(intervaltime,times){
     return nule;
 }
 
+
 //时间相加
 function addTime(d,num) {
     var d = new Date(d.substring(0,4),
@@ -525,7 +526,7 @@ function doFile() {
                 for(var j=0;j<res.data_length;j++){
                     $("#tbody").append("<tr><td class='center'>文件转播</td> <td class='center'>"+id[j]+"</td>"+
                         "<td class='center'>"+filenames[j]+"</td> <td class='center'>"+filename[j]+"</td>"+
-                        "<td class='center'>"+time+"</td> <td class='center'>"+filetime[j]+"</td>"+
+                        "<td class='center' name='"+res.data_time+"'>"+time+"</td> <td class='center'>"+filetime[j]+"</td>"+
                         " <td class='center'>"+
                         "<div class='action-buttons'>"+
                         "<a class='green' onclick='editTime(this);'>"+
@@ -590,7 +591,7 @@ function doCham() {
             var times = getTime(data+" "+baseTime,res.data_time);
             $("#tbody").append("<tr><td class='center'>电台播音</td> <td class='center'>"+res.data_fileID+"</td>"+
                 "<td class='center'>"+res.data_filename+"</td> <td class='center'>"+res.data_file+"</td>"+
-                "<td class='center'>"+times+"</td> <td class='center'>"+res.data_time+"</td>"+
+                "<td class='center' name = '"+res.data_time+"'>"+times+"</td> <td class='center'>"+res.data_time+"</td>"+
                 " <td class='center'>"+
                 "<div class='action-buttons'>"+
                 "<a class='green' onclick='editTime(this);'>"+
@@ -764,9 +765,77 @@ function moveBy(obj) {
  * 时间重排测试
  */
 function timeAuto(obj) {
-    var objs = $(obj).parent().parent().parent().parent()
-    console.log(objs[0])
-    for (var i=2;i<objs[0].length;i++){
-        console.log(">>>>"+(objs[0][i]))
+    var objs = obj.parentNode.parentNode.parentNode.previousSibling.parentNode.childNodes;
+    //console.log(objs.length)
+    //console.log(objs)
+    var baseTime = "08:00:00";
+    var data = $("#broaddate").val();
+    for (var i=2;i<objs.length;i++) {
+        var obj = objs[i-1].childNodes[6];
+        var obj2 = objs[i-1].childNodes[7].nextSibling.innerText;
+        //console.log(obj2)
+        var obj3 = objs[i].childNodes[6];
+        var beginTime = $(obj).text();
+        var fileLength = obj2;
+        //console.log("开始时间："+beginTime+"文件时长："+fileLength)
+        var dataTime = $(obj).attr("name");
+        var time = getTimeAuto(data+" "+baseTime,beginTime,fileLength,dataTime);
+        $(obj3).html(time);
+        //console.log(">>>name",dataTime)
+        //console.log(">>>",obj,obj2)
+        //console.log(">>>",beginTime,fileLength)
     }
+}
+function getTimeAuto(intervaltime,beginTime,fileLength,dataTime){
+    var basenum = 5;  //5秒钟延迟播放
+
+    var seconds =0;
+    if(beginTime!=null&&beginTime!=""){
+        var H3 = parseInt(beginTime.split(":")[0]);
+        var M3 = parseInt(beginTime.split(":")[1]);
+        var S3 = parseInt(beginTime.split(":")[2]);
+        //console.log("H3="+H3+"M3="+M3+"S3="+S3)
+        seconds += H3 * 3600  + M3 * 60  + S3 ;
+        //console.log("<<<1 前一个的播放开始时间>>>"+lasttime+"---"+seconds)
+    }
+    if(fileLength!=null &&fileLength !=""){
+        var H = parseInt(fileLength.split(":")[0]);
+        var M = parseInt(fileLength.split(":")[1]);
+        var S = parseInt(fileLength.split(":")[2]);
+        //console.log("H="+H+"M="+M+"S="+S)
+        seconds += H * 3600  + M * 60  + S ;
+        //console.log(">>>2 前一个的文件时长<<<"+timelenth+"---"+seconds)
+    } //2017-11-11 80:00:00
+    if(dataTime!=null &&dataTime!=""){
+        var H = parseInt(dataTime.split(":")[0]);
+        var M = parseInt(dataTime.split(":")[1]);
+        var S = parseInt(dataTime.split(":")[2]);
+        //console.log("H="+H+"M="+M+"S="+S)
+        seconds += H * 3600  + M * 60  + S ;
+        //console.log(">>>2 前一个的文件时长<<<"+timelenth+"---"+seconds)
+    } //2017-11-11 80:00:00
+    var Se = seconds-28800+basenum;
+    //console.log(Se)
+    var restData = addTime(intervaltime,Se);  //后面的是：前一个tr标签的播放开始时间+文件时长-08：00：00（28800s）+间隔时间
+    // console.log(Se+">>>"+restData);
+
+
+    var nule = restData.toString().split(" ")[1];
+    if(nule!=null &&nule.length>0){
+        var H,M,S;
+        H = parseInt(nule.split(":")[0]);
+        M = parseInt(nule.split(":")[1]);
+        S = parseInt(nule.split(":")[2]);
+        if(H<9){
+            H = '0'+H;
+        }
+        if(M<9){
+            M = '0'+M;
+        }
+        if(S<9){
+            S = '0'+S;
+        }
+        nule = H+":"+M+":"+S;
+    }
+    return nule;
 }
