@@ -214,8 +214,6 @@ function init_sys_loginlog() {
             var log_info = '';
             for (log in l_log){
                 log_info += '<tr>' +
-                    '<td>' + l_log[log].login_name +
-                    '</td>' +
                     '<td>' + l_log[log].user_name +
                     '</td>' +
                     '<td>' + l_log[log].dept_name +
@@ -240,10 +238,9 @@ function init_sys_loginlog() {
             $("#sys_login_log").html('<table class="table table-hover">' +
                 '<thead>' +
                 '<tr>' +
-                '<th>用户</th>' +
                 '<th>姓名</th>' +
                 '<th>部门</th>' +
-                '<th>角色</th>' +
+                '<th>级别</th>' +
                 '<th>IP</th>' +
                 '<th>地点</th>' +
                 '<th>时间</th>' +
