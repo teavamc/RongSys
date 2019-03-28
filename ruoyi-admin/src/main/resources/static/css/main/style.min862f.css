@@ -2998,7 +2998,7 @@ video {
 }
 
 .wrapper-content {
-    padding: 20px
+    padding: 12px
 }
 
 #page-wrapper {
@@ -3574,6 +3574,11 @@ table.table-mail tr td {
      background-color: #1c84c6;
      color: #fff
  }
+
+.darktea-bg {
+    background-color: #002c55;
+    color: #fff
+}
 
 .whiteblue-bg {
     background-color: #7ec3ca;
