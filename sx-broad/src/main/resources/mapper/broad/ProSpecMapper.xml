@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.ProSpecMapper">
+
+    <resultMap type="ProSpec" id="ProSpecResult">
+        <result property="fid" column="fid"/>
+        <result property="fname" column="fname"/>
+        <result property="filename" column="filename"/>
+        <result property="flenth" column="flenth"/>
+        <result property="fsize" column="fsize"/>
+        <result property="uname" column="uname"/>
+        <result property="createdtime" column="createdtime"/>
+    </resultMap>
+
+    <sql id="selectProSpecVo">
+        select
+          fid,
+          fname,
+          filename,
+          flenth,
+          fsize,
+          uname,
+          createdtime
+        from
+          programs as a,
+          userinfo as b
+    </sql>
+
+    <select id="selectProSpecList" parameterType="ProSpec" resultMap="ProSpecResult">
+        <include refid="selectProSpecVo"/>
+        <where>
+            <if test="fid != null  and fid != '' ">and fid like CONCAT('%',#{fid},'%')</if>
+            <if test="fname != null  and fname != '' ">and fname like CONCAT('%',#{fname},'%')</if>
+            <if test="filename != null  and filename != '' ">and filename like CONCAT('%',#{filename},'%')</if>
+            <if test="flenth != null  and flenth != '' ">and flenth like CONCAT('%',#{flenth},'%')</if>
+            <if test="fsize != null  and fsize != '' ">and fsize like CONCAT('%',#{fsize},'%')</if>
+            <if test="uname != null  and uname != '' ">and uname = like CONCAT('%',#{uname},'%')</if>
+            <if test="createdtime != null  and createdtime != '' ">and createdtime like CONCAT('%',#{createdtime},'%')</if>
+            and ispublic = 1
+            and a.userid = b.userid
+            order by fid DESC
+        </where>
+    </select>
+
+    <select id="selectProSpecById" parameterType="String" resultMap="ProSpecResult">
+        <include refid="selectProSpecVo"/>
+        where fid = #{fid}
+    </select>
+
+    <select id="selectAllProSpec" resultMap="ProSpecResult">
+        <include refid="selectProSpecVo"/>
+    </select>
+</mapper>
