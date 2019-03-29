@@ -75,6 +75,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by info_id desc
 		limit 0,10
 	</select>
+
+	<select id="CountLoLogDescMonth" resultType="HashMap">
+		select
+		ANY_VALUE(sys_user.user_name) as user,
+		count(sys_logininfor.login_name) as cn
+		from
+		sys_logininfor,
+		sys_user
+		where
+		sys_logininfor.login_name = sys_user.login_name
+		and
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(login_time)
+		and
+		sys_logininfor.status = 0
+		group by sys_logininfor.login_name
+		order by cn desc
+		limit 0,5
+	</select>
 	
 	<delete id="deleteLogininforByIds" parameterType="String">
  		delete from sys_logininfor where info_id in

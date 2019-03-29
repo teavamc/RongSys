@@ -74,4 +74,19 @@ public class Log {
     public RongApiRes CountLogDescForMonth(){
         return RongApiService.get_list(sysOperLogService.CountLogDescForMonth());
     }
+
+    /**
+     * 获取最近一个月内登陆次数最多的名单
+     * @author 张超 teavamc
+     * @date 2019/1/31
+     * @param []
+     * @return com.ruoyi.api.domain.RongApiRes
+     */
+    @GetMapping(value = "/CountLoLogDescMonth")
+    @CrossOrigin
+    @ApiOperation(value = "获取最近一个月内登陆次数最多最多的五个人名单")
+    public RongApiRes CountLoLogDescMonth(){
+        return RongApiService.get_list(logininforService.CountLoLogDescMonth());
+    }
+
 }
