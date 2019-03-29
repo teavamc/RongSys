@@ -151,28 +151,40 @@ function init_sys_mon() {
                 '</table>'
             );
 
-            $("#sys_mon_line").html(' <table class="table table-hover">' +
-                '<h3>' + "内存:" + data.data.mem.usage + "%" +
-                '</h3>' +
+            $("#sys_mon_line").html(' <div>' +
+                ' <div>' +
+                '<span>' + "内存" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.mem.usage + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' +  data.data.mem.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h3>' + "JVM:" + data.data.jvm.usage + "%" +
-                '</h3>' +
+                ' <div>' +
+                '<span>' + "JVM" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.jvm.usage + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.jvm.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h3>' + "CPU:" + data.data.cpu.used + "%" +
-                '</h3>' +
+                ' <div>' +
+                '<span>' + "CPU" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.cpu.used + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.cpu.used + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
-                '</table>'
+                '</div>'
             );
 
             var disk_data = data.data.sysFiles;
