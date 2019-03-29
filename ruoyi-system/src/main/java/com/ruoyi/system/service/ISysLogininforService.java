@@ -46,4 +46,11 @@ public interface ISysLogininforService
      * @return 结果
      */
     public List<PageData> selectLoginLogforIndex();
+
+    /**
+     * 获取一个月内访问次数最多的五个人
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLoLogDescMonth();
 }
