@@ -18,7 +18,7 @@ html {
 
     background: radial-gradient(200% 100% at bottom center, #0070aa, #0b2570, #000035, #000);
     /*background: radial-gradient(220% 105% at top center, #000 10%, #000035 40%, #0b2570 65%, #0070aa);*/
-    background: radial-gradient(220% 105% at top center, #000b86 10%, #00008b 40%, #0083cb 65%, #ff0000)
+    background: radial-gradient(220% 105% at top center, #000b86 10%, #00008b 40%, #0083cb 65%, #ff0000);
     background-attachment: fixed;
     overflow: hidden;
     color: rgba(255, 255, 255, .95)
