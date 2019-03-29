@@ -73,9 +73,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		user_name as user,
 		title,
 		oper_url as url,
+		case sys_oper_log.business_type
+			when '1' then '新增数据'
+			when '2' then '修改数据'
+			when '3' then '删除数据'
+			when '4' then '授权'
+			when '5' then '导出数据'
+			when '6' then '导入数据'
+			when '7' then '强退'
+			when '8' then '生成代码'
+			when '9' then '清空数据'
+		end as type,
 		case  sys_oper_log.status
-		when '0' then '成功'
-		when '1' then '异常'
+			when '0' then '成功'
+			when '1' then '异常'
 		end as res,
 		oper_ip as ip,
 		oper_location as loc,
@@ -95,7 +106,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where
 		sys_oper_log.oper_name = sys_user.login_name
 		order by oper_time desc
-		limit 0,15
+		limit 0,10
 	</select>
 
 </mapper> 

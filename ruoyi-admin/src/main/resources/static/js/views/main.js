@@ -285,6 +285,8 @@ function init_sys_operlog() {
                     '</td>' +
                     '<td>' + O_log[log].title +
                     '</td>' +
+                    '<td>' + O_log[log].type +
+                    '</td>' +
                     '<td>' + O_log[log].url +
                     '</td>' +
                     '<td>' + O_log[log].res +
@@ -292,6 +294,8 @@ function init_sys_operlog() {
                     '<td>' + O_log[log].Time +
                     '</td>' +
                     '<td>' + O_log[log].ip +
+                    '</td>' +
+                    '<td>' + O_log[log].loc +
                     '</td>' +
                     '<td>' + O_log[log].times +
                     '</td>' +
@@ -303,10 +307,12 @@ function init_sys_operlog() {
                 '<tr>' +
                 '<th>姓名</th>' +
                 '<th>模块</th>' +
-                '<th>调用</th>' +
+                '<th>操作</th>' +
+                '<th>调用服务</th>' +
                 '<th>结果</th>' +
                 '<th>时间</th>' +
                 '<th>IP</th>' +
+                '<th>地点</th>' +
                 '<th>月次数</th>' +
                 '</tr>' +
                 '</thead>' +
