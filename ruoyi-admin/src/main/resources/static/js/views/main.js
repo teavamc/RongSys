@@ -15,6 +15,8 @@ function main_onload() {
     init_sys_mon();
     //系统访问记录
     init_sys_loginlog();
+    //系统操作记录
+    init_sys_operlog();
 
     // //每15秒刷新系统监控数据
     // setInterval(init_sys_mon, 15000);
@@ -212,7 +214,7 @@ function init_sys_mon() {
         }
     })
 }
-// 系统登陆
+// 系统登陆记录
 function init_sys_loginlog() {
     $.ajax({
         type: "GET",
@@ -259,6 +261,53 @@ function init_sys_loginlog() {
                 '<th>状态</th>' +
                 '<th>月次数</th>' +
                 '<th>浏览器</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+// 系统操作记录
+function init_sys_operlog() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/O_log",
+        dataType: "json",
+        success: function (data) {
+            var O_log = data.data;
+            var log_info = '';
+            for (log in O_log){
+                log_info += '<tr>' +
+                    '<td>' + O_log[log].user +
+                    '</td>' +
+                    '<td>' + O_log[log].title +
+                    '</td>' +
+                    '<td>' + O_log[log].url +
+                    '</td>' +
+                    '<td>' + O_log[log].res +
+                    '</td>' +
+                    '<td>' + O_log[log].Time +
+                    '</td>' +
+                    '<td>' + O_log[log].ip +
+                    '</td>' +
+                    '<td>' + O_log[log].times +
+                    '</td>' +
+                    '</tr>';
+            }
+
+            $("#sys_oper_log").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>模块</th>' +
+                '<th>调用</th>' +
+                '<th>结果</th>' +
+                '<th>时间</th>' +
+                '<th>IP</th>' +
+                '<th>月次数</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +

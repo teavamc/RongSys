@@ -1,6 +1,8 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.common.support.Convert;
@@ -73,5 +75,14 @@ public class SysOperLogServiceImpl implements ISysOperLogService
     public void cleanOperLog()
     {
         operLogMapper.cleanOperLog();
+    }
+
+    /**
+     * 获取最近的操作记录传给前端
+     *
+     * @return 结果
+     */
+    public List<PageData> selectOperLogforIndex(){
+        return operLogMapper.selectOperLogforIndex();
     }
 }

@@ -1,6 +1,8 @@
 package com.ruoyi.system.mapper;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.system.domain.SysOperLog;
 
 /**
@@ -45,4 +47,11 @@ public interface SysOperLogMapper
      * 清空操作日志
      */
     public void cleanOperLog();
+
+    /**
+     * 获取最近的操作记录传给前端
+     *
+     * @return 结果
+     */
+    public List<PageData> selectOperLogforIndex();
 }
