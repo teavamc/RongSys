@@ -68,6 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         truncate table sys_oper_log
     </update>
 
+	<!--用在展示在首页的操作记录查询-->
 	<select id="selectOperLogforIndex" resultType="HashMap">
 		select
 		user_name as user,
@@ -107,6 +108,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		sys_oper_log.oper_name = sys_user.login_name
 		order by oper_time desc
 		limit 0,10
+	</select>
+
+	<!--最近一个月的操作前五名-->
+	<select id="CountLogDescForMonth" resultType="HashMap">
+		select
+		ANY_VALUE(sys_user.user_name) as user,
+		count(oper_name) as cn
+		from
+		sys_oper_log,
+		sys_user
+		where
+		sys_oper_log.oper_name = sys_user.login_name
+		and
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(oper_time)
+		group by oper_name
+		order by cn desc
+		limit 0,5
 	</select>
 
 </mapper> 

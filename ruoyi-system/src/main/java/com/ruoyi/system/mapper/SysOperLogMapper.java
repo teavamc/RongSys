@@ -54,4 +54,11 @@ public interface SysOperLogMapper
      * @return 结果
      */
     public List<PageData> selectOperLogforIndex();
+
+    /**
+     * 获取最近一个月操作次数最多的五个人名单
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLogDescForMonth();
 }

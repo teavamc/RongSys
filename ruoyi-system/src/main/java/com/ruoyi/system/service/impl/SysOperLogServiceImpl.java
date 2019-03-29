@@ -85,4 +85,13 @@ public class SysOperLogServiceImpl implements ISysOperLogService
     public List<PageData> selectOperLogforIndex(){
         return operLogMapper.selectOperLogforIndex();
     }
+
+    /**
+     * 获取最近一个月操作次数最多的五个人名单
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLogDescForMonth(){
+        return operLogMapper.CountLogDescForMonth();
+    }
 }

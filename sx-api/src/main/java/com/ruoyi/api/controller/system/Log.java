@@ -58,4 +58,20 @@ public class Log {
     public RongApiRes oper_log(){
         return RongApiService.get_list(sysOperLogService.selectOperLogforIndex());
     }
+
+
+
+    /**
+     * 获取最近一个月操作次数最多的五个人名单
+     * @author 张超 teavamc
+     * @date 2019/1/31
+     * @param []
+     * @return com.ruoyi.api.domain.RongApiRes
+     */
+    @GetMapping(value = "/CountOperLogMonth")
+    @CrossOrigin
+    @ApiOperation(value = "获取最近一个月操作次数最多的五个人名单")
+    public RongApiRes CountLogDescForMonth(){
+        return RongApiService.get_list(sysOperLogService.CountLogDescForMonth());
+    }
 }
