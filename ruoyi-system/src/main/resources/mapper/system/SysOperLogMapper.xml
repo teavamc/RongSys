@@ -68,4 +68,63 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         truncate table sys_oper_log
     </update>
 
+	<!--用在展示在首页的操作记录查询-->
+	<select id="selectOperLogforIndex" resultType="HashMap">
+		select
+		user_name as user,
+		title,
+		oper_url as url,
+		case sys_oper_log.business_type
+			when '1' then '新增数据'
+			when '2' then '修改数据'
+			when '3' then '删除数据'
+			when '4' then '授权'
+			when '5' then '导出数据'
+			when '6' then '导入数据'
+			when '7' then '强退'
+			when '8' then '生成代码'
+			when '9' then '清空数据'
+		end as type,
+		case  sys_oper_log.status
+			when '0' then '成功'
+			when '1' then '异常'
+		end as res,
+		oper_ip as ip,
+		oper_location as loc,
+		date_format(oper_time,'%m月%d日 %T') as Time,
+		(select
+		count(sys_oper_log_2.oper_name)
+		from
+		sys_oper_log as sys_oper_log_2
+		where
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(oper_time)
+		AND
+		sys_oper_log.oper_name = sys_oper_log_2.oper_name
+		)as times
+		from
+		sys_oper_log,
+		sys_user
+		where
+		sys_oper_log.oper_name = sys_user.login_name
+		order by oper_time desc
+		limit 0,10
+	</select>
+
+	<!--最近一个月的操作前五名-->
+	<select id="CountLogDescForMonth" resultType="HashMap">
+		select
+		ANY_VALUE(sys_user.user_name) as user,
+		count(oper_name) as cn
+		from
+		sys_oper_log,
+		sys_user
+		where
+		sys_oper_log.oper_name = sys_user.login_name
+		and
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(oper_time)
+		group by oper_name
+		order by cn desc
+		limit 0,5
+	</select>
+
 </mapper> 
