@@ -11,10 +11,24 @@ function main_onload() {
     init_rivisdatacount();
     init_riotdevcount();
 
-    //系统监控
-    init_sys_mon();
+
+    // 月登陆排名
+    init_ranklogin();
+    // 月操作排名
+    init_rankoper();
+    // 登陆地点排名
+    init_rankloc();
+    // 登陆地点的柱状图
+    init_all_loc();
+    //最近创建用户
+    init_recentCreat();
+
     //系统访问记录
     init_sys_loginlog();
+    //系统操作记录
+    init_sys_operlog();
+    //系统监控
+    init_sys_mon();
 
     // //每15秒刷新系统监控数据
     // setInterval(init_sys_mon, 15000);
@@ -105,6 +119,7 @@ function init_village() {
         }
     });
 }
+
 // 系统监控
 function init_sys_mon() {
     $.ajax({
@@ -151,28 +166,40 @@ function init_sys_mon() {
                 '</table>'
             );
 
-            $("#sys_mon_line").html(' <table class="table table-hover">' +
-                '<h3>' + "内存:" + data.data.mem.usage + "%" +
-                '</h3>' +
+            $("#sys_mon_line").html(' <div>' +
+                ' <div>' +
+                '<span>' + "内存" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.mem.usage + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' +  data.data.mem.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h3>' + "JVM:" + data.data.jvm.usage + "%" +
-                '</h3>' +
+                ' <div>' +
+                '<span>' + "JVM" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.jvm.usage + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.jvm.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h3>' + "CPU:" + data.data.cpu.used + "%" +
-                '</h3>' +
+                ' <div>' +
+                '<span>' + "CPU" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.cpu.used + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.cpu.used + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
-                '</table>'
+                '</div>'
             );
 
             var disk_data = data.data.sysFiles;
@@ -200,7 +227,7 @@ function init_sys_mon() {
         }
     })
 }
-// 系统登陆
+// 系统登陆记录
 function init_sys_loginlog() {
     $.ajax({
         type: "GET",
@@ -214,8 +241,6 @@ function init_sys_loginlog() {
             var log_info = '';
             for (log in l_log){
                 log_info += '<tr>' +
-                    '<td>' + l_log[log].login_name +
-                    '</td>' +
                     '<td>' + l_log[log].user_name +
                     '</td>' +
                     '<td>' + l_log[log].dept_name +
@@ -240,10 +265,9 @@ function init_sys_loginlog() {
             $("#sys_login_log").html('<table class="table table-hover">' +
                 '<thead>' +
                 '<tr>' +
-                '<th>用户</th>' +
                 '<th>姓名</th>' +
                 '<th>部门</th>' +
-                '<th>角色</th>' +
+                '<th>级别</th>' +
                 '<th>IP</th>' +
                 '<th>地点</th>' +
                 '<th>时间</th>' +
@@ -259,3 +283,246 @@ function init_sys_loginlog() {
     })
 
 }
+// 系统操作记录
+function init_sys_operlog() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/O_log",
+        dataType: "json",
+        success: function (data) {
+            var O_log = data.data;
+            var log_info = '';
+            for (log in O_log){
+                log_info += '<tr>' +
+                    '<td>' + O_log[log].user +
+                    '</td>' +
+                    '<td>' + O_log[log].title +
+                    '</td>' +
+                    '<td>' + O_log[log].type +
+                    '</td>' +
+                    '<td>' + O_log[log].url +
+                    '</td>' +
+                    '<td>' + O_log[log].res +
+                    '</td>' +
+                    '<td>' + O_log[log].Time +
+                    '</td>' +
+                    '<td>' + O_log[log].ip +
+                    '</td>' +
+                    '<td>' + O_log[log].loc +
+                    '</td>' +
+                    '<td>' + O_log[log].times +
+                    '</td>' +
+                    '</tr>';
+            }
+
+            $("#sys_oper_log").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>模块</th>' +
+                '<th>操作</th>' +
+                '<th>调用服务</th>' +
+                '<th>结果</th>' +
+                '<th>时间</th>' +
+                '<th>IP</th>' +
+                '<th>地点</th>' +
+                '<th>月次数</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 登陆排名
+function init_ranklogin() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountLoLogDescMonth",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].user +
+                    '</td>' +
+                    '<td>' + predata[i].cn +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#rank_login").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>登陆排名/30天</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 操作排名
+function init_rankoper() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountOperLogMonth",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].user +
+                    '</td>' +
+                    '<td>' + predata[i].cn +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#rank_oper").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>操作排名/30天</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 登陆地点排名
+function init_rankloc() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountHotLocal",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].name +
+                    '</td>' +
+                    '<td>' + predata[i].value +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#rank_loc").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>热门登陆地点</th>' +
+                '<th>次数</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 所有地点的柱状图
+function init_all_loc() {
+    var allloc = echarts.init(document.getElementById('all_loc'));
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountLocal",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var x_data = new Array;
+            var y_data = new Array;
+            for (i in predata) {
+                x_data.push(predata[i].name);
+                y_data.push(predata[i].value);
+            }
+            option = {
+                color: ['#676a6c'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '-1%',
+                    right: '1%',
+                    bottom: '1%',
+                    top: '5%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : x_data,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        show: false,
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'访问量',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:y_data
+                    }
+                ]
+            };
+            allloc.setOption(option);
+        }
+    })
+
+}
+
+
+// 最近创建的用户
+function init_recentCreat() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/recentCreatUser",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].ct +
+                    '</td>' +
+                    '<td>' + predata[i].un +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#recent_reg").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>最近新增用户</th>' +
+                '<th>姓名</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+

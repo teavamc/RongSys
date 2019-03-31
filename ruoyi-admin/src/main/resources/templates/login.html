@@ -2,7 +2,7 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.75, maximum-scale=1">
     
     <title>融媒体系统</title>
 
@@ -33,7 +33,7 @@
 
 <div class="signinpanel center">
     <div class="row">
-        <h1 class="text-center"><strong>欢迎登陆融媒体管理平台</strong></h1>
+        <h1 class="text-center"><strong>欢迎登陆融媒体平台</strong></h1>
     </div>
     <br>
     <div class="row">
@@ -54,9 +54,12 @@
                         </a>
                     </div>
                 </div>
-                <div class="checkbox-custom">
-                    <input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>
-                </div>
+
+                <!--因目前系统Session会持久记住，暂时不提供记住账号操作-->
+                <!--<div class="checkbox-custom">-->
+                    <!--<input type="checkbox" id="rememberme" name="rememberme"> <label for="rememberme">记住我</label>-->
+                <!--</div>-->
+
                 <button class="btn btn-success btn-block" id="btnSubmit" data-loading="正在验证登录，请稍后...">登录</button>
             </form>
         </div>
