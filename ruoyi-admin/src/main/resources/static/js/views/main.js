@@ -18,6 +18,11 @@ function main_onload() {
     //系统操作记录
     init_sys_operlog();
 
+    // 月登陆排名
+    init_ranklogin();
+    // 月操作排名
+    init_rankoper();
+
     // //每15秒刷新系统监控数据
     // setInterval(init_sys_mon, 15000);
     // //每30秒刷新登陆数据数据
@@ -323,3 +328,68 @@ function init_sys_operlog() {
     })
 
 }
+
+// 登陆排名echart
+function init_ranklogin() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountLoLogDescMonth",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].user +
+                    '</td>' +
+                    '<td>' + predata[i].cn +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#rank_login").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>月登陆排名</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 操作排名echart
+function init_rankoper() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountOperLogMonth",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].user +
+                    '</td>' +
+                    '<td>' + predata[i].cn +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#rank_oper").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>月操作排名</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
