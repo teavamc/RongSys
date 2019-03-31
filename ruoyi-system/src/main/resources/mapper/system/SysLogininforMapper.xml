@@ -111,7 +111,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="CountLocal" resultType="HashMap">
 		select
-			login_location as name,
+			substr(login_location,4) as name,
 			count(login_location) as value
 		from
 			sys_logininfor
