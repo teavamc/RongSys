@@ -93,6 +93,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		order by cn desc
 		limit 0,5
 	</select>
+
+	<select id="CountHotLocal" resultType="HashMap">
+	select
+		login_location as name,
+		count(login_location) as value
+	from
+		sys_logininfor
+	where
+		not login_location = '内网IP'
+	  and
+		not login_location = 'XX XX'
+	group by login_location
+	order by count(login_location) desc
+	limit 0,5
+</select>
+
+	<select id="CountLocal" resultType="HashMap">
+		select
+			substr(login_location,4) as name,
+			count(login_location) as value
+		from
+			sys_logininfor
+		where
+			not login_location = '内网IP'
+		  and
+			not login_location = 'XX XX'
+		  and
+			not login_location = '湖南 长沙'
+		group by login_location
+		order by count(login_location) desc
+	</select>
+
+
+	<select id="recentCreatUser" resultType="HashMap">
+		select
+			user_name as un,
+			date_format(create_time,'%m月%d日')as ct
+		from
+			sys_user
+		order by create_time desc
+		limit 0,5
+	</select>
 	
 	<delete id="deleteLogininforByIds" parameterType="String">
  		delete from sys_logininfor where info_id in
