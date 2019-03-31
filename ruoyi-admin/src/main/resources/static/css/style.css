@@ -3171,7 +3171,7 @@ video {
 }
 
 .wrapper-content {
-    padding: 20px;
+    padding: 12px;
 }
 
 #page-wrapper {
@@ -3639,15 +3639,15 @@ code {
 }
 
 .ibox-content {
-    background-color: #ffffff;
+    background-color: #fff;
     color: inherit;
-    padding: 15px 20px 20px 20px;
-    border-color: #e7eaec;
+    padding: 11px 11px 11px;
+    border-color: #dcdede;
     -webkit-border-image: none;
     -o-border-image: none;
     border-image: none;
     border-style: solid solid none;
-    border-width: 1px 0px;
+    border-width: 1px 0;
 }
 
 table.table-mail tr td {
@@ -3752,6 +3752,11 @@ table.table-mail tr td {
 .blue-bg {
     background-color: #1c84c6;
     color: #ffffff;
+}
+
+.darktea-bg {
+    background-color: #002c55;
+    color: #fff
 }
 
 .lazur-bg {

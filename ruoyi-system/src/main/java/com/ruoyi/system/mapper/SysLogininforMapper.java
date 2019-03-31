@@ -48,4 +48,33 @@ public interface SysLogininforMapper
      * @return 结果
      */
     public List<PageData> selectLoginLogforIndex();
+
+    /**
+     * 获取一个月内访问次数最多的五个人
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLoLogDescMonth();
+
+
+    /**
+     * 获取前五条热门登陆地点
+     *
+     * @return 结果
+     */
+    public List<PageData> CountHotLocal();
+
+    /**
+     * 获取所有登陆地点
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLocal();
+
+    /**
+     * 获取最近创建的三个用户
+     *
+     * @return 结果
+     */
+    public List<PageData> recentCreatUser();
 }
