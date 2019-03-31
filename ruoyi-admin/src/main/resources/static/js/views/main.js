@@ -460,7 +460,7 @@ function init_all_loc() {
                     left: '-1%',
                     right: '1%',
                     bottom: '1%',
-                    top: '2%',
+                    top: '5%',
                     containLabel: true
                 },
                 xAxis : [
