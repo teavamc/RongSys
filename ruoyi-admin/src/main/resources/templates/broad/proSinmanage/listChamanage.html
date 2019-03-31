@@ -62,6 +62,7 @@
         $("#chamid").attr("class",frequencies);
         $("#champronote").attr("class",pronote);
     }
+
     var prefix = ctx + "broad/proSinmanage";
     $(function() {
         var options = {
@@ -83,7 +84,16 @@
                     field : 'cname',
                     title : '节目',
                     sortable: true,
-                    width: '20%'
+                    width: '20%',
+                    formatter:function (value,row,index,) {
+                        var results = value;
+                        if(results.toString().length>20){
+                            results = results.toString().substring(0,12)+"...";
+                        }
+                        var actions = [];
+                        actions.push('<a href="#" onclick="details(\''+ value+'\')">'+results+'</a> ');
+                        return actions.join('');
+                    }
                 },
                 {
                     field : 'frequencies',
@@ -111,7 +121,6 @@
     });
 
 
-
      //提供给父页面获取选中的值
      function callbackfile() {
          /*在选择终端前先获取一次文本框的值，为的是可以选择多个小组的终端*/
@@ -137,6 +146,12 @@
 
 <!--时间插件-->
 <script>
+
+    function details(value) {
+        var txt = value;
+        alert(txt);
+
+    }
     layui.use('laydate', function(){
         var laydate = layui.laydate;
 
