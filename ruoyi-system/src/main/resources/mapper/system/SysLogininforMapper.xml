@@ -129,7 +129,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="recentCreatUser" resultType="HashMap">
 		select
 			user_name as un,
-			date_format(create_time,'%m月%d日 %T')as ct
+			date_format(create_time,'%m月%d日')as ct
 		from
 			sys_user
 		order by create_time desc
