@@ -22,7 +22,8 @@ function main_onload() {
     init_ranklogin();
     // 月操作排名
     init_rankoper();
-
+    // 登陆地点排名
+    init_rankloc();
     // //每15秒刷新系统监控数据
     // setInterval(init_sys_mon, 15000);
     // //每30秒刷新登陆数据数据
@@ -329,7 +330,7 @@ function init_sys_operlog() {
 
 }
 
-// 登陆排名echart
+// 登陆排名
 function init_ranklogin() {
     $.ajax({
         type: "GET",
@@ -361,7 +362,7 @@ function init_ranklogin() {
 
 }
 
-// 操作排名echart
+// 操作排名
 function init_rankoper() {
     $.ajax({
         type: "GET",
@@ -383,6 +384,38 @@ function init_rankoper() {
                 '<tr>' +
                 '<th>姓名</th>' +
                 '<th>月操作排名</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 登陆地点排名排名
+function init_rankloc() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountHotLocal",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].name +
+                    '</td>' +
+                    '<td>' + predata[i].value +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#rank_loc").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>登陆地点</th>' +
+                '<th>登陆次数</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +
