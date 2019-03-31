@@ -11,14 +11,7 @@ function main_onload() {
     init_rivisdatacount();
     init_riotdevcount();
 
-    //系统监控
-    init_sys_mon();
-    //系统访问记录
-    init_sys_loginlog();
-    //系统操作记录
-    init_sys_operlog();
-    //最近创建的三个用户
-    init_recentCreat();
+
     // 月登陆排名
     init_ranklogin();
     // 月操作排名
@@ -27,6 +20,15 @@ function main_onload() {
     init_rankloc();
     // 登陆地点的柱状图
     init_all_loc();
+    //最近创建用户
+    init_recentCreat();
+
+    //系统访问记录
+    init_sys_loginlog();
+    //系统操作记录
+    init_sys_operlog();
+    //系统监控
+    init_sys_mon();
 
     // //每15秒刷新系统监控数据
     // setInterval(init_sys_mon, 15000);
@@ -117,6 +119,7 @@ function init_village() {
         }
     });
 }
+
 // 系统监控
 function init_sys_mon() {
     $.ajax({
