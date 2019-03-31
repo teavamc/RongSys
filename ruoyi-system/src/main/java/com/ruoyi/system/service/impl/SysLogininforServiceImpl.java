@@ -86,4 +86,24 @@ public class SysLogininforServiceImpl implements ISysLogininforService
     public List<PageData> CountLoLogDescMonth(){
         return logininforMapper.CountLoLogDescMonth();
     }
+
+
+    /**
+     * 获取前五条热门登陆地点
+     *
+     * @return 结果
+     */
+    public List<PageData> CountHotLocal(){
+        return logininforMapper.CountHotLocal();
+    };
+
+    /**
+     * 获取所有登陆地点
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLocal(){
+        return logininforMapper.CountLocal();
+    };
+
 }

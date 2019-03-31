@@ -53,4 +53,18 @@ public interface ISysLogininforService
      * @return 结果
      */
     public List<PageData> CountLoLogDescMonth();
+
+    /**
+     * 获取前五条热门登陆地点
+     *
+     * @return 结果
+     */
+    public List<PageData> CountHotLocal();
+
+    /**
+     * 获取所有登陆地点
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLocal();
 }

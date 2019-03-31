@@ -89,4 +89,32 @@ public class Log {
         return RongApiService.get_list(logininforService.CountLoLogDescMonth());
     }
 
+    /**
+     * 获取前五条热门登陆地点
+     * @author 张超 teavamc
+     * @date 2019/1/31
+     * @param []
+     * @return com.ruoyi.api.domain.RongApiRes
+     */
+    @GetMapping(value = "/CountHotLocal")
+    @CrossOrigin
+    @ApiOperation(value = "获取前五条热门登陆地点")
+    public RongApiRes CountHotLocal(){
+        return RongApiService.get_list(logininforService.CountHotLocal());
+    }
+
+    /**
+     * 获取所有登陆地点
+     * @author 张超 teavamc
+     * @date 2019/1/31
+     * @param []
+     * @return com.ruoyi.api.domain.RongApiRes
+     */
+    @GetMapping(value = "/CountLocal")
+    @CrossOrigin
+    @ApiOperation(value = "获取所有登陆地点")
+    public RongApiRes CountLocal(){
+        return RongApiService.get_list(logininforService.CountLocal());
+    }
+
 }
