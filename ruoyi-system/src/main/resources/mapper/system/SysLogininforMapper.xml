@@ -119,6 +119,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			not login_location = '内网IP'
 		  and
 			not login_location = 'XX XX'
+		  and
+			not login_location = '湖南 长沙'
 		group by login_location
 		order by count(login_location) desc
 	</select>

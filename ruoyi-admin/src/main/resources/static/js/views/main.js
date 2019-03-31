@@ -25,6 +25,9 @@ function main_onload() {
     init_rankoper();
     // 登陆地点排名
     init_rankloc();
+    // 登陆地点的柱状图
+    init_all_loc();
+
     // //每15秒刷新系统监控数据
     // setInterval(init_sys_mon, 15000);
     // //每30秒刷新登陆数据数据
@@ -427,6 +430,65 @@ function init_rankloc() {
 
 }
 
+// 所有地点的柱状图
+function init_all_loc() {
+    var allloc = echarts.init(document.getElementById('all_loc'));
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountLocal",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var x_data = new Array;
+            var y_data = new Array;
+            for (i in predata) {
+                x_data.push(predata[i].name);
+                y_data.push(predata[i].value);
+            }
+            option = {
+                color: ['#676a6c'],
+                tooltip : {
+                    trigger: 'axis',
+                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                grid: {
+                    left: '-1%',
+                    right: '1%',
+                    bottom: '1%',
+                    top: '2%',
+                    containLabel: true
+                },
+                xAxis : [
+                    {
+                        type : 'category',
+                        data : x_data,
+                        axisTick: {
+                            alignWithLabel: true
+                        }
+                    }
+                ],
+                yAxis : [
+                    {
+                        show: false,
+                        type : 'value'
+                    }
+                ],
+                series : [
+                    {
+                        name:'访问量',
+                        type:'bar',
+                        barWidth: '60%',
+                        data:y_data
+                    }
+                ]
+            };
+            allloc.setOption(option);
+        }
+    })
+
+}
 
 
 // 最近创建的用户
