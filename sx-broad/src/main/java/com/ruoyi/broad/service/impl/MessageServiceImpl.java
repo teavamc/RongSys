@@ -1,26 +1,35 @@
 package com.ruoyi.broad.service.impl;
 
+import com.github.pagehelper.Page;
 import com.ruoyi.broad.dao.DaoSupport;
 import com.ruoyi.broad.domain.BroadMessage;
 import com.ruoyi.broad.mapper.MessageMapper;
 import com.ruoyi.broad.service.IMessageService;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.common.utils.PageData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Created by MI on 2019/3/29.
+ * 短信播出端
+ *
+ * @author 周博
+ * @date 2019-03-29
  */
 @Service
 public class MessageServiceImpl implements IMessageService {
     @Autowired
     MessageMapper messageMapper;
+
+    @Autowired
+    private DaoSupport dao;
 
     @Override
     @DataSource(value = DataSourceType.SLAVE)
@@ -45,5 +54,48 @@ public class MessageServiceImpl implements IMessageService {
             trees.add(map);
         }
         return trees;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PageData> listSendMessage(Page page) throws Exception {
+        // TODO Auto-generated method stub
+        return (List<PageData>)dao.findForList("MessageMapper.getSendMessagelistPage", page);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<PageData> listReceiveMessage(Page page) throws Exception {
+        // TODO Auto-generated method stub
+        return (List<PageData>)dao.findForList("MessageMapper.getReceiveMessagelistPage", page);
+    }
+
+    @Override
+    public void addSendMessage(List<PageData> pdlist) throws Exception {
+        dao.batchSave("MessageMapper.addSendMessage", pdlist);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public List<PageData> getUnSendMessage(String str) throws Exception {
+        return (List<PageData>)dao.findForList("MessageMapper.getUnSendMessage", str);
+    }
+
+    @Override
+    public void addReceiveMessage(PageData pd) throws Exception {
+        dao.save("MessageMapper.addReceiveMessage", pd);
+    }
+
+    @Override
+    public void setMessageSend(String smid) throws Exception {
+        dao.update("MessageMapper.setMessageSend", smid);
+    }
+
+    @Override
+    public PageData getSendBySmid(String smid) throws Exception {
+        return (PageData)dao.findForObject("MessageMapper.getSendBySmid", smid);
+    }
+
+    @Override
+    public PageData getReceiveByRmid(String rmid) throws Exception {
+        return (PageData)dao.findForObject("MessageMapper.getReceiveByRmid", rmid);
     }
 }

@@ -8,7 +8,7 @@
 <body>
 <div class="ui-layout-west">
     <div class="main-content">
-        <div class="box box-main">
+        <div class="box box-main" style="width: 3000px">
             <div class="box-header">
                 <div class="box-title">
                     <i class="fa icon-grid"></i> 终端列表
@@ -47,9 +47,9 @@
                                 <option value="0">平台短信命令</option>
                             </select>
                         </li>
-                        <!--<li>
-                            <button class="btn btn-sm btn-primary" id="save" onclick="save()">发送</button>
-                        </li>-->
+                        <li>
+                            <a class="btn btn-sm btn-primary" id="save" onclick="save();">发送</a>
+                        </li>
                     </ul>
                 </div>
             </form>
@@ -73,100 +73,101 @@
 													提示：短信应急广播第一个字必须为汉字。 <br><br>
 												</span>
             </div>
-            <div align="center">
-                <script>
-                    //保存
-                    function save() {
-                        var regExp1 = /^[a-zA-Z]{1}/;
-                        var regExp2 = /^[\u4e00-\u9fa5]{1}/;
-
-                        if ($("#content").val() == null || $("#content").val() == "") {
-                            $("#content").tips({
-                                side: 3,
-                                msg: '请输入短信内容',
-                                bg: '#AE81FF',
-                                time: 3
-                            });
-                            return false;
-                        }
-                        if ($("#smstype").val() == '0') {
-                            if (!regExp1.test($("#content").val())) {
-                                $("#content").tips({
-                                    side: 3,
-                                    msg: '命令格式不正确',
-                                    bg: '#AE81FF',
-                                    time: 3
-                                });
-                                return false;
-                            }
-                        } else {
-                            if (!regExp2.test($("#content").val())) {
-                                $("#content").tips({
-                                    side: 3,
-                                    msg: '首字必须为汉字',
-                                    bg: '#AE81FF',
-                                    time: 3
-                                });
-                                return false;
-                            }
-                        }
-
-                        //获取选择终端
-                        var nodes = zTree.getCheckedNodes();
-                        var terids = "";
-                        var phones = "";
-                        for (var i = 0; i < nodes.length; i++) {
-                            if (nodes[i].type == "1") {
-                                terids += nodes[i].id + ",";
-                                phones += nodes[i].phone + ",";
-                            }
-                        }
-                        terids = terids.substring(0, terids.length - 1);
-                        phones = phones.substring(0, phones.length - 1);
-                        if (terids == "") {
-                            $("#tertitle").tips({
-                                side: 3,
-                                msg: '请选择播出终端',
-                                bg: '#AE81FF',
-                                time: 3
-                            });
-                            return false;
-                        }
-
-                        $.post(
-                            ${#httpServletRequest.getContextPath()}+"smsbroad/sendsms.do",
-                            {
-                                content: $("#content").val(),
-                                smstype: $("#smstype").val(),
-                                terids: terids,
-                                phones: phones
-                            },
-                            function (data) {
-                                if (data.result == "success") {
-                                    $("#content").val("");
-                                    $("#save").tips({
-                                        side: 3,
-                                        msg: '发送成功',
-                                        bg: '#AE81FF',
-                                        time: 3
-                                    });
-                                } else {
-                                    $("#save").tips({
-                                        side: 3,
-                                        msg: '发送失败',
-                                        bg: '#AE81FF',
-                                        time: 3
-                                    });
-                                }
-                            });
-                    }
-                </script>
-                <button class="btn btn-sm btn-primary" id="save" onclick="save()">发送</button>
-            </div>
+            <<!--div align="center">
+                <a class="btn btn-sm btn-primary" id="save" onclick="save();">发送</a>
+            </div>-->
         </div>
     </div>
 </div>
+<script>
+    //保存
+    function save() {
+        var regExp1 = /^[a-zA-Z]{1}/;
+        var regExp2 = /^[\u4e00-\u9fa5]{1}/;
 
+        if ($("#content").val() == null || $("#content").val() == "") {
+            $("#content").tips({
+                side: 3,
+                msg: '请输入短信内容',
+                bg: '#AE81FF',
+                time: 3
+            });
+            return false;
+        }
+        if ($("#smstype").val() == '0') {
+            if (!regExp1.test($("#content").val())) {
+                $("#content").tips({
+                    side: 3,
+                    msg: '命令格式不正确',
+                    bg: '#AE81FF',
+                    time: 3
+                });
+                return false;
+            }
+        } else {
+            if (!regExp2.test($("#content").val())) {
+                $("#content").tips({
+                    side: 3,
+                    msg: '首字必须为汉字',
+                    bg: '#AE81FF',
+                    time: 3
+                });
+                return false;
+            }
+        }
+
+        //获取选择终端
+        var nodes = zTree.getCheckedNodes();
+        var terids = "";
+        var phones = "";
+        for (var i = 0; i < nodes.length; i++) {
+            if (nodes[i].type == "1") {
+                terids += nodes[i].id + ",";
+                phones += nodes[i].phone + ",";
+            }
+        }
+        terids = terids.substring(0, terids.length - 1);
+        phones = phones.substring(0, phones.length - 1);
+        if (terids == "") {
+            $("#tertitle").tips({
+                side: 3,
+                msg: '请选择播出终端',
+                bg: '#AE81FF',
+                time: 3
+            });
+            return false;
+        }
+
+        $.post(
+            {
+                url: '' + ${ctxPath} +'/broad/message/sendsms.do'
+            },
+            {
+                content: $("#content").val(),
+                smstype: $("#smstype").val(),
+                terids: terids,
+                phones: phones
+            },
+            function (data) {
+                if (data.result == "success") {
+                    $("#content").val("");
+                    $("#save").tips({
+                        side: 3,
+                        msg: '发送成功',
+                        bg: '#AE81FF',
+                        time: 3
+                    });
+                } else {
+                    $("#save").tips({
+                        side: 3,
+                        msg: '发送失败',
+                        bg: '#AE81FF',
+                        time: 3
+                    });
+                }
+            });
+    }
+</script>
 <div th:include="include :: footer"></div>
 <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
 <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
