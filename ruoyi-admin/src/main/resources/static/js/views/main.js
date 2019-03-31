@@ -17,7 +17,8 @@ function main_onload() {
     init_sys_loginlog();
     //系统操作记录
     init_sys_operlog();
-
+    //最近创建的三个用户
+    init_recentCreat();
     // 月登陆排名
     init_ranklogin();
     // 月操作排名
@@ -351,7 +352,7 @@ function init_ranklogin() {
                 '<thead>' +
                 '<tr>' +
                 '<th>姓名</th>' +
-                '<th>月登陆排名</th>' +
+                '<th>登陆排名/30天</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +
@@ -383,7 +384,7 @@ function init_rankoper() {
                 '<thead>' +
                 '<tr>' +
                 '<th>姓名</th>' +
-                '<th>月操作排名</th>' +
+                '<th>操作排名/30天</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +
@@ -394,7 +395,7 @@ function init_rankoper() {
 
 }
 
-// 登陆地点排名排名
+// 登陆地点排名
 function init_rankloc() {
     $.ajax({
         type: "GET",
@@ -414,8 +415,42 @@ function init_rankloc() {
             $("#rank_loc").html('<table class="table table-hover">' +
                 '<thead>' +
                 '<tr>' +
-                '<th>登陆地点</th>' +
-                '<th>登陆次数</th>' +
+                '<th>热门登陆地点</th>' +
+                '<th>次数</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+
+
+// 最近创建的用户
+function init_recentCreat() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/recentCreatUser",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].ct +
+                    '</td>' +
+                    '<td>' + predata[i].un +
+                    '</td>' +
+                    '</tr>';
+            }
+            $("#recent_reg").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>最近新增用户</th>' +
+                '<th>姓名</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +

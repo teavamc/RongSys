@@ -106,4 +106,13 @@ public class SysLogininforServiceImpl implements ISysLogininforService
         return logininforMapper.CountLocal();
     };
 
+    /**
+     * 获取最近创建的三个用户
+     *
+     * @return 结果
+     */
+    public List<PageData> recentCreatUser(){
+        return logininforMapper.recentCreatUser();
+    }
+
 }

@@ -67,4 +67,11 @@ public interface ISysLogininforService
      * @return 结果
      */
     public List<PageData> CountLocal();
+
+    /**
+     * 获取最近创建的三个用户
+     *
+     * @return 结果
+     */
+    public List<PageData> recentCreatUser();
 }

@@ -122,6 +122,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		group by login_location
 		order by count(login_location) desc
 	</select>
+
+
+	<select id="recentCreatUser" resultType="HashMap">
+		select
+			user_name as un,
+			date_format(create_time,'%m月%d日 %T')as ct
+		from
+			sys_user
+		order by create_time desc
+		limit 0,5
+	</select>
 	
 	<delete id="deleteLogininforByIds" parameterType="String">
  		delete from sys_logininfor where info_id in
