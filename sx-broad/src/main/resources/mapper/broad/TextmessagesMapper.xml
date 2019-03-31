@@ -17,18 +17,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result column="telperson" property="telperson"/>
         <result column="isuse" property="isuse"/>
     </resultMap>
+    <sql id="Field">
+		 telid, tid, tel, telperson, isuse
+	</sql>
 
+    <!--还有一个 #aid 字段-->
+    <sql id="FieldValue">
+		#{telid}, #{tid}, #{tel}, #{telperson}, #{isuse}
+	</sql>
+
+    <!--表名 -->
+    <sql id="tableName">
+		terminaltels
+	</sql>
     <select id="selectTextMessages" resultMap="TextMessagesMap">
-        select
-        telid,
-        tid,
-        tel,
-        telperson,
-        isuse
-        from
-        terminaltels
-        order by
-        telid asc
+        select <include refid="Field"/>
+        from <include refid="tableName"/>
+        <where>
+            <if test="tid != null and tid != ''"> and tid like '%${tid}%'</if>
+            <if test="tel != null  and tel != ''"> and tel like '%${tel}%'</if>
+            <if test="telperson != null  and telperson != ''"> and telperson like '%${telperson}%'</if>
+            <if test="isuse != null  and isuse != ''"> and isuse like '%${isuse}%'</if>
+        </where>
+        ORDER BY telid asc
     </select>
     <select id="selectTypeNum" resultMap="TypeNumMap">
           select telperson as textnum ,count(*) as num ,tel as telnumber from terminaltels group by telperson

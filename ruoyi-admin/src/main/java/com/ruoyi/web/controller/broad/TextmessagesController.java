@@ -41,7 +41,6 @@ public class TextmessagesController extends BaseController
 		public TableDataInfo list() {
 			startPage();
 			List<Textmessages> list = iTextmessagesService.selectTextMessages();
-			System.err.println(">>>>"+list.size());
 			return getDataTable(list);
 	}
 

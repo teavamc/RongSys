@@ -154,7 +154,18 @@
 		            	var actions = '<a class="btn btn-xs btn-success" >试听</a>';
                        return actions;
 		            }
-				}]
+				},
+					{
+						title: '下载',
+						align: 'center',
+						visible: true,
+						formatter: function(value, row, index) {
+							var actions = '<a class="btn btn-xs btn-success" href="https://7465-test-b37cdc-1258150595.tcb.qcloud.la/许嵩 - 南山忆.mp3?sign=7ff582dcd4a4ff735488469d36701a73&t=1553838083" download="南山忆.mp3">下载</a>';
+							return actions;
+						}
+					}
+
+				]
             };
             $.table.init(options);
         });
