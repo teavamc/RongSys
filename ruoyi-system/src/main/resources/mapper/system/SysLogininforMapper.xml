@@ -44,20 +44,96 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<select id="selectLoginLogforIndex" resultType="HashMap">
 		select
-			sys_logininfor.login_name as loginName,
-			sys_user.user_name as user_name,
-			sys_logininfor.ipaddr as ipaddr,
-			sys_logininfor.login_location as loginLocation,
-			sys_logininfor.browser as browser,
-			date_format(sys_logininfor.login_time,'%m-%d %T %p') as loginTime
+		sys_logininfor.login_name,
+		sys_logininfor.msg,
+		sys_user.user_name,
+		sys_dept.dept_name,
+		sys_role.role_name,
+		sys_logininfor.ipaddr,
+		sys_logininfor.login_location,
+		sys_logininfor.browser,
+		date_format(sys_logininfor.login_time,'%m月%d日 %T') as loginTime,
+		(select
+		count(sys_logininfor_2.login_name)
 		from
-			sys_logininfor,sys_user
+		sys_logininfor as sys_logininfor_2
 		where
-			sys_logininfor.login_name = sys_user.login_name
-			AND
-			sys_logininfor.status = 0
-		order by sys_logininfor.login_time desc
-		limit 0,6
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(login_time)
+		AND
+		sys_logininfor.login_name = sys_logininfor_2.login_name
+		)as times
+		from
+		sys_logininfor as sys_logininfor,sys_user,sys_dept,sys_user_role,sys_role
+		where
+		sys_logininfor.login_name = sys_user.login_name
+		AND
+		sys_user.dept_id = sys_dept.dept_id
+		AND
+		sys_user_role.user_id = sys_user.user_id
+		AND
+		sys_user_role.role_id = sys_role.role_id
+		order by info_id desc
+		limit 0,10
+	</select>
+
+	<select id="CountLoLogDescMonth" resultType="HashMap">
+		select
+		ANY_VALUE(sys_user.user_name) as user,
+		count(sys_logininfor.login_name) as cn
+		from
+		sys_logininfor,
+		sys_user
+		where
+		sys_logininfor.login_name = sys_user.login_name
+		and
+		DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt;= date(login_time)
+		and
+		sys_logininfor.status = 0
+		group by sys_logininfor.login_name
+		order by cn desc
+		limit 0,5
+	</select>
+
+	<select id="CountHotLocal" resultType="HashMap">
+	select
+		login_location as name,
+		count(login_location) as value
+	from
+		sys_logininfor
+	where
+		not login_location = '内网IP'
+	  and
+		not login_location = 'XX XX'
+	group by login_location
+	order by count(login_location) desc
+	limit 0,5
+</select>
+
+	<select id="CountLocal" resultType="HashMap">
+		select
+			substr(login_location,4) as name,
+			count(login_location) as value
+		from
+			sys_logininfor
+		where
+			not login_location = '内网IP'
+		  and
+			not login_location = 'XX XX'
+		  and
+			not login_location = '湖南 长沙'
+		group by login_location
+		order by count(login_location) desc
+	</select>
+
+
+	<select id="recentCreatUser" resultType="HashMap">
+		select
+			user_name as un,
+			date_format(create_time,'%m月%d日')as ct
+		from
+			sys_user
+		order by create_time desc
+		limit 0,5
 	</select>
 	
 	<delete id="deleteLogininforByIds" parameterType="String">

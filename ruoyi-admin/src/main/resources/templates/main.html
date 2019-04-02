@@ -2,7 +2,7 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.75">
     <!--360浏览器优先以webkit内核解析-->
     <title>融媒体控制台</title>
     <link rel="shortcut icon" href="favicon.ico">
@@ -20,435 +20,205 @@
     <script th:src="@{/js/plugins/echarts/echarts.min.js}"></script>
     <script th:src="@{/js/plugins/echarts/echarts-gl.min.js}"></script>
 </head>
-<body class="gray-bg" onload="onload()">
+<body class="gray-bg" onload="main_onload()">
     <div class="row  border-bottom  dashboard-header">
-            <div class="wrapper wrapper-content">
-                <button type="button" class="btn btn-w-m btn-warning" data-toggle="modal" data-target="#pop">系统说明</button>
-                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_broad()">刷新广播数据</button>
-                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_village()">刷新村务数据</button>
-                <button type="button" class="btn btn-w-m btn-primary" onclick="flush_sys_mon()">刷新服务器数据</button>
-                <div class="modal inmodal" id="pop" tabindex="-1" role="dialog" aria-hidden="true"></div>
+            <div class="wrapper wrapper-content" style="padding-top: 0px;">
+                <!--<button type="button" class="btn btn-w-m btn-warning" data-toggle="modal" data-target="#pop">系统说明</button>-->
+                <!--<div class="modal inmodal" id="pop" tabindex="-1" role="dialog" aria-hidden="true"></div>-->
                 <div class="row">
                     <div class="col-sm-2">
-                        <div class="widget style1 blue-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-bullhorn fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 广播终端总量 </span>
-                                    <h2 id="count_dev" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_dev" class="no-margins"></h1>
+                                <small>广播终端总量</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 blue-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-check fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 终端设备运行数 </span>
-                                    <h2 id="count_run" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_run" class="no-margins"></h1>
+                                <small>终端设备运行数</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 blue-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-close fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 终端设备停止数 </span>
-                                    <h2 id="count_stop" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_stop" class="no-margins"></h1>
+                                <small>终端设备停止数</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 yellow-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-wrench fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 物联网挂载设备 </span>
-                                    <h2 id="iotdevcount" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="iotdevcount" class="no-margins"></h1>
+                                <small>物联网挂载设备</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 yellow-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-wrench fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 物联网数据量 </span>
-                                    <h2 id="iotcount" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="iotcount" class="no-margins"></h1>
+                                <small>物联网数据</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 red-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-wrench fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 山洪预警数据总量 </span>
-                                    <h2 id="riverviscount" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="riverviscount" class="no-margins"></h1>
+                                <small>山洪预警数据</small>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-group fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span>系统村民人数 </span>
-                                    <h2 id="count_ms" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_ms" class="no-margins"></h1>
+                                <small>社区人数</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-male fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 男性村民 </span>
-                                    <h2 id="count_mm" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_mm" class="no-margins"></h1>
+                                <small>男性</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-female fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 女性村民 </span>
-                                    <h2 id="count_mw" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_mw" class="no-margins"></h1>
+                                <small>女性</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-user-secret fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 党员数 </span>
-                                    <h2 id="count_ps" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_ps" class="no-margins"></h1>
+                                <small>党员数</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-male fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 男性党员 </span>
-                                    <h2  id="count_p_m" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_p_m" class="no-margins"></h1>
+                                <small>男性党员</small>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-2">
-                        <div class="widget style1 navy-bg">
-                            <div class="row vertical-align">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-female fa-3x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <span> 女性党员 </span>
-                                    <h2 id="count_pw" class="font-bold">None</h2>
-                                </div>
+                        <div class="ibox">
+                            <div class="ibox-content">
+                                <h1 id="count_pw" class="no-margins"></h1>
+                                <small>女性党员</small>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>广播时间(最近)分布可视化</h5>
-                                <div class="ibox-tools">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-superpowers"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a onclick="init_bt_mbygroup()">原始数据</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                    <div class="col-sm-2">
+                        <div class="ibox">
                             <div class="ibox-content">
-                                <div class="echarts" id="bt_mbygroup" ></div>
+                                <div id="rank_oper" style="height:200px;"></div>
+                                <!--<p class="text-right text-success">本月操作排名</p>-->
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>广播时间(最多)分布可视化</h5>
-                                <div class="ibox-tools">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-superpowers"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a onclick="init_bd_mbygroup()">原始数据</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
+                    <div class="col-sm-2">
+                        <div class="ibox">
                             <div class="ibox-content">
-                                <div class="echarts" id="bd_mbygroup" ></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>广播类型分布可视化</h5>
-                                <div class="ibox-tools">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-superpowers"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a onclick="init_bds_mbygroup()">原始数据</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="bds_mbygroup" ></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>村镇村民人口地域分布可视化</h5>
-                                <div class="ibox-tools">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-superpowers"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a onclick="sort_ec_mbygroup()">排序</a>
-                                        </li>
-                                        <li><a onclick="init_ec_mbygroup()">原始数据</a>
-                                        </li>
-                                    </ul>
-<!--                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                                </div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="ec_mbygroup" ></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>村镇党员地域分布可视化</h5>
-                                <div class="ibox-tools">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-superpowers"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a onclick="sort_ec_pbygroup()">排序</a>
-                                        </li>
-                                        <li><a onclick="init_ec_pbygroup()">原始数据</a>
-                                        </li>
-                                    </ul>
-<!--                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                                </div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="ec_pbygroup"></div>
+                                <div id="rank_login" style="height:200px;"></div>
+                                <!--<p class="text-right text-success">本月登陆排名</p>-->
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>广播地域分布可视化</h5>
-                                <div class="ibox-tools">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-superpowers"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a onclick="sort_ec_bt()">排序</a>
-                                        </li>
-                                        <li><a onclick="init_ec_bt()">原始数据</a>
-                                        </li>
-                                    </ul>
-<!--                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                            <div class="ibox">
+                                <div class="ibox-content">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div id="rank_loc" style="height:200px;"></div>
+                                         </div>
+                                        <div class="col-sm-8">
+                                            <div class="echarts" id="all_loc" style="height:200px;"></div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </div>
+                    <div class="col-sm-2">
+                        <div class="ibox">
                             <div class="ibox-content">
-                                <div class="echarts" id="bt_sum"></div>
+                                <div id="recent_reg" style="height:200px;"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>山洪预警 - 雨量走势</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="rvis-rain"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>山洪预警 - 河水流量走势</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="rvis-flow"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>山洪预警 - 河流水位走势</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="rvis-wlevel"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>山洪预警 - 河流酸碱度走势</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="rvis-ph"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>山洪预警 - PM2.5走势</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="rvis-pm"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>山洪预警 - 温度走势</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="rvis-temp"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>山洪预警 - 湿度走势</h5>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="rvis-hum"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>三维村镇人口可视化</h5>
-                                <div class="ibox-tools">
-                                    <!--                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                    <div class="col-sm-9">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>最近登录记录 </h5>
+                                        <div id="llog_flush_time"  class="ibox-tools"></div>
+                                    </div>
+                                    <div id="sys_login_log" class="ibox-content"></div>
                                 </div>
                             </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="3d_v_pm"  style="height:400px;" ></div>
-                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>三维广播分组可视化</h5>
-                                <div class="ibox-tools">
-                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                        <i class="fa fa-superpowers"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-user">
-                                        <li><a onclick="sort_3d_bt()">排序数据</a>
-                                        </li>
-                                        <li><a onclick="init_3d_bt()">原始数据</a>
-                                        </li>
-                                    </ul>
-                                    <!--                                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                                </div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="echarts" id="3d_bt"  style="height:400px;" ></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>服务器性能监控 </h5>
-                                <div id="mon_flush_time"  class="ibox-tools"></div>
-                            </div>
-                            <div class="ibox-content">
-                                <div class="row">
-                                    <div id="sys_mon_cpu" class="col-sm-4"></div>
-                                    <div id="sys_mon_disk" class="col-sm-4"></div>
-                                    <div id="sys_mon_line" class="col-sm-4"></div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>最近操作记录 </h5>
+                                    </div>
+                                    <div id="sys_oper_log" class="ibox-content"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="ibox float-e-margins">
-                            <div class="ibox-title">
-                                <h5>最近登录记录 </h5>
-                                <div id="llog_flush_time"  class="ibox-tools"></div>
+                    <div class="col-sm-3">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>性能参数 </h5>
+                                        <div id="mon_flush_time"  class="ibox-tools"></div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div id="sys_mon_cpu"></div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="sys_login_log" class="ibox-content"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <div id="sys_mon_disk"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                         <div id="sys_mon_line"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -1,11 +1,7 @@
 package com.ruoyi.web.controller.broad;
 
-import com.ruoyi.broad.domain.Broaduser;
-import com.ruoyi.broad.service.IBroaduserService;
+import com.ruoyi.broad.domain.Textmessages;
 import com.ruoyi.broad.service.ITextmessagesService;
-import com.ruoyi.common.annotation.Log;
-import com.ruoyi.common.base.AjaxResult;
-import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.utils.ExcelUtil;
 import com.ruoyi.framework.web.base.BaseController;
@@ -39,6 +35,13 @@ public class TextmessagesController extends BaseController
 	{
 		mmap.put("typeNum",iTextmessagesService.selectTypeNum());
 	    return prefix + "/textmessages";
+	}
+	@PostMapping("/list")
+		@ResponseBody
+		public TableDataInfo list() {
+			startPage();
+			List<Textmessages> list = iTextmessagesService.selectTextMessages();
+			return getDataTable(list);
 	}
 
 }

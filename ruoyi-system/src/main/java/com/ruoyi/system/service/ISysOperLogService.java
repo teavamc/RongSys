@@ -1,6 +1,8 @@
 package com.ruoyi.system.service;
 
 import java.util.List;
+
+import com.ruoyi.common.utils.PageData;
 import com.ruoyi.system.domain.SysOperLog;
 
 /**
@@ -45,4 +47,18 @@ public interface ISysOperLogService
      * 清空操作日志
      */
     public void cleanOperLog();
+
+    /**
+     * 获取最近的操作记录传给前端
+     *
+     * @return 结果
+     */
+    public List<PageData> selectOperLogforIndex();
+
+    /**
+     * 获取最近一个月操作次数最多的五个人名单
+     *
+     * @return 结果
+     */
+    public List<PageData> CountLogDescForMonth();
 }
