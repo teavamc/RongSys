@@ -54,6 +54,12 @@ function init_rvis() {
                     bottom: '0%',
                     containLabel: true
                 },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
+                },
                 xAxis : [
                     {
                         type : 'category',
@@ -115,6 +121,12 @@ function init_rvis() {
                     top: '5%',
                     bottom: '0%',
                     containLabel: true
+                },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
                 },
                 xAxis : [
                     {
@@ -178,6 +190,12 @@ function init_rvis() {
                     bottom: '0%',
                     containLabel: true
                 },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
+                },
                 xAxis : [
                     {
                         type : 'category',
@@ -231,6 +249,12 @@ function init_rvis() {
             ec_rvis_ph_option4 = {
                 tooltip : {
                     trigger: 'axis'
+                },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
                 },
                 calculable : true,
                 grid: {
@@ -293,6 +317,12 @@ function init_rvis() {
             ec_rvis_pm_option5 = {
                 tooltip : {
                     trigger: 'axis'
+                },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
                 },
                 calculable : true,
                 grid: {
@@ -364,6 +394,12 @@ function init_rvis() {
                     bottom: '0%',
                     containLabel: true
                 },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
+                },
                 xAxis : [
                     {
                         type : 'category',
@@ -425,6 +461,12 @@ function init_rvis() {
                     top: '5%',
                     bottom: '0%',
                     containLabel: true
+                },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
                 },
                 xAxis : [
                     {
