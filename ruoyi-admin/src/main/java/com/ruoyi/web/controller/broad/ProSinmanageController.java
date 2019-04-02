@@ -153,7 +153,7 @@ public class ProSinmanageController extends BaseController
 	/*************************************************************************************************
 	 * 新增保存节目播出单
 	 */
-//	@RequiresPermissions("broad:proSinmanage:addtest")
+	@RequiresPermissions("broad:proSinmanage:addtest")
 	@Log(title = "新增节目播出单测试", businessType = BusinessType.INSERT)
 	@PostMapping("/addtest")
 	@ResponseBody

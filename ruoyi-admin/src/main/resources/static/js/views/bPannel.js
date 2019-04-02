@@ -47,6 +47,7 @@ function init_bt_mbygroup() {
                     show: true,
                     feature: {
                         magicType: {show: true, type: ['line', 'bar']},
+                        dataView : {show: true, readOnly: false},
                     }
                 },
                 calculable: true,
@@ -118,6 +119,7 @@ function init_bd_mbygroup() {
                     show: true,
                     feature: {
                         magicType: {show: true, type: ['line', 'bar']},
+                        dataView : {show: true, readOnly: false},
                     }
                 },
                 calculable: true,
@@ -190,6 +192,12 @@ function init_bds_mbygroup() {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
+                },
                 legend: {
                     orient: 'vertical',
                     x: 'left',
@@ -250,7 +258,10 @@ function init_ptp_mbygroup() {
                     trigger: 'axis'
                 },
                 toolbox: {
-                    show: true
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
                 },
                 polar: [
                     {
@@ -319,9 +330,11 @@ function init_bd_terminlgroup() {
                     }
                 },
                 color: ['#1265fc'],
-                legend: {
-                    data: ['流量', '降雨量'],
-                    x: 'left'
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
                 },
                 dataZoom: [
                     {
@@ -400,6 +413,7 @@ function init_bd_terminalstate() {
             var bd_run = data.data.run;
             var bd_stop = data.data.stop;
             option = {
+                color:['#4bf3fc','#9afc78'],
                 tooltip: {
                     trigger: 'item',
                     formatter: "{a} <br/>{b} : {c} ({d}%)"
@@ -407,7 +421,13 @@ function init_bd_terminalstate() {
                 legend: {
                     orient: 'vertical',
                     left: 'left',
-                    data: ['终端总数', '在线终端数', '离线终端数']
+                    data: [ '在线终端数', '离线终端数']
+                },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
                 },
                 series: [
                     {
@@ -416,7 +436,6 @@ function init_bd_terminalstate() {
                         radius: '55%',
                         center: ['50%', '60%'],
                         data: [
-                            {value: bd_device, name: '终端总数'},
                             {value: bd_run, name: '在线终端数'},
                             {value: bd_stop, name: '离线终端数'}
                         ],
@@ -457,6 +476,12 @@ function init_bl_terminalstate() {
                 }
             }
             init_bl_option = {
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
+                },
                 tooltip: {
                     formatter: "{a}: <br/>{b} min : {c}"
                 },
@@ -507,6 +532,12 @@ function init_bip_terminalstate() {
                     formatter: function (params) {
                         var tar = params[1];
                         return tar.name + '<br/>' + tar.seriesName + ' : ' + tar.value;
+                    }
+                },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
                     }
                 },
                 grid: {
@@ -619,6 +650,12 @@ function init_3d_bt() {
                         }
                     }
                 },
+                toolbox: {
+                    show:true,
+                    feature : {
+                        dataView : {show: true, readOnly: false},
+                    }
+                },
                 visualMap: {
                     max: 260,
                     inRange: {
@@ -671,7 +708,6 @@ function init_3d_bt() {
                             borderWidth: 1
                         }
                     },
-
                     emphasis: {
                         label: {
                             textStyle: {
@@ -720,6 +756,16 @@ function init_ec_bt() {
                     trigger: 'axis',
                     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
                         type : 'cross'        // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
                     }
                 },
                 grid: {
@@ -834,6 +880,16 @@ function sort_3d_bt() {
                 zAxis3D: {
                     type: 'value'
                 },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
+                },
                 grid3D: {
                     boxWidth: 300,
                     boxDepth: 80,
@@ -854,6 +910,7 @@ function sort_3d_bt() {
                         }
                     }
                 },
+
                 series: [{
                     type: 'bar3D',
                     data: data.map(function (item) {
@@ -926,6 +983,16 @@ function sort_ec_bt() {
                     top: '5%',
                     bottom: '0%',
                     containLabel: true
+                },
+                toolbox: {
+                    show : true,
+                    feature : {
+                        mark : {show: true},
+                        dataView : {show: true, readOnly: false},
+                        magicType : {show: true, type: ['line', 'bar']},
+                        restore : {show: true},
+                        saveAsImage : {show: true}
+                    }
                 },
                 xAxis : [
                     {
