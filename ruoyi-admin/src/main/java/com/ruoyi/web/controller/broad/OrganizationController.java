@@ -96,6 +96,7 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public AjaxResult addSave(Organization organization)
 	{
+		organizationService.insertOrganizationPic(organization);
 		return toAjax(organizationService.insertOrganization(organization));
 	}
 

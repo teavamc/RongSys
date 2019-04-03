@@ -21,7 +21,7 @@ import com.ruoyi.common.utils.ExcelUtil;
 
 /**
  * 流量 信息操作处理
- * 
+ *
  * @author 张超
  * @date 2019-01-15
  */
@@ -29,18 +29,18 @@ import com.ruoyi.common.utils.ExcelUtil;
 @RequestMapping("/broad/traffic")
 public class TrafficController extends BaseController
 {
-    private String prefix = "broad/traffic";
-	
+	private String prefix = "broad/traffic";
+
 	@Autowired
 	private ITrafficService trafficService;
-	
+
 	@RequiresPermissions("broad:traffic:view")
 	@GetMapping()
 	public String traffic()
 	{
-	    return prefix + "/traffic";
+		return prefix + "/traffic";
 	}
-	
+
 	/**
 	 * 查询流量列表
 	 */
@@ -50,33 +50,42 @@ public class TrafficController extends BaseController
 	public TableDataInfo list(Traffic traffic)
 	{
 		startPage();
-        List<Traffic> list = trafficService.selectTrafficList(traffic);
+		List<Traffic> list = trafficService.selectTrafficList(traffic);
+		for(int i=0;i<list.size();i++)
+		{
+			if(list.get(i).getUsetraffic()>list.get(i).getTrafficlimit())
+			{
+				list.get(i).setStatus("1");
+			}else{
+				list.get(i).setStatus("0");
+			}
+		}
 		return getDataTable(list);
 	}
-	
-	
+
+
 	/**
 	 * 导出流量列表
 	 */
 	@RequiresPermissions("broad:traffic:export")
-    @PostMapping("/export")
-    @ResponseBody
-    public AjaxResult export(Traffic traffic)
-    {
-    	List<Traffic> list = trafficService.selectTrafficList(traffic);
-        ExcelUtil<Traffic> util = new ExcelUtil<Traffic>(Traffic.class);
-        return util.exportExcel(list, "traffic");
-    }
-	
+	@PostMapping("/export")
+	@ResponseBody
+	public AjaxResult export(Traffic traffic)
+	{
+		List<Traffic> list = trafficService.selectTrafficList(traffic);
+		ExcelUtil<Traffic> util = new ExcelUtil<Traffic>(Traffic.class);
+		return util.exportExcel(list, "traffic");
+	}
+
 	/**
 	 * 新增流量
 	 */
 	@GetMapping("/add")
 	public String add()
 	{
-	    return prefix + "/add";
+		return prefix + "/add";
 	}
-	
+
 	/**
 	 * 新增保存流量
 	 */
@@ -85,7 +94,7 @@ public class TrafficController extends BaseController
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Traffic traffic)
-	{		
+	{
 		return toAjax(trafficService.insertTraffic(traffic));
 	}
 
@@ -97,9 +106,9 @@ public class TrafficController extends BaseController
 	{
 		Traffic traffic = trafficService.selectTrafficById(ttid);
 		mmap.put("traffic", traffic);
-	    return prefix + "/edit";
+		return prefix + "/edit";
 	}
-	
+
 	/**
 	 * 修改保存流量
 	 */
@@ -108,10 +117,11 @@ public class TrafficController extends BaseController
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Traffic traffic)
-	{		
+	{
+		trafficService.updateTrafficSet(traffic);
 		return toAjax(trafficService.updateTraffic(traffic));
 	}
-	
+
 	/**
 	 * 删除流量
 	 */
@@ -120,8 +130,8 @@ public class TrafficController extends BaseController
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
-	{		
+	{
 		return toAjax(trafficService.deleteTrafficByIds(ids));
 	}
-	
+
 }

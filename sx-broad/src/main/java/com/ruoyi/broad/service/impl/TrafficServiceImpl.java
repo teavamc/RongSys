@@ -13,79 +13,92 @@ import com.ruoyi.common.support.Convert;
 
 /**
  * 流量 服务层实现
- * 
+ *
  * @author 张超
  * @date 2019-01-15
  */
 @Service
-public class TrafficServiceImpl implements ITrafficService 
+public class TrafficServiceImpl implements ITrafficService
 {
 	@Autowired
 	private TrafficMapper trafficMapper;
 
 	/**
-     * 查询流量信息
-     * 
-     * @param ttid 流量ID
-     * @return 流量信息
-     */
-    @Override
+	 * 查询流量信息
+	 *
+	 * @param ttid 流量ID
+	 * @return 流量信息
+	 */
+	@Override
 	@DataSource(value = DataSourceType.SLAVE)
 	public Traffic selectTrafficById(Integer ttid)
 	{
-	    return trafficMapper.selectTrafficById(ttid);
+		return trafficMapper.selectTrafficById(ttid);
 	}
-	
+
 	/**
-     * 查询流量列表
-     * 
-     * @param traffic 流量信息
-     * @return 流量集合
-     */
+	 * 查询流量列表
+	 *
+	 * @param traffic 流量信息
+	 * @return 流量集合
+	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
 	public List<Traffic> selectTrafficList(Traffic traffic)
 	{
-	    return trafficMapper.selectTrafficList(traffic);
+		return trafficMapper.selectTrafficList(traffic);
 	}
-	
-    /**
-     * 新增流量
-     * 
-     * @param traffic 流量信息
-     * @return 结果
-     */
+
+	/**
+	 * 新增流量
+	 *
+	 * @param traffic 流量信息
+	 * @return 结果
+	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
 	public int insertTraffic(Traffic traffic)
 	{
-	    return trafficMapper.insertTraffic(traffic);
+		return trafficMapper.insertTraffic(traffic);
 	}
-	
+
 	/**
-     * 修改流量
-     * 
-     * @param traffic 流量信息
-     * @return 结果
-     */
+	 * 修改流量
+	 *
+	 * @param traffic 流量信息
+	 * @return 结果
+	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
 	public int updateTraffic(Traffic traffic)
 	{
-	    return trafficMapper.updateTraffic(traffic);
+		return trafficMapper.updateTraffic(traffic);
 	}
 
 	/**
-     * 删除流量对象
-     * 
-     * @param ids 需要删除的数据ID
-     * @return 结果
-     */
+	 * 修改流量限制
+	 *
+	 * @param traffic 流量信息
+	 * @return 结果
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public int updateTrafficSet(Traffic traffic)
+	{
+		return trafficMapper.updateTrafficSet(traffic);
+	}
+
+	/**
+	 * 删除流量对象
+	 *
+	 * @param ids 需要删除的数据ID
+	 * @return 结果
+	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
 	public int deleteTrafficByIds(String ids)
 	{
 		return trafficMapper.deleteTrafficByIds(Convert.toStrArray(ids));
 	}
-	
+
 }
