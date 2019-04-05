@@ -9,19 +9,25 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">终端编号：</label>
 				<div class="col-sm-8">
-					<input id="tid" name="tid" th:field="*{tid}" class="form-control" type="text">
+					<input id="tid" name="tid" readonly="true" th:field="*{tid}" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">使用流量，单位MB：</label>
 				<div class="col-sm-8">
-					<input id="usetraffic" name="usetraffic" th:field="*{usetraffic}" class="form-control" type="text">
+					<input id="usetraffic" name="usetraffic" readonly="true" th:field="*{usetraffic}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">终端流量使用限制，单位MB：</label>
+				<div class="col-sm-8">
+					<input id="trafficlimit" name="trafficlimit" th:field="*{trafficlimit}" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">流量统计时间：</label>
 				<div class="col-sm-8">
-					<input id="lasttime" name="lasttime" th:field="*{lasttime}" class="form-control" type="text">
+					<input id="lasttime" name="lasttime" readonly="true" th:field="*{lasttime}" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
