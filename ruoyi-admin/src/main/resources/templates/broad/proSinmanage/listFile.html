@@ -128,7 +128,16 @@
                     field : 'fname',
                     title : '节目名称',
                     sortable: true,
-                    width: '20%'
+                    width: '20%',
+                    formatter:function (value,row,index,) {
+                        var results = value;
+                        if(results.toString().length>20){
+                            results = results.toString().substring(0,12)+"...";
+                        }
+                        var actions = [];
+                        actions.push('<a href="#" onclick="details(\''+ value+'\')">'+results+'</a> ');
+                        return actions.join('');
+                    }
                 },
                 {
                     field : 'filename',
@@ -245,6 +254,11 @@
             type: 'time',
         });
     });
+    function details(value) {
+        var txt = value;
+        alert(txt);
+
+    }
 </script>
 <div th:include="include :: footer"></div>
 </body>

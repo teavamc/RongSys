@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
-    
+
      <div class="container-div">
 		<!--<div class="row">-->
 			<!--<div class="col-sm-12 search-collapse">-->
@@ -94,17 +94,17 @@
 					<!--</div>-->
 				<!--</form>-->
 			<!--</div>-->
-			
+
 	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
 				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:management:add">
 					<i class="fa fa-plus"></i> 添加
 				</a>
-				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:management:edit">-->
-					<!--<i class="fa fa-edit"></i> 修改-->
-				<!--</a>-->
-				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:management:remove">-->
-					<!--<i class="fa fa-remove"></i> 删除-->
-				<!--</a>-->
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:management:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:management:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
 				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:management:export">
 						<i class="fa fa-download"></i> 导出
 				 </a>
@@ -132,11 +132,11 @@
 		        showExport: true,
                 pageSize: 20,
                 columns: [
-//                    {
-//		            checkbox: true
-//		        },
+					{
+						checkbox: true
+					},
 				{
-					field : 'tid', 
+					field : 'tid',
 					title : '设备管理id',
 					visible: true
 				},
@@ -151,12 +151,12 @@
 //					sortable: true
 //				},
 				{
-					field : 'longitude', 
+					field : 'longitude',
 					title : '经度',
 					sortable: true
 				},
 				{
-					field : 'latitude', 
+					field : 'latitude',
 					title : '纬度',
 					sortable: true
 				}
