@@ -29,6 +29,18 @@ public class BroadMessage extends BaseEntity {
      * 备注
      */
     private String note;
+    /**
+     * 终端手机号码
+     */
+    private String phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public void setAid(String aid) {
         this.aid = aid;
@@ -68,6 +80,7 @@ public class BroadMessage extends BaseEntity {
                 .append("parentaid", getParentaid())
                 .append("aname", getAname())
                 .append("note", getNote())
+                .append("phone", getPhone())
                 .toString();
     }
 }
