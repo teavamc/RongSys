@@ -136,24 +136,7 @@ function connectWS() {
     };
 }
 
-/**
- * 开始直播
- * @param obj
- * @returns {boolean}
- */
-function startlive(obj){
-    // 如果未选择则 提示要选择
-    if(imeilist==null || imeilist==""){
-        $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
-        return false;
-    }else{
-        // 设置 streamid 为当前时间
-        streamid = getCurTime();
-        setLiveButton(0);
-        // 推流
-        publishRtmp();
-    }
-}
+
 
 /**
  * 向后台发送开始直播命令
@@ -174,23 +157,6 @@ function startsent(){
         addlog("open",streamid,imeilist);
 }
 
-
-/**
- * 结束直播命令
- */
-function endlive(){
-    setLiveButton(3);
-    scrollStatus("text-info","正在关闭直播...");
-    addlog("close",streamid,imeilist);
-    if(isOpen) streamerDisconnect();
-    if (ws != null) {
-        var message = "end:"+streamid;
-        console.log('Sent End');
-        ws.send(message);
-    } else {
-        setLiveButton(2);
-    }
-}
 
 
 /**

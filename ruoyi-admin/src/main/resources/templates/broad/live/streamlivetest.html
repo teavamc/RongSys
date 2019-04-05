@@ -9,6 +9,7 @@
         }
     </style>
 </head>
+
 <body class="gray-bg" onload="init();">
 
 <div class="container-div">
@@ -78,7 +79,9 @@
             </div>
         </div>
     </div>
-
+</div>
+<script th:src="@{/js/plugins/live/recorder-core.js}"></script>
+<script th:src="@{/js/plugins/live/FileSaver.js}"></script>
     <script th:src="@{/js/jquery.min.js}"></script>
     <script th:src="@{/js/bootstrap.min.js}"></script>
     <script th:src="@{/js/content.min.js}"></script>
@@ -86,17 +89,113 @@
     <script th:src="@{/js/views/live/livestreamtest.js}"></script>
     <script th:src="@{/ajax/libs/select/select2.js}"></script>
     <script th:src="@{/ajax/libs/layer/layer.min.js}"></script>
-    <script>
+<script th:src="@{/js/plugins/live/engine/mp3.js}"></script>
+<script th:src="@{/js/plugins/live/engine/mp3-engine.js}"></script>
+    <script type="text/javascript">
+        function RandomKey(){
+            return "randomkey"+(RandomKey.idx++);
+        };
+        RandomKey.idx=0;
+
         var ctx;
         var audioContext;
         var analyser;
         var mic;
 
+        var rec;
+        var recblob={};
+        var wave;
         function init() {
             canvasOne = document.getElementById('canvasOne');
             ctx = canvasOne.getContext("2d");
+            var type="mp3";
+            var bit=16;
+            var sample=16000;
+            rec=Recorder({
+                type:type
+                ,bitRate:bit
+                ,sampleRate:sample
+                ,onProcess:function(buffers,level,time,sampleRate){
+                    wave.input(buffers[buffers.length-1],level,sampleRate);
+                }
+            });
+            rec.open(function(){
+                console.log("打开成功22");
+            },function(e,isUserNotAllow){
+                console.log("不允许")
+            });
         }
+        /**
+         * 结束直播命令
+         */
+        function endlive(){
+            setLiveButton(3);
+            scrollStatus("text-info","正在关闭直播...");
+            addlog("close",streamid,imeilist);
 
+            console.log("关闭成功1")
+            if(rec){
+                rec.stop(function(blob,time){
+                    var id=RandomKey(16);
+                    recblob[id]={blob:blob,set:$.extend({},rec.set),time:time};
+                    recdown(id);
+                    console.log("关闭成功2")
+                },function(s){
+                    console.log("关闭失败222")
+                });
+            };
+            console.log("关闭成功3")
+            if(isOpen) streamerDisconnect();
+            if (ws != null) {
+                var message = "end:"+streamid;
+                console.log('Sent End');
+                ws.send(message);
+            } else {
+                setLiveButton(2);
+            }
+
+        }
+        function recdown(key){
+            var o=recblob[key];
+            /**
+             * 下载文件
+             */
+            console.log("----here")
+            if(o){
+                var cls=RandomKey(16);
+                var name="rec-"+o.time+"ms-"+o.set.bitRate+"kbps-"+o.set.sampleRate+"hz."+o.set.type;
+                o.down=(o.down||0)+1;
+                var downA=document.createElement("A");
+                console.log(o.blob)
+                downA.innerHTML="下载 "+name;
+                downA.href=URL.createObjectURL(o.blob);
+                downA.download=name;
+                $("."+cls).prepend(downA);
+                downA.click();
+            };
+        };
+        /**
+         * 开始直播
+         * @param obj
+         * @returns {boolean}
+         */
+        function startlive(obj){
+            // 如果未选择则 提示要选择
+            if(imeilist==null || imeilist==""){
+                $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
+                return false;
+            }else{
+                // 设置 streamid 为当前时间
+                streamid = getCurTime();
+                if(rec){
+                    rec.start();
+                    console.log("开启22")
+                };
+                setLiveButton(0);
+                // 推流
+                publishRtmp();
+            }
+        }
         navigator.getMedia = ( navigator.getUserMedia ||
             navigator.webkitGetUserMedia ||
             navigator.mozGetUserMedia ||
@@ -123,6 +222,8 @@
             }
             requestAnimationFrame(drawSpectrum);
         };
+
+
     </script>
     <script type="text/javascript">
         var context1;
@@ -173,7 +274,9 @@
                 layer.close(index);
             /*}*/
         }
+
     </script>
+
 
 </body>
 </html>
