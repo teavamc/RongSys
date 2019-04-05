@@ -39,9 +39,9 @@
 				<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:traffic:add">-->
 					<!--<i class="fa fa-plus"></i> 添加-->
 				<!--</a>-->
-				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:traffic:edit">-->
-					<!--<i class="fa fa-edit"></i> 修改-->
-				<!--</a>-->
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:traffic:edit">
+					<i class="fa fa-edit"></i> 设置终端流量限制
+				</a>
 				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:traffic:remove">-->
 					<!--<i class="fa fa-remove"></i> 删除-->
 				<!--</a>-->
@@ -58,6 +58,7 @@
     <script th:inline="javascript">
         var editFlag = [[${@permission.hasPermi('broad:traffic:edit')}]];
         var removeFlag = [[${@permission.hasPermi('broad:traffic:remove')}]];
+		var datas = [[${@dict.getType('sys_traffic_status')}]];
         var prefix = ctx + "broad/traffic";
 
         $(function() {
@@ -71,14 +72,14 @@
 				search: false,
 		        showExport: true,
                 columns: [
-//                    {
-//		            checkbox: true
-//		        },
-//				{
-//					field : 'ttid',
-//					title : '终端流量使用信息表-id',
-//					visible: false
-//				},
+                    {
+		            checkbox: true
+		        },
+				{
+					field : 'ttid',
+					title : '终端流量使用信息表-id',
+					visible: false
+				},
 				{
 					field : 'tid', 
 					title : '终端编号',
@@ -88,6 +89,19 @@
 					field : 'usetraffic', 
 					title : '使用流量/MB',
 					sortable: true
+				},
+				{
+					field : 'trafficlimit',
+					title : '终端流量使用限制，单位MB',
+					sortable: true
+				},
+				{
+					field: 'status',
+					title: '状态',
+					align: 'center',
+					formatter: function(value, row, index) {
+						return $.table.selectDictLabel(datas, value);
+					}
 				},
 				{
 					field : 'lasttime', 
