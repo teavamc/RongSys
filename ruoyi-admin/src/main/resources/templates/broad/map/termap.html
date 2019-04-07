@@ -1072,7 +1072,7 @@
         for(var i=0, pointsLen = points.length; i<pointsLen; i++) {
             var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
             var marker = new BMap.Marker(point); //将点转化成标注点
-            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), {offset: new BMap.Size(12, 25), imageOffset: new BMap.Size(0, 0 - 12 * 25)});//标注换颜色
+            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), { imageOffset: new BMap.Size(0, 0 - 10 * 25)});//标注换颜色
             if(points[i].isuse==false)
             {
                 marker = new BMap.Marker(point,{icon:stopIcon});
@@ -1165,7 +1165,7 @@
             })();
         }else{
             var point = new BMap.Point(nPoint.lng, nPoint.lat); //将标注点转化成地图上的点
-            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), {offset: new BMap.Size(12, 25), imageOffset: new BMap.Size(0, 0 - 12 * 25)});//标注换颜色
+            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), {offset: new BMap.Size(12, 25), imageOffset: new BMap.Size(0, 0 - 10 * 25)});//标注换颜色
             var marker = new BMap.Marker(point,{icon:stopIcon});
             map.addOverlay(marker);
             //添加监听事件
