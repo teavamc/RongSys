@@ -367,7 +367,7 @@ public class SysUserServiceImpl implements ISysUserService
      * @return 结果
      */
     @Override
-    public String selectAid(Long userId)
+    public String selectAid(int userId)
     {
        String aid = userMapper.selectAid(userId);
 
@@ -381,7 +381,7 @@ public class SysUserServiceImpl implements ISysUserService
      * @return 结果
      */
     @Override
-    public int selectRoleid(Long userId)
+    public int selectRoleid(int userId)
     {
         int role_id = userMapper.selectRoleid(userId);
 

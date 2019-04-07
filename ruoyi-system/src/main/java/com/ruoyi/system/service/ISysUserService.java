@@ -153,7 +153,7 @@ public interface ISysUserService
      * @param userId 用户ID
      * @return 结果
      */
-    public String selectAid(Long userId);
+    public String selectAid(int userId);
 
     /**
      * 根据用户ID查询用户等级roleid
@@ -161,5 +161,5 @@ public interface ISysUserService
      * @param userId 用户ID
      * @return 结果
      */
-    public int selectRoleid(Long userId);
+    public int selectRoleid(int userId);
 }

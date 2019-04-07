@@ -31,8 +31,9 @@ public class TermapController extends BaseController
 	{
 		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
 		Long userid =  currentUser.getUserId();
-		int roleid = sysUserService.selectRoleid(userid);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
-		String aid = sysUserService.selectAid(userid);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		String aid = sysUserService.selectAid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
 		List<Termap> mapinfoList ;
 		/*判断用户等级，若为超级管理员则可查看全部内容，否则只能查看自己的内容*/
 		if(roleid != 1){

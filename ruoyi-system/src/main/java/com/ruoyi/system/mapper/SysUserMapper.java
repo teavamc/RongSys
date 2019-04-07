@@ -120,7 +120,7 @@ public interface SysUserMapper
      * @param userId 用户ID
      * @return 用户对象信息
      */
-    public String selectAid(Long userId);
+    public String selectAid(int userId);
 
     /**
      * 根据用户ID查询用户等级roleid
@@ -128,5 +128,5 @@ public interface SysUserMapper
      * @param userId 用户ID
      * @return 用户对象信息
      */
-    public int selectRoleid(Long userId);
+    public int selectRoleid(int userId);
 }
