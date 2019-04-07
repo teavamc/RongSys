@@ -20,6 +20,7 @@
 
 <script th:src="@{/js/jquery.min.js}"></script>
 <script th:inline="javascript">
+    var ctx = [[@{/}]];
     var terdata = [];
     var points = [];
     terdata = [[${mapinfoList}]];
@@ -33,6 +34,7 @@
             uname:terdata[i].uname,
             phone:terdata[i].phone,
             address:terdata[i].address,
+            isuse:terdata[i].isuse
         });
     }
 
@@ -1070,6 +1072,11 @@
         for(var i=0, pointsLen = points.length; i<pointsLen; i++) {
             var point = new BMap.Point(points[i].lng, points[i].lat); //将标注点转化成地图上的点
             var marker = new BMap.Marker(point); //将点转化成标注点
+            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), {offset: new BMap.Size(12, 25), imageOffset: new BMap.Size(0, 0 - 12 * 25)});//标注换颜色
+            if(points[i].isuse==false)
+            {
+                marker = new BMap.Marker(point,{icon:stopIcon});
+            }
             map.addOverlay(marker);  //将标注点添加到地图上
             //添加监听事件
             (function() {
@@ -1083,23 +1090,93 @@
     }
     function showInfo(thisMarker,point) {
         //获取点的信息
-        var sContent =
-            '<ul style="margin:0 0 5px 0;padding:0.2em 0">'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            +'<span style="width: 150px;display: inline-block;">终端IEMI：</span>' + point.tid + '</li>'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            +'<span style="width: 150px;display: inline-block;">分组名称：</span>' + point.aname + '</li>'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            +'<span style="width: 150px;display: inline-block;">所属用户：</span>' + point.uname + '</li>'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            +'<span style="width: 150px;display: inline-block;">终端电话：</span>' + point.phone + '</li>'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            +'<span style="width: 150px;display: inline-block;">安装地址：</span>' + point.address + '</li>'
-            +'<li style="line-height: 26px;font-size: 15px;">'
-            /* + '<span style="width: 50px;display: inline-block;">查看：</span><a href="'+point.url+'">详情</a></li>'*/
-            +'</ul>';
+        var thePoint=JSON.stringify(point);
+        if(point.isuse==true) {
+            var sContent = "<ul style=\"margin:0 0 5px 0;padding:0.2em 0\">" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">终端IEMI：</span>" + point.tid + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">分组名称：</span>" + point.aname + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">所属用户：</span>" + point.uname + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">终端电话：</span>" + point.phone + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">安装地址：</span>" + point.address + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 50px;display: inline-block;float:left;\">状态：</span><div class=\"onoffswitch\" style=\"float:left;\">" +
+                "<input type=\"checkbox\" checked=\"true\" class=\"onoffswitch-checkbox\" onclick='update_show(" + thePoint + ")'  id=\"status\" name=\"status\"><label class=\"onoffswitch-label\" for=\"status\"><span class=\"onoffswitch-inner\"></span><span class=\"onoffswitch-switch\" style=\"height: 20px;\"></span></label></div></li>" +
+                "</ul>";
+        }else if(point.isuse==false){
+            var sContent = "<ul style=\"margin:0 0 5px 0;padding:0.2em 0\">" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">终端IEMI：</span>" + point.tid + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">分组名称：</span>" + point.aname + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">所属用户：</span>" + point.uname + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">终端电话：</span>" + point.phone + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 150px;display: inline-block;\">安装地址：</span>" + point.address + "</li>" +
+                "<li style=\"line-height: 26px;font-size: 15px;\">" +
+                "<span style=\"width: 50px;display: inline-block;float:left;\">状态：</span><div class=\"onoffswitch\" style=\"float:left;\">" +
+                "<input type=\"checkbox\"  class=\"onoffswitch-checkbox\" onclick='update_show(" + thePoint + ")'  id=\"status\" name=\"status\"><label class=\"onoffswitch-label\" for=\"status\"><span class=\"onoffswitch-inner\"></span><span class=\"onoffswitch-switch\" style=\"height: 20px;\"></span></label></div></li>" +
+                "</ul>";
+        }
         var infoWindow = new BMap.InfoWindow(sContent); //创建信息窗口对象
         thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
+    }
+    function  update_show(nPoint) {
+       var allOverlay = map.getOverlays();
+       for(var i = 0;i<allOverlay.length;i++) {
+            if(allOverlay[i].toString()=="[object Marker]") {
+                if (allOverlay[i].getPosition().lng == nPoint.lng && allOverlay[i].getPosition().lat == nPoint.lat) {
+                    map.removeOverlay(allOverlay[i]);
+                }
+            }
+        }
+        var status = $("input[name='status']").is(':checked') == true ? true : false;
+        nPoint.isuse=status;
+        $.ajax({
+            cache : false,
+            type : "POST",
+            url : ctx + "broad/organization/isuseSet",
+            data : {
+                "tid": nPoint.tid,
+                "isuse": status,
+            },
+            error : function(request) {
+                $.modal.alertError("系统错误");
+            }
+        });
+        if($("input[name='status']").is(':checked')==true){
+            console.log($("input[name='status']").is(':checked'));
+            var point = new BMap.Point(nPoint.lng, nPoint.lat); //将标注点转化成地图上的点
+            var marker = new BMap.Marker(point);
+            map.addOverlay(marker);
+            //添加监听事件
+            (function() {
+                var thePoint = nPoint;
+                marker.addEventListener("click",
+                    function() {
+                        showInfo(this,thePoint);
+                    });
+            })();
+        }else{
+            var point = new BMap.Point(nPoint.lng, nPoint.lat); //将标注点转化成地图上的点
+            var stopIcon=new BMap.Icon("http://api.map.baidu.com/img/markers.png",new BMap.Size(23, 25), {offset: new BMap.Size(12, 25), imageOffset: new BMap.Size(0, 0 - 12 * 25)});//标注换颜色
+            var marker = new BMap.Marker(point,{icon:stopIcon});
+            map.addOverlay(marker);
+            //添加监听事件
+            (function() {
+                var thePoint = nPoint;
+                marker.addEventListener("click",
+                    function() {
+                        showInfo(this,thePoint);
+                    });
+            })();
+        }
     }
 
 </script>
