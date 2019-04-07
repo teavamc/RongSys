@@ -45,7 +45,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</sql>
 
     <!-- 查找列表 -->
-    <select id="getAllMapInfo" parameterType="Long" resultMap="MapResult">
+    <select id="getAllMapInfo" parameterType="String" resultMap="MapResult">
         SELECT DISTINCT tname,m.tid as tid,t.address as address,ui.uname as uname,a.aname,phone,basestation,latitude,longitude,manageruserid,managername
         from (((((<include refid="tableName"/> m  JOIN <include refid="terminaltableName"/> t on m.tid=t.tid)
         LEFT JOIN <include refid="areatable"/> a on t.aid= a.aid)
@@ -53,7 +53,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         LEFT JOIN <include refid="terconditiontable"/> tc on m.tid=tc.tid))
         left join (SELECT GROUP_CONCAT(tmt.userid) as manageruserid,GROUP_CONCAT(uname) as managername,tid from
         <include refid="managertertable"/> tmt LEFT JOIN <include refid="userinfotable"/> ui on tmt.userid=ui.userid  GROUP BY tid ) manager on m.tid=manager.tid
-        where latitude != 0.000000 and uname != '石城' limit 500
+        where latitude != 0.000000 and uname != '石城'
+        <if test="_parameter  != null  and _parameter  != ''  ">
+         and t.aid = #{_parameter}
+        </if>
+        limit 500
     </select>
 
 </mapper>

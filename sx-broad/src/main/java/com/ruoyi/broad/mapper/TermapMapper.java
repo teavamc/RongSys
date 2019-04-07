@@ -19,6 +19,6 @@ public interface TermapMapper
 	 * @param @param pd
 	 * @return List<MapInfo>
 	 */
-	public List<Termap> getAllMapInfo();
+	public List<Termap> getAllMapInfo(String aid);
 
 }

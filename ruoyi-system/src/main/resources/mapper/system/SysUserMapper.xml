@@ -191,4 +191,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectRoleid" parameterType="Long" resultType="int">
 		select role_id from sys_user_role where user_id=#{userid}
 	</select>
+
+	<select id="selectAid" parameterType="Long" resultType="String">
+		select aid from tb_user_admin where user_id=#{userid}
+	</select>
 </mapper> 

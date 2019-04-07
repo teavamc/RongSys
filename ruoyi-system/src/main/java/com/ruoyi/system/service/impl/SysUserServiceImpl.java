@@ -383,8 +383,8 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public int selectRoleid(Long userId)
     {
-        int aid = userMapper.selectRoleid(userId);
+        int role_id = userMapper.selectRoleid(userId);
 
-        return aid;
+        return role_id;
     }
 }
