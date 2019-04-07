@@ -373,4 +373,18 @@ public class SysUserServiceImpl implements ISysUserService
 
         return aid;
     }
+
+    /**
+     * 根据用户ID查询用户等级roleid
+     *
+     * @param userId 用户ID
+     * @return 结果
+     */
+    @Override
+    public int selectRoleid(Long userId)
+    {
+        int aid = userMapper.selectRoleid(userId);
+
+        return aid;
+    }
 }

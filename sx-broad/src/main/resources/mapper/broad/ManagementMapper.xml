@@ -47,7 +47,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
     <select id="selectManagementList" parameterType="String" resultMap="ManagementResult">
         select a.tid,b.aid as aid,Longitude,Latitude from terminal_management a join terminals b
-        on a.tid  = b.tid where aid = #{aid}
+        on a.tid  = b.tid
+        <if test="aid != null  and aid != ''  ">
+        where aid = #{aid}
+        </if>
     </select>
     
     <select id="selectManagementById" parameterType="String" resultMap="ManagementResult">

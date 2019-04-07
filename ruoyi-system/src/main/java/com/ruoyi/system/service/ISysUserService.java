@@ -154,4 +154,12 @@ public interface ISysUserService
      * @return 结果
      */
     public String selectAid(Long userId);
+
+    /**
+     * 根据用户ID查询用户等级roleid
+     *
+     * @param userId 用户ID
+     * @return 结果
+     */
+    public int selectRoleid(Long userId);
 }
