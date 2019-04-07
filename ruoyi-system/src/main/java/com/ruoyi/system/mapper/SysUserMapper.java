@@ -113,4 +113,12 @@ public interface SysUserMapper
      * @return 结果
      */
     public int selectMaxUserId();
+
+    /**
+     * 通过用户ID查询用户aid
+     *
+     * @param userId 用户ID
+     * @return 用户对象信息
+     */
+    public String selectAid(Long userId);
 }

@@ -1,6 +1,10 @@
 package com.ruoyi.web.controller.broad;
 
 import java.util.List;
+
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +23,8 @@ import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
 
+import javax.xml.registry.infomodel.User;
+
 /**
  * 终端管理 信息操作处理
  * 
@@ -33,7 +39,8 @@ public class ManagementController extends BaseController
 	
 	@Autowired
 	private IManagementService managementService;
-	
+	@Autowired
+	private ISysUserService sysUserService;
 	@RequiresPermissions("broad:management:view")
 	@GetMapping()
 	public String management()
@@ -47,10 +54,13 @@ public class ManagementController extends BaseController
 	@RequiresPermissions("broad:management:list")
 	@PostMapping("/list")
 	@ResponseBody
-	public TableDataInfo list(Management management)
+	public TableDataInfo list(String aid)
 	{
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		aid = sysUserService.selectAid(userid);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
 		startPage();
-        List<Management> list = managementService.selectManagementList(management);
+        List list = managementService.selectManagementList(aid);//通过所获取的Aid去查询用户所属区域对应的数据
 		return getDataTable(list);
 	}
 	
@@ -58,7 +68,7 @@ public class ManagementController extends BaseController
 	/**
 	 * 导出终端管理列表
 	 */
-	@RequiresPermissions("broad:management:export")
+	/*@RequiresPermissions("broad:management:export")
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(Management management)
@@ -66,7 +76,7 @@ public class ManagementController extends BaseController
     	List<Management> list = managementService.selectManagementList(management);
         ExcelUtil<Management> util = new ExcelUtil<Management>(Management.class);
         return util.exportExcel(list, "management");
-    }
+    }*/
 	
 	/**
 	 * 新增终端管理

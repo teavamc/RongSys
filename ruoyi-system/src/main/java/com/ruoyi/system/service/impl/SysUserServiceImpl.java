@@ -359,4 +359,18 @@ public class SysUserServiceImpl implements ISysUserService
 
         return count;
     }
+
+    /**
+     * 根据用户ID查询用户所属组aid
+     *
+     * @param userId 用户ID
+     * @return 结果
+     */
+    @Override
+    public String selectAid(Long userId)
+    {
+       String aid = userMapper.selectAid(userId);
+
+        return aid;
+    }
 }
