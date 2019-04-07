@@ -226,4 +226,13 @@
             #{tid}
         </foreach>
     </update>
+
+    <update id="updateIsuseByTid" parameterType="String">
+        update terminals
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="isuse != null  ">isuse = #{isuse},</if>
+
+        </trim>
+        where tid = #{tid}
+    </update>
 </mapper>
