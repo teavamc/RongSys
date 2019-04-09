@@ -27,10 +27,10 @@ public class TermapServiceImpl implements ITermapService
 	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public List<Termap> selectMap()
+	public List<Termap> selectMap(String aid)
 	{
 		List<Termap> menus = new LinkedList<Termap>();
-			menus = termapMapper.getAllMapInfo();
+			menus = termapMapper.getAllMapInfo(aid);
 		return menus;
 	}
 

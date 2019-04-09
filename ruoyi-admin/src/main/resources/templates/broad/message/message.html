@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="ui-layout-content">
-                <div id="tree" class="ztree"></div>
+                <div id="tree" class="ztree" style="overflow: auto"></div>
             </div>
         </div>
     </div>
@@ -57,6 +57,14 @@
 
         <div class="col-sm-12 select-table table-striped">
             <div class="row" style="padding-left:12px;">
+                <div id="smsExample" onload="onLoad()">
+                    <select class="chosen-select form-control" id="example" name="example"
+                            onchange="select();" data-placeholder="短信模板" style="width:50%;height: auto">
+                        <option value="">可选择模板</option>
+                    </select>
+                </div>
+                <br>
+
                 <textarea class="col-xs-7" rows="16" name="content" id="content" wrap="soft" title="内容"></textarea>
                 <span id="sms" class="col-xs-4" style="display:none;">
 													提示： 短信命令必须为英文<br><br>
@@ -79,6 +87,8 @@
         </div>
     </div>
 </div>
+
+<div th:include="include :: footer"></div>
 <script>
     //保存
     function save() {
@@ -86,99 +96,155 @@
         var regExp2 = /^[\u4e00-\u9fa5]{1}/;
 
         if ($("#content").val() == null || $("#content").val() == "") {
-            $("#content").tips({
-                side: 3,
-                msg: '请输入短信内容',
-                bg: '#AE81FF',
-                time: 3
-            });
+            window.alert('请输入短信内容');
+            /*$("#content").tips({
+             side: 3,
+             msg: '请输入短信内容',
+             bg: '#AE81FF',
+             time: 3
+             });*/
             return false;
         }
         if ($("#smstype").val() == '0') {
             if (!regExp1.test($("#content").val())) {
-                $("#content").tips({
-                    side: 3,
-                    msg: '命令格式不正确',
-                    bg: '#AE81FF',
-                    time: 3
-                });
+                window.alert('命令格式不正确');
+                /*$("#content").tips({
+                 side: 3,
+                 msg: '命令格式不正确',
+                 bg: '#AE81FF',
+                 time: 3
+                 });*/
                 return false;
             }
         } else {
             if (!regExp2.test($("#content").val())) {
-                $("#content").tips({
-                    side: 3,
-                    msg: '首字必须为汉字',
-                    bg: '#AE81FF',
-                    time: 3
-                });
+                window.alert('首字必须为汉字');
+                /*$("#content").tips({
+                 side: 3,
+                 msg: '首字必须为汉字',
+                 bg: '#AE81FF',
+                 time: 3
+                 });*/
                 return false;
             }
         }
 
         //获取选择终端
-        var nodes = zTree.getCheckedNodes();
-        var terids = "";
-        var phones = "";
-        for (var i = 0; i < nodes.length; i++) {
-            if (nodes[i].type == "1") {
-                terids += nodes[i].id + ",";
-                phones += nodes[i].phone + ",";
-            }
-        }
-        terids = terids.substring(0, terids.length - 1);
-        phones = phones.substring(0, phones.length - 1);
+        var terids = $.tree.getCheckedNodes('aid');
+        var phones = $.tree.getCheckedNodes('phone');
+        var names = $.tree.getCheckedNodes('name');
+        terids = terids.toString().substring(0, terids.length - 1);
+        phones = phones.toString().substring(0, phones.length - 1);
+        names = names.toString().substring(0, names.length - 1);
+
+        /*for (var i = 0; i < terids.length; i++) {
+
+        }*/
+
+        console.log('terids: ' + terids + '\n');
+        console.log('phones: ' + phones + '\n');
+        console.log('phones: ' + names + '\n');
         if (terids == "") {
-            $("#tertitle").tips({
-                side: 3,
-                msg: '请选择播出终端',
-                bg: '#AE81FF',
-                time: 3
-            });
+            window.alert('请选择播出终端');
+            /*$("#tertitle").tips({
+             side: 3,
+             msg: '请选择播出终端',
+             bg: '#AE81FF',
+             time: 3
+             });*/
             return false;
         }
 
-        $.post(
-            {
-                url: '' + ${ctxPath} +'/broad/message/sendsms.do'
+        //window.alert("发送成功!");
+        var content = $("#content").val();
+        var smstype = $("#smstype").val();
+        $.ajax({
+            type: 'post',
+            url: "/broad/message/sendsms",
+            timeout: 1000,
+            data: {
+                'content': content,
+                'smstype': smstype,
+                'terids': terids,
+                'phones': phones,
+                'names': names
             },
-            {
-                content: $("#content").val(),
-                smstype: $("#smstype").val(),
-                terids: terids,
-                phones: phones
-            },
-            function (data) {
+            dataType: 'json',
+            success: function (data) {
                 if (data.result == "success") {
                     $("#content").val("");
-                    $("#save").tips({
-                        side: 3,
-                        msg: '发送成功',
-                        bg: '#AE81FF',
-                        time: 3
-                    });
+                    window.alert('发送成功');
                 } else {
-                    $("#save").tips({
-                        side: 3,
-                        msg: '发送失败',
-                        bg: '#AE81FF',
-                        time: 3
-                    });
+                    window.alert('发送失败');
                 }
-            });
+            }
+        })
+        /*$.post(
+         {
+         url:'/broad/message/sendsms'
+         },
+         {
+         content: $("#content").val(),
+         smstype: $("#smstype").val(),
+         terids: terids,
+         phones: phones
+         },
+         function (data) {
+         if (data.result == "success") {
+         $("#content").val("");
+         window.alert('发送成功');
+         /!*$("#save").tips({
+         side: 3,
+         msg: '发送成功',
+         bg: '#AE81FF',
+         time: 3
+         });*!/
+         } else {
+         window.alert('发送失败');
+         /!*$("#save").tips({
+         side: 3,
+         msg: '发送失败',
+         bg: '#AE81FF',
+         time: 3
+         });*!/
+         }
+         });*/
     }
 </script>
-<div th:include="include :: footer"></div>
+<script>
+    $(document).ready(function () {
+        onLoad();
+        select();
+    });
+    function onLoad() {
+        $.ajax({
+            type: 'get',
+            url: "/broad/message/example",
+            timeout: 1000,
+            data: {},
+            dataType: 'json',
+            success: function (data) {
+                /*console.log(data);*/
+                var str = '<select class="chosen-select form-control" id="example" name="example" ' +
+                    'onchange="select();" data-placeholder="短信模板" style="width:50%;height: auto">' +
+                    '<option value="">可选择模板</option>';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<option value="' + data[i].details + '">' + data[i].name + '</option>';
+                }
+                str += '</select>';
+                $("#smsExample").html(str);
+            }
+        })
+    }
+    function select() {
+        /*console.log($("#example").val());*/
+        javascript:document.getElementById('content').value = $("#example").val();
+        /*$("#content").text($("#example").val());*/
+    }
+</script>
 <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
 <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
 <script th:inline="javascript">
-    var editFlag = [[${@permission.hasPermi('broad:area:edit')}]];
-    var removeFlag = [[${@permission.hasPermi('broad:area:remove')}]];
-
-    var datas = [[${@dict.getType('sys_normal_disable')}]];
-
-    var prefix = ctx + "broad/area";
-
     $(function () {
         $('body').layout({west__size: 185});
         queryAreaTree();
@@ -188,17 +254,23 @@
         var url = ctx + "broad/message/treeData";
         var options = {
             url: url,
-            check: {enable: true, nocheckInherit: true, chkboxType: {"Y": "ps", "N": "ps"}},
-            expandLevel: 2,
-            onClick: zOnClick
+            check: {
+                enable: true,
+                nocheckInherit: true,
+                chkboxType: {
+                    "Y": "ps",
+                    "N": "ps"
+                }
+            },
+            data: {
+                simpleData: {
+                    enable: true
+                }
+            },
+            expandLevel: 0,
         };
         $.tree.init(options);
 
-        function zOnClick(event, treeId, treeNode) {
-            $("#Aid").val(treeNode.id);
-            $("#Parentaid").val(treeNode.pId);
-            $.table.search();
-        }
     }
 
     $('#btnExpand').click(function () {

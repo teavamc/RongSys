@@ -9,14 +9,31 @@
         <result property="parentaid" column="parentaid"/>
         <result property="aname" column="aname"/>
         <result property="note" column="note"/>
+        <result property="phone" column="phone"/>
     </resultMap>
+
+    <resultMap type="MessageExample" id="MessageExampleResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="details" column="details"/>
+    </resultMap>
+
+    <select id="selectMessageExampleList" parameterType="MessageExample" resultMap="MessageExampleResult">
+        select
+          id,
+          name,
+          details
+        from
+          message_example
+    </select>
 
     <select id="selectMessageList" parameterType="BroadMessage" resultMap="MessageResult">
         select
           aname,
           aid,
           parentaid,
-          note
+          note,
+          null as phone
         from
           area
         <where>
@@ -30,7 +47,8 @@
           tname as aname,
           b.tid as aid,
           b.aid as parentaid,
-          a.note
+          a.note,
+          phone
         from
           area as a,
           terminals as b
@@ -39,6 +57,7 @@
             <if test="parentaid != null  and parentaid != '' ">and b.aid = #{parentaid}</if>
             <if test="aname != null  and aname != '' ">and taname = #{aname}</if>
             <if test="note != null  and note != '' ">and note = #{note}</if>
+            <if test="phone != null  and phone != '' ">and phone = #{phone}</if>
             and a.aid = b.aid
         </where>
     </select>

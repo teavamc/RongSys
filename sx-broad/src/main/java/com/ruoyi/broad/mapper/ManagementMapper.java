@@ -26,10 +26,10 @@ public interface ManagementMapper
 	/**
      * 查询终端管理列表
      * 
-     * @param management 终端管理信息
+     * @param aid 终端管理信息
      * @return 终端管理集合
      */
-	public List<Management> selectManagementList(Management management);
+	public List selectManagementList(String aid);
 	
 	/**
      * 新增终端管理
