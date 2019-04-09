@@ -2,6 +2,7 @@ package com.ruoyi.broad.service;
 
 import com.github.pagehelper.Page;
 import com.ruoyi.broad.domain.BroadMessage;
+import com.ruoyi.broad.domain.MessageExample;
 import com.ruoyi.common.utils.PageData;
 
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.Map;
 public interface IMessageService {
 
     public List<Map<String, Object>>  selectMessageList(BroadMessage broadMessage);
+
+    public List<MessageExample> selectMessageExampleList();
 
     /**
      * 获取发件箱短信

@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.broad;
 
 import com.ruoyi.broad.domain.BroadMessage;
+import com.ruoyi.broad.domain.MessageExample;
 import com.ruoyi.broad.service.IMessageService;
 import com.ruoyi.broad.service.IMsmUsersService;
 import com.ruoyi.common.utils.DateUtil;
@@ -46,6 +47,12 @@ public class MessageController extends BaseController {
         return tree;
     }
 
+    @GetMapping("/example")
+    @ResponseBody
+    public List<MessageExample> selectMessageExampleList() {
+        return messageService.selectMessageExampleList();
+    }
+
     /**
      * 去发送短信
      *
@@ -64,19 +71,41 @@ public class MessageController extends BaseController {
      * @return
      */
 
-    @RequestMapping(value = "/sendsms")
+    @PostMapping(value = "/sendsms")
     @ResponseBody
-    public Object addProBroad(@PathVariable(value = "phones") String[] phones,
-                              @PathVariable(value = "terids") String[] terids,
-                              @PathVariable(value = "smstype") String[] smstype,
-                              @PathVariable(value = "content") String[] content) throws Exception {
+    public Object addProBroad(@RequestParam(value = "terids") String[] terids,
+                              @RequestParam(value = "phones") String[] phones,
+                              @RequestParam(value = "smstype") String[] smstype,
+                              @RequestParam(value = "content") String[] content,
+                              @RequestParam(value = "names") String[] names) throws Exception {
+        System.out.print("\nphones: ");
+        for (String i : phones)
+            System.out.print(i + " ");
+
+        System.out.print("\nterids: ");
+        for (String i : terids)
+            System.out.print(i + " ");
+
+        System.out.print("\nnames: ");
+        for (String i : names)
+            System.out.print(i + " ");
+
+        System.out.print("\nsmstype: ");
+        for (String i : smstype)
+            System.out.print(i + " ");
+
+        System.out.print("\ncontent: ");
+        for (String i : content)
+            System.out.print(i + " ");
+        System.out.println();
+
         Map<String, String> map = new HashMap<String, String>();
 
         List<String> phonelist = new ArrayList<String>();
         List<PageData> pdlist = new ArrayList<PageData>();
 
-        for (int i = 0; i < terids.length; i++) {
-            if (phones[i] != null && !"".equals(phones[i])) {
+        /*for (int i = 0; i < terids.length; i++) {
+            if (phones.length > i && (phones[i] != null || !"".equals(phones[i]))) {
                 PageData tmpd = new PageData();
                 phonelist.add(phones[i]);
                 tmpd.put("sendtime", DateUtil.getTime());
@@ -90,7 +119,8 @@ public class MessageController extends BaseController {
         }
         //添加发送短信表
         messageService.addSendMessage(pdlist);
-//		SendSms.sendSmsAll(phonelist, content);
+//		SendSms.sendSmsAll(phonelist, content);*/
+
         map.put("result", "success");
         return map;
     }

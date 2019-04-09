@@ -1,6 +1,7 @@
 package com.ruoyi.web.controller.broad;
 
 import com.ruoyi.broad.domain.ProSinmanage;
+import com.ruoyi.broad.domain.Termap;
 import com.ruoyi.broad.service.IProListService;
 import com.ruoyi.broad.service.IProSinmanageService;
 import com.ruoyi.common.annotation.Log;
@@ -8,7 +9,10 @@ import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.utils.ExcelUtil;
+import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.framework.web.base.BaseController;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -33,7 +37,8 @@ public class proSinmanageWarningController extends BaseController
     private IProSinmanageService proSinmanageService;
     @Autowired
     private IProListService proListService;
-
+    @Autowired
+    private ISysUserService sysUserService;
 
 
     @RequiresPermissions("broad:proSinmanageWarning:view")
@@ -49,10 +54,19 @@ public class proSinmanageWarningController extends BaseController
     @RequiresPermissions("broad:proSinmanageWarning:list")
     @PostMapping("/list")
     @ResponseBody
-    public TableDataInfo list(ProSinmanage proSinmanage)
+    public TableDataInfo list()
     {
+        SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+        long userid =  currentUser.getUserId();
+        int returnId = new Long(userid).intValue();
+        int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+        List<ProSinmanage> list ;
         startPage();
-        List<ProSinmanage> list = proSinmanageService.selectProSinmanageListForWarning(proSinmanage);
+        /*判断用户等级，若为超级管理员则可查看全部内容，否则只能查看自己的内容*/
+        if(roleid != 1){
+            list = proSinmanageService.selectProSinmanageListForWarning(returnId);//通过所获取的Aid去查询用户所属区域对应的数据
+        }else{
+            list = proSinmanageService.selectProSinmanageListForWarning(0);}
         return getDataTable(list);
     }
 

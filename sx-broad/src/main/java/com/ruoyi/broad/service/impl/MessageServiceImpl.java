@@ -3,6 +3,7 @@ package com.ruoyi.broad.service.impl;
 import com.github.pagehelper.Page;
 import com.ruoyi.broad.dao.DaoSupport;
 import com.ruoyi.broad.domain.BroadMessage;
+import com.ruoyi.broad.domain.MessageExample;
 import com.ruoyi.broad.mapper.MessageMapper;
 import com.ruoyi.broad.service.IMessageService;
 import com.ruoyi.common.annotation.DataSource;
@@ -40,6 +41,12 @@ public class MessageServiceImpl implements IMessageService {
         return trees;
     }
 
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public List<MessageExample> selectMessageExampleList() {
+        return messageMapper.selectMessageExampleList();
+    }
+
     public List<Map<String, Object>> getTrees(List<BroadMessage> broadMessages)
     {
 
@@ -48,9 +55,10 @@ public class MessageServiceImpl implements IMessageService {
         {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("id", broadMessage.getAid());
+            map.put("aid", broadMessage.getAid());
             map.put("pId", broadMessage.getParentaid());
             map.put("name", broadMessage.getAname());
-            map.put("title", broadMessage.getAname());
+            map.put("phone", broadMessage.getPhone());
             trees.add(map);
         }
         return trees;
