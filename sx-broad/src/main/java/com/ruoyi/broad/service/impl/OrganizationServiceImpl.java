@@ -201,4 +201,11 @@ public class OrganizationServiceImpl implements IOrganizationService
 
 		return  organizationMapper.addProIdAll(userIds);
 	}*/
+
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public int updateIsuseByTid(String tid, Boolean isuse)
+	{
+		return organizationMapper.updateIsuseByTid(tid,isuse);
+	}
 }
