@@ -4,6 +4,8 @@ import org.apache.ibatis.session.ExecutorType;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import javax.annotation.Resource;
 
@@ -13,6 +15,7 @@ import javax.annotation.Resource;
  * @ClassName DaoSupport
  * @date 2019/2/17 20:24
  **/
+@Repository
 public class DaoSupport implements DAO {
 
     @Resource(name = "sqlSessionTemplate")

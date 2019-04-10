@@ -57,6 +57,8 @@ public class Organization extends BaseEntity
     /** 终端流量使用限制，单位MB */
     private Float trafficlimit;
 
+    /** 终端位置图片 */
+    private String pic;
 
     /** 父地域ID */
     private String parentaid;
@@ -256,6 +258,9 @@ public class Organization extends BaseEntity
         return parentaid;
     }
 
+    public String getPic() { return pic; }
+    public void setPic(String pic) { this.pic = pic; }
+
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("tid", getTid())
@@ -280,6 +285,7 @@ public class Organization extends BaseEntity
                 .append("fmfrequency", getFmfrequency())
                 .append("trafficlimit", getTrafficlimit())
                 .append("parentaid", getParentaid())
+                .append("pic", getPic())
                 .toString();
     }
 }

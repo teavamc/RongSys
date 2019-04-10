@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.MessageMapper">
+
+    <resultMap type="BroadMessage" id="MessageResult">
+        <result property="aid" column="aid"/>
+        <result property="parentaid" column="parentaid"/>
+        <result property="aname" column="aname"/>
+        <result property="note" column="note"/>
+        <result property="phone" column="phone"/>
+    </resultMap>
+
+    <resultMap type="MessageExample" id="MessageExampleResult">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="details" column="details"/>
+    </resultMap>
+
+    <select id="selectMessageExampleList" parameterType="MessageExample" resultMap="MessageExampleResult">
+        select
+          id,
+          name,
+          details
+        from
+          message_example
+    </select>
+
+    <select id="selectMessageList" parameterType="BroadMessage" resultMap="MessageResult">
+        select
+          aname,
+          aid,
+          parentaid,
+          note,
+          null as phone
+        from
+          area
+        <where>
+            <if test="aid != null  and aid != '' ">and a.aid = #{aid}</if>
+            <if test="parentaid != null  and parentaid != '' ">and parentaid = #{parentaid}</if>
+            <if test="aname != null  and aname != '' ">and taname = #{aname}</if>
+            <if test="note != null  and note != '' ">and note = #{note}</if>
+        </where>
+        union
+        select
+          tname as aname,
+          b.tid as aid,
+          b.aid as parentaid,
+          a.note,
+          phone
+        from
+          area as a,
+          terminals as b
+        <where>
+            <if test="aid != null  and aid != '' ">and a.aid = #{aid}</if>
+            <if test="parentaid != null  and parentaid != '' ">and b.aid = #{parentaid}</if>
+            <if test="aname != null  and aname != '' ">and taname = #{aname}</if>
+            <if test="note != null  and note != '' ">and note = #{note}</if>
+            <if test="phone != null  and phone != '' ">and phone = #{phone}</if>
+            and a.aid = b.aid
+        </where>
+    </select>
+
+</mapper>

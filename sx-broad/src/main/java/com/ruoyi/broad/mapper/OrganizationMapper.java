@@ -46,6 +46,14 @@ public interface OrganizationMapper
 	public int insertOrganization(Organization organization);
 
 	/**
+	 * 新增终端地址图片
+	 *
+	 * @param organization 终端地域信息
+	 * @return 结果
+	 */
+	public int insertOrganizationPic(Organization organization);
+
+	/**
 	 * 修改终端地域
 	 *
 	 * @param organization 终端地域信息
@@ -101,4 +109,6 @@ public interface OrganizationMapper
 	 * @return 结果
 	 */
 	public int updateFmfrequencyByIds(@Param("ids") String[] ids, @Param("number")String number);
+
+	public int updateIsuseByTid(@Param("tid") String tid, @Param("isuse")Boolean isuse);
 }

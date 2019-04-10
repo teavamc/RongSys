@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.broad.mapper.OrganizationMapper">
-    
+
     <resultMap type="organization" id="OrganizationResult">
         <result property="tid"    column="tid"    />
         <result property="tname"    column="tname"    />
@@ -23,6 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="rds"    column="rds"    />
         <result property="fmfrequency"    column="fmfrequency"    />
         <result property="trafficlimit"    column="trafficlimit"    />
+        <result property="pic"    column="pic"    />
     </resultMap>
 
     <resultMap type="area" id="AreatreeResult">
@@ -49,27 +50,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="termanagetable">
 		terminal_management
 	</sql>
-
-	<sql id="selectOrganizationVo">
+    <sql id="termanagepictable">
+		terminals_pic
+	</sql>
+    <sql id="selectOrganizationVo">
         select
-            tid,tname,t.aid as aid,aname,t.userid as userid,uname,
-            lastaccesstime,facid,address,t.note as note,comstand,broadtel,
-            manager,managertel,intertime,createdtime,t.isuse as isuse,phone,
-            fmfrequency,rds,trafficlimit
-        from ((<include refid="tableName"></include> t
+        t.tid as tid,tname,t.aid as aid,aname,t.userid as userid,uname,
+        lastaccesstime,facid,address,t.note as note,comstand,broadtel,
+        manager,managertel,intertime,createdtime,t.isuse as isuse,phone,
+        fmfrequency,rds,trafficlimit,p.pic as pic
+        from (((<include refid="tableName"></include> t
         left join <include refid="areatableName"></include> a on t.aid = a.aid)
         left join <include refid="usertable"></include> u on t.userid = u.userid)
+        left join <include refid="termanagepictable"></include> p on t.tid = p.tid)
         left join ( select MAX(createdtime) as lastaccesstime,terminalid from <include refid="terreceivestable"></include> GROUP BY terminalid) access on access.terminalid=t.tid
 
     </sql>
-	
+
     <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
-        <where>  
+        <where>
             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
-             <if test="tname != null  and tname != '' "> and tname = #{tname}</if>
-             <if test="aid != null  and aid != '' "> and t.aid = #{aid}</if>
-             <if test="aname != null  and aname != '' "> and aname = #{aname}</if>
+            <if test="tname != null  and tname != '' "> and tname = #{tname}</if>
+            <if test="aid != null  and aid != '' "> and t.aid = #{aid}</if>
+            <if test="aname != null  and aname != '' "> and aname = #{aname}</if>
             <if test="userid != null  and userid != '' "> and t.userid = #{userid}</if>
             <if test="uname != null  and uname != '' "> and uname = #{uname}</if>
             <if test="lastaccesstime != null  and lastaccesstime != '' "> and lastaccesstime = #{lastaccesstime}</if>
@@ -87,9 +91,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fmfrequency != null  and fmfrequency != '' "> and fmfrequency = #{fmfrequency}</if>
             <if test="rds != null  and rds != '' "> and rds = #{rds}</if>
             <if test="trafficlimit != null  and trafficlimit != '' "> and trafficlimit = #{trafficlimit}</if>
-         </where>
+            <if test="pic != null  and pic != '' "> and p.pic = #{pic}</if>
+        </where>
     </select>
-    
+
     <select id="selectAllOrganization" resultMap="AreatreeResult">
         select aid, aname from area
     </select>
@@ -150,6 +155,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
     </insert>
 
+    <insert id="insertOrganizationPic" parameterType="Organization">
+        insert into terminals_pic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tid != null  and tid != ''  ">tid,</if>
+            <if test="pic != null  and pic != ''  ">pic,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tid != null  and tid != ''  ">#{tid},</if>
+            <if test="pic != null  and pic != ''  ">#{pic},</if>
+        </trim>
+    </insert>
+
     <update id="updateOrganization" parameterType="Organization">
         update tb_organization
         <trim prefix="SET" suffixOverrides=",">
@@ -193,7 +210,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from
         <include refid="tableName"></include>
         <where>
-        <if test="aid != null  and aid != '' "> aid = #{aid}</if>
+            <if test="aid != null  and aid != '' "> aid = #{aid}</if>
         </where>
     </select>
     <update id="updateRdsByIds" >
@@ -208,5 +225,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <foreach item="tid" collection="ids" open="(" separator="," close=")">
             #{tid}
         </foreach>
+    </update>
+
+    <update id="updateIsuseByTid" parameterType="String">
+        update terminals
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="isuse != null  ">isuse = #{isuse},</if>
+
+        </trim>
+        where tid = #{tid}
     </update>
 </mapper>
