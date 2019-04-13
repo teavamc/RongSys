@@ -17,6 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="createdtime"       column="createdtime"      />
         <result property="manageruserid"     column="manageruserid"    />
         <result property="managername"     column="managername"    />
+        <result property="isuse"     column="isuse"    />
     </resultMap>
 
     <sql id="tableName">
@@ -46,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <!-- 查找列表 -->
     <select id="getAllMapInfo" parameterType="String" resultMap="MapResult">
-        SELECT DISTINCT tname,m.tid as tid,t.address as address,ui.uname as uname,a.aname,phone,basestation,latitude,longitude,manageruserid,managername
+        SELECT DISTINCT tname,m.tid as tid,t.address as address,ui.uname as uname,a.aname,phone,basestation,latitude,longitude,manageruserid,managername,t.isuse as isuse
         from (((((<include refid="tableName"/> m  JOIN <include refid="terminaltableName"/> t on m.tid=t.tid)
         LEFT JOIN <include refid="areatable"/> a on t.aid= a.aid)
         LEFT JOIN <include refid="usertable"/> ui on t.userid = ui.userid)
