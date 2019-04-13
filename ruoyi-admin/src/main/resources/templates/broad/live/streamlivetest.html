@@ -71,15 +71,87 @@
             <div class="ibox float-e-margins">
                 <input name="deptId"  type="hidden" id="treeId"/>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label">选择终端：</label>
+                    <label class="col-sm-3 control-label">选择终端: </label>
                     <div class="col-sm-8">
+
                         <input class="form-control" type="text" name="organName" onclick="selectOrganTree()" readonly="true" id="treeName">
                     </div>
+                    <label class="col-sm-3 control-label">选择文件: </label>
+                    <div class="col-sm-8">
+                        <input class="form-control" readonly="true" id="file" type="text" onclick="doFile();" name="">
+                    </div>
+
+                    <button class="button" style="margin-top: 43px" onclick="flushfile();">播放文件</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script>
+    //文件转播选择
+    function doFile() {
+        var baseTime = "08:00:00";
+        if($("#broaddate").val() == ""){
+            layer.tips('请选择播出日期','#broaddate', {
+                tips: [1, '#3595CC'],
+                time: 4000
+            });
+            return false;
+        }
+        var data = $("#broaddate").val();
+
+        //console.log("timeFile="+time);
+        var _url = "/broad/live/getdoFile";
+        var _title = '文件选择';
+        var _width = "1200";
+        var _height = ($(window).height() - 50);
+        layer.open({
+            type: 2,
+            maxmin: true,
+            shade: 0.3,
+            title: _title,
+            fix: false,
+            area: [_width + 'px', _height + 'px'],
+            content: _url,
+            shadeClose: true,
+            btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+            yes: function (index, layero) {
+                layer.close(index);
+                //获取子页面关闭前的回调函数获取到的值
+                var res = $(layero).find("iframe")[0].contentWindow.callbackfile();
+                var filename = res.data_filename;
+                var fid = res.data_file;
+                //console.log("文件id:"+fid+",文件名称："+filename);
+                $("#file").attr("name",fid);
+                $("#file").val(filename)
+            }, cancel: function () {
+                return true;
+            }
+        });
+    }
+    //播放文件
+    function flushfile() {
+        console.log($("#file").attr("name"));
+        // 如果未选择则 提示要选择
+        if(imeilist==null || imeilist==""){
+            $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
+            return false;
+        }else{
+            console.log($("#start").attr("disabled")+"-----"+$("#end").attr("disabled"))
+            if(typeof $("#start").attr("disabled") =="undifined" && typeof $("#end").attr("disabled") =="undifined"){
+                console.log("请稍后。。。")
+            }else if(typeof $("#start").attr("disabled") =="undifined" && typeof $("#end").attr("disabled") =="disabled"){
+                console.log("开启状态。。。")
+            }else if(typeof $("#start").attr("disabled") =="disabled" && typeof $("#end").attr("disabled") =="undifined"){
+                console.log("关闭状态。。。")
+            }else {
+                console.log("my")
+            }
+        }
+
+
+    }
+</script>
 <script th:src="@{/js/plugins/live/recorder-core.js}"></script>
 <script th:src="@{/js/plugins/live/FileSaver.js}"></script>
     <script th:src="@{/js/jquery.min.js}"></script>
@@ -119,11 +191,7 @@
                     wave.input(buffers[buffers.length-1],level,sampleRate);
                 }
             });
-            rec.open(function(){
-                console.log("打开成功22");
-            },function(e,isUserNotAllow){
-                console.log("不允许")
-            });
+
         }
         /**
          * 结束直播命令
@@ -187,6 +255,12 @@
             }else{
                 // 设置 streamid 为当前时间
                 streamid = getCurTime();
+
+                rec.open(function(){
+                    console.log("打开成功22");
+                },function(e,isUserNotAllow){
+                    console.log("不允许")
+                });
                 if(rec){
                     rec.start();
                     console.log("开启22")
