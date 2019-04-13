@@ -109,4 +109,6 @@ public interface OrganizationMapper
 	 * @return 结果
 	 */
 	public int updateFmfrequencyByIds(@Param("ids") String[] ids, @Param("number")String number);
+
+	public int updateIsuseByTid(@Param("tid") String tid, @Param("isuse")Boolean isuse);
 }

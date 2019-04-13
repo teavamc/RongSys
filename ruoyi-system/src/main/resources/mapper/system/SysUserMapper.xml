@@ -187,4 +187,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="selectMaxUserId" resultType="int">
 		select max(user_id) from sys_user
 	</select>
+
+	<select id="selectRoleid" parameterType="int" resultType="int">
+		select role_id from sys_user_role where user_id=#{userid}
+	</select>
+
+	<select id="selectAid" parameterType="int" resultType="String">
+		select aid from tb_user_admin where user_id=#{userid}
+	</select>
 </mapper> 
