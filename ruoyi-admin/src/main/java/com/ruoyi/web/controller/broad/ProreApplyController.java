@@ -3,6 +3,9 @@ package com.ruoyi.web.controller.broad;
 import java.util.List;
 
 import com.ruoyi.broad.domain.ProApplyUser;
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +38,8 @@ public class ProreApplyController extends BaseController
 	
 	@Autowired
 	private IProreApplyService proreApplyService;
-	
+	@Autowired
+	private ISysUserService sysUserService;
 	@RequiresPermissions("broad:proreApply:view")
 	@GetMapping()
 	public String proreApply()
@@ -51,9 +55,21 @@ public class ProreApplyController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(ProApplyUser proapplyuser)
 	{
-		startPage();
-        List<ProApplyUser> list = proreApplyService.selectProrApplyUserList(proapplyuser);
-		return getDataTable(list);
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		if(roleid == 1){
+			startPage();
+			List<ProApplyUser> list = proreApplyService.selectProrApplyUserList(proapplyuser);
+			return getDataTable(list);
+		}else{
+			proapplyuser.setUserid(userid);
+			startPage();
+			List<ProApplyUser> list = proreApplyService.selectProrApplyUserList(proapplyuser);
+			return getDataTable(list);
+		}
+
 	}
 
 //	/**
