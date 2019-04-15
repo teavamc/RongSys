@@ -142,6 +142,8 @@ function connectWS() {
  * @returns {boolean}
  */
 function startlive(obj){
+    imea.push(imeilist);
+    console.log('imea:'+imea);
     // 如果未选择则 提示要选择
     if(imeilist==null || imeilist==""){
         $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");

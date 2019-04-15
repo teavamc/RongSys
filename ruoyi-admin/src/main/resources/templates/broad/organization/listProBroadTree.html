@@ -113,6 +113,7 @@
         var data = { "ids": rows.join() };
         var test = data;
         var i;
+        console.log("test:" + test);
         /*js for in循环遍历对象，获取key:value值*/
         for(i in test){
             console.log("IMEI:",test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
@@ -121,6 +122,17 @@
         document.getElementById("org").value = selectValue;
          /*这里显示的是所选择终端的IMEI号的json ps：{"ids":"111,222"}*/
          /*alert(JSON.stringify(data));*/
+         var str = '';
+         var test1 = String(document.getElementById("org").value);
+         console.log("test1: " + test1);
+         var test2 = test1.split(',');
+         console.log("test2: " + test2);
+         for(i = 0; i <  test2.length; i++) {
+             if (test2[i] != '' && test2[i] != null) {
+                 str += '<button class="btn btn-primary" style="margin: 2px 2px;color: #3cfc89"> '+test2[i]+'</button>';
+             }
+         }
+         parent.$('#imea').html(str);
      }
 
      //提供给父页面获取选中的值

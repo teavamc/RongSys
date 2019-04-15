@@ -10,7 +10,7 @@
     </style>
 </head>
 <body class="gray-bg" onload="init();">
-
+<script>var imea = new Array();</script>
 <div class="container-div">
     <div class="row">
         <div class="col-sm-4">
@@ -69,13 +69,16 @@
 
             <div class="ibox float-e-margins">
                 <input name="deptId"  type="hidden" id="treeId"/>
-                <div class="form-group">
+                <div class="form-group" >
                     <label class="col-sm-3 control-label">选择终端：</label>
                     <div class="col-sm-8">
-                        <input class="form-control" type="text" name="organName" onclick="selectOrganTree()" readonly="true" id="treeName">
+                        <input class="form-control" type="text" name="organName" onclick="selectOrganTree()" style="width: 100%" readonly="true" id="treeName">
                     </div>
                 </div>
             </div>
+        </div><br>
+        <div class="col-sm-8">
+            <div id="imea"></div>
         </div>
     </div>
 
@@ -142,6 +145,7 @@
 
         /*流媒体直播-选择终端树*/
         function selectOrganTree() {
+            $('#imea').html('');
             var _url = "/broad/organization/selectOrganizationTree/01";
             var _title = '选择终端';
             var _width = "1200";
@@ -174,6 +178,6 @@
             /*}*/
         }
     </script>
-
+</div>
 </body>
 </html>
