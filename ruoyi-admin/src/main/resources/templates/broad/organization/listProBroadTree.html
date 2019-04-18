@@ -129,7 +129,7 @@
          //console.log("test2: " + test2);
          for(i = 0; i <  test2.length; i++) {
              if (test2[i] != '' && test2[i] != null) {
-                 str += '<button class="btn btn-primary" style="margin: 2px 2px;color: #3cfc89"> '+test2[i]+'</button>';
+                 str += '<button class="btn btn-primary" onclick="imeiButton('+test2[i]+')" style="margin: 2px 2px;color: #3cfc89"> '+test2[i]+'</button>';
              }
          }
          //parent.$('#treeId').text = test1;

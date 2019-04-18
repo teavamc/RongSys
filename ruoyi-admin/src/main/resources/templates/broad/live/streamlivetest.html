@@ -2,7 +2,6 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <head th:include="include :: header">
-
     <style>
         #canvasOne {
             border: 1px solid #ddd;
@@ -10,7 +9,19 @@
     </style>
 </head>
 <body class="gray-bg" onload="init();">
-<script>var imea</script>
+<script>
+    var imea;
+    function imeiButton(data) {
+        var str = '';
+        for(var i = 0; i <imea.length; i++) {
+            if(imea[i] == data)
+                imea[i] = '';
+            else if(imea[i] != '' && imea[i] != null)
+                str += '<button class="btn btn-primary" onclick="imeiButton('+imea[i]+')" style="margin: 2px 2px;color: #3cfc89"> '+imea[i]+'</button>';
+        }
+        $('#imea').html(str);
+    }
+</script>
 <div class="container-div">
     <div class="row">
         <div class="col-sm-4">
