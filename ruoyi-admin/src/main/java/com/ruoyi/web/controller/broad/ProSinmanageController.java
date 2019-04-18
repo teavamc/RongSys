@@ -71,9 +71,20 @@ public class ProSinmanageController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(ProSinmanage proSinmanage)
 	{
-		startPage();
-        List<ProSinmanage> list = proSinmanageService.selectProSinmanageList(proSinmanage);
-		return getDataTable(list);
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		if(roleid == 1) {
+			startPage();
+			List<ProSinmanage> list = proSinmanageService.selectProSinmanageList(proSinmanage);
+			return getDataTable(list);
+		}else{
+			proSinmanage.setUserid(userid);
+			startPage();
+			List<ProSinmanage> list = proSinmanageService.selectProSinmanageList(proSinmanage);
+			return getDataTable(list);
+		}
 	}
 
 	@RequiresPermissions("broad:proSinmanage:viewwarning")
@@ -84,7 +95,7 @@ public class ProSinmanageController extends BaseController
 	}
 
 	/**
-	 * 查询节目播出单列表
+	 * 查询紧急节目播出单列表
 	 */
 	/*@RequiresPermissions("broad:proSinmanage:listwarning")*/
 	@PostMapping("/listwarning")
@@ -99,7 +110,7 @@ public class ProSinmanageController extends BaseController
 		startPage();
 		/*判断用户等级，若为超级管理员则可查看全部内容，否则只能查看自己的内容*/
 		if(roleid != 1){
-			list = proSinmanageService.selectProSinmanageListForWarning(returnId);//通过所获取的Aid去查询用户所属区域对应的数据
+			list = proSinmanageService.selectProSinmanageListForWarning(returnId);//通过所获取的userid去查询用户所属区域对应的数据
 		}else{
 			list = proSinmanageService.selectProSinmanageListForWarning(0);}
 		return getDataTable(list);

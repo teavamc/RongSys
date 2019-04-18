@@ -14,7 +14,8 @@ public class ProSpec {
     private String fsize;
     private String uname;
     private String createdtime;
-
+    /** 操作（所属）用户编号 */
+    private Long userid;
     public String getFid() {
         return fid;
     }
@@ -58,7 +59,13 @@ public class ProSpec {
     public String getUname() {
         return uname;
     }
+    public Long getUserid() {
+        return userid;
+    }
 
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
     public void setUname(String uname) {
         this.uname = uname;
     }

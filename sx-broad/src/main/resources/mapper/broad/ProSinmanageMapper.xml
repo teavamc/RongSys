@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                PS.scategory,
                PS.createtime,
                PS.broaddate,
-               US.uname as userid,
+               US.uname as uname,
                PS.remark,
                PS.broadtimes
         from pro_sinmanage as PS,
@@ -31,6 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where
             PS.userid = US.userid and
             PS.scategory = "正常播出单"
+        <if test="userid != null  and userid != '' "> and PS.userid = #{userid}</if>
          order by sfid desc
     </select>
 

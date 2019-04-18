@@ -89,6 +89,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="paid != null "> and pa.paid = #{paid}</if>
             <if test="pname != null  and pname != '' "> and pa.pname = #{pname}</if>
             <if test="uname != null  and uname != '' "> and u.uname = #{uname}</if>
+            <if test="userid != null  and userid != '' "> and pa.userid = #{userid}</if>
             <if test="isemergency != null "> and pa.isemergency = #{isemergency}</if>
             <if test="timelimit != null  and timelimit != '' "> and pa.timelimit = #{timelimit}</if>
             <if test="submittime != null  and submittime != '' "> and pa.fileurl = #{submittime}</if>
