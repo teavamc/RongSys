@@ -198,6 +198,8 @@
         };
         $(".buttonsd").attr("disabled","disabled");
         $(".buttonsb").removeAttr("disabled");
+        $("#start").attr("disabled","disabled");
+        $("#end").attr("disabled","disabled");
         // 推流
         publishRtmp();
     }
@@ -226,7 +228,13 @@
         } else {
             $(".buttonsb").attr("disabled","disabled");
             $(".buttonsd").removeAttr("disabled");
+            $("#start").removeAttr("disabled");
+            $("#end").removeAttr("disabled");
         }
+        $(".buttonsb").attr("disabled","disabled");
+        $(".buttonsd").removeAttr("disabled");
+        $("#start").removeAttr("disabled");
+        $("#end").removeAttr("disabled");
     }
 </script>
     <script type="text/javascript">
