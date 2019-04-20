@@ -6,8 +6,11 @@ import java.util.Map;
 import com.ruoyi.broad.domain.Area;
 import com.ruoyi.broad.service.IAreaService;
 import com.ruoyi.common.support.Convert;
+import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.system.domain.SysDept;
 import com.ruoyi.system.domain.SysRole;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +46,8 @@ public class OrganizationController extends BaseController
 	private IOrganizationService organizationService;
 	@Autowired
 	private IAreaService areaService;
-
+	@Autowired
+	private ISysUserService sysUserService;
 	@RequiresPermissions("broad:organization:view")
 	@GetMapping()
 	public String organization()
@@ -59,9 +63,27 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Organization organization)
 	{
-		startPage() ;
-		List<Organization> list = organizationService.selectOrganizationList(organization);
-		return getDataTable(list);
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		if(organization.getAid() == null && (roleid == 1)) {
+			startPage() ;
+			List<Organization> list = organizationService.selectOrganizationList(organization);
+			return getDataTable(list);
+		}else if(organization.getAid() != null){
+			startPage() ;
+			List<Organization> list = organizationService.selectOrganizationList(organization);
+			return getDataTable(list);
+		}else{
+			String aid;
+			aid = sysUserService.selectAid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+			organization.setAid(aid);
+			startPage() ;
+			List<Organization> list = organizationService.selectOrganizationList(organization);
+			return getDataTable(list);
+		}
+
 	}
 
 
@@ -141,7 +163,7 @@ public class OrganizationController extends BaseController
 	@GetMapping("/selectOrganizationTree/{aid}")
 	public String selectOrganizationTree(@PathVariable("aid") String aid, ModelMap mmap)
 	{
-		mmap.put("organization", areaService.selectAreaById("01"));
+		mmap.put("organization", areaService.selectAreaById(aid));
 		/*return prefix + "/tree";*/
 		return prefix + "/listProBroadTree";
 	}
@@ -177,8 +199,21 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public List<Map<String, Object>> treeData()
 	{
-		List<Map<String, Object>> tree = areaService.selectAreaTree(new Area());
-		return tree;
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		if(roleid == 1) {
+			List<Map<String, Object>> tree = areaService.selectAreaTree(new Area());
+			return tree;
+		}else {
+			String aid;
+			aid = sysUserService.selectAid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+			Area update_area = new Area() ;
+			update_area.setAid(aid);
+			List<Map<String, Object>> tree = areaService.selectAreaTree(update_area);
+			return tree;
+		}
 	}
 
 	/**
@@ -209,4 +244,11 @@ public class OrganizationController extends BaseController
     {
         return toAjax(organizationService.updateFmfrequencyByIds(ids,number));
     }
+
+	@PostMapping( "/isuseSet")
+	@ResponseBody
+	public AjaxResult isuseSet(String tid, Boolean isuse)
+	{
+		return toAjax(organizationService.updateIsuseByTid(tid,isuse));
+	}
 }

@@ -23,7 +23,10 @@ public class ProSinmanage extends BaseEntity
 	/** 播出日期 */
 	private String broaddate;
 	/** 操作（所属）用户 */
-	private String userid;
+	private Long userid;
+
+	/** 操作（所属）用户 */
+	private String uname;
 	/** 备注 */
 	private String remark;
 	/** 紧急播出单播放次数 */
@@ -65,14 +68,23 @@ public class ProSinmanage extends BaseEntity
 	{
 		return broaddate;
 	}
-	public void setUserid(String userid) 
+	public void setUserid(Long userid)
 	{
 		this.userid = userid;
 	}
 
-	public String getUserid() 
+	public Long getUserid()
 	{
 		return userid;
+	}
+	public void setUname(String uname)
+	{
+		this.uname = uname;
+	}
+
+	public String getUname()
+	{
+		return uname;
 	}
 	public void setRemark(String remark) 
 	{

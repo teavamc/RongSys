@@ -18,8 +18,10 @@ public class ProApplyUser extends BaseEntity
     private Integer paid;
     /** 节目名称 */
     private String pname;
-    /** 用户ID */
+    /** 用户名字 */
     private String uname;
+    /** 用户ID */
+    private Long userid;
     /** 是否紧急 */
     private String isemergency;
     /** 时间限制要求 */
@@ -41,14 +43,14 @@ public class ProApplyUser extends BaseEntity
     {
         return paid;
     }
-    public void setPname(String pname)
+    public void setUserid(Long userid)
     {
-        this.pname = pname;
+        this.userid = userid;
     }
 
-    public String getPname()
+    public Long getUserid()
     {
-        return pname;
+        return userid;
     }
     public void setUname(String uname)
     {
@@ -59,7 +61,15 @@ public class ProApplyUser extends BaseEntity
     {
         return uname;
     }
+    public void setPname(String pname)
+    {
+        this.pname = pname;
+    }
 
+    public String getPname()
+    {
+        return pname;
+    }
     public void setIsemergency(Boolean isemergency)
     {
         if (isemergency==true){
@@ -125,6 +135,7 @@ public class ProApplyUser extends BaseEntity
                 .append("paid", getPaid())
                 .append("pname", getPname())
                 .append("uname", getUname())
+                .append("userid", getUserid())
                 .append("isemergency", getIsemergency())
                 .append("timelimit", getTimelimit())
                 .append("submittime", getSubmittime())

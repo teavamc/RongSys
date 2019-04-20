@@ -70,7 +70,7 @@
     <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
         <where>
-            <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
+            <if test="tid != null  and tid != '' "> and t.tid = #{tid}</if>
             <if test="tname != null  and tname != '' "> and tname = #{tname}</if>
             <if test="aid != null  and aid != '' "> and t.aid = #{aid}</if>
             <if test="aname != null  and aname != '' "> and aname = #{aname}</if>
@@ -101,7 +101,7 @@
 
     <select id="selectOrganizationByTid" parameterType="String" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
-        where tid = #{tid}
+        where t.tid = #{tid}
     </select>
 
     <!--下面对终端的增删改查是没有实现的-->
@@ -225,5 +225,14 @@
         <foreach item="tid" collection="ids" open="(" separator="," close=")">
             #{tid}
         </foreach>
+    </update>
+
+    <update id="updateIsuseByTid" parameterType="String">
+        update terminals
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="isuse != null  ">isuse = #{isuse},</if>
+
+        </trim>
+        where tid = #{tid}
     </update>
 </mapper>
