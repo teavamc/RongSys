@@ -109,4 +109,11 @@
             #{tid}
         </foreach>
     </update>
+
+    <update id="updateFmfrequencyByIds" >
+        update  terminals set isuse = 1 where tid in
+        <foreach item="tid" collection="ids" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </update>
 </mapper>

@@ -64,4 +64,11 @@ public interface ITrafficService
 	 * @return
 	 */
 	public int updateRdsByIds(String ids , String number);
+
+	/**
+	 * 批量设置限终端启用
+	 *
+	 * @return
+	 */
+	public int updateFmfrequencyByIds(String ids , String number);
 }

@@ -112,4 +112,15 @@ public class TrafficServiceImpl implements ITrafficService
 	{
 		return trafficMapper.updateRdsByIds(Convert.toStrArray(id),number);
 	}
+
+	/**
+	 * 批量设置限终端启用
+	 ** @return
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public int updateFmfrequencyByIds(String id , String number)
+	{
+		return trafficMapper.updateFmfrequencyByIds(Convert.toStrArray(id),number);
+	}
 }

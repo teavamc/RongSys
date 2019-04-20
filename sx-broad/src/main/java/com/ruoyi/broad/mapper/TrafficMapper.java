@@ -75,4 +75,12 @@ public interface TrafficMapper
 	 * @return 结果
 	 */
 	public int updateRdsByIds(@Param("ids") String[] ids, @Param("number")String number);
+
+	/**
+	 *  批量设置限终端启用
+	 *
+	 * @param ids 需要修改终端
+	 * @return 结果
+	 */
+	public int updateFmfrequencyByIds(@Param("ids") String[] ids, @Param("number")String number);
 }

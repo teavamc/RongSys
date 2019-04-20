@@ -131,4 +131,14 @@ public class TrafficController extends BaseController
 	{
 		return toAjax(trafficService.updateRdsByIds(ids,number));
 	}
+
+    /**
+     * 批量设置限终端启用
+     */
+    @PostMapping( "/fmfrequencySet")
+    @ResponseBody
+    public AjaxResult fmfrequencySet(String ids, String number)
+    {
+        return toAjax(trafficService.updateFmfrequencyByIds(ids,number));
+    }
 }
