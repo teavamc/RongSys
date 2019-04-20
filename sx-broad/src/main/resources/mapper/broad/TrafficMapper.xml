@@ -44,8 +44,8 @@
             <if test="tid != null  and tid != '' "> and t.tid like '%${tid}%'</if>
             <if test="usetraffic != null "> and usetraffic like '%${usetraffic}%'</if>
             <if test="trafficlimit != null  and trafficlimit != '' "> and a.trafficlimit like '%${trafficlimit}%'</if>
-            <if test="lasttime != null  and lasttime != '' "> and lasttime like '%${lasttime}%'</if>
-            <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
+            <if test="tname != null  and tname != '' "> and tname like '%${tname}%'</if>
+            <if test="aname != null  and aname != '' "> and aname like '%${aname}%'</if>
         </where>
         ORDER BY lasttime DESC
     </select>
