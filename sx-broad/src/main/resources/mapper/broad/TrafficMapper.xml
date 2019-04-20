@@ -47,6 +47,8 @@
             <if test="trafficlimit != null  and trafficlimit != '' "> and a.trafficlimit like '%${trafficlimit}%'</if>
             <if test="tname != null  and tname != '' "> and tname like '%${tname}%'</if>
             <if test="aname != null  and aname != '' "> and aname like '%${aname}%'</if>
+            <if test="minNum != null  and minNum != ''  ">and usetraffic >= #{minNum}</if>
+            <if test="maxNum != null  and maxNum != ''  ">and usetraffic &lt;=#{maxNum}</if>
         </where>
         ORDER BY lasttime DESC
     </select>

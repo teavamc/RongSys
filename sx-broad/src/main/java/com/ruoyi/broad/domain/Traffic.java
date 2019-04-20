@@ -39,6 +39,10 @@ public class Traffic extends BaseEntity
 	private String uname;
 	/** 启用状态 */
 	private String isuse;
+	/** 查询流量最小值 */
+	private Float minNum;
+	/** 查询流量最大值 */
+	private Float maxNum;
 	public void setTtid(Integer ttid)
 	{
 		this.ttid = ttid;
@@ -142,6 +146,24 @@ public class Traffic extends BaseEntity
 	{
 		return isuse;
 	}
+
+	public Float getMinNum()
+	{
+		return minNum;
+	}
+	public void setMinNum(Float minNum)
+	{
+		this.minNum = minNum;
+	}
+
+	public Float getMaxNum()
+	{
+		return maxNum;
+	}
+	public void setMaxNum(Float maxNum)
+	{
+		this.maxNum = maxNum;
+	}
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 				.append("ttid", getTtid())
@@ -156,6 +178,8 @@ public class Traffic extends BaseEntity
 				.append("aname", getAname())
 				.append("tname", getTname())
 				.append("isuse", getIsuse())
+				.append("maxNum", getMaxNum())
+				.append("minNum", getMinNum())
 				.toString();
 	}
 }
