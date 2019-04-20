@@ -65,12 +65,12 @@ public class ProSinmanage extends BaseEntity
 	{
 		return broaddate;
 	}
-	public void setUserid(String userid) 
+	public void setUserid(String userid)
 	{
 		this.userid = userid;
 	}
 
-	public String getUserid() 
+	public String getUserid()
 	{
 		return userid;
 	}
