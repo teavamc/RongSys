@@ -23,36 +23,36 @@ public class Traffic extends BaseEntity
 	private Float usetraffic;
 	/** 终端流量使用限制，单位MB */
 	private Float trafficlimit;
-
 	@Excel(name = "流量状态", readConverterExp = "0=正常,1=超量")
 	private String status;
-
 	/** 流量统计时间 */
 	private String lasttime;
 	/** 备注 */
 	private String remark;
-
+	/** 终端名称 */
+	private String tname;
+	/** 所属分组 */
+	private String aname;
+	/** 所属用户 */
+	private String uname;
+	/** 启用状态 */
+	private String isuse;
 	public void setTtid(Integer ttid)
 	{
 		this.ttid = ttid;
 	}
-
 	public Integer getTtid()
 	{
 		return ttid;
 	}
+
 	public void setTid(String tid)
 	{
 		this.tid = tid;
 	}
-
 	public String getTid()
 	{
 		return tid;
-	}
-	public void setUsetraffic(Float usetraffic)
-	{
-		this.usetraffic = usetraffic;
 	}
 
 	public Float getTrafficlimit() { return trafficlimit; }
@@ -62,7 +62,6 @@ public class Traffic extends BaseEntity
 	{
 		return status;
 	}
-
 	public void setStatus(String status)
 	{
 		this.status = status;
@@ -72,25 +71,65 @@ public class Traffic extends BaseEntity
 	{
 		return usetraffic;
 	}
-	public void setLasttime(String lasttime)
+	public void setUsetraffic(Float usetraffic)
 	{
-		this.lasttime = lasttime;
+		this.usetraffic = usetraffic;
 	}
 
 	public String getLasttime()
 	{
 		return lasttime;
 	}
+	public void setLasttime(String lasttime)
+	{
+		this.lasttime = lasttime;
+	}
+
+
 	public void setRemark(String remark)
 	{
 		this.remark = remark;
 	}
-
 	public String getRemark()
 	{
 		return remark;
 	}
 
+	public String getTname()
+	{
+		return tname;
+	}
+	public void setTname(String tname)
+	{
+		this.tname = tname;
+	}
+
+	public String getAname()
+	{
+		return aname;
+	}
+	public void setAname(String aname)
+	{
+		this.aname = aname;
+	}
+
+	public void setUname(String uname)
+	{
+		this.uname = uname;
+	}
+	public String getUname()
+	{
+		return uname;
+	}
+
+	public void setIsuse(String isuse)
+	{
+		this.isuse = isuse;
+	}
+	public String getIsuse()
+	{
+		return isuse;
+	}
 	public String toString() {
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 				.append("ttid", getTtid())
@@ -100,6 +139,10 @@ public class Traffic extends BaseEntity
 				.append("status", getStatus())
 				.append("lasttime", getLasttime())
 				.append("remark", getRemark())
+				.append("uname", getUname())
+				.append("aname", getAname())
+				.append("tname", getTname())
+				.append("isuse", getIsuse())
 				.toString();
 	}
 }

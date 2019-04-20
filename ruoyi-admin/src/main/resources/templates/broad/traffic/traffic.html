@@ -59,6 +59,7 @@
         var editFlag = [[${@permission.hasPermi('broad:traffic:edit')}]];
         var removeFlag = [[${@permission.hasPermi('broad:traffic:remove')}]];
 		var datas = [[${@dict.getType('sys_traffic_status')}]];
+		var data2s = [[${@dict.getType('sys_tem_staus')}]];
         var prefix = ctx + "broad/traffic";
 
         $(function() {
@@ -77,7 +78,7 @@
 		        },
 				{
 					field : 'ttid',
-					title : '终端流量使用信息表-id',
+					title : '终端流量使用信息表编号',
 					visible: false
 				},
 				{
@@ -85,6 +86,21 @@
 					title : '终端编号',
 					sortable: true
 				},
+					{
+						field : 'tname',
+						title : '终端名称',
+						sortable: true
+					},
+					{
+						field : 'aname',
+						title : '所属分组',
+						sortable: true
+					},
+					{
+						field : 'uname',
+						title : '所属用户',
+						sortable: true
+					},
 				{
 					field : 'usetraffic', 
 					title : '使用流量/MB',
@@ -92,7 +108,7 @@
 				},
 				{
 					field : 'trafficlimit',
-					title : '终端流量使用限制，单位MB',
+					title : '流量限制/MB',
 					sortable: true
 				},
 				{
@@ -100,7 +116,7 @@
 					title: '状态',
 					align: 'center',
 					formatter: function(value, row, index) {
-						return $.table.selectDictLabel(datas, value);
+						return $.table.selectDictLabel(data2s, value);
 					}
 				},
 				{
@@ -109,10 +125,14 @@
 					sortable: true
 				},
 				{
-					field : 'remark', 
-					title : '备注',
-					sortable: true
-				},
+					field : 'isuse',
+					title : '启用状态',
+					sortable: true,
+					formatter: function(value, row, index) {
+						return $.table.selectDictLabel(datas, value);
+					}
+
+				}
 //		        {
 //		            title: '操作',
 //		            align: 'center',

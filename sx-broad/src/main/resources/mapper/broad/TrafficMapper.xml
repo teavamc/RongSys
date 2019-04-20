@@ -13,8 +13,28 @@
         <result property="remark"    column="remark"    />
     </resultMap>
 
+
+    <!--<sql id="selectTrafficVo">
+            select ttid, t.tid as tid, usetraffic,a.trafficlimit as trafficlimit, lasttime, remark from (terminal_traffic t left join terminals a on t.tid = a.tid)
+        </sql>-->
     <sql id="selectTrafficVo">
-        select ttid, t.tid as tid, usetraffic,a.trafficlimit as trafficlimit, lasttime, remark from (terminal_traffic t left join terminals a on t.tid = a.tid)
+        select
+        ttid,
+        tt.tid as tid,
+        usetraffic,
+        tt.lasttime as lasttime,
+        remark,
+        tname,
+        trafficlimit,
+        t.aid as aid,
+        aname,
+        ui.userid as userid,
+        t.isuse as isuse,
+        uname
+        from
+        ((terminal_traffic tt  JOIN terminals t on tt.tid=t.tid)
+        left join area a on t.aid = a.aid)
+        left join userinfo ui on ui.userid = t.userid
     </sql>
 
     <select id="selectTrafficList" parameterType="Traffic" resultMap="TrafficResult">
