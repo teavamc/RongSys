@@ -3,8 +3,11 @@ package com.ruoyi.web.controller.broad;
 import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
 import com.ruoyi.broad.domain.Organization;
+import com.ruoyi.broad.domain.Program;
 import com.ruoyi.broad.service.IOrganizationService;
+import com.ruoyi.broad.service.IProgramService;
 import com.ruoyi.common.json.JSONObject;
+import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.utils.PageData;
 import com.ruoyi.framework.web.base.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -33,6 +36,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/broad/live")
 public class LiveController extends BaseController {
+    @Autowired
+    private IProgramService iProgramService;
 
     @Autowired
     private IOrganizationService organizationService;
@@ -48,7 +53,7 @@ public class LiveController extends BaseController {
      * 直播页面控制器
      * @author 张超 teavamc
      * @date 2019/2/17
-     * @param []
+     * @param
      * @return java.lang.String
      */
     @RequiresPermissions("broad:live:view")
@@ -63,7 +68,7 @@ public class LiveController extends BaseController {
      * 本地直播页面控制器 - 直播测试
      * @author 张超 teavamc
      * @date 2019/2/17
-     * @param []
+     * @param
      * @return java.lang.String
      */
     @RequiresPermissions("broad:live:testview")
@@ -72,6 +77,29 @@ public class LiveController extends BaseController {
         //传给前台流媒体地址 传给 /streamlive 页面
         mmap.put("rtmpAddress",rtmpAddress);
         return prefix + "/streamlivetest";
+    }
+
+    /**
+     * 返回节目单选择界面
+     * @param mmap
+     * @return
+     */
+    @GetMapping("/getdoFile")
+    public String doFile(ModelMap mmap){
+        return prefix+"/listFile";
+    }
+    /**
+     * 获取节目单数据
+     * @param program
+     * @return
+     */
+    @PostMapping("/listFile")
+    @ResponseBody
+    public TableDataInfo listFile(Program program)
+    {
+        startPage();
+        List<Program> list = iProgramService.selectProList(program);
+        return getDataTable(list);
     }
 
 //    /**

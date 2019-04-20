@@ -86,7 +86,7 @@ public class ProSinmanage extends BaseEntity
 	{
 		return uname;
 	}
-	public void setRemark(String remark) 
+	public void setRemark(String remark)
 	{
 		this.remark = remark;
 	}
