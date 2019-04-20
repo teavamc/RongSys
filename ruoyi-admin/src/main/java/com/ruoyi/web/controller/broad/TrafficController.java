@@ -123,15 +123,12 @@ public class TrafficController extends BaseController
 	}
 
 	/**
-	 * 删除流量
+	 * 批量设置流量限制
 	 */
-	@RequiresPermissions("broad:traffic:remove")
-	@Log(title = "流量", businessType = BusinessType.DELETE)
-	@PostMapping( "/remove")
+	@PostMapping( "/rdsSet")
 	@ResponseBody
-	public AjaxResult remove(String ids)
+	public AjaxResult rdsSetUrl(String ids, String number)
 	{
-		return toAjax(trafficService.deleteTrafficByIds(ids));
+		return toAjax(trafficService.updateRdsByIds(ids,number));
 	}
-
 }

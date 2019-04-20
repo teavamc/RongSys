@@ -58,4 +58,10 @@ public interface ITrafficService
 	 */
 	public int deleteTrafficByIds(String ids);
 
+	/**
+	 * 批量设置流量限制
+	 *
+	 * @return
+	 */
+	public int updateRdsByIds(String ids , String number);
 }

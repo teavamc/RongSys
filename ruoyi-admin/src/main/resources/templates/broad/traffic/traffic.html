@@ -39,12 +39,16 @@
 				<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:traffic:add">-->
 					<!--<i class="fa fa-plus"></i> 添加-->
 				<!--</a>-->
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:traffic:edit">
+				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:traffic:edit">
 					<i class="fa fa-edit"></i> 设置终端流量限制
-				</a>
-				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:traffic:remove">-->
-					<!--<i class="fa fa-remove"></i> 删除-->
-				<!--</a>-->
+				</a>-->
+				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:traffic:remove">
+					<i class="fa fa-remove"></i> 批量设置流量限制
+				</a>-->
+                <input type="text" name="rdsNum" id="rdsNum" width="50px"/>
+                <a class="btn btn-info btn-del disabled" onclick="rdsSet()">
+                    <i class="fa fa-cog"></i> 批量设置限制流量
+                </a>
 				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:traffic:export">-->
 						<!--<i class="fa fa-download"></i> 导出-->
 				 <!--</a>-->
@@ -69,6 +73,7 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
+                rdsSetUrl: prefix + "/rdsSet",
                 modalName: "流量",
 				search: false,
 		        showExport: true,
@@ -77,7 +82,7 @@
 		            checkbox: true
 		        },
 				{
-					field : 'ttid',
+					field : 'tid',
 					title : '终端流量使用信息表编号',
 					visible: false
 				},
@@ -147,6 +152,20 @@
             };
             $.table.init(options);
         });
+
+        function rdsSet() {
+            var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+            if (rows.length == 0) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            $.modal.confirm("确认要更加选中的" + rows.length + "条数据的限制流量吗?", function() {
+                var url = $.table._option.rdsSetUrl;
+                var rdsNumber = document.getElementById("rdsNum").value;
+                var data = {"ids": rows.join(),"number": rdsNumber};
+                $.operate.submit(url, "post", "json", data);
+            });
+        }
     </script>
 </body>
 </html>

@@ -103,4 +103,10 @@
         </foreach>
     </delete>
 
+    <update id="updateRdsByIds" >
+        update  terminals set trafficlimit = #{number} where tid in
+        <foreach item="tid" collection="ids" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </update>
 </mapper>

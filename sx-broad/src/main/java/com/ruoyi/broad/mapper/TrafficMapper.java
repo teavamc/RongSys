@@ -1,6 +1,8 @@
 package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Traffic;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 
 /**
@@ -66,4 +68,11 @@ public interface TrafficMapper
      */
 	public int deleteTrafficByIds(String[] ttids);
 
+	/**
+	 *  批量设置流量限制
+	 *
+	 * @param ids 需要修改终端
+	 * @return 结果
+	 */
+	public int updateRdsByIds(@Param("ids") String[] ids, @Param("number")String number);
 }
