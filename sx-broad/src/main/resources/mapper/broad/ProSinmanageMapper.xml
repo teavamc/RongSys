@@ -18,12 +18,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select sfid, scategory, createtime, broaddate, userid, remark, broadtimes from pro_sinmanage
     </sql>
 	
-    <select id="selectProSinmanageList" parameterType="ProSinmanage" resultMap="ProSinmanageResult">
+    <select id="selectProSinmanageList" parameterType="int" resultMap="ProSinmanageResult">
         select PS.sfid,
                PS.scategory,
                PS.createtime,
                PS.broaddate,
-               US.uname as userid,
+               US.uname as uname,
                PS.remark,
                PS.broadtimes
         from pro_sinmanage as PS,
@@ -31,25 +31,47 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where
             PS.userid = US.userid and
             PS.scategory = "正常播出单"
+        <if test="userid != null  and userid != '' "> and PS.userid = #{userid}</if>
          order by sfid desc
     </select>
 
-    <select id="selectProSinmanageListForWarning" parameterType="ProSinmanage" resultMap="ProSinmanageResult">
+    <!--<select id="selectProSinmanageListForWarning" parameterType="int" resultMap="ProSinmanageResult">-->
+        <!--select PS.sfid,-->
+               <!--PS.scategory,-->
+               <!--PS.createtime,-->
+               <!--PS.broaddate,-->
+               <!--US.uname as uname,-->
+               <!--PS.remark,-->
+               <!--PS.broadtimes-->
+        <!--from pro_sinmanage as PS,-->
+             <!--userinfo as US-->
+        <!--where-->
+            <!--PS.userid = US.userid and-->
+            <!--PS.scategory = "紧急播出单"-->
+        <!--<if test="_parameter != 0  ">-->
+           <!--and PS.userid = 102-->
+        <!--</if>-->
+        <!--/*order by sfid desc*/-->
+    <!--</select>-->
+
+    <select id="selectProSinmanageListForWarning" parameterType="int" resultMap="ProSinmanageResult">
         select PS.sfid,
-               PS.scategory,
-               PS.createtime,
-               PS.broaddate,
-               US.uname as userid,
-               PS.remark,
-               PS.broadtimes
+        PS.scategory,
+        PS.createtime,
+        PS.broaddate,
+        US.uname as uname,
+        PS.remark,
+        PS.broadtimes
         from pro_sinmanage as PS,
-             userinfo as US
+        userinfo as US
         where
-            PS.userid = US.userid and
-            PS.scategory = "紧急播出单"
+        PS.userid = US.userid and
+        PS.scategory = "紧急播出单"
+        <if test="_parameter != 0  ">
+            and PS.userid = #{_parameter}
+        </if>
         order by sfid desc
     </select>
-
     <select id="selectProSinmanageListbySfid" parameterType="String" resultMap="ProSinmanageResult">
         <include refid="selectProSinmanageVo"/>
         where

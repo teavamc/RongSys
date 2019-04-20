@@ -18,5 +18,5 @@ public interface ITermapService
 	 * @return List<MapInfo>
 	 */
 	@DataSource(value = DataSourceType.SLAVE)
-	List<Termap> selectMap();
+	List<Termap> selectMap(String aid);
 }

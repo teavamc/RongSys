@@ -21,7 +21,7 @@ var isstreamliving=2;
 
 // 张超 RED5流媒体
 var  rtmpAddress = "rtmp://120.79.42.11:1936/live";
-
+var list = new Array();
 /**
  * 在加载之前
  */
@@ -136,6 +136,28 @@ function connectWS() {
     };
 }
 
+/**
+ * 开始直播
+ * @param obj
+ * @returns {boolean}
+ */
+function startlive(obj){
+    list[0] = imeilist;
+    for(var i = 0; i < imea.length; i++)
+        list[i+1] = imea[i];
+    // 如果未选择则 提示要选择
+    if(imeilist==null || imeilist==""){
+        $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
+        return false;
+    }else{
+        // 设置 streamid 为当前时间
+        streamid = getCurTime();
+        setLiveButton(0);
+        // 推流
+        publishRtmp();
+    }
+
+}
 
 
 /**
@@ -154,9 +176,26 @@ function startsent(){
         setLiveButton(2);
     }
     if(streamid!=null)
-        addlog("open",streamid,imeilist);
+        addlog("open",streamid,list);
 }
 
+
+/**
+ * 结束直播命令
+ */
+function endlive(){
+    setLiveButton(3);
+    scrollStatus("text-info","正在关闭直播...");
+    addlog("close",streamid,list);
+    if(isOpen) streamerDisconnect();
+    if (ws != null) {
+        var message = "end:"+streamid;
+        console.log('Sent End');
+        ws.send(message);
+    } else {
+        setLiveButton(2);
+    }
+}
 
 
 /**
@@ -194,12 +233,17 @@ function addlog(type,streamid,imeilist){
     var data ;
     if(type=="open"){
         data= {streamid:streamid,type:type,imeilist:imeilist};
-        $("#tbody").append("<tr><td class='center'>"+data.imeilist+"</td> <td class='center'>"+data.streamid+"</td>"+
-            "<td class='center'>"+data.type+"</td></tr>");
+        console.log("addlog(): list: "+imeilist);
+        for(var i = 0; i < imeilist.length; i++)
+            if(imeilist[i] != '' && imeilist[i] != null)
+                $("#tbody").append("<tr><td class='center'>"+data.imeilist[i]+"</td> <td class='center'>"+data.streamid+"</td>"+
+                "<td class='center'>"+data.type+"</td></tr>");
     }else{
         data= {streamid:streamid,type:type,imeilist:imeilist};
-        $("#tbody").append("<tr><td class='center'>"+data.imeilist+"</td> <td class='center'>"+data.streamid+"</td>"+
-            "<td class='center'>"+data.type+"</td></tr>");
+        for(var i = 0; i < imeilist.length; i++)
+            if(imeilist[i] != '' && imeilist[i] != null)
+                $("#tbody").append("<tr><td class='center'>"+data.imeilist[i]+"</td> <td class='center'>"+data.streamid+"</td>"+
+                "<td class='center'>"+data.type+"</td></tr>");
     }
 }
 

@@ -39,6 +39,9 @@ public class Termap extends BaseEntity
     /** 终端管理员用户姓名 */
     private String managername;
 
+    /** 终端是否可用 */
+    private Boolean isuse;
+
     public void setTid(String tid)
     {
         this.tid = tid;
@@ -144,6 +147,10 @@ public class Termap extends BaseEntity
         this.managername = managername;
     }
 
+    public Boolean getIsuse() { return isuse; }
+
+    public void setIsuse(Boolean isuse) { this.isuse = isuse; }
+
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("tname", getTname())
@@ -159,6 +166,7 @@ public class Termap extends BaseEntity
                 .append("createdtime", getCreatedtime())
                 .append("manageruserid", getManageruserid())
                 .append("managername", getManagername())
+                .append("isuse", getIsuse())
                 .toString();
     }
 }

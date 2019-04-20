@@ -52,13 +52,13 @@ public class ProSinmanageServiceImpl implements IProSinmanageService
 	/**
 	 * 查询紧急节目播出单列表
 	 *
-	 * @param proSinmanage 节目播出单信息
+	 * @param userid 节目播出单信息
 	 * @return 节目播出单集合
 	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public List<ProSinmanage> selectProSinmanageListForWarning(ProSinmanage proSinmanage){
-		return proSinmanageMapper.selectProSinmanageListForWarning(proSinmanage);
+	public List<ProSinmanage> selectProSinmanageListForWarning(int userid){
+		return proSinmanageMapper.selectProSinmanageListForWarning(userid);
 	}
 	
     /**
@@ -105,7 +105,7 @@ public class ProSinmanageServiceImpl implements IProSinmanageService
 	 * 通过 sfid 查询节目编号List
 	 * @author 张超 teavamc
 	 * @date 2019/3/9
-	 * @param [sfids]
+	 * @param
 	 * @return java.util.List<com.ruoyi.broad.domain.ProSinmanage>
 	 */
 	@Override

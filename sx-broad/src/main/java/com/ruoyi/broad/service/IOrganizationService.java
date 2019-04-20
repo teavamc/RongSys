@@ -120,4 +120,6 @@ public interface IOrganizationService
 	 * @return
 	 */
 	public int updateFmfrequencyByIds(String ids , String number);
+
+	public int updateIsuseByTid(String tid, Boolean isuse);
 }
