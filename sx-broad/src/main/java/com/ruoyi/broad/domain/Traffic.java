@@ -19,6 +19,8 @@ public class Traffic extends BaseEntity
 	private Integer ttid;
 	/** 终端编号 */
 	private String tid;
+	/** 所属分组编号 */
+	private String aid;
 	/** 使用流量，单位MB */
 	private Float usetraffic;
 	/** 终端流量使用限制，单位MB */
@@ -53,6 +55,16 @@ public class Traffic extends BaseEntity
 	public String getTid()
 	{
 		return tid;
+	}
+
+	public void setAid(String aid)
+	{
+		this.aid = aid;
+	}
+
+	public String getAid()
+	{
+		return aid;
 	}
 
 	public Float getTrafficlimit() { return trafficlimit; }
@@ -134,6 +146,7 @@ public class Traffic extends BaseEntity
 		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
 				.append("ttid", getTtid())
 				.append("tid", getTid())
+				.append("aid", getAid())
 				.append("usetraffic", getUsetraffic())
 				.append("trafficlimit", getTrafficlimit())
 				.append("status", getStatus())

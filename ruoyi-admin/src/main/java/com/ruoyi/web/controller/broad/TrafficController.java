@@ -1,6 +1,10 @@
 package com.ruoyi.web.controller.broad;
 
 import java.util.List;
+
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,8 +26,8 @@ import com.ruoyi.common.utils.ExcelUtil;
 /**
  * 流量 信息操作处理
  *
- * @author 张超
- * @date 2019-01-15
+ * @author 张鸿权
+ * @date 2019-04-20
  */
 @Controller
 @RequestMapping("/broad/traffic")
@@ -33,7 +37,8 @@ public class TrafficController extends BaseController
 
 	@Autowired
 	private ITrafficService trafficService;
-
+	@Autowired
+	private ISysUserService sysUserService;
 	@RequiresPermissions("broad:traffic:view")
 	@GetMapping()
 	public String traffic()
@@ -49,14 +54,21 @@ public class TrafficController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Traffic traffic)
 	{
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		if(roleid != 1){
+			String aid;
+			aid = sysUserService.selectAid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+			traffic.setAid(aid);
+		}
 		startPage();
 		List<Traffic> list = trafficService.selectTrafficList(traffic);
-		for(int i=0;i<list.size();i++)
-		{
-			if(list.get(i).getUsetraffic()>list.get(i).getTrafficlimit())
-			{
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).getUsetraffic() > list.get(i).getTrafficlimit()) {
 				list.get(i).setStatus("1");
-			}else{
+			} else {
 				list.get(i).setStatus("0");
 			}
 		}

@@ -42,6 +42,7 @@
         <where>
             <if test="ttid != null "> and ttid like '%${ttid}%'</if>
             <if test="tid != null  and tid != '' "> and t.tid like '%${tid}%'</if>
+            <if test="aid != null  and aid != ''  ">and t.aid = #{aid}</if>
             <if test="usetraffic != null "> and usetraffic like '%${usetraffic}%'</if>
             <if test="trafficlimit != null  and trafficlimit != '' "> and a.trafficlimit like '%${trafficlimit}%'</if>
             <if test="tname != null  and tname != '' "> and tname like '%${tname}%'</if>
