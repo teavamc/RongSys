@@ -10,14 +10,27 @@
 </head>
 <body class="gray-bg" onload="init();">
 <script>
+    var buttonStyle = ["btn btn-primary","btn btn-success","btn btn-info","btn btn-warning","btn btn-danger"];
     var imea;
+    var imeiName;
+    function imeiYes(data) {
+        layer.msg('你确定要取消选择该IMEI吗', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                layer.close(index);
+                imeiButton(data);
+            }
+        });
+    }
     function imeiButton(data) {
         var str = '';
         for(var i = 0; i <imea.length; i++) {
             if(imea[i] == data)
                 imea[i] = '';
             else if(imea[i] != '' && imea[i] != null)
-                str += '<button class="btn btn-primary" onclick="imeiButton('+imea[i]+')" style="margin: 2px 2px;color: #3cfc89"> '+imea[i]+'</button>';
+                str += '<button class="'+buttonStyle[i%5]+'" onclick="imeiYes('+imea[i]+')" ' +
+                    'style="margin: 2px 2px;color: white">终端名称:'+imeiName[i] +'<br>ID:'+ imea[i]+'</button>';
         }
         $('#imea').html(str);
     }
@@ -68,6 +81,7 @@
                             <thead>
                             <tr>
                                 <th class="center">终端IMEI</th>
+                                <th class="center">终端设备名称</th>
                                 <th class="center">流媒体ID</th>
                                 <th class="center">记录状态</th>
                             </tr>
@@ -92,7 +106,7 @@
         <div class="col-sm-8">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <div class="form-group" >
+                    <div class="form-group" style="margin-bottom: 0px">
                         <button class="btn btn-primary"  name="organName" onclick="selectOrganTree()" id="treeName">选择终端</button>
                         <!--&lt;!&ndash;<label class="col-sm-3 control-label">选择终端：</label>&ndash;&gt;
                         <div class="col-sm-8">
@@ -101,6 +115,7 @@
                     </div>
                 </div>
                 <input name="deptId"  type="hidden" id="treeId"/>
+                <input name="deptId"  type="hidden" id="tname"/>
                 <div class="ibox-content">
                     <div id="imea"  style="overflow: scroll;height: 200px"></div>
                 </div>
@@ -193,6 +208,7 @@
                 btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
                 yes: function (index, layero) {
                     imea = String(document.getElementById("treeId").value).split(',');
+                    imeiName = String(document.getElementById("tname").value).split(',');
                     //console.log("treeId: " + document.getElementById("treeId").value);
                     doSubmit(index, layero)
                 }, cancel: function () {
