@@ -54,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
              <if test="tname != null  and tname != '' "> and tname like '%${tname}%'</if>
              <if test="aname != null  and aname != '' "> and aname like '%${aname}%'</if>
+             <if test="fault != null  and fault != '' "> and fault like '%${fault}%'</if>
          </where>
         ORDER BY tm.createtime DESC
     </select>
