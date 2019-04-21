@@ -31,11 +31,10 @@ public interface IMaintainService
 	
 	/**
      * 新增终端维护记录
-     * 
-     * @param maintain 终端维护记录信息
+     *
      * @return 结果
      */
-	public int insertMaintain(Maintain maintain);
+	public int insertMaintain(String tid,String fault,String mstaff,String remark);
 	
 	/**
      * 修改终端维护记录
