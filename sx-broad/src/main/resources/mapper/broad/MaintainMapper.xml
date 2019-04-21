@@ -79,22 +79,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
         
-    <insert id="insertMaintain" parameterType="Maintain">
+    <insert id="insertMaintain" parameterType="String">
         insert into terminal_maintain
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="tmid != null  ">tmid,</if>
 			<if test="tid != null  and tid != ''  ">tid,</if>
 			<if test="fault != null  and fault != ''  ">fault,</if>
 			<if test="mstaff != null  and mstaff != ''  ">mstaff,</if>
-			<if test="createtime != null  and createtime != ''  ">createtime,</if>
 			<if test="remark != null  and remark != ''  ">remark,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="tmid != null  ">#{tmid},</if>
 			<if test="tid != null  and tid != ''  ">#{tid},</if>
 			<if test="fault != null  and fault != ''  ">#{fault},</if>
 			<if test="mstaff != null  and mstaff != ''  ">#{mstaff},</if>
-			<if test="createtime != null  and createtime != ''  ">#{createtime},</if>
 			<if test="remark != null  and remark != ''  ">#{remark},</if>
          </trim>
     </insert>

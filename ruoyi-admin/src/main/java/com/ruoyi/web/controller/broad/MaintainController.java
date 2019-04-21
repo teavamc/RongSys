@@ -12,11 +12,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.broad.domain.Maintain;
@@ -103,9 +99,12 @@ public class MaintainController extends BaseController
 	@Log(title = "终端维护记录", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Maintain maintain)
+	public AjaxResult addSave(@RequestParam(value = "tid") String tid,
+							  @RequestParam(value = "fault") String fault,
+							  @RequestParam(value = "mstaff") String mstaff,
+							  @RequestParam(value = "remark") String remark)
 	{
-		return toAjax(maintainService.insertMaintain(maintain));
+		return toAjax(maintainService.insertMaintain(tid,fault,mstaff,remark));
 	}
 
 	/**

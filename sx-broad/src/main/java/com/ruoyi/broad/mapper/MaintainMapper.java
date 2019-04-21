@@ -2,6 +2,7 @@ package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Maintain;
 import com.ruoyi.broad.domain.Maintainx;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -31,11 +32,10 @@ public interface MaintainMapper
 	
 	/**
      * 新增终端维护记录
-     * 
-     * @param maintain 终端维护记录信息
+     *
      * @return 结果
      */
-	public int insertMaintain(Maintain maintain);
+	public int insertMaintain(@Param("tid") String tid,@Param("fault") String fault,@Param("mstaff") String mstaff,@Param("remark") String remark);
 	
 	/**
      * 修改终端维护记录
