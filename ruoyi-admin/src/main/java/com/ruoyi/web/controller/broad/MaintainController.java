@@ -1,6 +1,13 @@
 package com.ruoyi.web.controller.broad;
 
 import java.util.List;
+import java.util.Map;
+
+import com.ruoyi.broad.domain.BroadMessage;
+import com.ruoyi.broad.service.IMessageService;
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +40,10 @@ public class MaintainController extends BaseController
 
 	@Autowired
 	private IMaintainService maintainService;
-
+	@Autowired
+	private ISysUserService sysUserService;
+	@Autowired
+	private IMessageService messageService;
 	@RequiresPermissions("broad:maintain:view")
 	@GetMapping()
 	public String maintain()
@@ -49,6 +59,15 @@ public class MaintainController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Maintain maintain)
 	{
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		if(roleid != 1){
+			String aid;
+			aid = sysUserService.selectAid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+			maintain.setAid(aid);
+		}
 		startPage();
         List<Maintain> list = maintainService.selectMaintainList(maintain);
 		return getDataTable(list);
@@ -124,4 +143,13 @@ public class MaintainController extends BaseController
 		return toAjax(maintainService.deleteMaintainByIds(ids));
 	}
 
+	/**
+	 * 加载部门列表树
+	 */
+	@GetMapping("/treeData")
+	@ResponseBody
+	public List<Map<String, Object>> treeData() {
+		List<Map<String, Object>> tree = messageService.selectMessageList((new BroadMessage()));
+		return tree;
+	}
 }
