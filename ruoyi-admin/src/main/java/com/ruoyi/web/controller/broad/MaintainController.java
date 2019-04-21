@@ -20,10 +20,10 @@ import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
 
 /**
- * 终端维护记录 信息操作处理
- * 
- * @author 张超
- * @date 2019-01-15
+ * 终端维护记录表 terminal_maintain
+ *
+ * @author 张鸿权
+ * @date 2019-04-21
  */
 @Controller
 @RequestMapping("/broad/maintain")
