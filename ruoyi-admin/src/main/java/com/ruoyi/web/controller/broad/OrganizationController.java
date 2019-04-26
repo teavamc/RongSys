@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,8 @@ import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  * 终端地域 信息操作处理
  *
@@ -118,7 +120,14 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public AjaxResult addSave(Organization organization)
 	{
-		organizationService.insertOrganizationPic(organization);
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		organization.setUserid(String.valueOf(userid));
+		SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");// a为am/pm的标记
+		Date date = new Date();// 获取当前时间
+		organization.setCreatedtime(sdf.format(date));
+//		organizationService.insertOrganizationPic(organization);
 		return toAjax(organizationService.insertOrganization(organization));
 	}
 

@@ -151,7 +151,7 @@
             <if test="phone != null  and phone != ''  ">#{phone},</if>
             <if test="rds != null  and rds != ''  ">#{rds},</if>
             <if test="fmfrequency != null  and fmfrequency != ''  ">#{fmfrequency},</if>
-            <if test="trafficlimit != null  ">#{trafficlimit},</if>
+            <if test="trafficlimit != null  ">0,</if>
         </trim>
     </insert>
 
