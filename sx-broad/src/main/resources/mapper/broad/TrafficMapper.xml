@@ -13,8 +13,28 @@
         <result property="remark"    column="remark"    />
     </resultMap>
 
+
+    <!--<sql id="selectTrafficVo">
+            select ttid, t.tid as tid, usetraffic,a.trafficlimit as trafficlimit, lasttime, remark from (terminal_traffic t left join terminals a on t.tid = a.tid)
+        </sql>-->
     <sql id="selectTrafficVo">
-        select ttid, t.tid as tid, usetraffic,a.trafficlimit as trafficlimit, lasttime, remark from (terminal_traffic t left join terminals a on t.tid = a.tid)
+        select
+        ttid,
+        tt.tid as tid,
+        usetraffic,
+        tt.lasttime as lasttime,
+        remark,
+        tname,
+        trafficlimit,
+        t.aid as aid,
+        aname,
+        ui.userid as userid,
+        t.isuse as isuse,
+        uname
+        from
+        ((terminal_traffic tt  JOIN terminals t on tt.tid=t.tid)
+        left join area a on t.aid = a.aid)
+        left join userinfo ui on ui.userid = t.userid
     </sql>
 
     <select id="selectTrafficList" parameterType="Traffic" resultMap="TrafficResult">
@@ -22,10 +42,13 @@
         <where>
             <if test="ttid != null "> and ttid like '%${ttid}%'</if>
             <if test="tid != null  and tid != '' "> and t.tid like '%${tid}%'</if>
+            <if test="aid != null  and aid != ''  ">and t.aid = #{aid}</if>
             <if test="usetraffic != null "> and usetraffic like '%${usetraffic}%'</if>
             <if test="trafficlimit != null  and trafficlimit != '' "> and a.trafficlimit like '%${trafficlimit}%'</if>
-            <if test="lasttime != null  and lasttime != '' "> and lasttime like '%${lasttime}%'</if>
-            <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
+            <if test="tname != null  and tname != '' "> and tname like '%${tname}%'</if>
+            <if test="aname != null  and aname != '' "> and aname like '%${aname}%'</if>
+            <if test="minNum != null  and minNum != ''  ">and usetraffic >= #{minNum}</if>
+            <if test="maxNum != null  and maxNum != ''  ">and usetraffic &lt;=#{maxNum}</if>
         </where>
         ORDER BY lasttime DESC
     </select>
@@ -83,4 +106,17 @@
         </foreach>
     </delete>
 
+    <update id="updateRdsByIds" >
+        update  terminals set trafficlimit = #{number} where tid in
+        <foreach item="tid" collection="ids" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </update>
+
+    <update id="updateFmfrequencyByIds" >
+        update  terminals set isuse = 1 where tid in
+        <foreach item="tid" collection="ids" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </update>
 </mapper>
