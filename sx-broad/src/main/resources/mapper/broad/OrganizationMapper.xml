@@ -104,7 +104,6 @@
         where t.tid = #{tid}
     </select>
 
-    <!--下面对终端的增删改查是没有实现的-->
     <insert id="insertOrganization" parameterType="Organization">
         insert into tb_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
