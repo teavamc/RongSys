@@ -33,7 +33,7 @@ import com.ruoyi.common.utils.ExcelUtil;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
- * 终端地域 信息操作处理
+ * 终端信息操作处理
  *
  * @author 张鸿权
  * @date 2019-02-17
@@ -58,7 +58,7 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 查询终端地域列表
+	 * 查询终端信息列表
 	 */
 	@RequiresPermissions("broad:organization:list")
 	@PostMapping("/list")
@@ -90,7 +90,7 @@ public class OrganizationController extends BaseController
 
 
 	/**
-	 * 导出终端地域列表
+	 * 导出终端信息列表
 	 */
 	@RequiresPermissions("broad:organization:export")
 	@PostMapping("/export")
@@ -103,7 +103,7 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 新增终端地域
+	 * 新增终端信息
 	 */
 	@GetMapping("/add")
 	public String add()
@@ -112,10 +112,10 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 新增保存终端地域
+	 * 新增保存终端信息
 	 */
 	@RequiresPermissions("broad:organization:add")
-	@Log(title = "终端地域", businessType = BusinessType.INSERT)
+	@Log(title = "终端信息", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Organization organization)
@@ -132,7 +132,7 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 修改终端地域
+	 * 修改终端信息
 	 */
 	@GetMapping("/edit/{tid}")
 	public String edit(@PathVariable("tid") String tid, ModelMap mmap)
@@ -143,10 +143,10 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 修改保存终端地域
+	 * 修改保存终端信息
 	 */
 	@RequiresPermissions("broad:organization:edit")
-	@Log(title = "终端地域", businessType = BusinessType.UPDATE)
+	@Log(title = "终端信息", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Organization organization)
@@ -155,10 +155,10 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 删除终端地域
+	 * 删除终端信息
 	 */
 	@RequiresPermissions("broad:organization:remove")
-	@Log(title = "终端地域", businessType = BusinessType.DELETE)
+	@Log(title = "终端信息", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)
