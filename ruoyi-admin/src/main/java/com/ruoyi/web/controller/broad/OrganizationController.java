@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,9 +30,10 @@ import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
-
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
- * 终端地域 信息操作处理
+ * 终端信息操作处理
  *
  * @author 张鸿权
  * @date 2019-02-17
@@ -56,7 +58,7 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 查询终端地域列表
+	 * 查询终端信息列表
 	 */
 	@RequiresPermissions("broad:organization:list")
 	@PostMapping("/list")
@@ -88,7 +90,7 @@ public class OrganizationController extends BaseController
 
 
 	/**
-	 * 导出终端地域列表
+	 * 导出终端信息列表
 	 */
 	@RequiresPermissions("broad:organization:export")
 	@PostMapping("/export")
@@ -101,7 +103,7 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 新增终端地域
+	 * 新增终端信息
 	 */
 	@GetMapping("/add")
 	public String add()
@@ -110,20 +112,27 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 新增保存终端地域
+	 * 新增保存终端信息
 	 */
 	@RequiresPermissions("broad:organization:add")
-	@Log(title = "终端地域", businessType = BusinessType.INSERT)
+	@Log(title = "终端信息", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
 	public AjaxResult addSave(Organization organization)
 	{
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		organization.setUserid(String.valueOf(userid));
+		SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间
+		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");// a为am/pm的标记
+		Date date = new Date();// 获取当前时间
+		organization.setCreatedtime(sdf.format(date));
 		organizationService.insertOrganizationPic(organization);
 		return toAjax(organizationService.insertOrganization(organization));
 	}
 
 	/**
-	 * 修改终端地域
+	 * 修改终端信息
 	 */
 	@GetMapping("/edit/{tid}")
 	public String edit(@PathVariable("tid") String tid, ModelMap mmap)
@@ -134,10 +143,10 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 修改保存终端地域
+	 * 修改保存终端信息
 	 */
 	@RequiresPermissions("broad:organization:edit")
-	@Log(title = "终端地域", businessType = BusinessType.UPDATE)
+	@Log(title = "终端信息", businessType = BusinessType.UPDATE)
 	@PostMapping("/edit")
 	@ResponseBody
 	public AjaxResult editSave(Organization organization)
@@ -146,10 +155,10 @@ public class OrganizationController extends BaseController
 	}
 
 	/**
-	 * 删除终端地域
+	 * 删除终端信息
 	 */
 	@RequiresPermissions("broad:organization:remove")
-	@Log(title = "终端地域", businessType = BusinessType.DELETE)
+	@Log(title = "终端信息", businessType = BusinessType.DELETE)
 	@PostMapping( "/remove")
 	@ResponseBody
 	public AjaxResult remove(String ids)

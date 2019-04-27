@@ -14,17 +14,17 @@
 								终端编号：<input type="text" name="tid"/>
 							</li>
 
-							<!--<li>-->
-								<!--使用流量，单位MB：<input type="text" name="usetraffic"/>-->
-							<!--</li>-->
+							<li>
+								所属分组：<input type="text" name="aname"/>
+							</li>
 
-							<!--<li>-->
-								<!--流量统计时间：<input type="text" name="lasttime"/>-->
-							<!--</li>-->
+							<li>
+								终端名称：<input type="text" name="tname"/>
+							</li>
 
-							<!--<li>-->
-								<!--备注：<input type="text" name="remark"/>-->
-							<!--</li>-->
+							<li>
+								流量使用范围：<input type="text" name="minNum" placeholder="最小值" style="width:100px" />MB ~ <input type="text" name="maxNum" placeholder="最大值"  style="width:100px" />MB
+							</li>
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -39,12 +39,20 @@
 				<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:traffic:add">-->
 					<!--<i class="fa fa-plus"></i> 添加-->
 				<!--</a>-->
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:traffic:edit">
+				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:traffic:edit">
 					<i class="fa fa-edit"></i> 设置终端流量限制
+				</a>-->
+				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:traffic:remove">
+					<i class="fa fa-remove"></i> 批量设置流量限制
+				</a>-->
+                <input type="text" name="rdsNum" id="rdsNum" width="50px"/>
+                <a class="btn btn-info btn-del disabled" onclick="rdsSet()">
+                     批量设置限制流量/MB
+                </a>
+				<!--<input type="text" name="fmfrequencyNum" id="fmfrequencyNum" width="50px"/>-->
+				<a class="btn btn-warning btn-del disabled" onclick="fmfrequency()">
+					批量设置限终端启用
 				</a>
-				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:traffic:remove">-->
-					<!--<i class="fa fa-remove"></i> 删除-->
-				<!--</a>-->
 				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:traffic:export">-->
 						<!--<i class="fa fa-download"></i> 导出-->
 				 <!--</a>-->
@@ -59,6 +67,7 @@
         var editFlag = [[${@permission.hasPermi('broad:traffic:edit')}]];
         var removeFlag = [[${@permission.hasPermi('broad:traffic:remove')}]];
 		var datas = [[${@dict.getType('sys_traffic_status')}]];
+		var data2s = [[${@dict.getType('sys_tem_staus')}]];
         var prefix = ctx + "broad/traffic";
 
         $(function() {
@@ -68,6 +77,8 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
+                rdsSetUrl: prefix + "/rdsSet",
+				fmfrequencyUrl: prefix + "/fmfrequencySet",
                 modalName: "流量",
 				search: false,
 		        showExport: true,
@@ -76,8 +87,8 @@
 		            checkbox: true
 		        },
 				{
-					field : 'ttid',
-					title : '终端流量使用信息表-id',
+					field : 'tid',
+					title : '终端流量使用信息表编号',
 					visible: false
 				},
 				{
@@ -85,6 +96,21 @@
 					title : '终端编号',
 					sortable: true
 				},
+					{
+						field : 'tname',
+						title : '终端名称',
+						sortable: true
+					},
+					{
+						field : 'aname',
+						title : '所属分组',
+						sortable: true
+					},
+					{
+						field : 'uname',
+						title : '所属用户',
+						sortable: true
+					},
 				{
 					field : 'usetraffic', 
 					title : '使用流量/MB',
@@ -92,7 +118,7 @@
 				},
 				{
 					field : 'trafficlimit',
-					title : '终端流量使用限制，单位MB',
+					title : '流量限制/MB',
 					sortable: true
 				},
 				{
@@ -109,10 +135,14 @@
 					sortable: true
 				},
 				{
-					field : 'remark', 
-					title : '备注',
-					sortable: true
-				},
+					field : 'isuse',
+					title : '启用状态',
+					sortable: true,
+					formatter: function(value, row, index) {
+						return $.table.selectDictLabel(data2s, value);
+					}
+
+				}
 //		        {
 //		            title: '操作',
 //		            align: 'center',
@@ -127,6 +157,33 @@
             };
             $.table.init(options);
         });
+
+        function rdsSet() {
+            var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+            if (rows.length == 0) {
+                $.modal.alertWarning("请至少选择一条记录");
+                return;
+            }
+            $.modal.confirm("确认要更加选中的" + rows.length + "条数据的限制流量吗?", function() {
+                var url = $.table._option.rdsSetUrl;
+                var rdsNumber = document.getElementById("rdsNum").value;
+                var data = {"ids": rows.join(),"number": rdsNumber};
+                $.operate.submit(url, "post", "json", data);
+            });
+        }
+		function fmfrequency() {
+			var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+			if (rows.length == 0) {
+				$.modal.alertWarning("请至少选择一条记录");
+				return;
+			}
+			$.modal.confirm("确认要更加选中的" + rows.length + "条数据的终端启用吗?", function() {
+				var url = $.table._option.fmfrequencyUrl;
+				var fmfrequencyNumber = document.getElementById("fmfrequencyNum").value;
+				var data = {"ids": rows.join(),"number": fmfrequencyNumber};
+				$.operate.submit(url, "post", "json", data);
+			});
+		}
     </script>
 </body>
 </html>

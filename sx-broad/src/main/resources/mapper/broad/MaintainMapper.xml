@@ -21,21 +21,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="la"    column="la"    />
     </resultMap>
 	
-	<sql id="selectMaintainVo">
+	<!--<sql id="selectMaintainVo">
         select tmid, tid, fault, mstaff, createtime, remark from terminal_maintain
+    </sql>-->
+    <sql id="selectMaintainVo">
+    select
+    tmid,
+    tm.tid as tid,
+    fault,
+    mstaff,
+    tm.remark as remark,
+    tname,
+    intertime,
+    phone,
+    address,
+    tm.createtime as createtime,
+    t.aid as aid,
+    aname,
+    ui.userid as userid,
+    uname,
+    nettype,
+    basestation
+    from
+    (((terminal_maintain tm  JOIN terminals t on tm.tid=t.tid)
+    left join ter_conditions tc on tm.tid = tc.tid)
+    left join area a on t.aid = a.aid)
+    left join userinfo ui on ui.userid = t.userid
     </sql>
-	
     <select id="selectMaintainList" parameterType="Maintain" resultMap="MaintainResult">
         <include refid="selectMaintainVo"/>
-        <where>  
-            <if test="tmid != null "> and tmid like '%${tmid}%'</if>
+        <where>
              <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
+             <if test="tname != null  and tname != '' "> and tname like '%${tname}%'</if>
+             <if test="aname != null  and aname != '' "> and aname like '%${aname}%'</if>
              <if test="fault != null  and fault != '' "> and fault like '%${fault}%'</if>
-             <if test="mstaff != null  and mstaff != '' "> and mstaff like '%${mstaff}%'</if>
-             <if test="createtime != null  and createtime != '' "> and createtime like '%${createtime}%'</if>
-             <if test="remark != null  and remark != '' "> and remark like '%${remark}%'</if>
+             <if test="aid != null  and aid != ''  ">and t.aid = #{aid}</if>
          </where>
-        ORDER BY createtime DESC
+        ORDER BY tm.createtime DESC
     </select>
     
     <select id="selectMaintainById" parameterType="Integer" resultMap="MaintainResult">
@@ -57,22 +79,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
         
-    <insert id="insertMaintain" parameterType="Maintain">
+    <insert id="insertMaintain" parameterType="String">
         insert into terminal_maintain
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="tmid != null  ">tmid,</if>
 			<if test="tid != null  and tid != ''  ">tid,</if>
 			<if test="fault != null  and fault != ''  ">fault,</if>
 			<if test="mstaff != null  and mstaff != ''  ">mstaff,</if>
-			<if test="createtime != null  and createtime != ''  ">createtime,</if>
 			<if test="remark != null  and remark != ''  ">remark,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="tmid != null  ">#{tmid},</if>
 			<if test="tid != null  and tid != ''  ">#{tid},</if>
 			<if test="fault != null  and fault != ''  ">#{fault},</if>
 			<if test="mstaff != null  and mstaff != ''  ">#{mstaff},</if>
-			<if test="createtime != null  and createtime != ''  ">#{createtime},</if>
 			<if test="remark != null  and remark != ''  ">#{remark},</if>
          </trim>
     </insert>
