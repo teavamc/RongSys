@@ -70,7 +70,7 @@ function editTime(obj){
         area: [_width + 'px', _height + 'px'],
         content: _url,
         shadeClose: true,
-        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        btn: ['<i class="fa fa-chat"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
         yes: function (index, layero) {
             layer.close(index);
             //获取子页面关闭前的回调函数获取到的值
@@ -472,7 +472,7 @@ function selectOrganTree() {
         area: [_width + 'px', _height + 'px'],
         content: _url,
         shadeClose: true,
-        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        btn: ['<i class="fa fa-chat"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
         yes: function (index, layero) {
             doSubmit(index, layero)
             //获取子页面关闭前的回调函数获取到的值
@@ -510,7 +510,7 @@ function doFile() {
         area: [_width + 'px', _height + 'px'],
         content: _url,
         shadeClose: true,
-        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        btn: ['<i class="fa fa-chat"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
         yes: function (index, layero) {
             layer.close(index);
             //获取子页面关闭前的回调函数获取到的值
@@ -582,7 +582,7 @@ function doCham() {
         area: [_width + 'px', _height + 'px'],
         content: _url,
         shadeClose: true,
-        btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+        btn: ['<i class="fa fa-chat"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
         yes: function (index, layero) {
             layer.close(index);
             //获取子页面关闭前的回调函数获取到的值

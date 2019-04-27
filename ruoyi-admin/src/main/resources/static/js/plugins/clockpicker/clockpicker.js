@@ -250,7 +250,7 @@
 				z = Math.sqrt(dx * dx + dy * dy),
 				moved = false;
 
-			// When clicking on minutes view space, check the mouse position
+			// When clicking on minutes view space, chat the mouse position
 			if (space && (z < outerRadius - tickRadius || z > outerRadius + tickRadius)) {
 				return;
 			}

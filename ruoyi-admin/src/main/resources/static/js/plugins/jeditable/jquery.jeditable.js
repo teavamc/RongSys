@@ -309,7 +309,7 @@
                         /* if it returns false abort submitting */
                         if (false !== submit.apply(form, [settings, self])) {
 
-                            /* check if given target is function */
+                            /* chat if given target is function */
                             if ($.isFunction(settings.target)) {
                                 var str = settings.target.apply(self, [input.val(), settings]);
                                 $(self).html(str);
