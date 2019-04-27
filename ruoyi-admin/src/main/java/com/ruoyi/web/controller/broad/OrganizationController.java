@@ -127,7 +127,7 @@ public class OrganizationController extends BaseController
 		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");// a为am/pm的标记
 		Date date = new Date();// 获取当前时间
 		organization.setCreatedtime(sdf.format(date));
-//		organizationService.insertOrganizationPic(organization);
+		organizationService.insertOrganizationPic(organization);
 		return toAjax(organizationService.insertOrganization(organization));
 	}
 
