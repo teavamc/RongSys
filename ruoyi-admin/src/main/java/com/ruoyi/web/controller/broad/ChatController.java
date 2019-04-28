@@ -1,10 +1,14 @@
 package com.ruoyi.web.controller.broad;
 
 
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.ruoyi.framework.web.base.BaseController;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 聊天室
@@ -18,7 +22,9 @@ public class ChatController extends BaseController {
     private String prefix = "broad/chat";
 
     @GetMapping()
-    public String chat() {
+    public String chat(HttpSession session) {
+        SysUser user = ShiroUtils.getSysUser(); //从session中获取当前登陆用户的userid
+        session.setAttribute("userName", user.getUserName());
         return prefix + "/chat";
     }
 }

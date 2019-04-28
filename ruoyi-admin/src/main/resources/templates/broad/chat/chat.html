@@ -82,7 +82,7 @@
         <div class="col-sm-12">
             <div class="chat-message-form">
                 <div class="form-group">
-                    <input type="hidden" id="name1" value="test">
+                    <input type="hidden" id="name1" th:value="${session.userName}">
                     <textarea class="form-control message-input" id="text1" name="message" placeholder="输入消息内容"></textarea>
                 </div>
             </div>
