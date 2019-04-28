@@ -60,9 +60,38 @@
                 var str = "test:" + $.trim($("#text1").val());
             socket.send(str);
         }
+        function users() {
+            $.ajax({
+                type: "POST",
+                url: "/system/user/list",
+                dataType: "json",
+                success: function (data) {
+                    var names = data.rows;
+                    console.log(names);
+                    console.log(data.rows[0].userName);
+                    var str = '';
+
+                    for(var i in names) {
+                        var n = '';
+                        if (names[i].status == 0)
+                            n = '<span class="pull-right label label-primary">状态: 正常</span>';
+                        else
+                            n = '<span class="pull-right label label-error" >状态: 停用</span>';
+                        str +=
+                            '<div class="chat-user"> ' + n +
+                                '<div class="chat-user-name"> ' +
+                                    '<a href="#">'+names[i].userName+'</a> ' +
+                                '</div>' +
+                            '</div>';
+                    }
+                    $("#users").html(str);
+
+                }
+            });
+        }
     </script>
 </head>
-<body>
+<body onload="users();">
 <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
         <div class="col-sm-12">
@@ -70,8 +99,13 @@
                 <div class="ibox-title">聊天窗口</div>
                 <div class="ibox-content">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div id="chat" class="chat-discussion"></div>
+                        <div class="col-md-9">
+                            <div id="chat" class="chat-discussion" style="height: 500px;"></div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="chat-users" style="height: 500px">
+                                <div class="users-list" id="users"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
