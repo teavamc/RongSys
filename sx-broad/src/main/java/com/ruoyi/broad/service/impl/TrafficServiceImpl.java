@@ -101,4 +101,26 @@ public class TrafficServiceImpl implements ITrafficService
 		return trafficMapper.deleteTrafficByIds(Convert.toStrArray(ids));
 	}
 
+	/**
+	 * 批量设置流量限制
+	 *
+	 * @return
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public int updateRdsByIds(String id , String number)
+	{
+		return trafficMapper.updateRdsByIds(Convert.toStrArray(id),number);
+	}
+
+	/**
+	 * 批量设置限终端启用
+	 ** @return
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public int updateFmfrequencyByIds(String id , String number)
+	{
+		return trafficMapper.updateFmfrequencyByIds(Convert.toStrArray(id),number);
+	}
 }

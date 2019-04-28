@@ -52,15 +52,14 @@ public class MaintainServiceImpl implements IMaintainService
 	
     /**
      * 新增终端维护记录
-     * 
-     * @param maintain 终端维护记录信息
+     *
      * @return 结果
      */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public int insertMaintain(Maintain maintain)
+	public int insertMaintain(String tid,String fault,String mstaff,String remark)
 	{
-	    return maintainMapper.insertMaintain(maintain);
+	    return maintainMapper.insertMaintain(tid,fault,mstaff,remark);
 	}
 	
 	/**

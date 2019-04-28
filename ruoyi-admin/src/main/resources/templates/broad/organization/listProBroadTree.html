@@ -30,6 +30,7 @@
         </div>
     <div>
         <input id="org" name="org"  width="50%" placeholder="">
+        <input id="tname" type="hidden" name="tname"  width="50%" placeholder="">
     </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table" data-mobile-responsive="true"></table>
@@ -108,19 +109,43 @@
      function addProIdAll() {
        /*在选择终端前先获取一次文本框的值，为的是可以选择多个小组的终端*/
         var originalValue = document.getElementById("org").value;
+        var originalName = document.getElementById("tname").value;
         /*通过选择框去获取终端的IMEI号*/
         var rows = $.common.isEmpty($.table._option.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns($.table._option.uniqueId);
+        var rowsName = $.table.selectColumns('tname');
         var data = { "ids": rows.join() };
+        var dataName = {"tnames":rowsName.join()};
         var test = data;
+        var testName = dataName;
         var i;
+        console.log("test:" + test);
         /*js for in循环遍历对象，获取key:value值*/
         for(i in test){
             console.log("IMEI:",test[i]);/*这里test[i]是所选择终端的IMEI号的字符串ps：111,222*/
         }
+        var j;
+        for(j in testName) {
+            console.log("imeiName:", testName[j]);
+        }
         var selectValue = test[i] + "," + originalValue ;
         document.getElementById("org").value = selectValue;
+        var selectName = testName[j] + ',' + originalName;
+        document.getElementById("tname").value = selectName;
          /*这里显示的是所选择终端的IMEI号的json ps：{"ids":"111,222"}*/
          /*alert(JSON.stringify(data));*/
+         var str = '';
+         var test1 = String(document.getElementById("org").value).split(',');
+         var test2 = String(document.getElementById("tname").value).split(',');
+         var buttonStyle = ["btn btn-primary","btn btn-success","btn btn-info","btn btn-warning","btn btn-danger"];
+         for(i = 0; i <  test1.length; i++) {
+             if (test1[i] != '' && test1[i] != null) {
+                 str += '<button class="'+buttonStyle[i%5] + '" onclick="' +
+                     'imeiYes('+test1[i]+')" style="margin: 2px 2px;color: white"> 终端名称:'+test2[i]+'<br>IMEI:'+test1[i]+'</button>';
+             }
+         }
+         parent.document.getElementById("treeId").value = test1;
+         parent.document.getElementById("tname").value = test2;
+         parent.$('#imea').html(str);
      }
 
      //提供给父页面获取选中的值
