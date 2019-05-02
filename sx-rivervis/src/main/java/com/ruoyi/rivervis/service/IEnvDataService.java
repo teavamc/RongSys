@@ -1,6 +1,8 @@
 package com.ruoyi.rivervis.service;
 
 import com.ruoyi.rivervis.domain.EnvData;
+import com.ruoyi.rivervis.domain.Riverbytl;
+
 import java.util.List;
 
 /**
@@ -67,5 +69,12 @@ public interface IEnvDataService
      * @return 结果
      */
 	public int deleteEnvDataByIds(String ids);
-	
+
+	/**
+	 * 根据时间范围和查询条数统计环境数据
+	 *
+	 * @param envData 环境监测信息
+	 * @return 环境监测集合
+	 */
+	public List<EnvData> selectEnvDataListbytl(Riverbytl riverbytl);
 }

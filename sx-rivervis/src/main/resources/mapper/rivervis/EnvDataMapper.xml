@@ -115,5 +115,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{id}
         </foreach>
     </delete>
-    
+
+    <select id="selectEnvDataListbytl" parameterType="Riverbytl" resultMap="EnvDataResult">
+        <include refid="selectEnvDataVo"/>
+        where  time between #{begintime} AND #{endtime}
+        order by time asc
+        limit 0,#{limit}
+    </select>
 </mapper>
