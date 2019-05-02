@@ -1,0 +1,215 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								地域编号：<input type="text" name="aid"/>
+							</li>
+
+							<li>
+								户主姓名：<input type="text" name="name"/>
+							</li>
+
+							<li>
+								房屋照片地址：<input type="text" name="housepic"/>
+							</li>
+
+							<li>
+								房屋面积：<input type="text" name="area"/>
+							</li>
+
+							<li>
+								建房证照片地址：<input type="text" name="certificate"/>
+							</li>
+
+							<li>
+								房屋地址：<input type="text" name="address"/>
+							</li>
+
+							<li>
+								信用社银行卡号：<input type="text" name="bankcard"/>
+							</li>
+
+							<li>
+								电力供电接入：<input type="text" name="psa"/>
+							</li>
+
+							<li>
+								有线电视接入：<input type="text" name="ca"/>
+							</li>
+
+							<li>
+								宽带网络接入：<input type="text" name="woban"/>
+							</li>
+
+							<li>
+								自来水供应接入：<input type="text" name="water"/>
+							</li>
+
+							<li>
+								安防系统接入：<input type="text" name="ssa"/>
+							</li>
+
+							<li>
+								垃圾分类及处理：<input type="text" name="wdr"/>
+							</li>
+
+							<li>
+								煤气燃料供应：<input type="text" name="gfs"/>
+							</li>
+
+							<li>
+								征收情况：<input type="text" name="levy"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:houseInfo:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="village:houseInfo:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:houseInfo:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="village:houseInfo:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('village:houseInfo:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('village:houseInfo:remove')}]];
+        var prefix = ctx + "village/houseInfo";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "房屋",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'hid', 
+					title : '房屋信息数据编号',
+					visible: false
+				},
+				{
+					field : 'aid', 
+					title : '地域编号',
+					sortable: true
+				},
+				{
+					field : 'name', 
+					title : '户主姓名',
+					sortable: true
+				},
+				{
+					field : 'housepic', 
+					title : '房屋照片地址',
+					sortable: true
+				},
+				{
+					field : 'area', 
+					title : '房屋面积',
+					sortable: true
+				},
+				{
+					field : 'certificate', 
+					title : '建房证照片地址',
+					sortable: true
+				},
+				{
+					field : 'address', 
+					title : '房屋地址',
+					sortable: true
+				},
+				{
+					field : 'bankcard', 
+					title : '信用社银行卡号',
+					sortable: true
+				},
+				{
+					field : 'psa', 
+					title : '电力供电接入',
+					sortable: true
+				},
+				{
+					field : 'ca', 
+					title : '有线电视接入',
+					sortable: true
+				},
+				{
+					field : 'woban', 
+					title : '宽带网络接入',
+					sortable: true
+				},
+				{
+					field : 'water', 
+					title : '自来水供应接入',
+					sortable: true
+				},
+				{
+					field : 'ssa', 
+					title : '安防系统接入',
+					sortable: true
+				},
+				{
+					field : 'wdr', 
+					title : '垃圾分类及处理',
+					sortable: true
+				},
+				{
+					field : 'gfs', 
+					title : '煤气燃料供应',
+					sortable: true
+				},
+				{
+					field : 'levy', 
+					title : '征收情况',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.hid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.hid + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

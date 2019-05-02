@@ -1,0 +1,220 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-villagerInfo-add">
+			<div class="form-group">
+				<label class="col-sm-3 control-label">地域编号：</label>
+				<div class="col-sm-8">
+					<input id="aid" name="aid" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">村民姓名：</label>
+				<div class="col-sm-8">
+					<input id="name" name="name" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">年龄：</label>
+				<div class="col-sm-8">
+					<input id="age" name="age" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">性别：</label>
+				<div class="col-sm-8">
+					<input id="sex" name="sex" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">籍贯：</label>
+				<div class="col-sm-8">
+					<input id="nativeplace" name="nativeplace" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">民族：</label>
+				<div class="col-sm-8">
+					<input id="nation" name="nation" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">政治面貌：</label>
+				<div class="col-sm-8">
+					<input id="politics" name="politics" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">入党年月：</label>
+				<div class="col-sm-8">
+					<input id="partyjoindate" name="partyjoindate" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">文化程度：</label>
+				<div class="col-sm-8">
+					<input id="edulevel" name="edulevel" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">婚姻状况：</label>
+				<div class="col-sm-8">
+					<input id="marital" name="marital" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">身份证号码：</label>
+				<div class="col-sm-8">
+					<input id="idcard" name="idcard" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">联系方式：</label>
+				<div class="col-sm-8">
+					<input id="phone" name="phone" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">健康状况：</label>
+				<div class="col-sm-8">
+					<input id="health" name="health" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">特种（残疾）信息：</label>
+				<div class="col-sm-8">
+					<input id="special" name="special" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">优抚信息：</label>
+				<div class="col-sm-8">
+					<input id="entitle" name="entitle" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">计生情况：</label>
+				<div class="col-sm-8">
+					<input id="familyplan" name="familyplan" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">医疗情况：</label>
+				<div class="col-sm-8">
+					<input id="medical" name="medical" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">补助情况：</label>
+				<div class="col-sm-8">
+					<input id="subsidy" name="subsidy" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">保险情况：</label>
+				<div class="col-sm-8">
+					<input id="insurance" name="insurance" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">犯罪史：</label>
+				<div class="col-sm-8">
+					<input id="criminal" name="criminal" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">吸毒史：</label>
+				<div class="col-sm-8">
+					<input id="drug" name="drug" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">驾照：</label>
+				<div class="col-sm-8">
+					<input id="drive" name="drive" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">车辆：</label>
+				<div class="col-sm-8">
+					<input id="car" name="car" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">车辆类型：</label>
+				<div class="col-sm-8">
+					<input id="vtype" name="vtype" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">车牌号：</label>
+				<div class="col-sm-8">
+					<input id="carnum" name="carnum" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">职业：</label>
+				<div class="col-sm-8">
+					<input id="work" name="work" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工作单位：</label>
+				<div class="col-sm-8">
+					<input id="company" name="company" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">户籍地址：</label>
+				<div class="col-sm-8">
+					<input id="pra" name="pra" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">现居地址：</label>
+				<div class="col-sm-8">
+					<input id="home" name="home" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">所属村组：</label>
+				<div class="col-sm-8">
+					<input id="grouptype" name="grouptype" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">住房性质：</label>
+				<div class="col-sm-8">
+					<input id="house" name="house" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">户口性质：</label>
+				<div class="col-sm-8">
+					<input id="prt" name="prt" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "village/villagerInfo"
+		$("#form-villagerInfo-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-villagerInfo-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>
