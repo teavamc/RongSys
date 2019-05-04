@@ -1,6 +1,9 @@
 package com.ruoyi.village.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.HouseInfoMapper;
@@ -27,6 +30,7 @@ public class HouseInfoServiceImpl implements IHouseInfoService
      * @return 房屋信息
      */
     @Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public HouseInfo selectHouseInfoById(Integer hid)
 	{
 	    return houseInfoMapper.selectHouseInfoById(hid);
@@ -39,6 +43,7 @@ public class HouseInfoServiceImpl implements IHouseInfoService
      * @return 房屋集合
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public List<HouseInfo> selectHouseInfoList(HouseInfo houseInfo)
 	{
 	    return houseInfoMapper.selectHouseInfoList(houseInfo);
@@ -51,6 +56,7 @@ public class HouseInfoServiceImpl implements IHouseInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int insertHouseInfo(HouseInfo houseInfo)
 	{
 	    return houseInfoMapper.insertHouseInfo(houseInfo);
@@ -63,6 +69,7 @@ public class HouseInfoServiceImpl implements IHouseInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int updateHouseInfo(HouseInfo houseInfo)
 	{
 	    return houseInfoMapper.updateHouseInfo(houseInfo);
@@ -75,6 +82,7 @@ public class HouseInfoServiceImpl implements IHouseInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int deleteHouseInfoByIds(String ids)
 	{
 		return houseInfoMapper.deleteHouseInfoByIds(Convert.toStrArray(ids));
