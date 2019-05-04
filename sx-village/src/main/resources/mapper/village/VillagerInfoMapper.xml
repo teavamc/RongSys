@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="VillagerInfo" id="VillagerInfoResult">
         <result property="vid"    column="vid"    />
         <result property="aid"    column="aid"    />
-        <result property="name"    column="name"    />
+        <result property="vname"    column="vname"    />
         <result property="age"    column="age"    />
         <result property="sex"    column="sex"    />
         <result property="nativeplace"    column="nativeplace"    />
@@ -31,7 +31,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="car"    column="car"    />
         <result property="vtype"    column="vtype"    />
         <result property="carnum"    column="carnum"    />
-        <result property="work"    column="work"    />
+        <result property="job"    column="job"    />
         <result property="company"    column="company"    />
         <result property="pra"    column="pra"    />
         <result property="home"    column="home"    />
@@ -41,7 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectVillagerInfoVo">
-        select vid, aid, name, age, sex, nativeplace, nation, politics, partyjoindate, edulevel, marital, idcard, phone, health, special, entitle, familyplan, medical, subsidy, insurance, criminal, drug, drive, car, vtype, carnum, work, company, pra, home, grouptype, house, prt from villager_info
+        select vid, aid, vname, age, sex, nativeplace, nation, politics, partyjoindate, edulevel, marital, idcard, phone, health, special, entitle, familyplan, medical, subsidy, insurance, criminal, drug, drive, car, vtype, carnum, job, company, pra, home, grouptype, house, prt from villager_info
     </sql>
 	
     <select id="selectVillagerInfoList" parameterType="VillagerInfo" resultMap="VillagerInfoResult">
@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="vid != null "> and vid = #{vid}</if>
              <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
-             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="vname != null  and vname != '' "> and vname = #{vname}</if>
              <if test="age != null  and age != '' "> and age = #{age}</if>
              <if test="sex != null  and sex != '' "> and sex = #{sex}</if>
              <if test="nativeplace != null  and nativeplace != '' "> and nativeplace = #{nativeplace}</if>
@@ -73,7 +73,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="car != null  and car != '' "> and car = #{car}</if>
              <if test="vtype != null  and vtype != '' "> and vtype = #{vtype}</if>
              <if test="carnum != null  and carnum != '' "> and carnum = #{carnum}</if>
-             <if test="work != null  and work != '' "> and work = #{work}</if>
+             <if test="job != null  and job != '' "> and job = #{job}</if>
              <if test="company != null  and company != '' "> and company = #{company}</if>
              <if test="pra != null  and pra != '' "> and pra = #{pra}</if>
              <if test="home != null  and home != '' "> and home = #{home}</if>
@@ -93,7 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="vid != null  ">vid,</if>
 			<if test="aid != null  and aid != ''  ">aid,</if>
-			<if test="name != null  and name != ''  ">name,</if>
+			<if test="vname != null  and vname != ''  ">vname,</if>
 			<if test="age != null  and age != ''  ">age,</if>
 			<if test="sex != null  and sex != ''  ">sex,</if>
 			<if test="nativeplace != null  and nativeplace != ''  ">nativeplace,</if>
@@ -117,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="car != null  and car != ''  ">car,</if>
 			<if test="vtype != null  and vtype != ''  ">vtype,</if>
 			<if test="carnum != null  and carnum != ''  ">carnum,</if>
-			<if test="work != null  and work != ''  ">work,</if>
+			<if test="job != null  and job != ''  ">job,</if>
 			<if test="company != null  and company != ''  ">company,</if>
 			<if test="pra != null  and pra != ''  ">pra,</if>
 			<if test="home != null  and home != ''  ">home,</if>
@@ -128,7 +128,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="vid != null  ">#{vid},</if>
 			<if test="aid != null  and aid != ''  ">#{aid},</if>
-			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="vname != null  and vname != ''  ">#{vname},</if>
 			<if test="age != null  and age != ''  ">#{age},</if>
 			<if test="sex != null  and sex != ''  ">#{sex},</if>
 			<if test="nativeplace != null  and nativeplace != ''  ">#{nativeplace},</if>
@@ -152,7 +152,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="car != null  and car != ''  ">#{car},</if>
 			<if test="vtype != null  and vtype != ''  ">#{vtype},</if>
 			<if test="carnum != null  and carnum != ''  ">#{carnum},</if>
-			<if test="work != null  and work != ''  ">#{work},</if>
+			<if test="job != null  and job != ''  ">#{job},</if>
 			<if test="company != null  and company != ''  ">#{company},</if>
 			<if test="pra != null  and pra != ''  ">#{pra},</if>
 			<if test="home != null  and home != ''  ">#{home},</if>
@@ -166,7 +166,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update villager_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="aid != null  and aid != ''  ">aid = #{aid},</if>
-            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="vname != null  and vname != ''  ">vname = #{vname},</if>
             <if test="age != null  and age != ''  ">age = #{age},</if>
             <if test="sex != null  and sex != ''  ">sex = #{sex},</if>
             <if test="nativeplace != null  and nativeplace != ''  ">nativeplace = #{nativeplace},</if>
@@ -190,7 +190,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="car != null  and car != ''  ">car = #{car},</if>
             <if test="vtype != null  and vtype != ''  ">vtype = #{vtype},</if>
             <if test="carnum != null  and carnum != ''  ">carnum = #{carnum},</if>
-            <if test="work != null  and work != ''  ">work = #{work},</if>
+            <if test="job != null  and job != ''  ">job = #{job},</if>
             <if test="company != null  and company != ''  ">company = #{company},</if>
             <if test="pra != null  and pra != ''  ">pra = #{pra},</if>
             <if test="home != null  and home != ''  ">home = #{home},</if>

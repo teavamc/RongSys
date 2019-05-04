@@ -19,7 +19,7 @@ public class HouseInfo extends BaseEntity
 	/** 地域编号 */
 	private String aid;
 	/** 户主姓名 */
-	private String name;
+	private String vname;
 	/** 房屋照片地址 */
 	private String housepic;
 	/** 房屋面积 */
@@ -65,14 +65,14 @@ public class HouseInfo extends BaseEntity
 	{
 		return aid;
 	}
-	public void setName(String name) 
+	public void setVname(String vname)
 	{
-		this.name = name;
+		this.vname = vname;
 	}
 
-	public String getName() 
+	public String getVname()
 	{
-		return name;
+		return vname;
 	}
 	public void setHousepic(String housepic) 
 	{
@@ -196,7 +196,7 @@ public class HouseInfo extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("hid", getHid())
             .append("aid", getAid())
-            .append("name", getName())
+            .append("vname", getVname())
             .append("housepic", getHousepic())
             .append("area", getArea())
             .append("certificate", getCertificate())

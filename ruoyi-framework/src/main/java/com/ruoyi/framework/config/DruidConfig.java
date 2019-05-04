@@ -67,6 +67,15 @@ public class DruidConfig
         return DruidDataSourceBuilder.create().build();
     }
 
+    @Bean
+    @ConfigurationProperties("spring.datasource.druid.sxbaodian")
+    @ConditionalOnProperty(prefix = "spring.datasource.druid.sxbaodian", name = "enabled", havingValue = "true")
+    public DataSource sx_baodianDataSource()
+    {
+        return DruidDataSourceBuilder.create().build();
+    }
+
+
     @Bean(name = "dynamicDataSource")
     @Primary
     public DynamicDataSource dataSource(DataSource masterDataSource, DataSource slaveDataSource,

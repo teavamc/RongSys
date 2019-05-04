@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="HouseInfo" id="HouseInfoResult">
         <result property="hid"    column="hid"    />
         <result property="aid"    column="aid"    />
-        <result property="name"    column="name"    />
+        <result property="vname"    column="vname"    />
         <result property="housepic"    column="housepic"    />
         <result property="area"    column="area"    />
         <result property="certificate"    column="certificate"    />
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectHouseInfoVo">
-        select hid, aid, name, housepic, area, certificate, address, bankcard, psa, ca, woban, water, ssa, wdr, gfs, levy from house_info
+        select hid, aid, vname, housepic, area, certificate, address, bankcard, psa, ca, woban, water, ssa, wdr, gfs, levy from house_info
     </sql>
 	
     <select id="selectHouseInfoList" parameterType="HouseInfo" resultMap="HouseInfoResult">
@@ -32,7 +32,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="hid != null "> and hid = #{hid}</if>
              <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
-             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="vname != null  and vname != '' "> and vname = #{vname}</if>
              <if test="housepic != null  and housepic != '' "> and housepic = #{housepic}</if>
              <if test="area != null  and area != '' "> and area = #{area}</if>
              <if test="certificate != null  and certificate != '' "> and certificate = #{certificate}</if>
@@ -59,7 +59,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="hid != null  ">hid,</if>
 			<if test="aid != null  and aid != ''  ">aid,</if>
-			<if test="name != null  and name != ''  ">name,</if>
+			<if test="vname != null  and vname != ''  ">vname,</if>
 			<if test="housepic != null  and housepic != ''  ">housepic,</if>
 			<if test="area != null  and area != ''  ">area,</if>
 			<if test="certificate != null  and certificate != ''  ">certificate,</if>
@@ -77,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="hid != null  ">#{hid},</if>
 			<if test="aid != null  and aid != ''  ">#{aid},</if>
-			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="vname != null  and vname != ''  ">#{vname},</if>
 			<if test="housepic != null  and housepic != ''  ">#{housepic},</if>
 			<if test="area != null  and area != ''  ">#{area},</if>
 			<if test="certificate != null  and certificate != ''  ">#{certificate},</if>
@@ -98,7 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update house_info
         <trim prefix="SET" suffixOverrides=",">
             <if test="aid != null  and aid != ''  ">aid = #{aid},</if>
-            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="vname != null  and vname != ''  ">vname = #{vname},</if>
             <if test="housepic != null  and housepic != ''  ">housepic = #{housepic},</if>
             <if test="area != null  and area != ''  ">area = #{area},</if>
             <if test="certificate != null  and certificate != ''  ">certificate = #{certificate},</if>

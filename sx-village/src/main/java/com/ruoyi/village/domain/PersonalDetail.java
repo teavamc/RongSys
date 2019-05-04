@@ -19,7 +19,7 @@ public class PersonalDetail extends BaseEntity
 	/** 地域编号 */
 	private String aid;
 	/** 村民姓名 */
-	private String name;
+	private String vname;
 	/** 个人照片编号 */
 	private String personpic;
 	/** 身份证号码 */
@@ -49,14 +49,14 @@ public class PersonalDetail extends BaseEntity
 	{
 		return aid;
 	}
-	public void setName(String name) 
+	public void setName(String vname)
 	{
-		this.name = name;
+		this.vname = vname;
 	}
 
-	public String getName() 
+	public String getVname()
 	{
-		return name;
+		return vname;
 	}
 	public void setPersonpic(String personpic) 
 	{
@@ -108,7 +108,7 @@ public class PersonalDetail extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("pdid", getPdid())
             .append("aid", getAid())
-            .append("name", getName())
+            .append("vname", getVname())
             .append("personpic", getPersonpic())
             .append("idcard", getIdcard())
             .append("idcardpic", getIdcardpic())
