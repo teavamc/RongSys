@@ -1,6 +1,9 @@
 package com.ruoyi.village.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.PersonalDetailMapper;
@@ -27,6 +30,7 @@ public class PersonalDetailServiceImpl implements IPersonalDetailService
      * @return 个人详细信息
      */
     @Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public PersonalDetail selectPersonalDetailById(Integer pdid)
 	{
 	    return personalDetailMapper.selectPersonalDetailById(pdid);
@@ -39,6 +43,7 @@ public class PersonalDetailServiceImpl implements IPersonalDetailService
      * @return 个人详细集合
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public List<PersonalDetail> selectPersonalDetailList(PersonalDetail personalDetail)
 	{
 	    return personalDetailMapper.selectPersonalDetailList(personalDetail);
@@ -51,6 +56,7 @@ public class PersonalDetailServiceImpl implements IPersonalDetailService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int insertPersonalDetail(PersonalDetail personalDetail)
 	{
 	    return personalDetailMapper.insertPersonalDetail(personalDetail);
@@ -63,6 +69,7 @@ public class PersonalDetailServiceImpl implements IPersonalDetailService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int updatePersonalDetail(PersonalDetail personalDetail)
 	{
 	    return personalDetailMapper.updatePersonalDetail(personalDetail);
@@ -75,6 +82,7 @@ public class PersonalDetailServiceImpl implements IPersonalDetailService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int deletePersonalDetailByIds(String ids)
 	{
 		return personalDetailMapper.deletePersonalDetailByIds(Convert.toStrArray(ids));
