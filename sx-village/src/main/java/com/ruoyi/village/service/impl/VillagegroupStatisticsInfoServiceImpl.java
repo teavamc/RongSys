@@ -1,6 +1,9 @@
 package com.ruoyi.village.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.VillagegroupStatisticsInfoMapper;
@@ -27,6 +30,7 @@ public class VillagegroupStatisticsInfoServiceImpl implements IVillagegroupStati
      * @return 村组统计信息
      */
     @Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public VillagegroupStatisticsInfo selectVillagegroupStatisticsInfoById(Integer vgsid)
 	{
 	    return villagegroupStatisticsInfoMapper.selectVillagegroupStatisticsInfoById(vgsid);
@@ -39,6 +43,7 @@ public class VillagegroupStatisticsInfoServiceImpl implements IVillagegroupStati
      * @return 村组统计集合
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public List<VillagegroupStatisticsInfo> selectVillagegroupStatisticsInfoList(VillagegroupStatisticsInfo villagegroupStatisticsInfo)
 	{
 	    return villagegroupStatisticsInfoMapper.selectVillagegroupStatisticsInfoList(villagegroupStatisticsInfo);
@@ -51,6 +56,7 @@ public class VillagegroupStatisticsInfoServiceImpl implements IVillagegroupStati
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int insertVillagegroupStatisticsInfo(VillagegroupStatisticsInfo villagegroupStatisticsInfo)
 	{
 	    return villagegroupStatisticsInfoMapper.insertVillagegroupStatisticsInfo(villagegroupStatisticsInfo);
@@ -63,6 +69,7 @@ public class VillagegroupStatisticsInfoServiceImpl implements IVillagegroupStati
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int updateVillagegroupStatisticsInfo(VillagegroupStatisticsInfo villagegroupStatisticsInfo)
 	{
 	    return villagegroupStatisticsInfoMapper.updateVillagegroupStatisticsInfo(villagegroupStatisticsInfo);
@@ -75,6 +82,7 @@ public class VillagegroupStatisticsInfoServiceImpl implements IVillagegroupStati
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int deleteVillagegroupStatisticsInfoByIds(String ids)
 	{
 		return villagegroupStatisticsInfoMapper.deleteVillagegroupStatisticsInfoByIds(Convert.toStrArray(ids));

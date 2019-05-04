@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="PersonalDetail" id="PersonalDetailResult">
         <result property="pdid"    column="pdid"    />
         <result property="aid"    column="aid"    />
-        <result property="name"    column="name"    />
+        <result property="vname"    column="vname"    />
         <result property="personpic"    column="personpic"    />
         <result property="idcard"    column="idcard"    />
         <result property="idcardpic"    column="idcardpic"    />
@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 	
 	<sql id="selectPersonalDetailVo">
-        select pdid, aid, name, personpic, idcard, idcardpic, carnum, carpic from personal_detail
+        select pdid, aid, vname, personpic, idcard, idcardpic, carnum, carpic from personal_detail
     </sql>
 	
     <select id="selectPersonalDetailList" parameterType="PersonalDetail" resultMap="PersonalDetailResult">
@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="pdid != null "> and pdid = #{pdid}</if>
              <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
-             <if test="name != null  and name != '' "> and name = #{name}</if>
+             <if test="vname != null  and vname != '' "> and vname = #{vname}</if>
              <if test="personpic != null  and personpic != '' "> and personpic = #{personpic}</if>
              <if test="idcard != null  and idcard != '' "> and idcard = #{idcard}</if>
              <if test="idcardpic != null  and idcardpic != '' "> and idcardpic = #{idcardpic}</if>
@@ -43,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="pdid != null  ">pdid,</if>
 			<if test="aid != null  and aid != ''  ">aid,</if>
-			<if test="name != null  and name != ''  ">name,</if>
+			<if test="vname != null  and vname != ''  ">vname,</if>
 			<if test="personpic != null  and personpic != ''  ">personpic,</if>
 			<if test="idcard != null  and idcard != ''  ">idcard,</if>
 			<if test="idcardpic != null  and idcardpic != ''  ">idcardpic,</if>
@@ -53,7 +53,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="pdid != null  ">#{pdid},</if>
 			<if test="aid != null  and aid != ''  ">#{aid},</if>
-			<if test="name != null  and name != ''  ">#{name},</if>
+			<if test="vname != null  and vname != ''  ">#{vname},</if>
 			<if test="personpic != null  and personpic != ''  ">#{personpic},</if>
 			<if test="idcard != null  and idcard != ''  ">#{idcard},</if>
 			<if test="idcardpic != null  and idcardpic != ''  ">#{idcardpic},</if>
@@ -66,7 +66,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update personal_detail
         <trim prefix="SET" suffixOverrides=",">
             <if test="aid != null  and aid != ''  ">aid = #{aid},</if>
-            <if test="name != null  and name != ''  ">name = #{name},</if>
+            <if test="vname != null  and vname != ''  ">vname = #{vname},</if>
             <if test="personpic != null  and personpic != ''  ">personpic = #{personpic},</if>
             <if test="idcard != null  and idcard != ''  ">idcard = #{idcard},</if>
             <if test="idcardpic != null  and idcardpic != ''  ">idcardpic = #{idcardpic},</if>

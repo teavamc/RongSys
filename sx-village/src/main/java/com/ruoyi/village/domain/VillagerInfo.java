@@ -19,7 +19,7 @@ public class VillagerInfo extends BaseEntity
 	/** 地域编号 */
 	private String aid;
 	/** 村民姓名 */
-	private String name;
+	private String vname;
 	/** 年龄 */
 	private String age;
 	/** 性别 */
@@ -67,7 +67,7 @@ public class VillagerInfo extends BaseEntity
 	/** 车牌号 */
 	private String carnum;
 	/** 职业 */
-	private String work;
+	private String job;
 	/** 工作单位 */
 	private String company;
 	/** 户籍地址 */
@@ -99,14 +99,14 @@ public class VillagerInfo extends BaseEntity
 	{
 		return aid;
 	}
-	public void setName(String name) 
+	public void setVname(String vname)
 	{
-		this.name = name;
+		this.vname = vname;
 	}
 
-	public String getName() 
+	public String getVname()
 	{
-		return name;
+		return vname;
 	}
 	public void setAge(String age) 
 	{
@@ -315,14 +315,14 @@ public class VillagerInfo extends BaseEntity
 	{
 		return carnum;
 	}
-	public void setWork(String work) 
+	public void setJob(String job)
 	{
-		this.work = work;
+		this.job = job;
 	}
 
-	public String getWork() 
+	public String getJob()
 	{
-		return work;
+		return job;
 	}
 	public void setCompany(String company) 
 	{
@@ -383,7 +383,7 @@ public class VillagerInfo extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("vid", getVid())
             .append("aid", getAid())
-            .append("name", getName())
+            .append("vname", getVname())
             .append("age", getAge())
             .append("sex", getSex())
             .append("nativeplace", getNativeplace())
@@ -407,7 +407,7 @@ public class VillagerInfo extends BaseEntity
             .append("car", getCar())
             .append("vtype", getVtype())
             .append("carnum", getCarnum())
-            .append("work", getWork())
+            .append("job", getJob())
             .append("company", getCompany())
             .append("pra", getPra())
             .append("home", getHome())
