@@ -2,6 +2,7 @@ package com.ruoyi.api.controller.rivervis;
 
 import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
+import com.ruoyi.rivervis.domain.Riverbytl;
 import com.ruoyi.rivervis.service.IEnvDataService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 
 /**
@@ -56,5 +56,11 @@ public class RivervisCount {
         return RongApiService.get_bean(envDataService.countall());
     }
 
+    @CrossOrigin
+    @GetMapping("/envbytl")
+    @ApiOperation(value = "根据时间和查询条数统计环境数据")
+    public RongApiRes envbytl(Riverbytl riverbytl){
+        return RongApiService.get_list(envDataService.selectEnvDataListbytl(riverbytl));
+    }
 
 }
