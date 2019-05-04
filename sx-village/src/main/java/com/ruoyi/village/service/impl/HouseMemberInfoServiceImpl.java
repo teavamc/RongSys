@@ -1,6 +1,9 @@
 package com.ruoyi.village.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.HouseMemberInfoMapper;
@@ -27,6 +30,7 @@ public class HouseMemberInfoServiceImpl implements IHouseMemberInfoService
      * @return 村户信息
      */
     @Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public HouseMemberInfo selectHouseMemberInfoById(Integer hmid)
 	{
 	    return houseMemberInfoMapper.selectHouseMemberInfoById(hmid);
@@ -39,6 +43,7 @@ public class HouseMemberInfoServiceImpl implements IHouseMemberInfoService
      * @return 村户集合
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public List<HouseMemberInfo> selectHouseMemberInfoList(HouseMemberInfo houseMemberInfo)
 	{
 	    return houseMemberInfoMapper.selectHouseMemberInfoList(houseMemberInfo);
@@ -51,6 +56,7 @@ public class HouseMemberInfoServiceImpl implements IHouseMemberInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int insertHouseMemberInfo(HouseMemberInfo houseMemberInfo)
 	{
 	    return houseMemberInfoMapper.insertHouseMemberInfo(houseMemberInfo);
@@ -63,6 +69,7 @@ public class HouseMemberInfoServiceImpl implements IHouseMemberInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int updateHouseMemberInfo(HouseMemberInfo houseMemberInfo)
 	{
 	    return houseMemberInfoMapper.updateHouseMemberInfo(houseMemberInfo);
@@ -75,6 +82,7 @@ public class HouseMemberInfoServiceImpl implements IHouseMemberInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int deleteHouseMemberInfoByIds(String ids)
 	{
 		return houseMemberInfoMapper.deleteHouseMemberInfoByIds(Convert.toStrArray(ids));
