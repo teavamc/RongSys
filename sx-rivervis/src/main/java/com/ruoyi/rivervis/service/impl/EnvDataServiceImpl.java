@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.rivervis.domain.Riverbytl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.rivervis.mapper.EnvDataMapper;
@@ -112,6 +113,18 @@ public class EnvDataServiceImpl implements IEnvDataService
 	@DataSource(value = DataSourceType.SXRIVERVIS)
 	public int countall(){
 		return envDataMapper.countall();
+	}
+
+	/**
+	 * 根据时间范围和查询条数统计环境数据
+	 *
+	 * @param envData 环境监测信息
+	 * @return 环境监测集合
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXRIVERVIS)
+	public List<EnvData> selectEnvDataListbytl(Riverbytl riverbytl){
+		return envDataMapper.selectEnvDataListbytl(riverbytl);
 	}
 	
 }

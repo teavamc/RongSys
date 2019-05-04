@@ -1,7 +1,9 @@
 package com.ruoyi.rivervis.mapper;
 
 import com.ruoyi.rivervis.domain.EnvData;
-import java.util.List;	
+import com.ruoyi.rivervis.domain.Riverbytl;
+
+import java.util.List;
 
 /**
  * 环境监测 数据层
@@ -75,5 +77,12 @@ public interface EnvDataMapper
      * @return 结果
      */
 	public int deleteEnvDataByIds(String[] ids);
-	
+
+	/**
+	 * 根据时间范围和查询条数统计环境数据
+	 *
+	 * @param envData 环境监测信息
+	 * @return 环境监测集合
+	 */
+	public List<EnvData> selectEnvDataListbytl(Riverbytl riverbytl);
 }
