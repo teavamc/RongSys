@@ -1,6 +1,9 @@
 package com.ruoyi.village.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.PlowlandInfoMapper;
@@ -27,6 +30,7 @@ public class PlowlandInfoServiceImpl implements IPlowlandInfoService
      * @return 耕地信息
      */
     @Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public PlowlandInfo selectPlowlandInfoById(Integer pid)
 	{
 	    return plowlandInfoMapper.selectPlowlandInfoById(pid);
@@ -39,6 +43,7 @@ public class PlowlandInfoServiceImpl implements IPlowlandInfoService
      * @return 耕地集合
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public List<PlowlandInfo> selectPlowlandInfoList(PlowlandInfo plowlandInfo)
 	{
 	    return plowlandInfoMapper.selectPlowlandInfoList(plowlandInfo);
@@ -51,6 +56,7 @@ public class PlowlandInfoServiceImpl implements IPlowlandInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int insertPlowlandInfo(PlowlandInfo plowlandInfo)
 	{
 	    return plowlandInfoMapper.insertPlowlandInfo(plowlandInfo);
@@ -63,6 +69,7 @@ public class PlowlandInfoServiceImpl implements IPlowlandInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int updatePlowlandInfo(PlowlandInfo plowlandInfo)
 	{
 	    return plowlandInfoMapper.updatePlowlandInfo(plowlandInfo);
@@ -75,6 +82,7 @@ public class PlowlandInfoServiceImpl implements IPlowlandInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int deletePlowlandInfoByIds(String ids)
 	{
 		return plowlandInfoMapper.deletePlowlandInfoByIds(Convert.toStrArray(ids));
