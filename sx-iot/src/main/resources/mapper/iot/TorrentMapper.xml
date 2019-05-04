@@ -129,5 +129,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{dataid}
         </foreach>
     </delete>
-    
+
+    <select id="selectTorrentByitl" parameterType="IotgetPa" resultMap="TorrentResult">
+        <include refid="selectTorrentVo"/>
+        where IMEI=#{IMEI} and time between #{begintime} AND #{endtime}
+        order by time asc
+        limit 0,#{limit}
+    </select>
 </mapper>

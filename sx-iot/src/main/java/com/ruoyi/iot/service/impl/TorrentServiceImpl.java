@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.iot.domain.IotgetPa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.iot.mapper.TorrentMapper;
@@ -112,4 +113,16 @@ public class TorrentServiceImpl implements ITorrentService
 		return torrentMapper.devicecount();
 	}
 
+	/**
+	 * 根据IMEI号和时间范围和查询条数统计物联网数据
+	 *
+	 * @param torrent 终端信息
+	 * @return 终端信息集合
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SXINFOM)
+	public List<Torrent> selectTorrentByitl(IotgetPa iotgetPa)
+	{
+		return torrentMapper.selectTorrentByitl(iotgetPa);
+	}
 }
