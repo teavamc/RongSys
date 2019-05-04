@@ -71,7 +71,8 @@ public class DruidConfig
     @Primary
     public DynamicDataSource dataSource(DataSource masterDataSource, DataSource slaveDataSource,
                                         DataSource sx_userDataSource, DataSource sx_infomDataSource,
-                                        DataSource sx_rivervisDataSource, DataSource sx_villageDataSource)
+                                        DataSource sx_rivervisDataSource, DataSource sx_villageDataSource,
+                                        DataSource sx_baodianDataSource)
     {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
@@ -80,6 +81,7 @@ public class DruidConfig
         targetDataSources.put(DataSourceType.SXINFOM.name(), sx_infomDataSource);
         targetDataSources.put(DataSourceType.SXRIVERVIS.name(), sx_rivervisDataSource);
         targetDataSources.put(DataSourceType.SXVILLAGE.name(), sx_villageDataSource);
+        targetDataSources.put(DataSourceType.SXBAODIAN.name(), sx_baodianDataSource);
         return new DynamicDataSource(masterDataSource, targetDataSources);
     }
 }

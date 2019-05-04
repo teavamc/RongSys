@@ -1,6 +1,9 @@
 package com.ruoyi.village.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.AssetAssessmentMapper;
@@ -27,6 +30,7 @@ public class AssetAssessmentServiceImpl implements IAssetAssessmentService
      * @return 资产清查信息
      */
     @Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public AssetAssessment selectAssetAssessmentById(Integer aaid)
 	{
 	    return assetAssessmentMapper.selectAssetAssessmentById(aaid);
@@ -39,6 +43,7 @@ public class AssetAssessmentServiceImpl implements IAssetAssessmentService
      * @return 资产清查集合
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public List<AssetAssessment> selectAssetAssessmentList(AssetAssessment assetAssessment)
 	{
 	    return assetAssessmentMapper.selectAssetAssessmentList(assetAssessment);
@@ -51,6 +56,7 @@ public class AssetAssessmentServiceImpl implements IAssetAssessmentService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int insertAssetAssessment(AssetAssessment assetAssessment)
 	{
 	    return assetAssessmentMapper.insertAssetAssessment(assetAssessment);
@@ -63,6 +69,7 @@ public class AssetAssessmentServiceImpl implements IAssetAssessmentService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int updateAssetAssessment(AssetAssessment assetAssessment)
 	{
 	    return assetAssessmentMapper.updateAssetAssessment(assetAssessment);
@@ -75,6 +82,7 @@ public class AssetAssessmentServiceImpl implements IAssetAssessmentService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int deleteAssetAssessmentByIds(String ids)
 	{
 		return assetAssessmentMapper.deleteAssetAssessmentByIds(Convert.toStrArray(ids));
