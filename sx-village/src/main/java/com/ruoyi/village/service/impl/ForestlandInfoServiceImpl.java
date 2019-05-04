@@ -1,6 +1,9 @@
 package com.ruoyi.village.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.common.annotation.DataSource;
+import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.village.mapper.ForestlandInfoMapper;
@@ -27,6 +30,7 @@ public class ForestlandInfoServiceImpl implements IForestlandInfoService
      * @return 林地信息
      */
     @Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public ForestlandInfo selectForestlandInfoById(Integer fid)
 	{
 	    return forestlandInfoMapper.selectForestlandInfoById(fid);
@@ -39,6 +43,7 @@ public class ForestlandInfoServiceImpl implements IForestlandInfoService
      * @return 林地集合
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public List<ForestlandInfo> selectForestlandInfoList(ForestlandInfo forestlandInfo)
 	{
 	    return forestlandInfoMapper.selectForestlandInfoList(forestlandInfo);
@@ -51,6 +56,7 @@ public class ForestlandInfoServiceImpl implements IForestlandInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int insertForestlandInfo(ForestlandInfo forestlandInfo)
 	{
 	    return forestlandInfoMapper.insertForestlandInfo(forestlandInfo);
@@ -63,6 +69,7 @@ public class ForestlandInfoServiceImpl implements IForestlandInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int updateForestlandInfo(ForestlandInfo forestlandInfo)
 	{
 	    return forestlandInfoMapper.updateForestlandInfo(forestlandInfo);
@@ -75,6 +82,7 @@ public class ForestlandInfoServiceImpl implements IForestlandInfoService
      * @return 结果
      */
 	@Override
+	@DataSource(value = DataSourceType.SXBAODIAN)
 	public int deleteForestlandInfoByIds(String ids)
 	{
 		return forestlandInfoMapper.deleteForestlandInfoByIds(Convert.toStrArray(ids));
