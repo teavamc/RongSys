@@ -1,15 +1,18 @@
 package com.ruoyi.web.controller.broad;
 
 import java.util.List;
+import java.util.Map;
+
+import com.ruoyi.broad.domain.BroadMessage;
+import com.ruoyi.broad.service.IMessageService;
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.broad.domain.Maintain;
@@ -20,10 +23,10 @@ import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
 
 /**
- * 终端维护记录 信息操作处理
- * 
- * @author 张超
- * @date 2019-01-15
+ * 终端维护记录表 terminal_maintain
+ *
+ * @author 张鸿权
+ * @date 2019-04-21
  */
 @Controller
 @RequestMapping("/broad/maintain")
@@ -33,7 +36,10 @@ public class MaintainController extends BaseController
 
 	@Autowired
 	private IMaintainService maintainService;
-
+	@Autowired
+	private ISysUserService sysUserService;
+	@Autowired
+	private IMessageService messageService;
 	@RequiresPermissions("broad:maintain:view")
 	@GetMapping()
 	public String maintain()
@@ -49,6 +55,15 @@ public class MaintainController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Maintain maintain)
 	{
+		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		Long userid =  currentUser.getUserId();
+		int returnId = new Long(userid).intValue();
+		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		if(roleid != 1){
+			String aid;
+			aid = sysUserService.selectAid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+			maintain.setAid(aid);
+		}
 		startPage();
         List<Maintain> list = maintainService.selectMaintainList(maintain);
 		return getDataTable(list);
@@ -84,9 +99,12 @@ public class MaintainController extends BaseController
 	@Log(title = "终端维护记录", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Maintain maintain)
+	public AjaxResult addSave(@RequestParam(value = "tid") String tid,
+							  @RequestParam(value = "fault") String fault,
+							  @RequestParam(value = "mstaff") String mstaff,
+							  @RequestParam(value = "remark") String remark)
 	{
-		return toAjax(maintainService.insertMaintain(maintain));
+		return toAjax(maintainService.insertMaintain(tid,fault,mstaff,remark));
 	}
 
 	/**
@@ -124,4 +142,13 @@ public class MaintainController extends BaseController
 		return toAjax(maintainService.deleteMaintainByIds(ids));
 	}
 
+	/**
+	 * 加载部门列表树
+	 */
+	@GetMapping("/treeData")
+	@ResponseBody
+	public List<Map<String, Object>> treeData() {
+		List<Map<String, Object>> tree = messageService.selectMessageList((new BroadMessage()));
+		return tree;
+	}
 }

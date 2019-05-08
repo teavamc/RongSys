@@ -44,9 +44,6 @@
 								<li>
 									区域名称：<input type="text" name="aname"/>
 								</li>
-								<!--<li>
-									最后处理时间：<input type="text" name="lastaccesstime"/>
-								</li>-->
 
 								<!--<li>
 									出厂编号：<input type="text" name="facid"/>
@@ -156,6 +153,7 @@
                 createUrl: prefix + "/add",
                 updateUrl: prefix + "/edit/{id}",
                 exportUrl: prefix + "/export",
+				removeUrl: prefix + "/remove",
 				rdsSetUrl: prefix + "/rdsSet",
                 fmfrequencyUrl: prefix + "/fmfrequencySet",
                 modalName: "终端管理",
@@ -186,7 +184,7 @@
 					},
 					{
 						field : 'userid',
-						title : '所属用户编号',
+						title : '用户编号',
 						sortable: true
 					},
 					{
@@ -197,16 +195,6 @@
 					{
 						field : 'createdtime',
 						title : '创建时间',
-						sortable: true
-					},
-					{
-						field : 'isuse',
-						title : '是否可用',
-						sortable: true
-					},
-					{
-						field : 'lastaccesstime',
-						title : '最后处理时间',
 						sortable: true
 					},
 					{
@@ -226,32 +214,32 @@
 					},
 					{
 						field : 'comstand',
-						title : '终端接入通信网',
+						title : '接入通信网',
 						sortable: true
 					},
 					{
 						field : 'broadtel',
-						title : '终端接入广播电视网模式',
+						title : '终端广播网模式',
 						sortable: true
 					},
 					{
 						field : 'manager',
-						title : '终端管理员名称',
+						title : '终端管理员',
 						sortable: true
 					},
 					{
 						field : 'managertel',
-						title : '终端管理员电话',
+						title : '管理员电话',
 						sortable: true
 					},
 					{
 						field : 'intertime',
-						title : '终端交互时间',
+						title : '交互时间',
 						sortable: true
 					},
 					{
 						field : 'phone',
-						title : '终端手机号码',
+						title : '手机号码',
 						sortable: true
 					},
 					{
@@ -261,17 +249,22 @@
 					},
 					{
 						field : 'fmfrequency',
-						title : '调频接收频率(终端可收转广播频率 )',
+						title : '调频接收频率',
 						sortable: true
 					},
 					{
 						field : 'trafficlimit',
-						title : '终端流量使用限制，单位MB',
+						title : '限制流量/MB',
+						sortable: true
+					},
+					{
+						field : 'isuse',
+						title : '是否可用',
 						sortable: true
 					},
 					{
 						field : 'pic',
-						title : '终端安装地址图片',
+						title : '安装地址图片',
 						sortable: true
 					}]
             };

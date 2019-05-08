@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.village.mapper.VillagerInfoMapper">
+    
+    <resultMap type="VillagerInfo" id="VillagerInfoResult">
+        <result property="vid"    column="vid"    />
+        <result property="aid"    column="aid"    />
+        <result property="vname"    column="vname"    />
+        <result property="age"    column="age"    />
+        <result property="sex"    column="sex"    />
+        <result property="nativeplace"    column="nativeplace"    />
+        <result property="nation"    column="nation"    />
+        <result property="politics"    column="politics"    />
+        <result property="partyjoindate"    column="partyjoindate"    />
+        <result property="edulevel"    column="edulevel"    />
+        <result property="marital"    column="marital"    />
+        <result property="idcard"    column="idcard"    />
+        <result property="phone"    column="phone"    />
+        <result property="health"    column="health"    />
+        <result property="special"    column="special"    />
+        <result property="entitle"    column="entitle"    />
+        <result property="familyplan"    column="familyplan"    />
+        <result property="medical"    column="medical"    />
+        <result property="subsidy"    column="subsidy"    />
+        <result property="insurance"    column="insurance"    />
+        <result property="criminal"    column="criminal"    />
+        <result property="drug"    column="drug"    />
+        <result property="drive"    column="drive"    />
+        <result property="car"    column="car"    />
+        <result property="vtype"    column="vtype"    />
+        <result property="carnum"    column="carnum"    />
+        <result property="job"    column="job"    />
+        <result property="company"    column="company"    />
+        <result property="pra"    column="pra"    />
+        <result property="home"    column="home"    />
+        <result property="grouptype"    column="grouptype"    />
+        <result property="house"    column="house"    />
+        <result property="prt"    column="prt"    />
+    </resultMap>
+	
+	<sql id="selectVillagerInfoVo">
+        select vid, aid, vname, age, sex, nativeplace, nation, politics, partyjoindate, edulevel, marital, idcard, phone, health, special, entitle, familyplan, medical, subsidy, insurance, criminal, drug, drive, car, vtype, carnum, job, company, pra, home, grouptype, house, prt from villager_info
+    </sql>
+	
+    <select id="selectVillagerInfoList" parameterType="VillagerInfo" resultMap="VillagerInfoResult">
+        <include refid="selectVillagerInfoVo"/>
+        <where>  
+            <if test="vid != null "> and vid = #{vid}</if>
+             <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
+             <if test="vname != null  and vname != '' "> and vname = #{vname}</if>
+             <if test="age != null  and age != '' "> and age = #{age}</if>
+             <if test="sex != null  and sex != '' "> and sex = #{sex}</if>
+             <if test="nativeplace != null  and nativeplace != '' "> and nativeplace = #{nativeplace}</if>
+             <if test="nation != null  and nation != '' "> and nation = #{nation}</if>
+             <if test="politics != null  and politics != '' "> and politics = #{politics}</if>
+             <if test="partyjoindate != null  and partyjoindate != '' "> and partyjoindate = #{partyjoindate}</if>
+             <if test="edulevel != null  and edulevel != '' "> and edulevel = #{edulevel}</if>
+             <if test="marital != null  and marital != '' "> and marital = #{marital}</if>
+             <if test="idcard != null  and idcard != '' "> and idcard = #{idcard}</if>
+             <if test="phone != null  and phone != '' "> and phone = #{phone}</if>
+             <if test="health != null  and health != '' "> and health = #{health}</if>
+             <if test="special != null  and special != '' "> and special = #{special}</if>
+             <if test="entitle != null  and entitle != '' "> and entitle = #{entitle}</if>
+             <if test="familyplan != null  and familyplan != '' "> and familyplan = #{familyplan}</if>
+             <if test="medical != null  and medical != '' "> and medical = #{medical}</if>
+             <if test="subsidy != null  and subsidy != '' "> and subsidy = #{subsidy}</if>
+             <if test="insurance != null  and insurance != '' "> and insurance = #{insurance}</if>
+             <if test="criminal != null  and criminal != '' "> and criminal = #{criminal}</if>
+             <if test="drug != null  and drug != '' "> and drug = #{drug}</if>
+             <if test="drive != null  and drive != '' "> and drive = #{drive}</if>
+             <if test="car != null  and car != '' "> and car = #{car}</if>
+             <if test="vtype != null  and vtype != '' "> and vtype = #{vtype}</if>
+             <if test="carnum != null  and carnum != '' "> and carnum = #{carnum}</if>
+             <if test="job != null  and job != '' "> and job = #{job}</if>
+             <if test="company != null  and company != '' "> and company = #{company}</if>
+             <if test="pra != null  and pra != '' "> and pra = #{pra}</if>
+             <if test="home != null  and home != '' "> and home = #{home}</if>
+             <if test="grouptype != null  and grouptype != '' "> and grouptype = #{grouptype}</if>
+             <if test="house != null  and house != '' "> and house = #{house}</if>
+             <if test="prt != null  and prt != '' "> and prt = #{prt}</if>
+         </where>
+    </select>
+    
+    <select id="selectVillagerInfoById" parameterType="Integer" resultMap="VillagerInfoResult">
+        <include refid="selectVillagerInfoVo"/>
+        where vid = #{vid}
+    </select>
+        
+    <insert id="insertVillagerInfo" parameterType="VillagerInfo">
+        insert into villager_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="vid != null  ">vid,</if>
+			<if test="aid != null  and aid != ''  ">aid,</if>
+			<if test="vname != null  and vname != ''  ">vname,</if>
+			<if test="age != null  and age != ''  ">age,</if>
+			<if test="sex != null  and sex != ''  ">sex,</if>
+			<if test="nativeplace != null  and nativeplace != ''  ">nativeplace,</if>
+			<if test="nation != null  and nation != ''  ">nation,</if>
+			<if test="politics != null  and politics != ''  ">politics,</if>
+			<if test="partyjoindate != null  and partyjoindate != ''  ">partyjoindate,</if>
+			<if test="edulevel != null  and edulevel != ''  ">edulevel,</if>
+			<if test="marital != null  and marital != ''  ">marital,</if>
+			<if test="idcard != null  and idcard != ''  ">idcard,</if>
+			<if test="phone != null  and phone != ''  ">phone,</if>
+			<if test="health != null  and health != ''  ">health,</if>
+			<if test="special != null  and special != ''  ">special,</if>
+			<if test="entitle != null  and entitle != ''  ">entitle,</if>
+			<if test="familyplan != null  and familyplan != ''  ">familyplan,</if>
+			<if test="medical != null  and medical != ''  ">medical,</if>
+			<if test="subsidy != null  and subsidy != ''  ">subsidy,</if>
+			<if test="insurance != null  and insurance != ''  ">insurance,</if>
+			<if test="criminal != null  and criminal != ''  ">criminal,</if>
+			<if test="drug != null  and drug != ''  ">drug,</if>
+			<if test="drive != null  and drive != ''  ">drive,</if>
+			<if test="car != null  and car != ''  ">car,</if>
+			<if test="vtype != null  and vtype != ''  ">vtype,</if>
+			<if test="carnum != null  and carnum != ''  ">carnum,</if>
+			<if test="job != null  and job != ''  ">job,</if>
+			<if test="company != null  and company != ''  ">company,</if>
+			<if test="pra != null  and pra != ''  ">pra,</if>
+			<if test="home != null  and home != ''  ">home,</if>
+			<if test="grouptype != null  and grouptype != ''  ">grouptype,</if>
+			<if test="house != null  and house != ''  ">house,</if>
+			<if test="prt != null  and prt != ''  ">prt,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="vid != null  ">#{vid},</if>
+			<if test="aid != null  and aid != ''  ">#{aid},</if>
+			<if test="vname != null  and vname != ''  ">#{vname},</if>
+			<if test="age != null  and age != ''  ">#{age},</if>
+			<if test="sex != null  and sex != ''  ">#{sex},</if>
+			<if test="nativeplace != null  and nativeplace != ''  ">#{nativeplace},</if>
+			<if test="nation != null  and nation != ''  ">#{nation},</if>
+			<if test="politics != null  and politics != ''  ">#{politics},</if>
+			<if test="partyjoindate != null  and partyjoindate != ''  ">#{partyjoindate},</if>
+			<if test="edulevel != null  and edulevel != ''  ">#{edulevel},</if>
+			<if test="marital != null  and marital != ''  ">#{marital},</if>
+			<if test="idcard != null  and idcard != ''  ">#{idcard},</if>
+			<if test="phone != null  and phone != ''  ">#{phone},</if>
+			<if test="health != null  and health != ''  ">#{health},</if>
+			<if test="special != null  and special != ''  ">#{special},</if>
+			<if test="entitle != null  and entitle != ''  ">#{entitle},</if>
+			<if test="familyplan != null  and familyplan != ''  ">#{familyplan},</if>
+			<if test="medical != null  and medical != ''  ">#{medical},</if>
+			<if test="subsidy != null  and subsidy != ''  ">#{subsidy},</if>
+			<if test="insurance != null  and insurance != ''  ">#{insurance},</if>
+			<if test="criminal != null  and criminal != ''  ">#{criminal},</if>
+			<if test="drug != null  and drug != ''  ">#{drug},</if>
+			<if test="drive != null  and drive != ''  ">#{drive},</if>
+			<if test="car != null  and car != ''  ">#{car},</if>
+			<if test="vtype != null  and vtype != ''  ">#{vtype},</if>
+			<if test="carnum != null  and carnum != ''  ">#{carnum},</if>
+			<if test="job != null  and job != ''  ">#{job},</if>
+			<if test="company != null  and company != ''  ">#{company},</if>
+			<if test="pra != null  and pra != ''  ">#{pra},</if>
+			<if test="home != null  and home != ''  ">#{home},</if>
+			<if test="grouptype != null  and grouptype != ''  ">#{grouptype},</if>
+			<if test="house != null  and house != ''  ">#{house},</if>
+			<if test="prt != null  and prt != ''  ">#{prt},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateVillagerInfo" parameterType="VillagerInfo">
+        update villager_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="aid != null  and aid != ''  ">aid = #{aid},</if>
+            <if test="vname != null  and vname != ''  ">vname = #{vname},</if>
+            <if test="age != null  and age != ''  ">age = #{age},</if>
+            <if test="sex != null  and sex != ''  ">sex = #{sex},</if>
+            <if test="nativeplace != null  and nativeplace != ''  ">nativeplace = #{nativeplace},</if>
+            <if test="nation != null  and nation != ''  ">nation = #{nation},</if>
+            <if test="politics != null  and politics != ''  ">politics = #{politics},</if>
+            <if test="partyjoindate != null  and partyjoindate != ''  ">partyjoindate = #{partyjoindate},</if>
+            <if test="edulevel != null  and edulevel != ''  ">edulevel = #{edulevel},</if>
+            <if test="marital != null  and marital != ''  ">marital = #{marital},</if>
+            <if test="idcard != null  and idcard != ''  ">idcard = #{idcard},</if>
+            <if test="phone != null  and phone != ''  ">phone = #{phone},</if>
+            <if test="health != null  and health != ''  ">health = #{health},</if>
+            <if test="special != null  and special != ''  ">special = #{special},</if>
+            <if test="entitle != null  and entitle != ''  ">entitle = #{entitle},</if>
+            <if test="familyplan != null  and familyplan != ''  ">familyplan = #{familyplan},</if>
+            <if test="medical != null  and medical != ''  ">medical = #{medical},</if>
+            <if test="subsidy != null  and subsidy != ''  ">subsidy = #{subsidy},</if>
+            <if test="insurance != null  and insurance != ''  ">insurance = #{insurance},</if>
+            <if test="criminal != null  and criminal != ''  ">criminal = #{criminal},</if>
+            <if test="drug != null  and drug != ''  ">drug = #{drug},</if>
+            <if test="drive != null  and drive != ''  ">drive = #{drive},</if>
+            <if test="car != null  and car != ''  ">car = #{car},</if>
+            <if test="vtype != null  and vtype != ''  ">vtype = #{vtype},</if>
+            <if test="carnum != null  and carnum != ''  ">carnum = #{carnum},</if>
+            <if test="job != null  and job != ''  ">job = #{job},</if>
+            <if test="company != null  and company != ''  ">company = #{company},</if>
+            <if test="pra != null  and pra != ''  ">pra = #{pra},</if>
+            <if test="home != null  and home != ''  ">home = #{home},</if>
+            <if test="grouptype != null  and grouptype != ''  ">grouptype = #{grouptype},</if>
+            <if test="house != null  and house != ''  ">house = #{house},</if>
+            <if test="prt != null  and prt != ''  ">prt = #{prt},</if>
+        </trim>
+        where vid = #{vid}
+    </update>
+
+	<delete id="deleteVillagerInfoById" parameterType="Integer">
+        delete from villager_info where vid = #{vid}
+    </delete>
+	
+    <delete id="deleteVillagerInfoByIds" parameterType="String">
+        delete from villager_info where vid in 
+        <foreach item="vid" collection="array" open="(" separator="," close=")">
+            #{vid}
+        </foreach>
+    </delete>
+    
+</mapper>

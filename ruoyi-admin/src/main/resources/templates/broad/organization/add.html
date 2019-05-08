@@ -3,130 +3,179 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="white-bg">
-    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
-        <form class="form-horizontal m" id="form-area-add">
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端设备名称：</label>
-                <div class="col-sm-8">
-                    <input id="tname" name="tname" th:field="*{tname}" class="form-control" type="text">
-                </div>
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+    <form class="form-horizontal m" id="form-tbOrganization-add">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">区域名称：</label>
+            <div class="col-sm-8">
+                <input  class="form-control" type="text" id="aname" name="aname" onclick="selectAidTree()" readonly="true" placeholder="点击选择区域">
             </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">所属分组编号：</label>
-                <div class="col-sm-8">
-                    <input id="aid" name="aid" th:field="*{aid}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">IMEI号：</label>
+            <div class="col-sm-8">
+                <input id="tid" name="tid" class="form-control" type="text" placeholder="请输入15位IMEI号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端设备名称：</label>
+            <div class="col-sm-8">
+                <input id="tname" name="tname" class="form-control" type="text" placeholder="请输入终端设备名称">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端交互时间：</label>
+            <div class="col-xs-8">
+                <input class="form-control" name="intertime" id="intertime"  type="time" value="23:00:00" placeholder="请输入终端交互时间">
+             </div>
+        </div>
+        <input id="aid" name="aid" class="form-control" type="hidden">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">手机号码：</label>
+            <div class="col-sm-8">
+                <input id="phone" name="phone" class="form-control" type="text" placeholder="请输入手机号码">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">安装地址：</label>
+            <div class="col-sm-8">
+                <input id="address" name="address" class="form-control" type="text" placeholder="请输入安装地址">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端出厂编号：</label>
+            <div class="col-sm-8">
+                <input id="facid" name="facid" class="form-control" type="text" placeholder="请输入终端出厂编号">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端接入通信网标准：</label>
+            <div class="col-sm-8">
+            <select class="chosen-select form-control" name="comstand" id="comstand">
+                <option value="WCDMA">WCDMA</option>
+                <option value="TDSCDMA">TDSCDMA</option>
+                <option value="CDMA2000">CDMA2000</option>
+                <option value="GPRS">GPRS</option>
+                <option value="WIFI">WIFI</option>
+                <option value="TDDLTE">TDDLTE</option>
+                <option value="FDDLTE">FDDLTE</option>
+            </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端接入电视网模式：</label>
+            <div class="col-sm-8">
+                <select class="chosen-select form-control" name="broadtel" id="broadtel">
+                    <option value="有线网">有线网</option>
+                    <option value="无线网">无线网</option>
+                    <option value="数字电视网">数字电视网</option>
+                    <option value="卫星电视网">卫星电视网</option>
+                    <option value="互联网">互联网</option>
+                    <option value="其他">其他</option>
+                </select>
             </div>
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">所属用户编号：</label>
-                <div class="col-sm-8">
-                    <input id="userid" name="userid" th:field="*{userid}" class="form-control" type="text">
-                </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">RDS码：</label>
+            <div class="col-sm-8">
+                <input id="rds" name="rds" class="form-control" type="text" placeholder="请输入3位RDS码">
             </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端可收转广播频率 ：</label>
+            <div class="col-sm-8">
+                <input id="fmfrequency" name="fmfrequency" class="form-control" type="text" placeholder="请输入调频广播频率，如101.7">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端管理员：</label>
+            <div class="col-sm-8">
+                <input id="manager" name="manager" class="form-control" type="text" placeholder="请输入终端管理员">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">终端管理员电话：</label>
+            <div class="col-sm-8">
+                <input id="managertel" name="managertel" class="form-control" type="text" placeholder="请输入终端管理员电话">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">备注：</label>
+            <div class="col-sm-8">
+                <input id="note" name="note" class="form-control" type="text" placeholder="请输入备注">
+            </div>
+        </div>
+    </form>
+</div>
+<div th:include="include::footer"></div>
+<script type="text/javascript">
+    var prefix = ctx + "broad/organization"
+    $("#form-tbOrganization-add").validate({
+        rules:{
+            xxxx:{
+                required:true,
+            },
+        }
+    });
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">出厂编号：</label>
-                <div class="col-sm-8">
-                    <input id="facid" name="facid" th:field="*{facid}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">安装地址：</label>
-                <div class="col-sm-8">
-                    <input id="address" name="address" th:field="*{address}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">备注：</label>
-                <div class="col-sm-8">
-                    <input id="note" name="note" th:field="*{note}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端接入通信网：</label>
-                <div class="col-sm-8">
-                    <input id="comstand" name="comstand" th:field="*{comstand}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端接入广播电视网模式：</label>
-                <div class="col-sm-8">
-                    <input id="broadtel" name="broadtel" th:field="*{broadtel}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端管理员名称：</label>
-                <div class="col-sm-8">
-                    <input id="manager" name="manager" th:field="*{manager}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端管理员电话：</label>
-                <div class="col-sm-8">
-                    <input id="managertel" name="managertel" th:field="*{managertel}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端交互时间：</label>
-                <div class="col-sm-8">
-                    <input id="intertime" name="intertime" th:field="*{intertime}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">创建时间：</label>
-                <div class="col-sm-8">
-                    <input id="createdtime" name="createdtime" th:field="*{createdtime}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">是否可用：</label>
-                <div class="col-sm-8">
-                    <input id="isuse" name="isuse" th:field="*{isuse}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端手机号码：</label>
-                <div class="col-sm-8">
-                    <input id="phone" name="phone" th:field="*{phone}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">RDS码：</label>
-                <div class="col-sm-8">
-                    <input id="rds" name="rds" th:field="*{rds}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">调频接收频率(终端可收转广播频率 )：</label>
-                <div class="col-sm-8">
-                    <input id="fmfrequency" name="fmfrequency" th:field="*{fmfrequency}" class="form-control" type="text">
-                </div>
-            </div>
-            <div class="form-group">
-                <label class="col-sm-3 control-label">终端流量使用限制，单位MB：</label>
-                <div class="col-sm-8">
-                    <input id="trafficlimit" name="trafficlimit" th:field="*{trafficlimit}" class="form-control" type="text">
-                </div>
-            </div>
-		</form>
-	</div>
-    <div th:include="include::footer"></div>
-    <script type="text/javascript">
-		var prefix = ctx + "broad/organization"
-		$("#form-area-add").validate({
-			rules:{
-				xxxx:{
-					required:true,
-				},
-			}
-		});
-		
-		function submitHandler() {
-	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-area-add').serialize());
-	        }
-	    }
-	</script>
+    function submitHandler() {
+        if ($.validate.form()) {
+            $.operate.save(prefix + "/add", $('#form-tbOrganization-add').serialize());
+        }
+    }
+
+    /*用户管理-新增-选择用户所属区域树*/
+    function selectAidTree() {
+        var url = "/broad/organization/selectAidTree";
+        var options = {
+            title: '选择区域',
+            width: "380",
+            url: "/broad/organization/selectAidTree",
+            callBack: doSubmitAid
+        };
+        $.modal.openOptions(options);
+    }
+
+    function doSubmit(index, layero){
+        var tree = layero.find("iframe")[0].contentWindow.$._tree;
+        if ($.tree.notAllowParents(tree)) {
+            var body = layer.getChildFrame('body', index);
+            $("#treeId").val(body.find('#treeId').val());
+            $("#treeName").val(body.find('#treeName').val());
+            layer.close(index);
+        }
+    }
+
+    /*该模块是选择用户所属区域树的提交功能模块，body.find()方法中该使用框架固定的treeId、treeName*/
+    function doSubmitAid(index, layero){
+        var tree = layero.find("iframe")[0].contentWindow.$._tree;
+        if ($.tree.notAllowParents(tree)) {
+            var body = layer.getChildFrame('body', index);
+            $("#aid").val(body.find('#treeId').val());
+            $("#aname").val(body.find('#treeName').val());
+            /*console.log(body.find('#treeId').val());
+            console.log(body.find('#treeName').val());*/
+            layer.close(index);
+        }
+    }
+</script>
+<script type="text/javascript">
+    //日期时间框
+    $('#datetimepicker').datetimepicker({
+        pickDate: false    });
+    var setting = {
+        view: {
+            dblClickExpand: false
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }},
+        callback: {
+            onClick: onClick
+        }
+    };
+    </script>
 </body>
 </html>

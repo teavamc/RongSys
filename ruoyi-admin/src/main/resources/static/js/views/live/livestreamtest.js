@@ -11,6 +11,7 @@ var ws = null;
 var streamid=null;
 // imei 的列表 农大终端测试机器 IMEI 号码
 var imeilist= "862105024020277";
+var imeiNameList= "测试";
 $("#test").html(imeilist);
 console.log('源码指定测试终端'+imeilist);
 // 流媒体状态 0:正在开启，1:已经开启直播，2:未直播或已经关闭直播，3:正在关闭
@@ -22,6 +23,7 @@ var isstreamliving=2;
 // 张超 RED5流媒体
 var  rtmpAddress = "rtmp://120.79.42.11:1936/live";
 var list = new Array();
+var nameList = new Array();
 /**
  * 在加载之前
  */
@@ -143,8 +145,11 @@ function connectWS() {
  */
 function startlive(obj){
     list[0] = imeilist;
-    for(var i = 0; i < imea.length; i++)
+    nameList[0] = imeiNameList;
+    for(var i = 0; i < imea.length; i++) {
         list[i+1] = imea[i];
+        nameList[i+1] = imeiName[i];
+    }
     // 如果未选择则 提示要选择
     if(imeilist==null || imeilist==""){
         $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
@@ -176,7 +181,7 @@ function startsent(){
         setLiveButton(2);
     }
     if(streamid!=null)
-        addlog("open",streamid,list);
+        addlog("open",streamid,list, nameList);
 }
 
 
@@ -186,7 +191,7 @@ function startsent(){
 function endlive(){
     setLiveButton(3);
     scrollStatus("text-info","正在关闭直播...");
-    addlog("close",streamid,list);
+    addlog("close",streamid,list,nameList);
     if(isOpen) streamerDisconnect();
     if (ws != null) {
         var message = "end:"+streamid;
@@ -229,21 +234,21 @@ function closeWS(){
  * @param streamid
  * @param imeilist
  */
-function addlog(type,streamid,imeilist){
+function addlog(type,streamid,imeilist, imeiNameList){
     var data ;
     if(type=="open"){
-        data= {streamid:streamid,type:type,imeilist:imeilist};
+        data= {streamid:streamid,type:type,imeilist:imeilist, imeiNameList:imeiNameList};
         console.log("addlog(): list: "+imeilist);
         for(var i = 0; i < imeilist.length; i++)
             if(imeilist[i] != '' && imeilist[i] != null)
-                $("#tbody").append("<tr><td class='center'>"+data.imeilist[i]+"</td> <td class='center'>"+data.streamid+"</td>"+
-                "<td class='center'>"+data.type+"</td></tr>");
+                $("#tbody").append("<tr><td class='center'>"+data.imeilist[i]+"</td><td class='center'>"+data.imeiNameList[i]+"</td> " +
+                    "<td class='center'>"+data.streamid+"</td><td class='center'>"+data.type+"</td></tr>");
     }else{
-        data= {streamid:streamid,type:type,imeilist:imeilist};
+        data= {streamid:streamid,type:type,imeilist:imeilist, imeiNameList:imeiNameList};
         for(var i = 0; i < imeilist.length; i++)
             if(imeilist[i] != '' && imeilist[i] != null)
-                $("#tbody").append("<tr><td class='center'>"+data.imeilist[i]+"</td> <td class='center'>"+data.streamid+"</td>"+
-                "<td class='center'>"+data.type+"</td></tr>");
+                $("#tbody").append("<tr><td class='center'>"+data.imeilist[i]+"</td><td class='center'>"+data.imeiNameList[i]+"</td> " +
+                    "<td class='center'>"+data.streamid+"</td><td class='center'>"+data.type+"</td></tr>");
     }
 }
 

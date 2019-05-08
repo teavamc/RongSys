@@ -56,14 +56,13 @@
     <sql id="selectOrganizationVo">
         select
         t.tid as tid,tname,t.aid as aid,aname,t.userid as userid,uname,
-        lastaccesstime,facid,address,t.note as note,comstand,broadtel,
+        facid,address,t.note as note,comstand,broadtel,
         manager,managertel,intertime,createdtime,t.isuse as isuse,phone,
         fmfrequency,rds,trafficlimit,p.pic as pic
         from (((<include refid="tableName"></include> t
         left join <include refid="areatableName"></include> a on t.aid = a.aid)
         left join <include refid="usertable"></include> u on t.userid = u.userid)
         left join <include refid="termanagepictable"></include> p on t.tid = p.tid)
-        left join ( select MAX(createdtime) as lastaccesstime,terminalid from <include refid="terreceivestable"></include> GROUP BY terminalid) access on access.terminalid=t.tid
 
     </sql>
 
@@ -104,7 +103,6 @@
         where t.tid = #{tid}
     </select>
 
-    <!--下面对终端的增删改查是没有实现的-->
     <insert id="insertOrganization" parameterType="Organization">
         insert into tb_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -151,7 +149,7 @@
             <if test="phone != null  and phone != ''  ">#{phone},</if>
             <if test="rds != null  and rds != ''  ">#{rds},</if>
             <if test="fmfrequency != null  and fmfrequency != ''  ">#{fmfrequency},</if>
-            <if test="trafficlimit != null  ">#{trafficlimit},</if>
+            <if test="trafficlimit != null  ">0,</if>
         </trim>
     </insert>
 
