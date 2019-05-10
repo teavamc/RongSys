@@ -2,6 +2,7 @@ package com.ruoyi.api.controller.iot;
 
 import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
+import com.ruoyi.iot.domain.IotgetPa;
 import com.ruoyi.iot.service.ITorrentService;
 import com.ruoyi.rivervis.service.IEnvDataService;
 import io.swagger.annotations.Api;
@@ -41,6 +42,13 @@ public class IotCount {
     @ApiOperation(value = "物联网挂载设备总数")
     public RongApiRes devicecount(){
         return RongApiService.get_bean(torrentService.devicecount());
+    }
+
+    @CrossOrigin
+    @GetMapping("/iotbyitl")
+    @ApiOperation(value = "根据IMEI号和时间范围和查询条数统计物联网数据")
+    public RongApiRes iotbyitl(IotgetPa iotgetPa){
+        return RongApiService.get_list(torrentService.selectTorrentByitl(iotgetPa));
     }
 
 

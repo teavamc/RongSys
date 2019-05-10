@@ -1,5 +1,6 @@
 package com.ruoyi.iot.mapper;
 
+import com.ruoyi.iot.domain.IotgetPa;
 import com.ruoyi.iot.domain.Torrent;
 import java.util.List;	
 
@@ -74,5 +75,12 @@ public interface TorrentMapper
      * @return 结果
      */
 	public int deleteTorrentByIds(String[] dataids);
-	
+
+	/**
+	 * 根据IMEI号和时间范围和查询条数统计物联网数据
+	 *
+	 * @param torrent 终端信息
+	 * @return 终端信息集合
+	 */
+	public List<Torrent> selectTorrentByitl(IotgetPa iotgetPa);
 }
