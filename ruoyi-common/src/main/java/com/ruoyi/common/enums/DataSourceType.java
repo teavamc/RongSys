@@ -35,6 +35,11 @@ public enum DataSourceType
     /**
      * 从库五
      */
-    SXVILLAGE
+    SXVILLAGE,
+
+    /**
+     * 从库六
+     */
+    SXBAODIAN
 
 }
