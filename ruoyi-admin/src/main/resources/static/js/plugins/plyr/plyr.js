@@ -322,7 +322,7 @@
     function _supportMime(player, mimeType) {
         var media = player.media;
 
-        // Only check video types for video players
+        // Only chat video types for video players
         if (player.type == 'video') {
             // Check type
             switch (mimeType) {
@@ -335,7 +335,7 @@
             }
         }
 
-        // Only check audio types for audio players
+        // Only chat audio types for audio players
         else if (player.type == 'audio') {
             // Check type
             switch (mimeType) {

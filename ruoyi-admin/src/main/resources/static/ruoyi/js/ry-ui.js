@@ -348,7 +348,7 @@
                     area: [_width + 'px', _height + 'px'],
                     content: _url,
                     shadeClose: true,
-                    btn: ['<i class="fa fa-check"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
+                    btn: ['<i class="fa fa-chat"></i> 确认', '<i class="fa fa-close"></i> 关闭'],
                     yes: function (index, layero) {
                         options.callBack(index, layero)
                     }, cancel: function () {

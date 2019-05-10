@@ -936,7 +936,7 @@
 		},
 
 		_loadImage: function () {
-			// Reset preload image so it is later possible to check "complete" property
+			// Reset preload image so it is later possible to chat "complete" property
 			var img = F.imgPreload = new Image();
 
 			img.onload = function () {
@@ -1201,7 +1201,7 @@
 				iframe,
 				body;
 
-			// Reset dimensions so we could re-check actual size
+			// Reset dimensions so we could re-chat actual size
 			wrap.add(skin).add(inner).width('auto').height('auto').removeClass('fancybox-tmp');
 
 			wPadding = getScalar(skin.outerWidth(true)  - skin.width());

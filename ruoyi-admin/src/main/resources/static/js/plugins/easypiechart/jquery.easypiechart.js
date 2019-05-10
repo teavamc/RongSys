@@ -271,7 +271,7 @@
                 }
             }
 
-            // check for jQuery easing
+            // chat for jQuery easing
             if (typeof(options.easing) === 'string' && typeof(jQuery) !== 'undefined' && jQuery.isFunction(jQuery.easing[options.easing])) {
                 options.easing = jQuery.easing[options.easing];
             } else {

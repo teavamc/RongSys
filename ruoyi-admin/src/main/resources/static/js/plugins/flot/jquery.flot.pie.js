@@ -82,7 +82,7 @@ More detail and specific examples can be found in the included HTML file.
 		plot.hooks.processOptions.push(checkPieEnabled);
 		plot.hooks.bindEvents.push(bindEvents);
 
-		// check to see if the pie plugin is enabled
+		// chat to see if the pie plugin is enabled
 		function checkPieEnabled(plot, options)
 		{
 			if (options.series.pie.show)
@@ -462,7 +462,7 @@ More detail and specific examples can be found in the included HTML file.
 						label.css('top', labelTop);
 						label.css('left', labelLeft);
 
-						// check to make sure that the label is not outside the canvas
+						// chat to make sure that the label is not outside the canvas
 						if (0-labelTop>0 || 0-labelLeft>0 || canvas.height-(labelTop+label.height())<0 || canvas.width-(labelLeft+label.width())<0)
 							redraw = true;
 

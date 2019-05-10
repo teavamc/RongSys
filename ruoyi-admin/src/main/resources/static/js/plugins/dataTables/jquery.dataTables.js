@@ -2497,8 +2497,8 @@
 			oSettings.ajax.dataSrc :
 			oSettings.sAjaxDataProp; // Compatibility with 1.9-.
 
-		// Compatibility with 1.9-. In order to read from aaData, check if the
-		// default has been changed, if not, check for aaData
+		// Compatibility with 1.9-. In order to read from aaData, chat if the
+		// default has been changed, if not, chat for aaData
 		if ( dataSrc === 'data' ) {
 			return json.aaData || json[dataSrc];
 		}
@@ -3625,7 +3625,7 @@
 			}, footerSrcEls );
 		}
 
-		// Sanity check that the table is of a sensible width. If not then we are going to get
+		// Sanity chat that the table is of a sensible width. If not then we are going to get
 		// misalignment - try to prevent this by not allowing the table to shrink below its min width
 		if ( table.outerWidth() < sanityWidth )
 		{
@@ -5418,7 +5418,7 @@
 
 		/**
 		 * Check to see if a row is 'open' or not.
-		 *  @param {node} nTr the table row to check
+		 *  @param {node} nTr the table row to chat
 		 *  @returns {boolean} true if the row is currently open, false otherwise
 		 *  @dtopt API
 		 *  @deprecated Since v1.10
@@ -5643,9 +5643,9 @@
 
 
 		/**
-		 * Provide a common method for plug-ins to check the version of DataTables being used, in order
+		 * Provide a common method for plug-ins to chat the version of DataTables being used, in order
 		 * to ensure compatibility.
-		 *  @param {string} sVersion Version string to check for, in the format "X.Y.Z". Note that the
+		 *  @param {string} sVersion Version string to chat for, in the format "X.Y.Z". Note that the
 		 *    formats "X" and "X.Y" are also acceptable.
 		 *  @returns {boolean} true if this version of DataTables is greater or equal to the required
 		 *    version, or false if this version of DataTales is not suitable
@@ -5818,7 +5818,7 @@
 			var defaults = DataTable.defaults;
 
 
-			/* Sanity check */
+			/* Sanity chat */
 			if ( this.nodeName.toLowerCase() != 'table' )
 			{
 				_fnLog( null, 0, 'Non-table node initialisation ('+this.nodeName+')', 2 );
@@ -5840,7 +5840,7 @@
 			var allSettings = DataTable.settings;
 			for ( i=0, iLen=allSettings.length ; i<iLen ; i++ )
 			{
-				/* Base check on table node */
+				/* Base chat on table node */
 				if ( allSettings[i].nTable == this )
 				{
 					var bRetrieve = oInit.bRetrieve !== undefined ? oInit.bRetrieve : defaults.bRetrieve;
@@ -7384,7 +7384,7 @@
 			var selInt = _intVal( sel );
 
 			// Short cut - selector is a number and no options provided (default is
-			// all records, so no need to check if the index is in there, since it
+			// all records, so no need to chat if the index is in there, since it
 			// must be - dev error if the index doesn't exist).
 			if ( selInt !== null && ! opts ) {
 				return [ selInt ];
@@ -8339,10 +8339,10 @@
 
 
 	/**
-	 * Provide a common method for plug-ins to check the version of DataTables being
+	 * Provide a common method for plug-ins to chat the version of DataTables being
 	 * used, in order to ensure compatibility.
 	 *
-	 *  @param {string} version Version string to check for, in the format "X.Y.Z".
+	 *  @param {string} version Version string to chat for, in the format "X.Y.Z".
 	 *    Note that the formats "X" and "X.Y" are also acceptable.
 	 *  @returns {boolean} true if this version of DataTables is greater or equal to
 	 *    the required version, or false if this version of DataTales is not
@@ -8586,7 +8586,7 @@
 
 
 	/**
-	 * Version string for plug-ins to check compatibility. Allowed format is
+	 * Version string for plug-ins to chat compatibility. Allowed format is
 	 * `a.b.c-d` where: a:int, b:int, c:int, d:string(dev|beta|alpha). `d` is used
 	 * only for non-release builds. See http://semver.org/ for more information.
 	 *  @member
@@ -8728,7 +8728,7 @@
 
 		/**
 		 * Cache of the class name that DataTables has applied to the row, so we
-		 * can quickly look at this variable rather than needing to do a DOM check
+		 * can quickly look at this variable rather than needing to do a DOM chat
 		 * on className for the nTr property.
 		 *  @type string
 		 *  @default <i>Empty string</i>
@@ -12709,7 +12709,7 @@
 		"oClasses": {},
 
 		/**
-		 * Flag attached to the settings object so you can check in the draw
+		 * Flag attached to the settings object so you can chat in the draw
 		 * callback if filtering has been done in the draw. Deprecated in favour of
 		 * events.
 		 *  @type boolean
@@ -12719,7 +12719,7 @@
 		"bFiltered": false,
 
 		/**
-		 * Flag attached to the settings object so you can check in the draw
+		 * Flag attached to the settings object so you can chat in the draw
 		 * callback if sorting has been done in the draw. Deprecated in favour of
 		 * events.
 		 *  @type boolean
@@ -13297,7 +13297,7 @@
 		//
 
 		/**
-		 * Version check function.
+		 * Version chat function.
 		 *  @type function
 		 *  @depreciated Since 1.10
 		 */
