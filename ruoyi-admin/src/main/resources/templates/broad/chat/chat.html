@@ -26,13 +26,13 @@
         if (window.WebSocket) {
             socket = new WebSocket("ws://localhost:8888/websocket");
             socket.onmessage = function (event) {
-                var str = String(event.data).split(":");
+                var str = String(event.data).split("#");
                 var html =
                     '<div class="chat-message">' +
                         '<div class="message">' +
-                            '<a class="message-author" href="#"> ' +str[0] + '</a>' +
-                            '<span class="message-date"> ' + getdate() + '</span>' +
-                            '<span class="message-content">' + str[1] + '</span>' +
+                            '<a class="message-author" href="#"> ' +str[1] + '</a>' +
+                            '<span class="message-date"> ' + str[0] + '</span>' +
+                            '<span class="message-content">' + str[2] + '</span>' +
                         '</div>' +
                     '</div>';
                 $("#chat").append(html);
@@ -54,10 +54,11 @@
             return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
         }
         function send() {
+            var str = getdate() + "#";
             if ($.trim($('#name1').val()) != null || $.trim($('#name1').val()) != '')
-                var str = $.trim($('#name1').val()) + ":" + $.trim($("#text1").val());
+                str += $.trim($('#name1').val()) + "#" + $.trim($("#text1").val());
             else
-                var str = "test:" + $.trim($("#text1").val());
+                str += "test#" + $.trim($("#text1").val());
             socket.send(str);
         }
         function users() {
