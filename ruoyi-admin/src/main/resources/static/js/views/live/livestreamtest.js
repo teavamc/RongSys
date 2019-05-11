@@ -10,7 +10,7 @@ var ws = null;
 // 流媒体 id
 var streamid=null;
 // imei 的列表 农大终端测试机器 IMEI 号码
-var imeilist= "862105024020277";
+var imeilist= "862105024040770,862105024020277";
 var imeiNameList= "测试";
 $("#test").html(imeilist);
 console.log('源码指定测试终端'+imeilist);

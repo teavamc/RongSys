@@ -13,8 +13,8 @@ $(function() {
 		})
 	}
 	// checkbox 事件绑定
-	if ($(".check-box").length > 0) {
-	    $(".check-box").iCheck({
+	if ($(".chat-box").length > 0) {
+	    $(".chat-box").iCheck({
 	    	checkboxClass: 'icheckbox-blue',
 			radioClass: 'iradio-blue',
 	    })
@@ -98,7 +98,7 @@ $(function() {
 		}).bind("input propertychange", $.tree.searchNode);
 	}
 	// 复选框后按钮样式状态变更
-	$("#bootstrap-table").on("check.bs.table uncheck.bs.table check-all.bs.table uncheck-all.bs.table", function () {
+	$("#bootstrap-table").on("check.bs.table uncheck.bs.table chat-all.bs.table uncheck-all.bs.table", function () {
 		var ids = $("#bootstrap-table").bootstrapTable("getSelections");
 		$('#toolbar .btn-del').toggleClass('disabled', !ids.length);
 		$('#toolbar .btn-edit').toggleClass('disabled', ids.length!=1);;

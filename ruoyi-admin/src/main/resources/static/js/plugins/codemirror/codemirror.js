@@ -3343,7 +3343,7 @@
     clearTimeout(display.detectingSelectAll);
 
     // Select-all will be greyed out if there's nothing to select, so
-    // this adds a zero-width space so that we can later check whether
+    // this adds a zero-width space so that we can later chat whether
     // it got selected.
     function prepareSelectAllHack() {
       if (display.input.selectionStart != null) {
@@ -6299,7 +6299,7 @@
         at -= sz;
       }
     },
-    // When a node has grown, check whether it should be split.
+    // When a node has grown, chat whether it should be split.
     maybeSpill: function() {
       if (this.children.length <= 10) return;
       var me = this;
