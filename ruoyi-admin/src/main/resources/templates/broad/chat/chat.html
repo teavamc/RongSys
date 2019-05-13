@@ -27,13 +27,19 @@
             socket = new WebSocket("ws://localhost:8888/websocket");
             socket.onmessage = function (event) {
                 var str = String(event.data).split("#");
+                var style;
+                if (str[1].equals($.trim($('#name1').val()))) {
+                    style = "right";
+                } else {
+                    style = "left";
+                }
                 var html =
                     '<div class="chat-message">' +
-                        '<div class="message">' +
-                            '<a class="message-author" href="#"> ' +str[1] + '</a>' +
-                            '<span class="message-date"> ' + str[0] + '</span>' +
-                            '<span class="message-content">' + str[2] + '</span>' +
-                        '</div>' +
+                    '<div class="message">' +
+                    '<a class="message-author"> ' + str[1] + '</a>' +
+                    '<span class="message-date"> ' + str[0] + '</span>' +
+                    '<span class="message-content">' + str[2] + '</span>' +
+                    '</div>' +
                     '</div>';
                 $("#chat").append(html);
             };
@@ -53,7 +59,7 @@
                 d = now.getDate();
             return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
         }
-        function send() {
+        function send() {x
             var str = getdate() + "#";
             if ($.trim($('#name1').val()) != null || $.trim($('#name1').val()) != '')
                 str += $.trim($('#name1').val()) + "#" + $.trim($("#text1").val());
@@ -72,7 +78,7 @@
                     console.log(data.rows[0].userName);
                     var str = '';
 
-                    for(var i in names) {
+                    for (var i in names) {
                         var n = '';
                         if (names[i].status == 0)
                             n = '<span class="pull-right label label-primary">状态: 正常</span>';
@@ -80,9 +86,9 @@
                             n = '<span class="pull-right label label-error" >状态: 停用</span>';
                         str +=
                             '<div class="chat-user"> ' + n +
-                                '<div class="chat-user-name"> ' +
-                                    '<a href="#">'+names[i].userName+'</a> ' +
-                                '</div>' +
+                            '<div class="chat-user-name"> ' +
+                            '<a href="#">' + names[i].userName + '</a> ' +
+                            '</div>' +
                             '</div>';
                     }
                     $("#users").html(str);
@@ -90,9 +96,37 @@
                 }
             });
         }
+        function init() {
+            $.ajax({
+                type: "GET",
+                url: "/broad/chat/msg",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    for (var i = 0; i < data.length; i++) {
+                        var d = data[i];
+                        var str = String(d).split("#");
+                        if (str[1] == $.trim($('#name1').val())) {
+                            style = "right";
+                        } else {
+                            style = "left";
+                        }
+                        var html =
+                            '<div class="chat-message">' +
+                            '<div class="message">' +
+                            '<a class="message-author" href="#"> ' + str[1] + '</a>' +
+                            '<span class="message-date"> ' + str[0] + '</span>' +
+                            '<span class="message-content">' + str[2] + '</span>' +
+                            '</div>' +
+                            '</div>';
+                        $("#chat").append(html);
+                    }
+                }
+            })
+        }
     </script>
 </head>
-<body onload="users();">
+<body onload="users();init();">
 <div class="wrapper wrapper-content  animated fadeInRight">
     <div class="row">
         <div class="col-sm-12">
@@ -118,7 +152,8 @@
             <div class="chat-message-form">
                 <div class="form-group">
                     <input type="hidden" id="name1" th:value="${session.userName}">
-                    <textarea class="form-control message-input" id="text1" name="message" placeholder="输入消息内容"></textarea>
+                    <textarea class="form-control message-input" id="text1" name="message"
+                              placeholder="输入消息内容"></textarea>
                 </div>
             </div>
             <button class="btn btn-primary btn-sm" onclick="send()">发送</button>

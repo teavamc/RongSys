@@ -20,8 +20,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Set;
 
+import static com.ruoyi.redis.RedisWatchLock.*;
+
 /**
- * Created by MI on 2019/4/26.
+ * 聊天室
+ *
+ * @author 周博
+ * @date 2019-04-27
  */
 public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
     private WebSocketServerHandshaker handshaker;
@@ -30,14 +35,10 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
     public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private static final Logger log = LoggerFactory.getLogger(CheckSoketHandler.class);
 
-    public static final String redisHost = "127.0.0.1";
-    public static final String redisPassword = "123456";
-    public static final String redisSocketSet = "chat";
-    public static final String redisNumber = "chatNumber";
     private Jedis jedis;
 
     public CheckSoketHandler() {
-        jedis = new Jedis(redisHost);
+        jedis =  pool.getResource();
         jedis.auth(redisPassword);
         System.out.println("服务器正在运行: " + jedis.ping());
     }
@@ -102,6 +103,10 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
                     channel.writeAndFlush(new TextWebSocketFrame(msg.text()));
                 }
             }
+            String number = jedis.get(redisNumber);
+            int n = Integer.valueOf(number);
+            jedis.zadd(redisSocketSet, n, msg.text());
+            jedis.set(redisNumber, String.valueOf(++n));
         }
     }
 
@@ -114,11 +119,6 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
             handHttpRequest(context, (FullHttpRequest) msg);
         } else if (msg instanceof WebSocketFrame) {// 处理websocket连接业务
             handWebSocketFrame(context, (WebSocketFrame) msg);
-            String number = jedis.get(redisNumber);
-            int n = Integer.valueOf(number);
-            TextWebSocketFrame f = (TextWebSocketFrame)msg;
-            jedis.zadd(redisSocketSet, n, (String)f.text());
-            jedis.set(redisNumber, String.valueOf(++n));
         }
     }
 
@@ -132,12 +132,7 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
             channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " 加入\n");
         }
         group.add(ctx.channel());
-        int n = Integer.valueOf(jedis.get(redisNumber));
-        Set<String> set = jedis.zrange(redisSocketSet, 0, n);
-        for( String msg : set) {
-            System.out.println(msg);
-            ctx.channel().writeAndFlush(msg);
-        }
+
     }
 
     /**
