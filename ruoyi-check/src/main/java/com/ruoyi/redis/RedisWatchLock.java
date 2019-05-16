@@ -1,19 +1,22 @@
 package com.ruoyi.redis;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Transaction;
+
 /**
  * redis CAS乐观锁
+ *
  * @author 周博
  * @date 2019-5-12
- *
  */
 public class RedisWatchLock {
     public static final String redisHost = "127.0.0.1";
@@ -29,12 +32,13 @@ public class RedisWatchLock {
 
     private static ExecutorService service;
 
-    private static int ThLeng=10;
+    private static int ThLeng = 10;
 
     private static CountDownLatch latch;
 
     private static AtomicInteger Countor = new AtomicInteger(0);
-    static{
+
+    static {
         //利用Redis连接池，保证多个线程利用多个连接，充分模拟并发性
         config = new JedisPoolConfig();
         config.setMaxIdle(10);
@@ -47,76 +51,44 @@ public class RedisWatchLock {
         latch = new CountDownLatch(ThLeng);
     }
 
-    public static void main(String args[]){
-        int ThLeng = 10;
-        String ThreadNamePrefix = "thread-";
-        Jedis cli = pool.getResource();
-        cli.auth(redisPassword);
-        cli.del("redis_inc_key");//先删除既定的key
-        cli.set("redis_inc_key", String.valueOf(1));//设定默认值
-        for(int i =0;i<ThLeng;i++){
-            Thread th = new Thread(new TestThread(pool));
-            th.setName(ThreadNamePrefix+i);
-            System.out.println(th.getName()+"inited...");
-            service.submit(th);
-        }
-        service.shutdown();
-        try {
-            latch.await();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.out.println("all sub thread sucess");
-        System.out.println("countor is "+Countor.get());
-        String countStr = cli.get("redis_inc_key");
-        System.out.println(countStr);
-    }
-
     public static class TestThread implements Runnable {
-        private String incKeyStr = "redis_inc_key";
-        private Jedis cli;
+        private Jedis jedis;
         private JedisPool pool;
-        public TestThread(JedisPool pool) {
-            cli = pool.getResource();
-            this.pool = pool;
+        private String text;
 
+        public TestThread(String text) {
+            this.pool = RedisWatchLock.pool;
+            jedis = pool.getResource();
+            this.text = text;
+            jedis.auth(redisPassword);
         }
+
+        @Override
         public void run() {
-            try{
-
-                for (int i = 0; i < 100; i++) {
-                    actomicAdd();
-                }
-            }catch(Exception e){
-                pool.returnBrokenResource(cli);
-            }
-            finally{
-                pool.returnResource(cli);
-                latch.countDown();
+            try {
+                actomicAdd();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
-        public void actomicAdd(){
-            boolean flag =true;
-            while(flag){
-                cli.watch(incKeyStr);
-                String countStr = cli.get("redis_inc_key");
-                int countInt = Integer.parseInt(countStr);
-                int expect = countInt+1;
-                Transaction tx = cli.multi();
-                tx.set(incKeyStr, String.valueOf(expect));
-                List<Object> list = tx.exec();
-                //如果事务失败了exec会返回null
-                if(list==null){
-                    System.out.println("multi shut down");
+        public void actomicAdd() {
+            boolean flag = true;
+            while (flag) {
+                String number = jedis.get(redisNumber);
+                int n = Integer.valueOf(number);
+                jedis.zadd(redisSocketSet, n, text);
+                jedis.set(redisNumber, String.valueOf(++n));
+                Set<String> set = jedis.zrange(redisSocketSet, n, n);
+                String textInSet = "";
+                for (String i : set)
+                    textInSet += i;
+                if (!textInSet.equals(text)) {
                     continue;
-                }
-                else{
+                } else {
                     //如果达到期望值那么结束while循环
-                    flag=false;
+                    flag = false;
                 }
-                System.out.println("my expect num is "+expect);
-                System.out.println("seting....");
             }
             Countor.incrementAndGet();
         }

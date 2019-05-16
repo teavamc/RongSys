@@ -59,13 +59,14 @@
                 d = now.getDate();
             return y + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d) + " " + now.toTimeString().substr(0, 8);
         }
-        function send() {x
+        function send() {
             var str = getdate() + "#";
             if ($.trim($('#name1').val()) != null || $.trim($('#name1').val()) != '')
                 str += $.trim($('#name1').val()) + "#" + $.trim($("#text1").val());
             else
                 str += "test#" + $.trim($("#text1").val());
             socket.send(str);
+            init();
         }
         function users() {
             $.ajax({
@@ -97,6 +98,7 @@
             });
         }
         function init() {
+            $("#chat").html("");
             $.ajax({
                 type: "GET",
                 url: "/broad/chat/msg",

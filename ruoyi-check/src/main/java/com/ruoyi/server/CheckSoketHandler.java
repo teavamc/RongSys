@@ -35,14 +35,6 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
     public static ChannelGroup group = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
     private static final Logger log = LoggerFactory.getLogger(CheckSoketHandler.class);
 
-    private Jedis jedis;
-
-    public CheckSoketHandler() {
-        jedis =  pool.getResource();
-        jedis.auth(redisPassword);
-        System.out.println("服务器正在运行: " + jedis.ping());
-    }
-
     /**
      * 处理客户端向服务端发起http握手请求的业务
      */
@@ -103,10 +95,7 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
                     channel.writeAndFlush(new TextWebSocketFrame(msg.text()));
                 }
             }
-            String number = jedis.get(redisNumber);
-            int n = Integer.valueOf(number);
-            jedis.zadd(redisSocketSet, n, msg.text());
-            jedis.set(redisNumber, String.valueOf(++n));
+            new TestThread(msg.text()).run();
         }
     }
 
