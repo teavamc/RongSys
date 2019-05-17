@@ -1,0 +1,161 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								地域编号：<input type="text" name="aid"/>
+							</li>
+
+							<li>
+								村组名称：<input type="text" name="grouptype"/>
+							</li>
+
+							<li>
+								建设用地：<input type="text" name="constructionland"/>
+							</li>
+
+							<li>
+								工矿仓储用地：<input type="text" name="imsland"/>
+							</li>
+
+							<li>
+								商服用地：<input type="text" name="businessland"/>
+							</li>
+
+							<li>
+								农村宅基地：<input type="text" name="homestead"/>
+							</li>
+
+							<li>
+								公共服务用地：<input type="text" name="publicland"/>
+							</li>
+
+							<li>
+								交通水利用地：<input type="text" name="twland"/>
+							</li>
+
+							<li>
+								其他建设用地：<input type="text" name="otherland"/>
+							</li>
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="village:assetAssessment:add">
+					<i class="fa fa-plus"></i> 添加
+				</a>
+				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="village:assetAssessment:edit">
+					<i class="fa fa-edit"></i> 修改
+				</a>
+				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:assetAssessment:remove">
+					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="village:assetAssessment:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('village:assetAssessment:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('village:assetAssessment:remove')}]];
+        var prefix = ctx + "village/assetAssessment";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "资产清查",
+				search: false,
+		        showExport: true,
+                columns: [{
+		            checkbox: true
+		        },
+				{
+					field : 'aaid', 
+					title : '',
+					visible: false
+				},
+				{
+					field : 'aid', 
+					title : '地域编号',
+					sortable: true
+				},
+				{
+					field : 'grouptype', 
+					title : '村组名称',
+					sortable: true
+				},
+				{
+					field : 'constructionland', 
+					title : '建设用地',
+					sortable: true
+				},
+				{
+					field : 'imsland', 
+					title : '工矿仓储用地',
+					sortable: true
+				},
+				{
+					field : 'businessland',
+					title : '商服用地',
+					sortable: true
+				},
+				{
+					field : 'homestead', 
+					title : '农村宅基地',
+					sortable: true
+				},
+				{
+					field : 'publicland', 
+					title : '公共服务用地',
+					sortable: true
+				},
+				{
+					field : 'twland', 
+					title : '交通水利用地',
+					sortable: true
+				},
+				{
+					field : 'otherland', 
+					title : '其他建设用地',
+					sortable: true
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.aaid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.aaid + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

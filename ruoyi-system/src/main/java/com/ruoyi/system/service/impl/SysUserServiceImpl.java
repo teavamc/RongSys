@@ -345,4 +345,46 @@ public class SysUserServiceImpl implements ISysUserService
         }
         return idsStr.toString();
     }
+
+    /**
+     * 查找最大用户ID
+     *
+     * @param
+     * @return 结果
+     */
+    @Override
+    public int selectMaxUserId()
+    {
+        int count = userMapper.selectMaxUserId();
+
+        return count;
+    }
+
+    /**
+     * 根据用户ID查询用户所属组aid
+     *
+     * @param userId 用户ID
+     * @return 结果
+     */
+    @Override
+    public String selectAid(int userId)
+    {
+       String aid = userMapper.selectAid(userId);
+
+        return aid;
+    }
+
+    /**
+     * 根据用户ID查询用户等级roleid
+     *
+     * @param userId 用户ID
+     * @return 结果
+     */
+    @Override
+    public int selectRoleid(int userId)
+    {
+        int role_id = userMapper.selectRoleid(userId);
+
+        return role_id;
+    }
 }

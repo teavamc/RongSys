@@ -42,6 +42,10 @@ public class SysUser extends BaseEntity
     @Excel(name = "手机号码")
     private String phonenumber;
 
+    /** 手机MEI号码 */
+    @Excel(name = "手机IMEI号码")
+    private String phoneimei;
+
     /** 用户性别 */
     @Excel(name = "用户性别", readConverterExp = "0=男,1=女,2=未知")
     private String sex;
@@ -80,6 +84,12 @@ public class SysUser extends BaseEntity
 
     /** 岗位组 */
     private Long[] postIds;
+
+    /** 用户所属平台 */
+    private String platform;
+
+    /** 用户所属地域编号 */
+    private String aid;
 
     public Long getUserId()
     {
@@ -159,6 +169,16 @@ public class SysUser extends BaseEntity
     public void setPhonenumber(String phonenumber)
     {
         this.phonenumber = phonenumber;
+    }
+
+    public String getPhoneimei()
+    {
+        return phoneimei;
+    }
+
+    public void setPhoneimei(String phoneimei)
+    {
+        this.phoneimei = phoneimei;
     }
 
     public String getSex()
@@ -281,6 +301,27 @@ public class SysUser extends BaseEntity
         this.postIds = postIds;
     }
 
+    public String getPlatform()
+    {
+        return platform;
+    }
+
+    public void setPlatform(String platform)
+    {
+        this.platform = platform;
+    }
+
+    public void setAid(String aid)
+    {
+        this.aid = aid;
+    }
+
+    public String getAid()
+    {
+        return aid;
+    }
+
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -290,6 +331,7 @@ public class SysUser extends BaseEntity
             .append("userName", getUserName())
             .append("email", getEmail())
             .append("phonenumber", getPhonenumber())
+            .append("phoneimei", getPhoneimei())
             .append("sex", getSex())
             .append("avatar", getAvatar())
             .append("password", getPassword())
@@ -303,6 +345,8 @@ public class SysUser extends BaseEntity
             .append("updateBy", getUpdateBy())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
+            .append("platform", getPlatform())
+            .append("aid", getAid())
             .toString();
     }
 }

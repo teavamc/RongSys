@@ -6,6 +6,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="Broaduser" id="BroaduserResult">
         <result property="userid"    column="userid"    />
+        <result property="sysuserId"    column="sysuserId"    />
+        <result property="username"    column="username"    />
         <result property="uname"    column="uname"    />
         <result property="userlevel"    column="userlevel"    />
         <result property="uphone"    column="uphone"    />
@@ -69,5 +71,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{userid}
         </foreach>
     </delete>
-    
+
+    <!-- 新增终端用户信息 -->
+    <!--<insert id="insertBroaduser" parameterType="String" >
+        insert into userinfo (
+        userid,
+        username,
+        uname,
+        uphone,
+        aid
+        ) values (
+        "11",#{username},#{uname},#{uphone},#{aid}
+        )
+    </insert>-->
+    <insert id="insertBroaduser" parameterType="Broaduser">
+       insert into userinfo (
+        userid,
+        user_id,
+        username,
+        uname,
+        uphone,
+        aid
+        ) values (
+        REPLACE(UUID(),"-",""),#{sysuserId},#{username},#{uname},#{uphone},#{aid}
+        )
+
+    </insert>
 </mapper>

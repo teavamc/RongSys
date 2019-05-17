@@ -362,7 +362,7 @@
                 if (mouse.distX > 0 && prev.length && !prev.hasClass(opt.collapsedClass)) {
                     // cannot increase level when item above is collapsed
                     list = prev.find(opt.listNodeName).last();
-                    // check if depth limit has reached
+                    // chat if depth limit has reached
                     depth = this.placeEl.parents(opt.listNodeName).length;
                     if (depth + this.dragDepth <= opt.maxDepth) {
                         // create new sub-level if one doesn't exist
@@ -420,11 +420,11 @@
              * move vertical
              */
             if (!mouse.dirAx || isNewRoot || isEmpty) {
-                // check if groups match if dragging over new root
+                // chat if groups match if dragging over new root
                 if (isNewRoot && opt.group !== pointElRoot.data('nestable-group')) {
                     return;
                 }
-                // check depth limit
+                // chat depth limit
                 depth = this.dragDepth - 1 + this.pointEl.parents(opt.listNodeName).length;
                 if (depth > opt.maxDepth) {
                     return;

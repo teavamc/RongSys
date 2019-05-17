@@ -25,9 +25,12 @@ public class NettyClient {
 
     private static final Logger log = LoggerFactory.getLogger(NettyClient.class);
     //思信地址
-    private  String host = "110.53.162.164";
+//    private  String host = "110.53.162.164";
+    private  String host = "120.79.42.11";
 //    交互端口
     private  int port = 8800;
+
+
 
 //    声明一个 WebSocketSession 对象 conn
     public WebSocketSession conn;
@@ -82,6 +85,7 @@ public class NettyClient {
             // 异步等待关闭连接channel
             cf.channel().closeFuture().sync();
 //	             System.out.println(" closed.."); // 关闭完成
+            log.info("NettyClient对象host: "+this.host+"port: "+this.port);
         } finally {
             // 释放线程池资源
             group.shutdownGracefully().sync();

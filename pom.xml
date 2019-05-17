@@ -47,11 +47,13 @@
 		<module>ruoyi-quartz</module>
 		<module>ruoyi-generator</module>
         <module>ruoyi-common</module>
+        <module>ruoyi-check</module>
 		<module>sx-broad</module>
         <module>sx-village</module>
         <module>sx-api</module>
-        <module>sx-broadWebSocket</module>
         <module>sx-broadStreamSocket</module>
+        <module>sx-iot</module>
+        <module>sx-rivervis</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -119,6 +121,11 @@
         </dependency>
 
         <!--iBatis-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
 
 
 	</dependencies>

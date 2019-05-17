@@ -84,7 +84,7 @@ public class StreamServer {
     ChannelFuture channelFuture = bootstrap.bind(PORT).sync();
             if (channelFuture.isSuccess()) {
         System.out.println("启动流媒体监听");
-        log.info("正常日志  信息： 开始启动StreamSocket监听，端口:" + PORT + "；" );
+        log.info("正常日志  信息： 开始启动流媒体监听，端口:" + PORT + "；" );
     }
     // 关闭连接
             channelFuture.channel().closeFuture().sync();

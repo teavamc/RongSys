@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.ProgramMapper">
+
+    <!-- 字段 -->
+    <sql id="Field">
+		 fid,
+	     fname,
+	     userid,
+	     remark,
+	     ispublic,
+	     filename,
+	     urls,
+	     address,
+	     createdtime,
+         flenth,
+         fsize,
+         ptype
+	</sql>
+
+    <!-- 字段值 -->
+    <sql id="FieldValue">
+		 #{fid},
+	     #{fname},
+	     #{userid},
+	     #{remark},
+	     #{ispublic},
+	     #{filename},
+	     #{urls},
+	      #{address},
+	     #{createdtime},
+         #{flenth},
+         #{fsize},
+         #{ptype}
+	</sql>
+    <!--表名 -->
+    <sql id="tableName">
+		programs
+	</sql>
+    <sql id="areatableName">
+		area
+	</sql>
+    <sql id="userstable">
+		userinfo
+	</sql>
+    <resultMap type="Program" id="programMap">
+        <result property="fid"    column="fid"    />
+        <result property="fname"    column="fname"    />
+        <result property="userid"    column="userid"    />
+        <result property="remark"    column="remark"    />
+        <result property="ispublic"    column="ispublic"    />
+        <result property="filename"    column="filename"    />
+        <result property="urls"    column="urls"    />
+        <result property="address"    column="address"    />
+        <result property="createdtime"    column="createdtime"    />
+        <result property="ptype"    column="ptype"    />
+        <result property="flenth"    column="flenth"    />
+        <result property="fsize"    column="fsize"    />
+        <result property="uname"    column="uname"    />
+    </resultMap>
+    <!--根据用户查询节目列表 -->
+    <select id="selectProList" parameterType="com.ruoyi.broad.domain.Program" resultMap="programMap">
+        select
+        fid,fname,g.userid as userid,remark,ispublic,filename,urls,address,createdtime,ptype,flenth,fsize,uname
+        from
+        <include refid="tableName"></include> g
+        LEFT JOIN <include refid="userstable"></include> ui on g.userid=ui.userid
+        <where>
+            <if test="fid != null and fid != '' "> and fid like '%${fid}%'</if>
+            <if test="fname != null  and fname != '' "> and fname like '%${fname}%'</if>
+        </where>
+        order by  createdtime desc,fid desc
+    </select>
+    <!--得到当年最大的文件标号-->
+    <select id="getMaxFileidofYear" parameterType="String" resultType="String">
+        SELECT SUBSTRING(MAX(SUBSTRING(filename,3)),1,5)
+        FROM <include refid="tableName"></include>
+        where SUBSTRING(filename,1,2) = SUBSTRING(#{year},3)
+    </select>
+</mapper>

@@ -6,45 +6,72 @@ spring:
         druid:
             # 主库数据源 张超服务器
             master:
-                url: jdbc:mysql://120.79.42.11:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
-                username: teavamc
-                password: Qwer1234!@#$
+#                url: jdbc:mysql://120.79.42.11:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: teavamc
+#                password: Qwer1234!@#$
+                url: jdbc:mysql://192.168.1.105:3306/ry?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456AaBb
 
             # （目前只读）思信数据源 - 应急广播 - broad
             slave:
                 enabled: true
-                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                url: jdbc:mysql://110.53.162.164:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+                url: jdbc:mysql://192.168.1.105:3306/broad?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
-                password: sx123456Aa
+                password: sx123456AaBb
 
             # 思信数据源 - 应急广播 - user
             sxuser:
                 enabled: true
-                url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                url: jdbc:mysql://110.53.162.164:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+                url: jdbc:mysql://192.168.1.105:3306/user?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
-                password: sx123456Aa
+                password: sx123456AaBb
 
-            # 思信数据源 - 应急广播 - infom
+            # 思信数据源 - 物联网系统
             sxinfom:
                 enabled: true
-                url: jdbc:mysql://110.53.162.164:3306/infom?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                url: jdbc:mysql://110.53.162.164:3306/shuofang?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+                url: jdbc:mysql://192.168.1.105:3306/shuofang?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
-                password: sx123456Aa
+                password: sx123456AaBb
 
             # 思信数据源 - 山洪预警 - rivervis
             sxrivervis:
                 enabled: true
-                url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                url: jdbc:mysql://110.53.162.164:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+                url: jdbc:mysql://192.168.1.105:3306/rivervis?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
-                password: sx123456Aa
+                password: sx123456AaBb
 
-            # 思信数据源 - 山洪预警 - rivervis
+            # 思信数据源 - 村务管理 - village
             sxvillage:
                 enabled: true
-                url: jdbc:mysql://110.53.162.164:3306/village?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                url: jdbc:mysql://110.53.162.164:3306/village?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+                url: jdbc:mysql://192.168.1.105:3306/village?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
                 username: root
-                password: sx123456Aa
+                password: sx123456AaBb
 
+            # 思信数据源 - 村务宝典 - baodian
+            sxbaodian:
+                enabled: true
+#                url: jdbc:mysql://110.53.162.164:3306/baodian_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+#                username: root
+#                password: sx123456Aa
+                url: jdbc:mysql://192.168.1.105:3306/baodian_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+                username: root
+                password: sx123456AaBb
 
             # 初始连接数
             initial-size: 10

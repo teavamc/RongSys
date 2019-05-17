@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="gray-bg">
+    
+     <div class="container-div">
+		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								终端imei：<input type="text" name="IMEI"/>
+							</li>
+
+
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
+			
+	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+
+				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="iot:torrent:export">
+						<i class="fa fa-download"></i> 导出
+				 </a>
+			</div>
+			<div class="col-sm-12 select-table table-striped">
+				<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			</div>
+		</div>
+	</div>
+
+    <div th:include="include :: footer"></div>
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('iot:torrent:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('iot:torrent:remove')}]];
+        var prefix = ctx + "iot/torrent";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+				exportUrl: prefix + "/export",
+                modalName: "终端运转",
+				search: false,
+		        showExport: true,
+                columns: [{
+					field : 'dataid', 
+					title : '数据id',
+				},
+				{
+					field : 'IMEI',
+					title : 'IMEI',
+				},
+				{
+					field : 'pow1', 
+					title : '电池一电压',
+				},
+				{
+					field : 'grouppow', 
+					title : '电池组电压',
+				},
+				{
+					field : 'outv1', 
+					title : '18V1输出电压',
+				},
+				{
+					field : 'outv2', 
+					title : '18V2输出电压',
+				},
+				{
+					field : 'v24', 
+					title : '24V输出电压',
+				},
+				{
+					field : 'v28', 
+					title : '28V输出电压',
+				},
+				{
+					field : 'extendpow', 
+					title : '外部电压',
+				},
+				{
+					field : 'solarpow', 
+					title : '太阳能电压',
+				},
+				{
+					field : 'charge', 
+					title : '充电状态',
+				},
+				{
+					field : 'work', 
+					title : '工作状态',
+				},
+				{
+					field : 'time', 
+					title : '采集时间',
+				},
+				{
+					field : 'IP',
+					title : '网络IP',
+				}]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

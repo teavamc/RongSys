@@ -102,5 +102,15 @@ public class BroaduserController extends BaseController
 	{		
 		return toAjax(broaduserService.deleteBroaduserByIds(ids));
 	}
-	
+
+//	/**
+//	 * 新增广播用户
+//	 */
+//	@Log(title = "广播用户", businessType = BusinessType.INSERT)
+//	@PostMapping("/add")
+//	@ResponseBody
+//	public void add()
+//	{
+//		broaduserService.insertBroaduser();
+//	}
 }

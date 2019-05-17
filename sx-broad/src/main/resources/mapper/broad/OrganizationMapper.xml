@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.broad.mapper.OrganizationMapper">
-    
+
     <resultMap type="organization" id="OrganizationResult">
         <result property="tid"    column="tid"    />
         <result property="tname"    column="tname"    />
@@ -23,6 +23,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="rds"    column="rds"    />
         <result property="fmfrequency"    column="fmfrequency"    />
         <result property="trafficlimit"    column="trafficlimit"    />
+        <result property="pic"    column="pic"    />
+    </resultMap>
+
+    <resultMap type="area" id="AreatreeResult">
+        <result property="aid"    column="aid"    />
+        <result property="aname"    column="aname"    />
     </resultMap>
 
     <!--表名 -->
@@ -44,27 +50,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="termanagetable">
 		terminal_management
 	</sql>
-
-	<sql id="selectOrganizationVo">
+    <sql id="termanagepictable">
+		terminals_pic
+	</sql>
+    <sql id="selectOrganizationVo">
         select
-            tid,tname,t.aid as aid,aname,t.userid as userid,uname,
-            lastaccesstime,facid,address,t.note as note,comstand,broadtel,
-            manager,managertel,intertime,createdtime,t.isuse as isuse,phone,
-            fmfrequency,rds,trafficlimit
-        from ((<include refid="tableName"></include> t
+        t.tid as tid,tname,t.aid as aid,aname,t.userid as userid,uname,
+        facid,address,t.note as note,comstand,broadtel,
+        manager,managertel,intertime,createdtime,t.isuse as isuse,phone,
+        fmfrequency,rds,trafficlimit,p.pic as pic
+        from (((<include refid="tableName"></include> t
         left join <include refid="areatableName"></include> a on t.aid = a.aid)
         left join <include refid="usertable"></include> u on t.userid = u.userid)
-        left join ( select MAX(createdtime) as lastaccesstime,terminalid from <include refid="terreceivestable"></include> GROUP BY terminalid) access on access.terminalid=t.tid
+        left join <include refid="termanagepictable"></include> p on t.tid = p.tid)
 
     </sql>
-	
+
     <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
-        <where>  
-            <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
-             <if test="tname != null  and tname != '' "> and tname = #{tname}</if>
-             <if test="aid != null  and aid != '' "> and t.aid = #{aid}</if>
-             <if test="aname != null  and aname != '' "> and aname = #{aname}</if>
+        <where>
+            <if test="tid != null  and tid != '' "> and t.tid = #{tid}</if>
+            <if test="tname != null  and tname != '' "> and tname = #{tname}</if>
+            <if test="aid != null  and aid != '' "> and t.aid = #{aid}</if>
+            <if test="aname != null  and aname != '' "> and aname = #{aname}</if>
             <if test="userid != null  and userid != '' "> and t.userid = #{userid}</if>
             <if test="uname != null  and uname != '' "> and uname = #{uname}</if>
             <if test="lastaccesstime != null  and lastaccesstime != '' "> and lastaccesstime = #{lastaccesstime}</if>
@@ -82,17 +90,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="fmfrequency != null  and fmfrequency != '' "> and fmfrequency = #{fmfrequency}</if>
             <if test="rds != null  and rds != '' "> and rds = #{rds}</if>
             <if test="trafficlimit != null  and trafficlimit != '' "> and trafficlimit = #{trafficlimit}</if>
-         </where>
+            <if test="pic != null  and pic != '' "> and p.pic = #{pic}</if>
+        </where>
     </select>
-    
-    <select id="selectOrganizationById" parameterType="String" resultMap="OrganizationResult">
+
+    <select id="selectAllOrganization" resultMap="AreatreeResult">
+        select aid, aname from area
+    </select>
+
+    <select id="selectOrganizationByTid" parameterType="String" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
-        where t.aid = #{aid}
+        where t.tid = #{tid}
     </select>
 
-
-
-    <!--下面对终端的增删改查是没有实现的-->
     <insert id="insertOrganization" parameterType="Organization">
         insert into tb_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -139,7 +149,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="phone != null  and phone != ''  ">#{phone},</if>
             <if test="rds != null  and rds != ''  ">#{rds},</if>
             <if test="fmfrequency != null  and fmfrequency != ''  ">#{fmfrequency},</if>
-            <if test="trafficlimit != null  ">#{trafficlimit},</if>
+            <if test="trafficlimit != null  ">0,</if>
+        </trim>
+    </insert>
+
+    <insert id="insertOrganizationPic" parameterType="Organization">
+        insert into terminals_pic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tid != null  and tid != ''  ">tid,</if>
+            <if test="pic != null  and pic != ''  ">pic,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="tid != null  and tid != ''  ">#{tid},</if>
+            <if test="pic != null  and pic != ''  ">#{pic},</if>
         </trim>
     </insert>
 
@@ -180,85 +202,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{tid}
         </foreach>
     </delete>
-    <!--通过单一IMEI获取机构 -->
-  <!--  <select id="getOrgnzByOid" parameterType="String" resultType="Organization">
+    <select id="selectProBroadList" parameterType="Organization" resultMap="OrganizationResult">
         select
-        t.tid as tid,
-        tname,
-        t.aid as aid,aname,
-        t.uid as uid,uname,
-        facid,
-        t.address as address,
-        t.note as note,
-        phone,
-        comstand,
-        broadtel,
-        manager,
-        managertel,
-        intertime,
-        createdtime,
-        t.isuse as isuse,
-        rds,
-        fmfrequency,
-        trafficlimit,
-        supervisionunit,
-        accountabilityunit,
-        latitude,
-        longitude,
-        families,
-        population,
-        twooverlaymode,
-        twotransmitfrequency,
-        twooverlaynumber,
-        twooverlayfamiles,
-        twooverlaypopulations,
-        powerconsumption,
-        othertechnology,
-        drillingperiod,
-        standbybattery,
-        playbacksmode,
-        maintenancefunds,
-        backupbatteryvoltage
-        from	((<include refid="tableName"></include> t left join <include refid="termanagetable"></include> tm on t.tid =tm.tid)
-        left join <include refid="areatableName"></include> a on t.aid = a.aid)
-        left join <include refid="usertable"></include> u on t.uid = u.uid
-        where t.tid = #{tid}
-    </select>-->
-    <!--根据tidsList去多查询终端信息-->
-   <!-- <select id="getTerInfoBytids" parameterType="HashMap" resultType="HashMap">
-        select
-        t.tid as tid,
-        tname,
-        t.aid as aid,aname,
-        t.uid as uid,uname,
-        t.isuse as isuse
-        from	(<include refid="tableName"></include> t
-        left join <include refid="areatableName"></include> a on t.aid = a.aid)
-        left join <include refid="usertable"></include> u on t.uid = u.uid
-        <where>
-            <if test="terlist!=null and terlist!='' and terlist.size>0">
-                t.tid in
-                <foreach collection="terlist" index="index" item="item" open="(" separator="," close=")">
-                    ${item}
-                </foreach>
-            </if>
-        </where>
-    </select>-->
-    <!--根据分组编号列表查询终端列表-->
-    <!--<select id="listTersByAids" parameterType="HashMap" resultType="Organization">
-        select
-        tid,tname,t.aid as aid,aname,t.userid as userid,uname,facid,address,t.note as note,comstand,broadtel,manager,managertel,intertime,createdtime,t.isuse as isuse,phone,fmfrequency,rds,trafficlimit
+        tid,tname,aid
         from
-        (<include refid="tableName"></include> t
-        left join <include refid="areatableName"></include> a on t.aid = a.aid)
-        left join <include refid="usertable"></include> u on t.userid = u.userid
+        <include refid="tableName"></include>
         <where>
-            <choose>
-                <when test="aid !=null and aid!=''" >
-                    and t.aid like  CONCAT(#{aid},'%')
-                </when>
-                <otherwise>and t.aid is null</otherwise>
-            </choose>
+            <if test="aid != null  and aid != '' "> aid = #{aid}</if>
         </where>
-    </select>-->
+    </select>
+    <update id="updateRdsByIds" >
+        update  tb_organization set rds = #{number} where tid in
+        <foreach item="tid" collection="ids" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </update>
+
+    <update id="updateFmfrequencyByIds" >
+        update  tb_organization set fmfrequency = #{number} where tid in
+        <foreach item="tid" collection="ids" open="(" separator="," close=")">
+            #{tid}
+        </foreach>
+    </update>
+
+    <update id="updateIsuseByTid" parameterType="String">
+        update terminals
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="isuse != null  ">isuse = #{isuse},</if>
+
+        </trim>
+        where tid = #{tid}
+    </update>
 </mapper>

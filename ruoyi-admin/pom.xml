@@ -61,19 +61,13 @@
             <version>${ruoyi.version}</version>
         </dependency>
 
-        <!-- 村务模块-->
+        <!-- 接口模块-->
         <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>sx-api</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
 
-        <!-- 广播通信模块-->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>sx-broadWebSocket</artifactId>
-            <version>${ruoyi.version}</version>
-        </dependency>
 
         <!-- 广播通信模块-->
         <dependency>
@@ -82,7 +76,35 @@
             <version>${ruoyi.version}</version>
         </dependency>
 
-</dependencies>
+        <!--物联网模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-iot</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+
+        <!--山河预警模块-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-rivervis</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-rivervis</artifactId>
+            <version>3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-check</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-check</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
     <build>
         <plugins>

@@ -2,10 +2,16 @@ package com.ruoyi.web.controller.broad;
 
 import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
+import com.ruoyi.broad.domain.Organization;
+import com.ruoyi.broad.domain.Program;
+import com.ruoyi.broad.service.IOrganizationService;
+import com.ruoyi.broad.service.IProgramService;
 import com.ruoyi.common.json.JSONObject;
+import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.utils.PageData;
 import com.ruoyi.framework.web.base.BaseController;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,18 +36,24 @@ import java.util.Map;
 @Controller
 @RequestMapping("/broad/live")
 public class LiveController extends BaseController {
+    @Autowired
+    private IProgramService iProgramService;
+
+    @Autowired
+    private IOrganizationService organizationService;
 
     // 配置文件中拿到流媒体地址
-    @Value("${SX.rtmpAddress}")
-    private String rtmpAddress;
-
+//    @Value("${SX.rtmpAddress}")
+//    private String rtmpAddress;
+    // 张超服务器
+    private String rtmpAddress = "rtmp://120.79.42.11:1936/live";
     private String prefix = "broad/live";
 
     /**
      * 直播页面控制器
      * @author 张超 teavamc
      * @date 2019/2/17
-     * @param []
+     * @param
      * @return java.lang.String
      */
     @RequiresPermissions("broad:live:view")
@@ -56,7 +68,7 @@ public class LiveController extends BaseController {
      * 本地直播页面控制器 - 直播测试
      * @author 张超 teavamc
      * @date 2019/2/17
-     * @param []
+     * @param
      * @return java.lang.String
      */
     @RequiresPermissions("broad:live:testview")
@@ -67,7 +79,65 @@ public class LiveController extends BaseController {
         return prefix + "/streamlivetest";
     }
 
+    /**
+     * 返回节目单选择界面
+     * @param mmap
+     * @return
+     */
+    @GetMapping("/getdoFile")
+    public String doFile(ModelMap mmap){
+        return prefix+"/listFile";
+    }
+    /**
+     * 获取节目单数据
+     * @param program
+     * @return
+     */
+    @PostMapping("/listFile")
+    @ResponseBody
+    public TableDataInfo listFile(Program program)
+    {
+        startPage();
+        List<Program> list = iProgramService.selectProList(program);
+        return getDataTable(list);
+    }
 
+//    /**
+//        * 选择终端的弹出树
+//        * @author 张超 teavamc
+//        * @date 2019/2/22
+//        * @param [tid]
+//        * @return com.ruoyi.api.domain.RongApiRes
+//        */
+//    @RequiresPermissions("broad:live:setStreamTer")
+//    @GetMapping("/setStreamTer")
+//    public String  setStreamTer(String tid)
+//            throws Exception{
+//        String selecttid = tid;
+//        String lastjson;
+//        return prefix + "/selecttree";
+//    }
+
+    @RequiresPermissions("broad:live:getTerByTidTest")
+    @PostMapping("/getTerByTidTest")
+    public RongApiRes  getTerByTidTest(String tids) throws Exception{
+//        将前端回传的 tids 按照， 分割成Array 再填充List
+        List<String> idlist = new ArrayList<String>();
+        if(tids!=null && !tids.equals("")){
+            String[] idarr = tids.split(",");
+            for(int i=0;i<idarr.length;i++){
+                idlist.add(idarr[i]);
+            }
+        }
+
+//        这里写死,测试机终端号
+        String idTest = "862105024020277";
+        Organization ter = organizationService.selectOrganizationByTid(idTest);
+        return RongApiService.get_bean(ter);
+//        批量查询 功能待完善
+//        List<PageData> terlist = organizationService.getTerInfoBytids(pd);
+
+    }
 
 //    /**
 //        * 设置 流媒体终端

@@ -24,7 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="note != null  and note != '' "> and note = #{note}</if>
          </where>
     </select>
-    
+
+    <select id="chooseAreaList" parameterType="Area" resultMap="AreaResult">
+        select aid, parentaid, aname, note from area
+        <where>
+            <if test="aid != null  and aid != '' ">aid = #{aid} or parentaid = #{aid}</if>
+        </where>
+    </select>
+
     <select id="selectAreaById" parameterType="String" resultMap="AreaResult">
         <include refid="selectAreaVo"/>
         where aid = #{aid}
@@ -66,5 +73,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{aid}
         </foreach>
     </delete>
-    
+
+
+    <select id="selectAllArea" resultMap="AreaResult">
+        <include refid="selectAreaVo"/>
+    </select>
 </mapper>

@@ -1,33 +1,41 @@
 // 等待页面DOM加载完后自动加载
-function onload() {
+function main_onload() {
     //系统注意弹窗注意
     info_pop();
     // 广播加载
     init_broad();
     //村务加载
     init_village();
-    //系统监控数据加载
-    init_sys_mon();
+    //物联网和山洪数据统计
+    init_iotdatacount();
+    init_rivisdatacount();
+    init_riotdevcount();
+
+
+    // 月登陆排名
+    init_ranklogin();
+    // 月操作排名
+    init_rankoper();
+    // 登陆地点排名
+    init_rankloc();
+    // 登陆地点的柱状图
+    init_all_loc();
+    //最近创建用户
+    init_recentCreat();
+
     //系统访问记录
     init_sys_loginlog();
-    //首页图表 村镇村民人口地域分布可视化
-    init_ec_mbygroup();
-    //首页图表 村镇党员地域分布可视化
-    init_ec_pbygroup();
-    //首页图表 三维村镇人口可视化
-    init_3d_v_pm();
-    //首页图表 三维广播分布可视化
-    init_3d_bt();
-    //首页图表 二维广播分布可视化
-    init_ec_bt();
-    //首页图表 服务器性能可视化
-    // init_3d_s_c();
-    //每15秒刷新系统监控数据
-    setInterval(init_sys_mon, 15000);
-    //每300秒刷新系统监控数据
-    setInterval(init_sys_loginlog, 300000);
-}
+    //系统操作记录
+    init_sys_operlog();
+    //系统监控
+    init_sys_mon();
 
+    // //每15秒刷新系统监控数据
+    // setInterval(init_sys_mon, 15000);
+    // //每30秒刷新登陆数据数据
+    // setInterval(init_sys_loginlog, 30000);
+}
+// 系统说明
 function info_pop() {
     $('#pop').html('<div class="modal-dialog">' +
         '<div class="modal-content animated flipInY">' +
@@ -47,7 +55,7 @@ function info_pop() {
         '</div>' +
         '</div>')
 }
-
+// 广播信息
 function init_broad() {
     $.ajax({
         type: "GET",
@@ -61,7 +69,40 @@ function init_broad() {
         }
     });
 }
-
+// 物联网信息
+function init_iotdatacount() {
+    $.ajax({
+        type: "GET",
+        url: "/api/iot/countall",
+        dataType: "json",
+        success: function(data){
+            $("#iotcount").html(data.data);
+        }
+    });
+}
+// 山洪信息
+function init_rivisdatacount() {
+    $.ajax({
+        type: "GET",
+        url: "/api/rivervis/countall",
+        dataType: "json",
+        success: function(data){
+            $("#riverviscount").html(data.data);
+        }
+    });
+}
+// 山洪预警信息
+function init_riotdevcount() {
+    $.ajax({
+        type: "GET",
+        url: "/api/iot/devicecount",
+        dataType: "json",
+        success: function(data){
+            $("#iotdevcount").html(data.data);
+        }
+    });
+}
+// 村务初始化
 function init_village() {
     $.ajax({
         type:"GET",
@@ -79,44 +120,45 @@ function init_village() {
     });
 }
 
+// 系统监控
 function init_sys_mon() {
     $.ajax({
         type:"GET",
         url:"/api/sys_mon/mi",
         dataType:"json",
         success:function (data) {
-            $("#mon_flush_time").html('<span>'+ '最后更新:  ' + data.time +
+            $("#mon_flush_time").html('<span>'+ data.time + ' 更新' +
                 '</span>');
 
             $("#sys_mon_cpu").html('<table class="table table-hover">\n' +
                 '<thead>' +
                 '<tr>' +
-                '<th>处理器参数</th>' +
+                '<th>CPU</th>' +
                 '<th>参考值</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' +
                 '<tr>' +
                 '</td>' +
-                '<td>核心数</td>' +
-                '<td id="" class="text-warning">' + data.data.cpu.cpuNum + " 线程" +
+                '<td>核心</td>' +
+                '<td id="" class="text-warning">' + data.data.cpu.cpuNum + " 核心" +
                 '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '</td>' +
-                '<td>用户使用率</td>' +
+                '<td>用户</td>' +
                 '<td id="" class="text-navy">' + data.data.cpu.used + "%" +
                 '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '</td>' +
-                '<td>系统使用率</td>' +
+                '<td>系统</td>' +
                 '<td id="" class="text-warning">' + data.data.cpu.sys + "%" +
                 '</td>' +
                 '</tr>' +
                 '<tr>' +
                 '</td>' +
-                '<td>当前空闲率</td>' +
+                '<td>空闲</td>' +
                 '<td id="" class="text-navy">' + data.data.cpu.free + "%" +
                 '</td>' +
                 '</tr>' +
@@ -124,28 +166,40 @@ function init_sys_mon() {
                 '</table>'
             );
 
-            $("#sys_mon_line").html(' <table class="table table-hover">' +
-                '<h2>' + "内存:" + data.data.mem.usage + "%" +
-                '</h2>' +
+            $("#sys_mon_line").html(' <div>' +
+                ' <div>' +
+                '<span>' + "内存" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.mem.usage + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' +  data.data.mem.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h2>' + "JVM:" + data.data.jvm.usage + "%" +
-                '</h2>' +
+                ' <div>' +
+                '<span>' + "JVM" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.jvm.usage + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.jvm.usage + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
                 '<br>' +
-                '<h2>' + "CPU:" + data.data.cpu.used + "%" +
-                '</h2>' +
+                ' <div>' +
+                '<span>' + "CPU" +
+                '</span>' +
+                ' <small class="pull-right">' + data.data.cpu.used + "%" +
+                ' </small>' +
+                ' </div>' +
                 '<div class="progress progress-mini">' +
                 '<div style="width:' + data.data.cpu.used + "%" +
                 '" class="progress-bar"></div>' +
                 '</div>' +
-                '</table>'
+                '</div>'
             );
 
             var disk_data = data.data.sysFiles;
@@ -162,8 +216,8 @@ function init_sys_mon() {
             $("#sys_mon_disk").html('<table class="table table-hover margin bottom">\n' +
                 '<thead>' +
                 '<tr>' +
-                '<th>磁盘类型</th>' +
-                '<th>已用百分比</th>' +
+                '<th>磁盘</th>' +
+                '<th>已用</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + diskinfo +
@@ -173,14 +227,14 @@ function init_sys_mon() {
         }
     })
 }
-
+// 系统登陆记录
 function init_sys_loginlog() {
     $.ajax({
         type: "GET",
         url: "/api/sys_log/l_log",
         dataType: "json",
         success: function (data) {
-            $("#llog_flush_time").html('<span>'+ '最后更新:  ' + data.time +
+            $("#llog_flush_time").html('<span>' + data.time + ' 更新' +
                 '</span>');
 
             var l_log = data.data;
@@ -189,11 +243,21 @@ function init_sys_loginlog() {
                 log_info += '<tr>' +
                     '<td>' + l_log[log].user_name +
                     '</td>' +
+                    '<td>' + l_log[log].dept_name +
+                    '</td>' +
+                    '<td>' + l_log[log].role_name +
+                    '</td>' +
                     '<td>' + l_log[log].ipaddr +
+                    '</td>' +
+                    '<td>' + l_log[log].login_location +
                     '</td>' +
                     '<td>' + l_log[log].loginTime +
                     '</td>' +
-                    '<td>' + l_log[log].loginLocation +
+                    '<td>' + l_log[log].msg +
+                    '</td>' +
+                    '<td>' + l_log[log].times +
+                    '</td>' +
+                    '<td>' + l_log[log].browser +
                     '</td>' +
                     '</tr>';
             }
@@ -201,10 +265,68 @@ function init_sys_loginlog() {
             $("#sys_login_log").html('<table class="table table-hover">' +
                 '<thead>' +
                 '<tr>' +
-                '<th>用户</th>' +
-                '<th>IP地址</th>' +
-                '<th>登陆时间</th>' +
-                '<th>登陆地点</th>' +
+                '<th>姓名</th>' +
+                '<th>部门</th>' +
+                '<th>级别</th>' +
+                '<th>IP</th>' +
+                '<th>地点</th>' +
+                '<th>时间</th>' +
+                '<th>状态</th>' +
+                '<th>月次数</th>' +
+                '<th>浏览器</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+// 系统操作记录
+function init_sys_operlog() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/O_log",
+        dataType: "json",
+        success: function (data) {
+            var O_log = data.data;
+            var log_info = '';
+            for (log in O_log){
+                log_info += '<tr>' +
+                    '<td>' + O_log[log].user +
+                    '</td>' +
+                    '<td>' + O_log[log].title +
+                    '</td>' +
+                    '<td>' + O_log[log].type +
+                    '</td>' +
+                    '<td>' + O_log[log].url +
+                    '</td>' +
+                    '<td>' + O_log[log].res +
+                    '</td>' +
+                    '<td>' + O_log[log].Time +
+                    '</td>' +
+                    '<td>' + O_log[log].ip +
+                    '</td>' +
+                    '<td>' + O_log[log].loc +
+                    '</td>' +
+                    '<td>' + O_log[log].times +
+                    '</td>' +
+                    '</tr>';
+            }
+
+            $("#sys_oper_log").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>模块</th>' +
+                '<th>操作</th>' +
+                '<th>调用服务</th>' +
+                '<th>结果</th>' +
+                '<th>时间</th>' +
+                '<th>IP</th>' +
+                '<th>地点</th>' +
+                '<th>月次数</th>' +
                 '</tr>' +
                 '</thead>' +
                 '<tbody>' + log_info +
@@ -215,182 +337,119 @@ function init_sys_loginlog() {
 
 }
 
-function flush_broad() {
+// 登陆排名
+function init_ranklogin() {
     $.ajax({
         type: "GET",
-        url: "/api/bcount/bindex",
-        dataType: "json",
-        success: function(data){
-            alert("已完成手动刷新");
-            $("#fls_cb_time").html(data.time);
-            $("#count_dev").html(data.data.dev);
-            $("#count_run").html(data.data.run);
-            $("#count_stop").html(data.data.stop);
-        }
-    });
-}
-
-function flush_village() {
-    $.ajax({
-        type:"GET",
-        url:"/api/count/p_m",
-        dataType:"json",
-        success:function (data) {
-            alert("已完成手动刷新");
-            $("#fls_cv_time").html(data.time);
-            $("#count_ms").html(data.data[0].msum);
-            $("#count_mm").html(data.data[0].mman);
-            $("#count_mw").html(data.data[0].mwoman);
-            $("#count_ps").html(data.data[0].psum);
-            $("#count_p_m").html(data.data[0].pman);
-            $("#count_pw").html(data.data[0].pwoman);
-        }
-    });
-}
-
-function flush_sys_mon() {
-    $.ajax({
-        type: "GET",
-        url: "/api/sys_mon/mi",
-        dataType: "json",
+        url: "/api/sys_log/CountLoLogDescMonth",
+        datatype: "JSON",
         success: function (data) {
-            alert("已完成手动刷新");
-
-            $("#mon_flush_time").html('<span>' + '最后更新' +  data.time +
-                '</span>');
-
-            $("#sys_mon_cpu").html('<table class="table table-hover">\n' +
-                '<thead>' +
-                '<tr>' +
-                '<th>处理器参数</th>' +
-                '<th>参考值</th>' +
-                '</tr>' +
-                '</thead>' +
-                '<tbody>' +
-                '<tr>' +
-                '</td>' +
-                '<td>核心数</td>' +
-                '<td id="" class="text-warning">' + data.data.cpu.cpuNum + " 线程" +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '</td>' +
-                '<td>用户使用率</td>' +
-                '<td id="" class="text-navy">' + data.data.cpu.used + "%" +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '</td>' +
-                '<td>系统使用率</td>' +
-                '<td id="" class="text-warning">' + data.data.cpu.sys + "%" +
-                '</td>' +
-                '</tr>' +
-                '<tr>' +
-                '</td>' +
-                '<td>当前空闲率</td>' +
-                '<td id="" class="text-navy">' + data.data.cpu.free + "%" +
-                '</td>' +
-                '</tr>' +
-                '</tbody>' +
-                '</table>'
-            );
-
-            $("#sys_mon_line").html(' <table class="table table-hover">' +
-                '<h2>' + "内存:" + data.data.mem.usage + "%" +
-                '</h2>' +
-                '<div class="progress progress-mini">' +
-                '<div style="width:' +  data.data.mem.usage + "%" +
-                '" class="progress-bar"></div>' +
-                '</div>' +
-                '<br>' +
-                '<h2>' + "JVM:" + data.data.jvm.usage + "%" +
-                '</h2>' +
-                '<div class="progress progress-mini">' +
-                '<div style="width:' + data.data.jvm.usage + "%" +
-                '" class="progress-bar"></div>' +
-                '</div>' +
-                '<br>' +
-                '<h2>' + "CPU:" + data.data.cpu.used + "%" +
-                '</h2>' +
-                '<div class="progress progress-mini">' +
-                '<div style="width:' + data.data.cpu.used + "%" +
-                '" class="progress-bar"></div>' +
-                '</div>' +
-                '</table>'
-            );
-
-            var disk_data = data.data.sysFiles;
-            var diskinfo = '';
-            for(diskname in disk_data){
-                diskinfo += '<tr>' +
-                    '<td>' + disk_data[diskname].dirName  +
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].user +
                     '</td>' +
-                    '<td>' + disk_data[diskname].usage + '%' +
+                    '<td>' + predata[i].cn +
                     '</td>' +
                     '</tr>';
             }
-
-            $("#sys_mon_disk").html('<table class="table table-hover margin bottom">\n' +
+            $("#rank_login").html('<table class="table table-hover">' +
                 '<thead>' +
                 '<tr>' +
-                '<th>磁盘类型</th>' +
-                '<th>已用百分比</th>' +
+                '<th>姓名</th>' +
+                '<th>登陆排名/30天</th>' +
                 '</tr>' +
                 '</thead>' +
-                '<tbody>' + diskinfo +
+                '<tbody>' + log_info +
                 '</tbody>' +
-                '</table>')
-
-            //     $("#fls_sm_time").html(data.time);
-            //
-            //     $("#cpu_num").html(data.data.cpu.cpuNum + " 线程");
-            //     $("#cpu_free").html(data.data.cpu.free + "%");
-            //     $("#cpu_sys").html(data.data.cpu.sys + "%");
-            //     $("#cpu_used").html(data.data.cpu.used + "%");
-            //     $("#cpu_used_line").html("CPU:" + data.data.cpu.used + "%");
-            //
-            //     $("#jvm_total").html(data.data.jvm.total + "M");
-            //     $("#jvm_max").html(data.data.jvm.max + "M");
-            //     $("#jvm_free").html(data.data.jvm.free + "M");
-            //     $("#jvm_used").html(data.data.jvm.used + "M");
-            //     $("#jvm_usage").html("JVM:" + data.data.jvm.usage + "%");
-            //     $("#jvm_runtime").html(data.data.jvm.runTime);
-            //
-            //     $("#mem_free").html(data.data.mem.free + "M");
-            //     $("#mem_total").html(data.data.mem.total + "M");
-            //     $("#mem_usage").html("内存:" + data.data.mem.usage + "%");
-            //     $("#mem_used").html(data.data.mem.used + "M");
-            //
-            //     $("#sys_cip").html(data.data.sys.computerIp);
-            //     $("#sys_cname").html(data.data.sys.computerName);
-            //     $("#sys_osname").html(data.data.sys.osName);
-
+                '</table>');
         }
     })
+
 }
 
-function init_ec_mbygroup() {
+// 操作排名
+function init_rankoper() {
     $.ajax({
         type: "GET",
-        url: "/api/count/m",
-        dataType: "json",
+        url: "/api/sys_log/CountOperLogMonth",
+        datatype: "JSON",
         success: function (data) {
-            var mbygroup_data = data.data;
-            var x_data = new Array();
-            var y_data = new Array();
-            for( x in mbygroup_data){
-                if(mbygroup_data[x].marea == ''){
-                    x_data.push('未知');
-                }else {
-                    x_data.push(mbygroup_data[x].marea);
-                }
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].user +
+                    '</td>' +
+                    '<td>' + predata[i].cn +
+                    '</td>' +
+                    '</tr>';
             }
-            for (y in mbygroup_data){
-                y_data.push(mbygroup_data[y].msum);
+            $("#rank_oper").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>姓名</th>' +
+                '<th>操作排名/30天</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 登陆地点排名
+function init_rankloc() {
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountHotLocal",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].name +
+                    '</td>' +
+                    '<td>' + predata[i].value +
+                    '</td>' +
+                    '</tr>';
             }
-            var ec_mbygroup = echarts.init(document.getElementById('ec_mbygroup'));
-            ec_mbygroup_option = {
-                color: ['#66fccc'],
+            $("#rank_loc").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>热门登陆地点</th>' +
+                '<th>次数</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
+        }
+    })
+
+}
+
+// 所有地点的柱状图
+function init_all_loc() {
+    var allloc = echarts.init(document.getElementById('all_loc'));
+    $.ajax({
+        type: "GET",
+        url: "/api/sys_log/CountLocal",
+        datatype: "JSON",
+        success: function (data) {
+            var predata = data.data;
+            var x_data = new Array;
+            var y_data = new Array;
+            for (i in predata) {
+                x_data.push(predata[i].name);
+                y_data.push(predata[i].value);
+            }
+            option = {
+                color: ['#676a6c'],
                 tooltip : {
                     trigger: 'axis',
                     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -398,10 +457,10 @@ function init_ec_mbygroup() {
                     }
                 },
                 grid: {
-                    left: '0%',
-                    right: '0%',
+                    left: '-1%',
+                    right: '1%',
+                    bottom: '1%',
                     top: '5%',
-                    bottom: '0%',
                     containLabel: true
                 },
                 xAxis : [
@@ -415,960 +474,55 @@ function init_ec_mbygroup() {
                 ],
                 yAxis : [
                     {
+                        show: false,
                         type : 'value'
                     }
                 ],
                 series : [
                     {
-                        name:'人口数量',
+                        name:'访问量',
                         type:'bar',
                         barWidth: '60%',
                         data:y_data
                     }
                 ]
             };
-            ec_mbygroup.setOption(ec_mbygroup_option);
+            allloc.setOption(option);
         }
     })
+
 }
 
-function sort_ec_mbygroup() {
+
+// 最近创建的用户
+function init_recentCreat() {
     $.ajax({
         type: "GET",
-        url: "/api/count/mSort",
-        dataType: "json",
+        url: "/api/sys_log/recentCreatUser",
+        datatype: "JSON",
         success: function (data) {
-            var mbygroup_data = data.data;
-            var x_data = new Array();
-            var y_data = new Array();
-            for( x in mbygroup_data){
-                if(mbygroup_data[x].marea == ''){
-                    x_data.push('未知');
-                }else {
-                    x_data.push(mbygroup_data[x].marea);
-                }
+            var predata = data.data;
+            var log_info = '';
+            for (i in predata){
+                log_info += '<tr>' +
+                    '<td>' + predata[i].ct +
+                    '</td>' +
+                    '<td>' + predata[i].un +
+                    '</td>' +
+                    '</tr>';
             }
-            for (y in mbygroup_data){
-                y_data.push(mbygroup_data[y].msum);
-            }
-            var ec_mbygroup = echarts.init(document.getElementById('ec_mbygroup'));
-            ec_mbygroup_option = {
-                color: ['#66fccc'],
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '0%',
-                    right: '0%',
-                    top: '5%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : x_data,
-                        axisTick: {
-                            alignWithLabel: true
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'人口数量',
-                        type:'bar',
-                        barWidth: '60%',
-                        data:y_data
-                    }
-                ]
-            };
-            ec_mbygroup.setOption(ec_mbygroup_option);
-        }
-    })
-}
-
-function init_ec_pbygroup() {
-    $.ajax({
-        type: "GET",
-        url: "/api/count/pm",
-        dataType: "json",
-        success: function (data) {
-            var mbygroup_data = data.data;
-            var x_data = new Array();
-            var y_data = new Array();
-            for( x in mbygroup_data){
-                if(mbygroup_data[x].parea == ''){
-                    x_data.push('未知');
-                }else {
-                    x_data.push(mbygroup_data[x].parea);
-                }
-            }
-            for (y in mbygroup_data){
-                y_data.push(mbygroup_data[y].psum);
-            }
-
-            var ec_pbygroup = echarts.init(document.getElementById('ec_pbygroup'));
-            ec_pbygroup_option = {
-                color: ['#ff3399'],
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '0%',
-                    right: '0%',
-                    top: '5%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : x_data,
-                        axisTick: {
-                            alignWithLabel: true
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'人口数量',
-                        type:'bar',
-                        barWidth: '60%',
-                        data:y_data
-                    }
-                ]
-            };
-            ec_pbygroup.setOption(ec_pbygroup_option);
-
-        }
-    })
-}
-
-function sort_ec_pbygroup() {
-    $.ajax({
-        type: "GET",
-        url: "/api/count/pmSort",
-        dataType: "json",
-        success: function (data) {
-            var mbygroup_data = data.data;
-            var x_data = new Array();
-            var y_data = new Array();
-            for( x in mbygroup_data){
-                if(mbygroup_data[x].parea == ''){
-                    x_data.push('未知');
-                }else {
-                    x_data.push(mbygroup_data[x].parea);
-                }
-            }
-            for (y in mbygroup_data){
-                y_data.push(mbygroup_data[y].psum);
-            }
-
-            var ec_pbygroup = echarts.init(document.getElementById('ec_pbygroup'));
-            ec_pbygroup_option = {
-                color: ['#ff3399'],
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '0%',
-                    right: '0%',
-                    top: '5%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : x_data,
-                        axisTick: {
-                            alignWithLabel: true
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'人口数量',
-                        type:'bar',
-                        barWidth: '60%',
-                        data:y_data
-                    }
-                ]
-            };
-            ec_pbygroup.setOption(ec_pbygroup_option);
-
-        }
-    })
-}
-
-function init_3d_v_pm() {
-    var pre_data;
-    var area_group = new Array();
-    var people_group = new Array();
-    var xyz_data = new Array();
-    var ec_3d_v_pm = echarts.init(document.getElementById('3d_v_pm'));
-
-    $.ajax({
-        type: "GET",
-        url: "/api/count/g_cPM",
-        dataType: "json",
-        success: function (data_pm) {
-            pre_data = data_pm.data;
-            var pg_temp = Object.keys(pre_data[0]);
-            pg_temp.splice(arrIndex(pg_temp,'area'),1);
-            //重新确定人员分组的顺序(暂时写死）
-            pg_temp = ['pwoman','pman','psum','mwoman','mman','msum'];
-
-
-            //确定area_group
-            for ( area_name in pre_data){
-                area_group.push(pre_data[area_name].area);
-            }
-            //确定xyz_data
-            for( pg_name in pre_data){
-                var ag = area_group.indexOf(pre_data[pg_name].area);
-                var temp_data = pre_data[pg_name];
-                delete temp_data["area"];
-                var temp_keys = Object.keys(temp_data);
-                for(i=0;i<temp_keys.length;i++){
-                    var this_key = temp_keys[i];
-                    var pg = pg_temp.indexOf(temp_keys[i]);
-                    var z_value = temp_data[this_key];
-                    xyz_data.push([pg,ag,z_value])
-                }
-            }
-            //确定people_group
-            // 英文 - 中文替换
-            for ( item in pg_temp){
-                if(pg_temp[item].indexOf('p') == 0 ){
-                    pg_temp[item] = pg_temp[item].replace('p','党员');
-                    if(pg_temp[item].indexOf('sum') >= 0){
-                        pg_temp[item] = pg_temp[item].replace('sum','总数');
-                    }else if(pg_temp[item].indexOf('man') >= 0 && pg_temp[item].indexOf('wo') < 0){
-                        pg_temp[item] = pg_temp[item].replace('man','男性');
-                    }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
-                        pg_temp[item] = pg_temp[item].replace('woman','女性');
-                    }
-                }
-                if(pg_temp[item].indexOf('m') == 0 ){
-                    pg_temp[item] = pg_temp[item].replace('m','村民');
-                    if(pg_temp[item].indexOf('sum') >= 0){
-                        pg_temp[item] = pg_temp[item].replace('sum','总数');
-                    }else if(pg_temp[item].indexOf('man') && pg_temp[item].indexOf('wo') < 0){
-                        pg_temp[item] = pg_temp[item].replace('man','男性');
-                    }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
-                        pg_temp[item] = pg_temp[item].replace('woman','女性');
-                    }
-                }
-                people_group = pg_temp;
-            }
-            //确定3D_EC 坐标系与数据
-            var g_cg =area_group;
-            var p_cg = people_group;
-            var data = xyz_data;
-            ec_3d_v_pm_option = {
-                tooltip: {
-                    axisPointer :{
-                        label:{
-                            show: true
-                        }
-                    }
-                },
-                visualMap: {
-                    max: 260,
-                    inRange: {
-                        color: ['#CD3333','#FF3030', '#FF7F50', '#FFB90F','#FFF68F','#FFFF00']
-                    }
-                },
-                xAxis3D: {
-                    type: 'category',
-                    data: g_cg
-                },
-                yAxis3D: {
-                    type: 'category',
-                    data: p_cg
-                },
-                zAxis3D: {
-                    type: 'value'
-                },
-                grid3D: {
-                    boxWidth: 200,
-                    boxDepth: 80,
-                    axisLabel: {
-                        interval: 0
-                    },
-                    viewControl: {
-                        // projection: 'orthographic'
-                        autoRotate: true
-                    },
-                    light: {
-                        main: {
-                            intensity: 1.2,
-                            shadow: true
-                        },
-                        ambient: {
-                            intensity: 0.3
-                        }
-                    }
-                },
-                series: [{
-                    type: 'bar3D',
-                    data: data.map(function (item) {
-                        return {
-                            value: [item[1], item[0], item[2]],
-                        }
-                    }),
-                    shading: 'lambert',
-
-                    label: {
-                        textStyle: {
-                            fontSize: 12,
-                            borderWidth: 1
-                        }
-                    },
-
-                    emphasis: {
-                        label: {
-                            textStyle: {
-                                fontSize: 20,
-                                color: '#900'
-                            }
-                        },
-                        itemStyle: {
-                            color: '#900'
-                        }
-                    }
-                }]
-            };
-            ec_3d_v_pm.setOption(ec_3d_v_pm_option);
-
-        }
-    });
-}
-
-// function sort_3d_v_pm() {
-//     var pre_data;
-//     var area_group = new Array();
-//     var people_group = new Array();
-//     var xyz_data = new Array();
-//     var ec_3d_v_pm = echarts.init(document.getElementById('3d_v_pm'));
-//
-//     $.ajax({
-//         type: "GET",
-//         url: "/api/count/g_cPMSort",
-//         dataType: "json",
-//         success: function (data_pm) {
-//             pre_data = data_pm.data;
-//             var pg_temp = Object.keys(pre_data[0]);
-//             pg_temp.splice(arrIndex(pg_temp,'area'),1);
-//             //重新确定人员分组的顺序(暂时写死）
-//             pg_temp = ['pwoman','pman','psum','mwoman','mman','msum'];
-//
-//
-//             //确定area_group
-//             for ( area_name in pre_data){
-//                 area_group.push(pre_data[area_name].area);
-//             }
-//             //确定xyz_data
-//             for( pg_name in pre_data){
-//                 var ag = area_group.indexOf(pre_data[pg_name].area);
-//                 var temp_data = pre_data[pg_name];
-//                 delete temp_data["area"];
-//                 var temp_keys = Object.keys(temp_data);
-//                 for(i=0;i<temp_keys.length;i++){
-//                     var this_key = temp_keys[i];
-//                     var pg = pg_temp.indexOf(temp_keys[i]);
-//                     var z_value = temp_data[this_key];
-//                     xyz_data.push([pg,ag,z_value])
-//                 }
-//             }
-//             //确定people_group
-//             // 英文 - 中文替换
-//             for ( item in pg_temp){
-//                 if(pg_temp[item].indexOf('p') == 0 ){
-//                     pg_temp[item] = pg_temp[item].replace('p','党员');
-//                     if(pg_temp[item].indexOf('sum') >= 0){
-//                         pg_temp[item] = pg_temp[item].replace('sum','总数');
-//                     }else if(pg_temp[item].indexOf('man') >= 0 && pg_temp[item].indexOf('wo') < 0){
-//                         pg_temp[item] = pg_temp[item].replace('man','男性');
-//                     }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
-//                         pg_temp[item] = pg_temp[item].replace('woman','女性');
-//                     }
-//                 }
-//                 if(pg_temp[item].indexOf('m') == 0 ){
-//                     pg_temp[item] = pg_temp[item].replace('m','村民');
-//                     if(pg_temp[item].indexOf('sum') >= 0){
-//                         pg_temp[item] = pg_temp[item].replace('sum','总数');
-//                     }else if(pg_temp[item].indexOf('man') && pg_temp[item].indexOf('wo') < 0){
-//                         pg_temp[item] = pg_temp[item].replace('man','男性');
-//                     }else if(pg_temp[item].indexOf('woman') >= 0 && pg_temp[item].indexOf('wo') >= 0){
-//                         pg_temp[item] = pg_temp[item].replace('woman','女性');
-//                     }
-//                 }
-//                 people_group = pg_temp;
-//             }
-//             //确定3D_EC 坐标系与数据
-//             var g_cg =area_group;
-//             var p_cg = people_group;
-//             var data = xyz_data;
-//             ec_3d_v_pm_option = {
-//                 tooltip: {
-//                     axisPointer :{
-//                         label:{
-//                             show: true
-//                         }
-//                     }
-//                 },
-//                 visualMap: {
-//                     max: 260,
-//                     inRange: {
-//                         color: ['#CD3333','#FF3030', '#FF7F50', '#FFB90F','#FFF68F','#FFFF00']
-//                     }
-//                 },
-//                 xAxis3D: {
-//                     type: 'category',
-//                     data: g_cg
-//                 },
-//                 yAxis3D: {
-//                     type: 'category',
-//                     data: p_cg
-//                 },
-//                 zAxis3D: {
-//                     type: 'value'
-//                 },
-//                 grid3D: {
-//                     boxWidth: 200,
-//                     boxDepth: 80,
-//                     axisLabel: {
-//                         interval: 0
-//                     },
-//                     viewControl: {
-//                         // projection: 'orthographic'
-//                         autoRotate: true
-//                     },
-//                     light: {
-//                         main: {
-//                             intensity: 1.2,
-//                             shadow: true
-//                         },
-//                         ambient: {
-//                             intensity: 0.3
-//                         }
-//                     }
-//                 },
-//                 series: [{
-//                     type: 'bar3D',
-//                     data: data.map(function (item) {
-//                         return {
-//                             value: [item[1], item[0], item[2]],
-//                         }
-//                     }),
-//                     shading: 'lambert',
-//
-//                     label: {
-//                         textStyle: {
-//                             fontSize: 12,
-//                             borderWidth: 1
-//                         }
-//                     },
-//
-//                     emphasis: {
-//                         label: {
-//                             textStyle: {
-//                                 fontSize: 20,
-//                                 color: '#900'
-//                             }
-//                         },
-//                         itemStyle: {
-//                             color: '#900'
-//                         }
-//                     }
-//                 }]
-//             };
-//             ec_3d_v_pm.setOption(ec_3d_v_pm_option);
-//
-//         }
-//     });
-// }
-
-function init_3d_s_c() {
-    var ec_3d_s_c = echarts.init(document.getElementById('3d_s_c'));
-
-    var data = [];
-// Parametric curve
-    for (var t = 0; t < 25; t += 0.001) {
-        var x = (1 + 0.25 * Math.cos(75 * t)) * Math.cos(t);
-        var y = (1 + 0.25 * Math.cos(75 * t)) * Math.sin(t);
-        var z = t + 2.0 * Math.sin(75 * t);
-        data.push([x, y, z]);
-    }
-    console.log(data.length);
-
-    ec_3d_s_c_option = {
-        tooltip: {},
-        backgroundColor: '#fff',
-        visualMap: {
-            show: false,
-            dimension: 2,
-            min: 0,
-            max: 30,
-            inRange: {
-                color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
-            }
-        },
-        xAxis3D: {
-            type: 'value'
-        },
-        yAxis3D: {
-            type: 'value'
-        },
-        zAxis3D: {
-            type: 'value'
-        },
-        grid3D: {
-            viewControl: {
-                projection: 'orthographic',
-                autoRotate: true
-            }
-        },
-        series: [{
-            type: 'line3D',
-            data: data,
-            lineStyle: {
-                width: 4
-            }
-        }]
-    };
-    ec_3d_s_c.setOption(ec_3d_s_c_option);
-}
-
-function init_3d_bt() {
-
-    var pre_data;
-    var area_group = new Array();
-    var data_group = new Array();
-    var xyz_data = new Array();
-    var ec_3d_bt= echarts.init(document.getElementById('3d_bt'));
-
-    $.ajax({
-        type: "GET",
-        url: "/api/device/sumterm",
-        dataType: "json",
-        success: function (data_bt) {
-            pre_data = data_bt.data;
-            var dp_temp = ['down','req','run','sum'];
-            //确定area_group
-            for ( area_name in pre_data){
-                area_group.push(pre_data[area_name].aname);
-            }
-            //确定xyz_data
-            for( pg_name in pre_data){
-                var ag = area_group.indexOf(pre_data[pg_name].aname);
-                var temp_data = pre_data[pg_name];
-                delete temp_data["aname"];
-                var temp_keys = Object.keys(temp_data);
-                for(i=0;i<temp_keys.length;i++){
-                    var this_key = temp_keys[i];
-                    var pg = dp_temp.indexOf(temp_keys[i]);
-                    var z_value = temp_data[this_key];
-                    xyz_data.push([pg,ag,z_value])
-                }
-            }
-
-            // 英文 - 中文替换
-            for ( item in dp_temp){
-                if(dp_temp[item].indexOf('sum') >= 0 ){
-                    dp_temp[item] = dp_temp[item].replace('sum','设备总数');
-                }else if(dp_temp[item].indexOf('run') >= 0 ){
-                    dp_temp[item] = dp_temp[item].replace('run','运行数');
-                }else if (dp_temp[item].indexOf('down') >= 0 ) {
-                    dp_temp[item] = dp_temp[item].replace('down','停止数');
-                }else if(dp_temp[item].indexOf('req') >= 0){
-                    dp_temp[item] = dp_temp[item].replace('req','维修数');
-                }
-                data_group = dp_temp;
-            }
-
-            //确定3D_EC 坐标系与数据
-            var a_cg =area_group;
-            var data_cg = data_group;
-            var data = xyz_data;
-            ec_3d_bt_option = {
-                tooltip: {
-                    axisPointer :{
-                        label:{
-                            show: true
-                        }
-                    }
-                },
-                visualMap: {
-                    max: 260,
-                    inRange: {
-                        color: ['#00868B','#00CD00', '#00FA9A', '#00CED1','#00F5FF','#00FFFF']
-                    }
-                },
-                xAxis3D: {
-                    type: 'category',
-                    data: a_cg
-                },
-                yAxis3D: {
-                    type: 'category',
-                    data: data_cg
-                },
-                zAxis3D: {
-                    type: 'value'
-                },
-                grid3D: {
-                    boxWidth: 300,
-                    boxDepth: 80,
-                    axisLabel: {
-                        interval: 0
-                    },
-                    viewControl: {
-                        // projection: 'orthographic'
-                        autoRotate: true
-                    },
-                    light: {
-                        main: {
-                            intensity: 1.2,
-                            shadow: true
-                        },
-                        ambient: {
-                            intensity: 0.3
-                        }
-                    }
-                },
-                series: [{
-                    type: 'bar3D',
-                    data: data.map(function (item) {
-                        return {
-                            value: [item[1], item[0], item[2]],
-                        }
-                    }),
-                    shading: 'lambert',
-
-                    label: {
-                        textStyle: {
-                            fontSize: 12,
-                            borderWidth: 1
-                        }
-                    },
-
-                    emphasis: {
-                        label: {
-                            textStyle: {
-                                fontSize: 20,
-                                color: '#900'
-                            }
-                        },
-                        itemStyle: {
-                            color: '#900'
-                        }
-                    }
-                }]
-            };
-            ec_3d_bt.setOption(ec_3d_bt_option);
+            $("#recent_reg").html('<table class="table table-hover">' +
+                '<thead>' +
+                '<tr>' +
+                '<th>最近新增用户</th>' +
+                '<th>姓名</th>' +
+                '</tr>' +
+                '</thead>' +
+                '<tbody>' + log_info +
+                '</tbody>' +
+                '</table>');
         }
     })
 
 }
 
-function init_ec_bt() {
-    var pre_data;
-    var area_group = new Array();
-    var ec_bt_sum = echarts.init(document.getElementById('bt_sum'));
-
-    $.ajax({
-        type: "GET",
-        url: "/api/device/sumterm",
-        dataType: "json",
-        success: function (data_bt) {
-            pre_data = data_bt.data;
-            //确定area_group
-            for ( area_name in pre_data){
-                area_group.push(pre_data[area_name].aname);
-            }
-
-            // 二维图表 广播地域分布可视化
-            var x_data = area_group;
-            var y_data = new Array();
-
-            for (y in pre_data){
-                y_data.push(pre_data[y].sum);
-            }
-            ec_bt_sum_option = {
-                color: ['#9B30FF'],
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'cross'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '0%',
-                    right: '0%',
-                    top: '5%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : x_data,
-                        axisTick: {
-                            alignWithLabel: true
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'终端数量',
-                        type:'bar',
-                        barWidth: '60%',
-                        data:y_data
-                    }
-                ]
-            };
-            ec_bt_sum.setOption(ec_bt_sum_option);
-
-        }
-    })
-}
-
-function sort_3d_bt() {
-
-    var pre_data;
-    var area_group = new Array();
-    var data_group = new Array();
-    var xyz_data = new Array();
-    var ec_3d_bt= echarts.init(document.getElementById('3d_bt'));
-
-    $.ajax({
-        type: "GET",
-        url: "/api/device/sumtermSort",
-        dataType: "json",
-        success: function (data_bt) {
-            pre_data = data_bt.data;
-            var dp_temp = ['down','req','run','sum'];
-            //确定area_group
-            for ( area_name in pre_data){
-                area_group.push(pre_data[area_name].aname);
-            }
-            //确定xyz_data
-            for( pg_name in pre_data){
-                var ag = area_group.indexOf(pre_data[pg_name].aname);
-                var temp_data = pre_data[pg_name];
-                delete temp_data["aname"];
-                var temp_keys = Object.keys(temp_data);
-                for(i=0;i<temp_keys.length;i++){
-                    var this_key = temp_keys[i];
-                    var pg = dp_temp.indexOf(temp_keys[i]);
-                    var z_value = temp_data[this_key];
-                    xyz_data.push([pg,ag,z_value])
-                }
-            }
-
-            // 英文 - 中文替换
-            for ( item in dp_temp){
-                if(dp_temp[item].indexOf('sum') >= 0 ){
-                    dp_temp[item] = dp_temp[item].replace('sum','设备总数');
-                }else if(dp_temp[item].indexOf('run') >= 0 ){
-                    dp_temp[item] = dp_temp[item].replace('run','运行数');
-                }else if (dp_temp[item].indexOf('down') >= 0 ) {
-                    dp_temp[item] = dp_temp[item].replace('down','停止数');
-                }else if(dp_temp[item].indexOf('req') >= 0){
-                    dp_temp[item] = dp_temp[item].replace('req','维修数');
-                }
-                data_group = dp_temp;
-            }
-
-            //确定3D_EC 坐标系与数据
-            var a_cg =area_group;
-            var data_cg = data_group;
-            var data = xyz_data;
-            ec_3d_bt_option = {
-                tooltip: {
-                    axisPointer :{
-                        label:{
-                            show: true
-                        }
-                    }
-                },
-                visualMap: {
-                    max: 260,
-                    inRange: {
-                        color: ['#00868B','#00CD00', '#00FA9A', '#00CED1','#00F5FF','#00FFFF']
-                    }
-                },
-                xAxis3D: {
-                    type: 'category',
-                    data: a_cg
-                },
-                yAxis3D: {
-                    type: 'category',
-                    data: data_cg
-                },
-                zAxis3D: {
-                    type: 'value'
-                },
-                grid3D: {
-                    boxWidth: 300,
-                    boxDepth: 80,
-                    axisLabel: {
-                        interval: 0
-                    },
-                    viewControl: {
-                        // projection: 'orthographic'
-                        autoRotate: true
-                    },
-                    light: {
-                        main: {
-                            intensity: 1.2,
-                            shadow: true
-                        },
-                        ambient: {
-                            intensity: 0.3
-                        }
-                    }
-                },
-                series: [{
-                    type: 'bar3D',
-                    data: data.map(function (item) {
-                        return {
-                            value: [item[1], item[0], item[2]],
-                        }
-                    }),
-                    shading: 'lambert',
-
-                    label: {
-                        textStyle: {
-                            fontSize: 12,
-                            borderWidth: 1
-                        }
-                    },
-
-                    emphasis: {
-                        label: {
-                            textStyle: {
-                                fontSize: 20,
-                                color: '#900'
-                            }
-                        },
-                        itemStyle: {
-                            color: '#900'
-                        }
-                    }
-                }]
-            };
-            ec_3d_bt.setOption(ec_3d_bt_option);
-        }
-    })
-
-}
-
-function sort_ec_bt() {
-    var pre_data;
-    var area_group = new Array();
-    var ec_bt_sum = echarts.init(document.getElementById('bt_sum'));
-
-    $.ajax({
-        type: "GET",
-        url: "/api/device/sumtermSort",
-        dataType: "json",
-        success: function (data_bt) {
-            pre_data = data_bt.data;
-            //确定area_group
-            for ( area_name in pre_data){
-                area_group.push(pre_data[area_name].aname);
-            }
-
-            // 二维图表 广播地域分布可视化
-            var x_data = area_group;
-            var y_data = new Array();
-
-            for (y in pre_data){
-                y_data.push(pre_data[y].sum);
-            }
-            ec_bt_sum_option = {
-                color: ['#9B30FF'],
-                tooltip : {
-                    trigger: 'axis',
-                    axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-                        type : 'cross'        // 默认为直线，可选为：'line' | 'shadow'
-                    }
-                },
-                grid: {
-                    left: '0%',
-                    right: '0%',
-                    top: '5%',
-                    bottom: '0%',
-                    containLabel: true
-                },
-                xAxis : [
-                    {
-                        type : 'category',
-                        data : x_data,
-                        axisTick: {
-                            alignWithLabel: true
-                        }
-                    }
-                ],
-                yAxis : [
-                    {
-                        type : 'value'
-                    }
-                ],
-                series : [
-                    {
-                        name:'终端数量',
-                        type:'bar',
-                        barWidth: '60%',
-                        data:y_data
-                    }
-                ]
-            };
-            ec_bt_sum.setOption(ec_bt_sum_option);
-
-        }
-    })
-}
-
-//找到包含value的值 在arr数组中的下标
-function arrIndex(arr, value) {
-    var i = arr.length;
-    while (i--) {
-        if (arr[i] === value) {
-            return i;
-        }
-    }
-    return false;
-}

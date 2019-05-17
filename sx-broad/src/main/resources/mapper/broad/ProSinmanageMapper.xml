@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.ProSinmanageMapper">
+    
+    <resultMap type="ProSinmanage" id="ProSinmanageResult">
+        <result property="sfid"    column="sfid"    />
+        <result property="scategory"    column="scategory"    />
+        <result property="createtime"    column="createtime"    />
+        <result property="broaddate"    column="broaddate"    />
+        <result property="userid"    column="userid"    />
+        <result property="remark"    column="remark"    />
+        <result property="broadtimes"    column="broadtimes"    />
+    </resultMap>
+	
+	<sql id="selectProSinmanageVo">
+        select sfid, scategory, createtime, broaddate, userid, remark, broadtimes from pro_sinmanage
+    </sql>
+	
+    <select id="selectProSinmanageList" parameterType="int" resultMap="ProSinmanageResult">
+        select PS.sfid,
+               PS.scategory,
+               PS.createtime,
+               PS.broaddate,
+               US.uname as uname,
+               PS.remark,
+               PS.broadtimes
+        from pro_sinmanage as PS,
+             userinfo as US
+        where
+            PS.userid = US.userid and
+            PS.scategory = "正常播出单"
+        <if test="userid != null  and userid != '' "> and PS.userid = #{userid}</if>
+         order by sfid desc
+    </select>
+
+    <!--<select id="selectProSinmanageListForWarning" parameterType="int" resultMap="ProSinmanageResult">-->
+        <!--select PS.sfid,-->
+               <!--PS.scategory,-->
+               <!--PS.createtime,-->
+               <!--PS.broaddate,-->
+               <!--US.uname as uname,-->
+               <!--PS.remark,-->
+               <!--PS.broadtimes-->
+        <!--from pro_sinmanage as PS,-->
+             <!--userinfo as US-->
+        <!--where-->
+            <!--PS.userid = US.userid and-->
+            <!--PS.scategory = "紧急播出单"-->
+        <!--<if test="_parameter != 0  ">-->
+           <!--and PS.userid = 102-->
+        <!--</if>-->
+        <!--/*order by sfid desc*/-->
+    <!--</select>-->
+
+    <select id="selectProSinmanageListForWarning" parameterType="int" resultMap="ProSinmanageResult">
+        select PS.sfid,
+        PS.scategory,
+        PS.createtime,
+        PS.broaddate,
+        US.uname as uname,
+        PS.remark,
+        PS.broadtimes
+        from pro_sinmanage as PS,
+        userinfo as US
+        where
+        PS.userid = US.userid and
+        PS.scategory = "紧急播出单"
+        <if test="_parameter != 0  ">
+            and PS.userid = #{_parameter}
+        </if>
+        order by sfid desc
+    </select>
+    <select id="selectProSinmanageListbySfid" parameterType="String" resultMap="ProSinmanageResult">
+        <include refid="selectProSinmanageVo"/>
+        where
+            sfid = #{sfid}
+        order by sfid desc
+    </select>
+    
+    <select id="selectProSinmanageById" parameterType="Integer" resultMap="ProSinmanageResult">
+        <include refid="selectProSinmanageVo"/>
+        where sfid = #{sfid}
+    </select>
+        
+    <insert id="insertProSinmanage" parameterType="ProSinmanage">
+        insert into pro_sinmanage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sfid != null  ">sfid,</if>
+			<if test="scategory != null  and scategory != ''  ">scategory,</if>
+			<if test="createtime != null  and createtime != ''  ">createtime,</if>
+			<if test="broaddate != null  and broaddate != ''  ">broaddate,</if>
+			<if test="userid != null  and userid != ''  ">userid,</if>
+			<if test="remark != null  and remark != ''  ">remark,</if>
+			<if test="broadtimes != null  ">broadtimes,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sfid != null  ">#{sfid},</if>
+			<if test="scategory != null  and scategory != ''  ">#{scategory},</if>
+			<if test="createtime != null  and createtime != ''  ">#{createtime},</if>
+			<if test="broaddate != null  and broaddate != ''  ">#{broaddate},</if>
+			<if test="userid != null  and userid != ''  ">#{userid},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+			<if test="broadtimes != null  ">#{broadtimes},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateProSinmanage" parameterType="ProSinmanage">
+        update pro_sinmanage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="scategory != null  and scategory != ''  ">scategory = #{scategory},</if>
+            <if test="createtime != null  and createtime != ''  ">createtime = #{createtime},</if>
+            <if test="broaddate != null  and broaddate != ''  ">broaddate = #{broaddate},</if>
+            <if test="userid != null  and userid != ''  ">userid = #{userid},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="broadtimes != null  ">broadtimes = #{broadtimes},</if>
+        </trim>
+        where sfid = #{sfid}
+    </update>
+
+	<delete id="deleteProSinmanageById" parameterType="Integer">
+        delete from pro_sinmanage where sfid = #{sfid}
+    </delete>
+	
+    <delete id="deleteProSinmanageByIds" parameterType="String">
+        delete from pro_sinmanage where sfid in 
+        <foreach item="sfid" collection="array" open="(" separator="," close=")">
+            #{sfid}
+        </foreach>
+    </delete>
+    
+</mapper>

@@ -1,7 +1,7 @@
 package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Area;
-import java.util.List;	
+import java.util.List;
 
 /**
  * 终端地域 数据层
@@ -26,7 +26,14 @@ public interface AreaMapper
      * @return 终端地域集合
      */
 	public List<Area> selectAreaList(Area area);
-	
+
+	/**
+	 * 通过aid查询终端地域列表
+	 *
+	 * @param area 终端地域信息
+	 * @return 终端地域集合
+	 */
+	public List<Area> chooseAreaList(Area area);
 	/**
      * 新增终端地域
      * 
@@ -58,5 +65,9 @@ public interface AreaMapper
      * @return 结果
      */
 	public int deleteAreaByIds(String[] aids);
-	
+
+	/**
+	 * 树
+	 */
+	public Area selectAllArea();
 }

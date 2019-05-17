@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.ProListMapper">
+    
+    <resultMap type="ProList" id="ProListResult">
+        <result property="pid"    column="Pid"    />
+        <result property="ptp"    column="Ptp"    />
+        <result property="fN"    column="FN"    />
+        <result property="fid"    column="Fid"    />
+        <result property="bt"    column="Bt"    />
+        <result property="broadtime"    column="broadtime"    />
+        <result property="remark"    column="Remark"    />
+    </resultMap>
+
+    <resultMap type="ProgBroad" id="ProgBroadResult">
+        <result property="pid"    column="Pid"    />
+        <result property="ptp"    column="Ptp"    />
+        <result property="fN"    column="FN"    />
+        <result property="fid"    column="Fid"    />
+        <result property="bt"    column="Bt"    />
+        <result property="broadtime"    column="broadtime"    />
+        <result property="remark"    column="Remark"    />
+    </resultMap>
+	
+	<sql id="selectProListVo">
+        select Pid, Ptp, FN, Fid, Bt, broadtime, Remark from pro_list
+    </sql>
+	
+    <select id="selectProListList" parameterType="ProList" resultMap="ProListResult">
+        <include refid="selectProListVo"/>
+        <where>  
+            <if test="pid != null "> and Pid = #{pid}</if>
+             <if test="ptp != null  and ptp != '' "> and Ptp = #{ptp}</if>
+             <if test="fN != null  and fN != '' "> and FN = #{fN}</if>
+             <if test="fid != null "> and Fid = #{fid}</if>
+             <if test="bt != null  and bt != '' "> and Bt = #{bt}</if>
+             <if test="broadtime != null  and broadtime != '' "> and broadtime = #{broadtime}</if>
+             <if test="remark != null  and remark != '' "> and Remark = #{remark}</if>
+         </where>
+         order by pid desc
+    </select>
+
+    <select id="selectProListListByPid" parameterType="String" resultMap="ProListResult">
+        select
+            a.Pid,
+            a.Ptp,
+            a.FN,
+            b.fname as Fid,
+            a.Bt,
+            a.broadtime,
+            a.Remark
+        from pro_list as a left join programs as b
+        on
+        a.fid= b.fid
+        where
+        pid = #{pid}
+        order by Bt
+    </select>
+    
+    <select id="selectProListById" parameterType="Integer" resultMap="ProListResult">
+        <include refid="selectProListVo"/>
+        where Pid = #{pid}
+    </select>
+        
+    <insert id="insertProList" parameterType="ProList">
+        insert into pro_list
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pid != null  ">Pid,</if>
+			<if test="ptp != null  and ptp != ''  ">Ptp,</if>
+			<if test="fN != null  and fN != ''  ">FN,</if>
+			<if test="fid != null  ">Fid,</if>
+			<if test="bt != null  and bt != ''  ">Bt,</if>
+			<if test="broadtime != null  and broadtime != ''  ">broadtime,</if>
+			<if test="remark != null  and remark != ''  ">Remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pid != null  ">#{pid},</if>
+			<if test="ptp != null  and ptp != ''  ">#{ptp},</if>
+			<if test="fN != null  and fN != ''  ">#{fN},</if>
+			<if test="fid != null  ">#{fid},</if>
+			<if test="bt != null  and bt != ''  ">#{bt},</if>
+			<if test="broadtime != null  and broadtime != ''  ">#{broadtime},</if>
+			<if test="remark != null  and remark != ''  ">#{remark},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateProList" parameterType="ProList">
+        update pro_list
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ptp != null  and ptp != ''  ">Ptp = #{ptp},</if>
+            <if test="fN != null  and fN != ''  ">FN = #{fN},</if>
+            <if test="fid != null  ">Fid = #{fid},</if>
+            <if test="bt != null  and bt != ''  ">Bt = #{bt},</if>
+            <if test="broadtime != null  and broadtime != ''  ">broadtime = #{broadtime},</if>
+            <if test="remark != null  and remark != ''  ">Remark = #{remark},</if>
+        </trim>
+        where Pid = #{pid}
+    </update>
+
+	<delete id="deleteProListById" parameterType="Integer">
+        delete from pro_list where Pid = #{pid}
+    </delete>
+	
+    <delete id="deleteProListByIds" parameterType="String">
+        delete from pro_list where Pid in 
+        <foreach item="pid" collection="array" open="(" separator="," close=")">
+            #{pid}
+        </foreach>
+    </delete>
+    
+</mapper>

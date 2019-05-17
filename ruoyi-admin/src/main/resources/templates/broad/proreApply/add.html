@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-proreApply-add">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">节目名称：</label>
+				<div class="col-sm-8">
+					<input id="pname" name="pname" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">录制要求：</label>
+				<div class="col-sm-8">
+					<input id="requires" name="requires" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">是否紧急：</label>
+				<div class="col-sm-8">
+					<!--<input id="isemergency" name="isemergency" class="form-control" type="text">-->
+					<div class="radio">
+						<label>
+							<input id="isemergency" name="isemergency" th:value="true" class="form-control" type="radio">
+							紧急
+						</label>
+					</div>
+					<div class="radio">
+						<label>
+							<input id="isemergency" name="isemergency" th:value="false" class="form-control" type="radio">
+							不紧急
+						</label>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">时间限制要求：</label>
+				<div class="col-sm-8">
+					<input id="timelimit" name="timelimit" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">要求文稿名：</label>
+				<div class="col-sm-8">
+					<input id="filename" name="filename" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">要求文稿路径：</label>
+				<div class="col-sm-8">
+					<input id="fileurl" name="fileurl" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+	</div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "broad/proreApply"
+		$("#form-proreApply-add").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/add", $('#form-proreApply-add').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

@@ -2,8 +2,12 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 
+import com.ruoyi.broad.domain.Broaduser;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
+import com.ruoyi.village.domain.Villagefamily;
+import com.ruoyi.village.domain.Villageuser;
+import com.ruoyi.village.service.IWuserService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +31,7 @@ import com.ruoyi.system.service.ISysPostService;
 import com.ruoyi.system.service.ISysRoleService;
 import com.ruoyi.system.service.ISysUserService;
 import com.ruoyi.framework.web.base.BaseController;
+import com.ruoyi.broad.service.IBroaduserService;
 
 /**
  * 用户信息
@@ -50,6 +55,12 @@ public class SysUserController extends BaseController
 
     @Autowired
     private SysPasswordService passwordService;
+
+    @Autowired
+    private IBroaduserService broaduserService;
+
+    @Autowired
+    private IWuserService wuserService;
 
     @RequiresPermissions("system:user:view")
     @GetMapping()
@@ -105,9 +116,25 @@ public class SysUserController extends BaseController
         {
             return error("不允许修改超级管理员用户");
         }
+
         user.setSalt(ShiroUtils.randomSalt());
         user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
         user.setCreateBy(ShiroUtils.getLoginName());
+        int id = userService.selectMaxUserId() + 1;
+        if (user.getPlatform().equals("0")){
+            Broaduser broaduser1 = new Broaduser();
+            broaduser1.setSysuserId(id);
+            broaduser1.setUsername(user.getLoginName());broaduser1.setUname(user.getUserName());broaduser1.setUphone(user.getPhonenumber());
+            broaduser1.setAid(user.getAid());
+            broaduserService.insertBroaduser(broaduser1);
+        }
+        if (user.getPlatform().equals("1")){
+            Villageuser villageuser = new Villageuser();
+            villageuser.setSysuserId(id);
+            villageuser.setLoginid(user.getLoginName());villageuser.setUname(user.getUserName());villageuser.setPhone(user.getPhonenumber());
+            villageuser.setAid(user.getAid());
+            wuserService.insertVillageuser(villageuser);
+        }
         return toAjax(userService.insertUser(user));
     }
 

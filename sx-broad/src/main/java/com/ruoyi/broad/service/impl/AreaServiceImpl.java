@@ -45,14 +45,14 @@ public class AreaServiceImpl implements IAreaService
 	    * 查询终端地区树
 	    * @author 张超 teavamc
 	    * @date 2019/2/14
-	    * @param [area]
+	    * @param
 	    * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
 	    */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
 	public List<Map<String, Object>> selectAreaTree(Area area){
 		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-		List<Area> areaList = areaMapper.selectAreaList(area);
+		List<Area> areaList = areaMapper.chooseAreaList(area);
 		trees = getTrees(areaList);
 		return trees;
 	}
@@ -62,7 +62,7 @@ public class AreaServiceImpl implements IAreaService
 	    * 根据List生产tree，前提是模型中包含id和父id关系
 	    * @author 张超 teavamc
 	    * @date 2019/2/14
-	    * @param [areaList]
+	    * @param
 	    * @return java.util.List<java.util.Map<java.lang.String,java.lang.Object>>
 	    */
 	public List<Map<String, Object>> getTrees(List<Area> areaList)
@@ -94,7 +94,13 @@ public class AreaServiceImpl implements IAreaService
 	    return areaMapper.selectAreaList(area);
 	}
 
-    /**
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Area> chooseAreaList(Area area) {
+		return areaMapper.chooseAreaList(area);
+	}
+
+	/**
      * 新增终端地域
      *
      * @param area 终端地域信息
@@ -132,31 +138,12 @@ public class AreaServiceImpl implements IAreaService
 	{
 		return areaMapper.deleteAreaByIds(Convert.toStrArray(ids));
 	}
-//
-//	public List<Map<String, Object>> getTrees(List<SysDept> deptList, boolean isCheck, List<String> roleDeptList)
-//	{
-//
-//		List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
-//		for (SysDept dept : deptList)
-//		{
-//			if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()))
-//			{
-//				Map<String, Object> deptMap = new HashMap<String, Object>();
-//				deptMap.put("id", dept.getDeptId());
-//				deptMap.put("pId", dept.getParentId());
-//				deptMap.put("name", dept.getDeptName());
-//				deptMap.put("title", dept.getDeptName());
-//				if (isCheck)
-//				{
-//					deptMap.put("checked", roleDeptList.contains(dept.getDeptId() + dept.getDeptName()));
-//				}
-//				else
-//				{
-//					deptMap.put("checked", false);
-//				}
-//				trees.add(deptMap);
-//			}
-//		}
-//		return trees;
-//	}
+
+	/**
+	 * 树
+	 *
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public Area  selectAllArea(){return areaMapper.selectAllArea();}
 }
