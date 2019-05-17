@@ -833,7 +833,7 @@ Markdown.dialects.Gruber.inline = {
       m = text.match( /^!\[(.*?)\][ \t]*\[(.*?)\]/ );
 
       if ( m ) {
-        // We can't check if the reference is known here as it likely wont be
+        // We can't chat if the reference is known here as it likely wont be
         // found till after. Check it in md tree->hmtl tree conversion
         return [ m[0].length, [ "img_ref", { alt: m[1], ref: m[2].toLowerCase(), original: m[0] } ] ];
       }
@@ -916,7 +916,7 @@ Markdown.dialects.Gruber.inline = {
 
         link = [ "link_ref", attrs ].concat( children );
 
-        // We can't check if the reference is known here as it likely wont be
+        // We can't chat if the reference is known here as it likely wont be
         // found till after. Check it in md tree->hmtl tree conversion.
         // Store the original so that conversion can revert if the ref isn't found.
         return [ consumed, link ];
@@ -1204,7 +1204,7 @@ Markdown.dialects.Maruku.block.document_meta = function document_meta( block, ne
 };
 
 Markdown.dialects.Maruku.block.block_meta = function block_meta( block, next ) {
-  // check if the last line of the block is an meta hash
+  // chat if the last line of the block is an meta hash
   var m = block.match( /(^|\n) {0,3}\{:\s*((?:\\\}|[^\}])*)\s*\}$/ );
   if ( !m ) return undefined;
 
@@ -1587,7 +1587,7 @@ function merge_text_nodes( jsonml ) {
   var i = extract_attr( jsonml ) ? 2 : 1;
 
   while ( i < jsonml.length ) {
-    // if it's a string check the next item too
+    // if it's a string chat the next item too
     if ( typeof jsonml[ i ] === "string" ) {
       if ( i + 1 < jsonml.length && typeof jsonml[ i + 1 ] === "string" ) {
         // merge the second string into the first and remove it

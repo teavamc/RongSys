@@ -17,7 +17,7 @@
 		n.isHidden = !!n.isHidden;
 		data.initHideForExCheck(setting, n);
 	},
-	//add dom for check
+	//add dom for chat
 	_beforeA = function(setting, node, html) {},
 	//update zTreeObj, add method of exLib
 	_zTreeTools = function(setting, zTreeTools) {

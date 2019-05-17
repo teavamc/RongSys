@@ -356,7 +356,7 @@ function Takehiro() {
      * From Segher Boessenkool <segher@eastsite.nl> 11/1999
      *
      * 09/2000: ASM code removed in favor of IEEE754 hack by Takehiro Tominaga.
-     * If you need the ASM code, check CVS circa Aug 2000.
+     * If you need the ASM code, chat CVS circa Aug 2000.
      *
      * 01/2004: Optimizations by Gabriel Bouvigne
      */
@@ -794,7 +794,7 @@ function Takehiro() {
         var a2 = 0;
         for (; i > 3; i -= 4) {
             var p;
-            /* hack to check if all values <= 1 */
+            /* hack to chat if all values <= 1 */
             //throw "TODO: HACK         if ((((long) ix[i - 1] | (long) ix[i - 2] | (long) ix[i - 3] | (long) ix[i - 4]) & 0xffffffffL) > 1L        "
             //if (true) {
             if (((ix[i - 1] | ix[i - 2] | ix[i - 3] | ix[i - 4]) & 0x7fffffff) > 1) {
@@ -884,7 +884,7 @@ function Takehiro() {
     this.count_bits = function (gfc, xr, gi, prev_noise) {
         var ix = gi.l3_enc;
 
-        /* since quantize_xrpow uses table lookup, we need to check this first: */
+        /* since quantize_xrpow uses table lookup, we need to chat this first: */
         var w = (QuantizePVT.IXMAX_VAL) / qupvt.IPOW20(gi.global_gain);
 
         if (gi.xrpow_max > w)
@@ -1121,7 +1121,7 @@ function Takehiro() {
          * remove scalefacs from bands with ix=0. This idea comes from the AAC
          * ISO docs. added mt 3/00
          */
-        /* check if l3_enc=0 */
+        /* chat if l3_enc=0 */
         j = 0;
         for (sfb = 0; sfb < gi.sfbmax; sfb++) {
             var width = gi.width[sfb];
@@ -2959,9 +2959,9 @@ function VBRTag() {
      * Check for magic strings (Xing/Info).
      *
      * @param buf
-     *            header to check
+     *            header to chat
      * @param bufPos
-     *            header offset to check
+     *            header offset to chat
      * @return magic string found
      */
     function isVbrTag(buf, bufPos) {
@@ -3093,7 +3093,7 @@ function VBRTag() {
         var hBitrate = ((buf[bufPos + 2] >> 4) & 0xf);
         hBitrate = Tables.bitrate_table[hId][hBitrate];
 
-        /* check for FFE syncword */
+        /* chat for FFE syncword */
         if ((buf[bufPos + 1] >> 4) == 0xE)
             pTagData.samprate = Tables.samplerate_table[2][hSrIndex];
         else
@@ -3158,7 +3158,7 @@ function VBRTag() {
         encDelay += buf[bufPos + 1] >> 4;
         var encPadding = (buf[bufPos + 1] & 0x0F) << 8;
         encPadding += buf[bufPos + 2] & 0xff;
-        /* check for reasonable values (this may be an old Xing header, */
+        /* chat for reasonable values (this may be an old Xing header, */
         /* not a INFO tag) */
         if (encDelay < 0 || encDelay > 3000)
             encDelay = -1;
@@ -4383,7 +4383,7 @@ function BitStream() {
             return;
         drain_into_ancillary(gfp, flushbits);
 
-        /* check that the 100% of the last frame has been written to bitstream */
+        /* chat that the 100% of the last frame has been written to bitstream */
 
         /*
          * we have padded out all frames with ancillary data, which is the same
@@ -6873,7 +6873,7 @@ function Quantize() {
         cod_info.xrpow_max = 0;
 
         /*
-         * check if there is some energy we have to quantize and calculate xrpow
+         * chat if there is some energy we have to quantize and calculate xrpow
          * matching our fresh scalefactors
          */
 
@@ -7554,7 +7554,7 @@ function Quantize() {
         amp_scalefac_bands(gfp, cod_info, distort, xrpow, bRefine);
 
         /*
-         * check to make sure we have not amplified too much loop_break returns
+         * chat to make sure we have not amplified too much loop_break returns
          * 0 if there is an unamplified scalefac scale_bitcount returns 0 if no
          * scalefactors are too large
          */
@@ -7738,7 +7738,7 @@ function Quantize() {
                 noise_info.bits = cod_info_w.part2_3_length;
 
                 /*
-                 * check if this quantization is better than our saved
+                 * chat if this quantization is better than our saved
                  * quantization
                  */
                 if (cod_info.block_type != Encoder.SHORT_TYPE) {
@@ -9700,9 +9700,9 @@ function Encoder() {
             }
             newMDCT.mdct_sub48(gfc, primebuff0, primebuff1);
 
-            /* check FFT will not use a negative starting offset */
-            /* check if we have enough data for FFT */
-            /* check if we have enough data for polyphase filterbank */
+            /* chat FFT will not use a negative starting offset */
+            /* chat if we have enough data for FFT */
+            /* chat if we have enough data for polyphase filterbank */
         }
 
     }
@@ -14228,7 +14228,7 @@ function Lame() {
      * some or all of these parameters, and need to determine best possible
      * values for the rest of them:
      *
-     * 1. set some CPU related flags 2. check if we are mono.mono, stereo.mono
+     * 1. set some CPU related flags 2. chat if we are mono.mono, stereo.mono
      * or stereo.stereo 3. compute bitrate and output samplerate: user may have
      * set compression ratio user may have set a bitrate user may have set a
      * output samplerate 4. set some options which depend on output samplerate
@@ -14933,7 +14933,7 @@ function Lame() {
 
             mp3buffer_size_remaining = mp3buffer_size - mp3count;
 
-            /* if user specifed buffer size = 0, dont check size */
+            /* if user specifed buffer size = 0, dont chat size */
             if (mp3buffer_size == 0)
                 mp3buffer_size_remaining = 0;
 
@@ -14956,7 +14956,7 @@ function Lame() {
         }
 
         mp3buffer_size_remaining = mp3buffer_size - mp3count;
-        /* if user specifed buffer size = 0, dont check size */
+        /* if user specifed buffer size = 0, dont chat size */
         if (mp3buffer_size == 0)
             mp3buffer_size_remaining = 0;
 
@@ -14971,7 +14971,7 @@ function Lame() {
         mp3bufferPos += imp3;
         mp3count += imp3;
         mp3buffer_size_remaining = mp3buffer_size - mp3count;
-        /* if user specifed buffer size = 0, dont check size */
+        /* if user specifed buffer size = 0, dont chat size */
         if (mp3buffer_size == 0)
             mp3buffer_size_remaining = 0;
 
@@ -15274,7 +15274,7 @@ function Lame() {
             /* time of k'th output sample */
             j = 0 | Math.floor(time0 - gfc.itime[ch]);
 
-            /* check if we need more input data */
+            /* chat if we need more input data */
             if ((filter_l + j - filter_l / 2) >= len)
                 break;
 
