@@ -431,7 +431,7 @@
                 list[i+2] = imea[i];
                 nameList[i+2] = imeiName[i];
             }
-
+            imeilist += "," + String(document.getElementById("treeId").value);
             // 如果未选择则 提示要选择
             if(imeilist==null || imeilist==""){
                 $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
