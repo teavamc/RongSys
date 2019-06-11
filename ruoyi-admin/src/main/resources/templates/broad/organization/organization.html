@@ -171,103 +171,83 @@
 					},
 					{
 						field : 'tname',
-						title : '终端名称',
-						sortable: true
+						title : '终端名称'
 					},
 					{
 						field : 'aid',
-						title : '区域编号',
-						sortable: true
+						title : '区域编号'
 					},
 					{
 						field : 'aname',
-						title : '区域名称',
-						sortable: true
+						title : '区域名称'
 					},
 					{
 						field : 'userid',
-						title : '用户编号',
-						sortable: true
+						title : '用户编号'
 					},
 					{
 						field : 'uname',
-						title : '管理员姓名',
-						sortable: true
+						title : '管理员姓名'
 					},
 					{
 						field : 'createdtime',
-						title : '创建时间',
-						sortable: true
+						title : '创建时间'
 					},
 					{
 						field : 'facid',
-						title : '出厂编号',
-						sortable: true
+						title : '出厂编号'
 					},
 					{
 						field : 'address',
-						title : '安装地址',
-						sortable: true
+						title : '安装地址'
 					},
 					{
 						field : 'note',
-						title : '备注',
-						sortable: true
+						title : '备注'
 					},
 					{
 						field : 'comstand',
-						title : '接入通信网',
-						sortable: true
+						title : '接入通信网'
 					},
 					{
 						field : 'broadtel',
-						title : '终端广播网模式',
-						sortable: true
+						title : '终端广播网模式'
 					},
 					{
 						field : 'manager',
-						title : '终端管理员',
-						sortable: true
+						title : '终端管理员'
 					},
 					{
 						field : 'managertel',
-						title : '管理员电话',
-						sortable: true
+						title : '管理员电话'
 					},
 					{
 						field : 'intertime',
-						title : '交互时间',
-						sortable: true
+						title : '交互时间'
 					},
 					{
 						field : 'phone',
-						title : '手机号码',
-						sortable: true
+						title : '手机号码'
 					},
 					{
 						field : 'rds',
-						title : 'RDS码',
-						sortable: true
+						title : 'RDS码'
 					},
 					{
 						field : 'fmfrequency',
-						title : '调频接收频率',
-						sortable: true
+						title : '调频接收频率'
 					},
 					{
 						field : 'trafficlimit',
-						title : '限制流量/MB',
-						sortable: true
+						title : '限制流量/MB'
 					},
 					{
 						field : 'isuse',
-						title : '是否可用',
-						sortable: true
+						title : '是否可用'
 					},
 					{
 						field : 'pic',
-						title : '安装地址图片',
-						sortable: true
+						title : '安装地址图片'
 					}]
             };
         $.table.init(options);
@@ -285,7 +265,6 @@
 
         function zOnClick(event, treeId, treeNode) {
             $("#aid").val(treeNode.id);
-          	/*$("#tid").val(treeNode.pId);*/
             $.table.search();
         }
     }
