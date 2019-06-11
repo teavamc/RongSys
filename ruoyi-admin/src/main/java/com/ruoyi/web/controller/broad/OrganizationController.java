@@ -119,6 +119,7 @@ public class OrganizationController extends BaseController
 
 	/**
 	 * 新增保存终端信息
+	 * 若IMEI号存在, 则改为修改该IMEI号的信息
 	 */
 	@RequiresPermissions("broad:organization:add")
 	@Log(title = "终端信息", businessType = BusinessType.INSERT)
@@ -133,8 +134,14 @@ public class OrganizationController extends BaseController
 		sdf.applyPattern("yyyy-MM-dd HH:mm:ss");// a为am/pm的标记
 		Date date = new Date();// 获取当前时间
 		organization.setCreatedtime(sdf.format(date));
-		organizationService.insertOrganizationPic(organization);
-		return toAjax(organizationService.insertOrganization(organization));
+		int msg = 1;
+		try{
+			organizationService.insertOrganizationPic(organization);
+			msg = organizationService.insertOrganization(organization);
+		} catch (Exception e) {
+			editSave(organization);
+		}
+		return toAjax(msg);
 	}
 
 	/**
