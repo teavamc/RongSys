@@ -65,10 +65,15 @@ public class OrganizationController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Organization organization)
 	{
-		SysUser currentUser = ShiroUtils.getSysUser();//从session中获取当前登陆用户的userid
+		//从session中获取当前登陆用户的 userid
+		SysUser currentUser = ShiroUtils.getSysUser();
 		Long userid =  currentUser.getUserId();
 		int returnId = new Long(userid).intValue();
-		int roleid = sysUserService.selectRoleid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+
+		//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+		int roleid = sysUserService.selectRoleid(returnId);
+
+
 		if(organization.getAid() == null && (roleid == 1)) {
 			startPage() ;
 			List<Organization> list = organizationService.selectOrganizationList(organization);
@@ -79,7 +84,8 @@ public class OrganizationController extends BaseController
 			return getDataTable(list);
 		}else{
 			String aid;
-			aid = sysUserService.selectAid(returnId);//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+			//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+			aid = sysUserService.selectAid(returnId);
 			organization.setAid(aid);
 			startPage() ;
 			List<Organization> list = organizationService.selectOrganizationList(organization);
