@@ -75,11 +75,11 @@ public class OrganizationController extends BaseController
 
 
 		if(organization.getAid() == null && (roleid == 1)) {
-			startPage() ;
+			startPage();
 			List<Organization> list = organizationService.selectOrganizationList(organization);
 			return getDataTable(list);
 		}else if(organization.getAid() != null){
-			startPage() ;
+			startPage();
 			List<Organization> list = organizationService.selectOrganizationList(organization);
 			return getDataTable(list);
 		}else{
@@ -87,7 +87,7 @@ public class OrganizationController extends BaseController
 			//通过所获取的userid去广播用户表中查询用户所属区域的Aid
 			aid = sysUserService.selectAid(returnId);
 			organization.setAid(aid);
-			startPage() ;
+			startPage();
 			List<Organization> list = organizationService.selectOrganizationList(organization);
 			return getDataTable(list);
 		}

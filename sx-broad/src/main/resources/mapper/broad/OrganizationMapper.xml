@@ -55,15 +55,14 @@
 	</sql>
     <sql id="selectOrganizationVo">
         select
-        t.tid as tid,tname,t.aid as aid,aname,t.userid as userid,uname,
+        t.tid as tid,tname,t.aid as aid,a.aname,t.userid as userid,t.uname,
         facid,address,t.note as note,comstand,broadtel,
         manager,managertel,intertime,createdtime,t.isuse as isuse,phone,
         fmfrequency,rds,trafficlimit,p.pic as pic
-        from (((<include refid="tableName"></include> t
-        left join <include refid="areatableName"></include> a on t.aid = a.aid)
-        left join <include refid="usertable"></include> u on t.userid = u.userid)
-        left join <include refid="termanagepictable"></include> p on t.tid = p.tid)
-
+        from (((tb_organization t
+        left join area a on t.aid = a.aid)
+        left join userinfo u on t.userid = u.userid)
+        left join terminals_pic p on t.tid = p.tid)
     </sql>
 
     <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
