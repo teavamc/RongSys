@@ -78,7 +78,7 @@
 									创建时间：<input type="text" name="createdtime"/>
 								</li>
 								<li>
-									最后修改时间：<input type="text" name="createdtime"/>
+									最后修改时间：<input type="text" name="lastaccesstime"/>
 								</li>
 								<li>
 									是否可用：<!--<input type="text" name="isuse"/>-->
@@ -184,25 +184,33 @@
 						field : 'aname',
 						title : '区域名称'
 					},
+                    {
+                        field : 'uname',
+                        title : '管理员姓名'
+                    },
+                    {
+                        field : 'facid',
+                        title : '出厂编号'
+                    },
+                    {
+                        field : 'address',
+                        title : '安装地址'
+                    },
+                    {
+                        field : 'phone',
+                        title : '手机号码'
+                    },
+					{
+						field : 'lastaccesstime',
+						title : '最后访问时间'
+					},
 					{
 						field : 'userid',
 						title : '用户编号'
 					},
 					{
-						field : 'uname',
-						title : '管理员姓名'
-					},
-					{
 						field : 'createdtime',
 						title : '创建时间'
-					},
-					{
-						field : 'facid',
-						title : '出厂编号'
-					},
-					{
-						field : 'address',
-						title : '安装地址'
 					},
 					{
 						field : 'note',
@@ -227,10 +235,6 @@
 					{
 						field : 'intertime',
 						title : '交互时间'
-					},
-					{
-						field : 'phone',
-						title : '手机号码'
 					},
 					{
 						field : 'rds',
