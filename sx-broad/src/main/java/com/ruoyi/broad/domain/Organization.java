@@ -48,6 +48,7 @@ public class Organization extends BaseEntity
     private String createdtime;
     /** 是否可用 */
     private Boolean isuse;
+    private String isused;
     /** 终端手机号码 */
     private String phone;
     /** RDS码 */
@@ -256,6 +257,14 @@ public class Organization extends BaseEntity
     public String getParentaid()
     {
         return parentaid;
+    }
+
+    public String getIsused() {
+        return isused;
+    }
+
+    public void setIsused(String isused) {
+        this.isused = isused;
     }
 
     public String getPic() { return pic; }
