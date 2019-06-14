@@ -66,7 +66,6 @@ public class OrganizationServiceImpl implements IOrganizationService
 	{
 		List<Organization> list = organizationMapper.selectOrganizationList(organization) ;
 		for(Organization data:list) {
-            System.out.println(data);
             data.setIsused(data.getIsuse()?"是":"否");
 		}
 		return list;
