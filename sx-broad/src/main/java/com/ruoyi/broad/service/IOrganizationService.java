@@ -122,4 +122,15 @@ public interface IOrganizationService
 	public int updateFmfrequencyByIds(String ids , String number);
 
 	public int updateIsuseByTid(String tid, Boolean isuse);
+
+	/**
+	 * 获取到下面所有的 aid
+	 * @param aid
+	 * @return
+	 */
+	public  List<String> listNextAid(String aid);
+
+
+	//	通过 aid 查询所有终端
+	public List<Organization> listOrgByAid(String aid);
 }
