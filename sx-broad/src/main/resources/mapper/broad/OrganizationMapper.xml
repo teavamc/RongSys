@@ -64,6 +64,11 @@
         left join userinfo u on t.userid = u.userid)
         left join terminals_pic p on t.tid = p.tid)
     </sql>
+    
+    <select id="listOrgByAid" parameterType="String" resultMap="OrganizationResult">
+        <include refid="selectOrganizationVo"/>
+        WHERE t.aid = #{aid}
+    </select>
 
     <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
@@ -100,6 +105,13 @@
     <select id="selectOrganizationByTid" parameterType="String" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
         where t.tid = #{tid}
+    </select>
+
+    <select id="listNextAid" parameterType="String" resultType="String">
+        SELECT t.aid
+        FROM area as t
+        WHERE t.parentaid = #{aid}
+        GROUP BY aid
     </select>
 
     <insert id="insertOrganization" parameterType="Organization">

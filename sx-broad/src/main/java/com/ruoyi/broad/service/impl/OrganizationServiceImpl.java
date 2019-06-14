@@ -213,4 +213,25 @@ public class OrganizationServiceImpl implements IOrganizationService
 	{
 		return organizationMapper.updateIsuseByTid(tid,isuse);
 	}
+
+	/**
+	 * 获取到下面所有的 aid
+	 * @param aid
+	 * @return
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public  List<String> listNextAid(String aid){
+		return organizationMapper.listNextAid(aid);
+	}
+
+
+	/**
+	 * 	通过 aid 查询所有终端
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Organization> listOrgByAid(String aid){
+		return organizationMapper.listOrgByAid(aid);
+	}
 }
