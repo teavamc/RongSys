@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.broad;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,12 +51,38 @@ public class OrganizationController extends BaseController
 	private IAreaService areaService;
 	@Autowired
 	private ISysUserService sysUserService;
+
 	@RequiresPermissions("broad:organization:view")
 	@GetMapping()
 	public String organization()
 	{
 		return prefix + "/organization";
 	}
+
+//    获取所有子 aid
+	List<Organization> findAll(Organization organization){
+		List<Organization> res = new ArrayList<>();
+		List<String> allaid = organizationService.listNextAid(organization.getAid());
+		// 判断是否有子 aid，如果有子 aid,有则获取到所有的子 aid 放入一个 list
+		if (allaid.isEmpty()){
+			res = organizationService.selectOrganizationList(organization);
+		}else {
+			//获得所有的子 aid 放入 list
+			List<String> temp = new ArrayList<>();
+			for (String next:allaid){
+				if (!organizationService.listNextAid(next).isEmpty()){
+					temp.addAll(organizationService.listNextAid(next));
+				}
+			}
+			allaid.addAll(temp);
+			// 遍历所有的 aid 信息然后装入结果
+			for (String s:allaid){
+				res.addAll(organizationService.listOrgByAid(s));
+			}
+		}
+		return res;
+	}
+
 
 	/**
 	 * 查询终端信息列表
@@ -76,11 +103,11 @@ public class OrganizationController extends BaseController
 
 		if(organization.getAid() == null && (roleid == 1)) {
 			startPage();
-			List<Organization> list = organizationService.selectOrganizationList(organization);
+			List<Organization> list = findAll(organization);
 			return getDataTable(list);
 		}else if(organization.getAid() != null){
 			startPage();
-			List<Organization> list = organizationService.selectOrganizationList(organization);
+			List<Organization> list = findAll(organization);
 			return getDataTable(list);
 		}else{
 			String aid;
@@ -88,7 +115,7 @@ public class OrganizationController extends BaseController
 			aid = sysUserService.selectAid(returnId);
 			organization.setAid(aid);
 			startPage();
-			List<Organization> list = organizationService.selectOrganizationList(organization);
+			List<Organization> list = findAll(organization);
 			return getDataTable(list);
 		}
 
