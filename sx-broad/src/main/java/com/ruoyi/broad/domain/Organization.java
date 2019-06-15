@@ -48,6 +48,7 @@ public class Organization extends BaseEntity
     private String createdtime;
     /** 是否可用 */
     private Boolean isuse;
+
     private String isused;
     /** 终端手机号码 */
     private String phone;
