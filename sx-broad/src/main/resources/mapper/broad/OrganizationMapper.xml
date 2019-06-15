@@ -90,6 +90,7 @@
             <if test="intertime != null  and intertime != '' "> and intertime = #{intertime}</if>
             <if test="createdtime != null  and createdtime != '' "> and createdtime = #{createdtime}</if>
             <if test="isuse != null  and isuse != '' "> and t.isuse = #{isuse}</if>
+            <if test="isuse == null  or isuse == '' "> and t.isuse = 0</if>
             <if test="phone != null  and phone != '' "> and phone = #{phone}</if>
             <if test="fmfrequency != null  and fmfrequency != '' "> and fmfrequency = #{fmfrequency}</if>
             <if test="rds != null  and rds != '' "> and rds = #{rds}</if>
