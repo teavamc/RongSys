@@ -231,6 +231,10 @@ public class OrganizationServiceImpl implements IOrganizationService
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
 	public List<Organization> listOrgByAid(String aid){
-		return organizationMapper.listOrgByAid(aid);
+		List<Organization> organizations =  organizationMapper.listOrgByAid(aid);
+		for(Organization o:organizations) {
+			o.setIsused(o.getIsuse()?"是":"否");
+		}
+		return organizations;
 	}
 }

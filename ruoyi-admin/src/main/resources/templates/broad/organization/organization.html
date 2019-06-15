@@ -88,7 +88,7 @@
 								</li>
 								<li>
 									是否可用：<!--<input type="text" name="isuse"/>-->
-										<input type="radio" name="isuse" value="1" style="width: 50px">是
+										<input type="radio" name="isuse" value="1" style="width: 50px" checked="checked">是
 										<input type="radio" name="isuse" value="0" style="width: 50px">否
 								</li>
 								<!--<li>
@@ -200,6 +200,8 @@
                 search: false,
                 showExport: true,
                 striped: true,
+                pagination: true,
+                pageSize: 10,
                 columns: [{
                     checkbox: true
                 },

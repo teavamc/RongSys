@@ -70,8 +70,9 @@ public class OrganizationController extends BaseController
 			//获得所有的子 aid 放入 list
 			List<String> temp = new ArrayList<>();
 			for (String next:allaid){
-				if (!organizationService.listNextAid(next).isEmpty()){
-					temp.addAll(organizationService.listNextAid(next));
+			    List<String> l = organizationService.listNextAid(next);
+				if (!l.isEmpty()){
+					temp.addAll(l);
 				}
 			}
 			allaid.addAll(temp);
