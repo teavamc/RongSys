@@ -120,5 +120,5 @@ public interface OrganizationMapper
 	public  List<String> listNextAid(String aid);
 
 //	通过 aid 查询所有终端
-	public List<Organization> listOrgByAid(String aid);
+	public List<Organization> listOrgByAid(@Param("list")List<String> aid);
 }

@@ -67,7 +67,10 @@
     
     <select id="listOrgByAid" parameterType="String" resultMap="OrganizationResult">
         <include refid="selectOrganizationVo"/>
-        WHERE t.aid = #{aid}
+        WHERE t.aid in
+        <foreach collection="list" item="aid" separator="," open="(" close=")">
+            #{aid}
+        </foreach>
     </select>
 
     <select id="selectOrganizationList" parameterType="Organization" resultMap="OrganizationResult">
