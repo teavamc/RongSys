@@ -18,13 +18,19 @@ public class ProSinmanage extends BaseEntity
 	private String sfid;
 	/** 节目播出单类别 */
 	private String scategory;
-	/** 建立日期 */
+	/*提交时间*/
+	private String submittime;
+	/*节目名称*/
+	private String pname;
+
+	/*创建时间*/
 	private String createtime;
 	/** 播出日期 */
 	private String broaddate;
 	/** 操作（所属）用户 */
 	private Long userid;
-
+	/*操作（所属）用户名*/
+	private String username;
 	/** 操作（所属）用户 */
 	private String uname;
 	/** 备注 */
@@ -41,30 +47,37 @@ public class ProSinmanage extends BaseEntity
 	{
 		return sfid;
 	}
-	public void setScategory(String scategory) 
+	public void setScategory(String scategory)
 	{
 		this.scategory = scategory;
 	}
 
-	public String getScategory() 
+	public String getScategory()
 	{
 		return scategory;
 	}
-	public void setCreatetime(String createtime) 
+	public void setCreatetime(String createtime)
 	{
 		this.createtime = createtime;
 	}
 
-	public String getCreatetime() 
+	public String getCreatetime()
 	{
 		return createtime;
 	}
-	public void setBroaddate(String broaddate) 
+	public void setBroaddate(String broaddate)
 	{
 		this.broaddate = broaddate;
 	}
 
-	public String getBroaddate() 
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getBroaddate()
 	{
 		return broaddate;
 	}
@@ -91,7 +104,7 @@ public class ProSinmanage extends BaseEntity
 		this.remark = remark;
 	}
 
-	public String getRemark() 
+	public String getRemark()
 	{
 		return remark;
 	}
@@ -105,15 +118,36 @@ public class ProSinmanage extends BaseEntity
 		return broadtimes;
 	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("sfid", getSfid())
-            .append("scategory", getScategory())
-            .append("createtime", getCreatetime())
-            .append("broaddate", getBroaddate())
-            .append("userid", getUserid())
-            .append("remark", getRemark())
-            .append("broadtimes", getBroadtimes())
-            .toString();
-    }
+	public String getSubmittime() {
+		return submittime;
+	}
+
+	public void setSubmittime(String submittime) {
+		this.submittime = submittime;
+	}
+
+	public String getPname() {
+		return pname;
+	}
+
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+
+	@Override
+	public String toString() {
+		return "ProSinmanage{" +
+				"sfid='" + sfid + '\'' +
+				", scategory='" + scategory + '\'' +
+				", submittime='" + submittime + '\'' +
+				", pname='" + pname + '\'' +
+				", createtime='" + createtime + '\'' +
+				", broaddate='" + broaddate + '\'' +
+				", userid=" + userid +
+				", username='" + username + '\'' +
+				", uname='" + uname + '\'' +
+				", remark='" + remark + '\'' +
+				", broadtimes='" + broadtimes + '\'' +
+				'}';
+	}
 }
