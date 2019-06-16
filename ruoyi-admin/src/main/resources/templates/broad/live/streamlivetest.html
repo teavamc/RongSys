@@ -257,7 +257,7 @@
         function clo() {
             addlog("close",streamid,list, nameList);
 
-            console.log("关闭成功1")
+            console.log("关闭成功1");
             if(rec){
                 rec.stop(function(blob,time){
                     var id=RandomKey(16);
@@ -270,7 +270,7 @@
                     console.log("关闭失败222")
                 });
             };
-            console.log("关闭成功3")
+            console.log("关闭成功3");
             if(isOpen) streamerDisconnect();
             if (ws != null) {
                 var message = "end:"+streamid;
@@ -375,7 +375,7 @@
             scrollStatus("text-info","正在关闭直播...");
             addlog("close",streamid,list, nameList);
 
-            console.log("关闭成功1")
+            console.log("关闭成功1");
             if(rec){
                 rec.stop(function(blob,time){
                     var id=RandomKey(16);
@@ -388,7 +388,7 @@
                     console.log("关闭失败222")
                 });
             };
-            console.log("关闭成功3")
+            console.log("关闭成功3");
             if(isOpen) streamerDisconnect();
             if (ws != null) {
                 var message = "end:"+streamid;
@@ -404,13 +404,13 @@
             /**
              * 下载文件
              */
-            console.log("----here")
+            console.log("----here");
             if(o){
                 var cls=RandomKey(16);
                 var name="rec-"+o.time+"ms-"+o.set.bitRate+"kbps-"+o.set.sampleRate+"hz."+o.set.type;
                 o.down=(o.down||0)+1;
                 var downA=document.createElement("A");
-                console.log(o.blob)
+                console.log(o.blob);
                 downA.innerHTML="下载 "+name;
                 downA.href=URL.createObjectURL(o.blob);
                 downA.download=name;
@@ -424,13 +424,14 @@
          * @returns {boolean}
          */
         function startlive(obj){
-            list[0] = imeilist;
+            list = imeilist.toString().split(",");
             nameList[0] = imeiNameList;
+            nameList[1] = imeiNameList+"2";
             for(var i = 0; i < imea.length; i++) {
-                list[i+1] = imea[i];
-                nameList[i+1] = imeiName[i];
+                list[i+2] = imea[i];
+                nameList[i+2] = imeiName[i];
             }
-
+            imeilist += "," + String(document.getElementById("treeId").value);
             // 如果未选择则 提示要选择
             if(imeilist==null || imeilist==""){
                 $.modal.confirm("无测试终端，请查看源码调试 ----》 方法startlive(obj)");
@@ -440,8 +441,8 @@
                 streamid = getCurTime();
                 if(rec){
                     rec.start();
-                    console.log("开启22")
-                };
+                    console.log("开启22");
+                }
                 setLiveButton(0);
                 // 推流
                 publishRtmp();

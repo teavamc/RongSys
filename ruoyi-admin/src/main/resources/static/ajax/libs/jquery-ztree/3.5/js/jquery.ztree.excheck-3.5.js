@@ -144,7 +144,7 @@
 		n.check_Focus = false;
 		n.getCheckStatus = function() {return data.getCheckStatus(setting, n);};
 	},
-	//add dom for check
+	//add dom for chat
 	_beforeA = function(setting, node, html) {
 		var checkedKey = setting.data.key.checked;
 		if (setting.check.enable) {
@@ -156,7 +156,7 @@
 			html.push("<span ID='", node.tId, consts.id.CHECK, "' class='", view.makeChkClass(setting, node), "' treeNode", consts.id.CHECK, (node.nocheck === true?" style='display:none;'":""),"></span>");
 		}
 	},
-	//update zTreeObj, add method of check
+	//update zTreeObj, add method of chat
 	_zTreeTools = function(setting, zTreeTools) {
 		zTreeTools.checkNode = function(node, checked, checkTypeFlag, callbackFlag) {
 			var checkedKey = this.setting.data.key.checked;

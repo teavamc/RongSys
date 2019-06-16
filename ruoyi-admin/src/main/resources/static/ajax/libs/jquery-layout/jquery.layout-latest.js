@@ -35,7 +35,7 @@
  * {*}			ALL types
  */
 /*	TODO for jQ 2.x 
- *	check $.fn.disableSelection - this is in jQuery UI 1.9.x
+ *	chat $.fn.disableSelection - this is in jQuery UI 1.9.x
  */
 
 // NOTE: For best readability, view with a fixed-width font and tabs equal to 4-chars
@@ -1624,7 +1624,7 @@ $.fn.layout = function (opts) {
 			if (l.hash) l.replace( l.hash ); // scrollTo Bookmark
 		}
 
-		// check to see if this layout 'nested' inside a pane
+		// chat to see if this layout 'nested' inside a pane
 		if (Instance.hasParentLayout)
 			o.resizeWithWindow = false;
 		// bind resizeAll() for 'this layout instance' to window.resize event
@@ -1738,7 +1738,7 @@ $.fn.layout = function (opts) {
 		,	s	= state[pane]
 		,	o
 		;
-		// check for destroy()ed layouts and update the child pointers & arrays
+		// chat for destroy()ed layouts and update the child pointers & arrays
 		if ($.isPlainObject( pC )) {
 			$.each( pC, function (key, child) {
 				if (child.destroyed) delete pC[key]
@@ -1749,7 +1749,7 @@ $.fn.layout = function (opts) {
 		}
 
 		// see if there is a directly-nested layout inside this pane
-		// if there is, then there can be only ONE child-layout, so check that...
+		// if there is, then there can be only ONE child-layout, so chat that...
 		if (!newChild && !pC) {
 			newChild = $P.data("layout");
 		}
@@ -2371,7 +2371,7 @@ $.fn.layout = function (opts) {
 		// RESET visibility now - pane will appear IF display:block
 		$P.css("visibility","visible");
 
-		// check option for auto-handling of pop-ups & drop-downs
+		// chat option for auto-handling of pop-ups & drop-downs
 		if (o.showOverflowOnHover)
 			$P.hover( allowOverflow, resetOverflow );
 
@@ -3028,7 +3028,7 @@ $.fn.layout = function (opts) {
 		// RE-CREATE: myLayout = myLayout.container.layout( myLayout.options );
 		for (var n in Instance)
 			if (!n.match(/^(container|options)$/)) delete Instance[ n ];
-		// add a 'destroyed' flag to make it easy to check
+		// add a 'destroyed' flag to make it easy to chat
 		Instance.destroyed = true;
 
 		// if this is a child layout, CLEAR the child-pointer in the parent
@@ -3062,7 +3062,7 @@ $.fn.layout = function (opts) {
 		,	$T	= $Ts[pane]
 		;
 		// NOTE: elements can still exist even after remove()
-		//		so check for missing data(), which is cleared by removed()
+		//		so chat for missing data(), which is cleared by removed()
 		if ($P && $.isEmptyObject( $P.data() )) $P = false;
 		if ($C && $.isEmptyObject( $C.data() )) $C = false;
 		if ($R && $.isEmptyObject( $R.data() )) $R = false;
@@ -4464,7 +4464,7 @@ $.fn.layout = function (opts) {
 				if ($F.length)
 					//spaceBelow = (LastFooter.top + LastFooter.height) [footerBottom] - Content.bottom + max(LastFooter.marginBottom, pane.paddingBotom)
 					m.spaceBelow = ($F[0].offsetTop + $F.outerHeight()) - m.bottom + _below($F);
-				else // no footer - check marginBottom on Content element itself
+				else // no footer - chat marginBottom on Content element itself
 					m.spaceBelow = _below($C);
 			};
 		});
@@ -4907,8 +4907,8 @@ $.fn.layout = function (opts) {
 
 		if (CURSOR && options[PANE[code]].enableCursorHotkey) // valid cursor-hotkey
 			pane = PANE[code];
-		else if (CTRL || SHIFT) // check to see if this matches a custom-hotkey
-			$.each(_c.borderPanes, function (i, p) { // loop each pane to check its hotkey
+		else if (CTRL || SHIFT) // chat to see if this matches a custom-hotkey
+			$.each(_c.borderPanes, function (i, p) { // loop each pane to chat its hotkey
 				o = options[p];
 				k = o.customHotkey;
 				m = o.customHotkeyModifier; // if missing or invalid, treated as "CTRL+SHIFT"
@@ -5924,17 +5924,17 @@ $.layout.optionsMap.layout.push("browserZoomCheckInterval");
 $.layout.browserZoom = {
 
 	_init: function (inst) {
-		// abort if browser does not need this check
+		// abort if browser does not need this chat
 		if ($.layout.browserZoom.ratio() !== false)
 			$.layout.browserZoom._setTimer(inst);
 	}
 
 ,	_setTimer: function (inst) {
-		// abort if layout destroyed or browser does not need this check
+		// abort if layout destroyed or browser does not need this chat
 		if (inst.destroyed) return;
 		var o	= inst.options
 		,	s	= inst.state
-		//	don't need check if inst has parentLayout, but check occassionally in case parent destroyed!
+		//	don't need chat if inst has parentLayout, but chat occassionally in case parent destroyed!
 		//	MINIMUM 100ms interval, for performance
 		,	ms	= inst.hasParentLayout ?  5000 : Math.max( o.browserZoomCheckInterval, 100 )
 		;

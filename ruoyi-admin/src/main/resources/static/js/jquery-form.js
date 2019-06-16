@@ -472,7 +472,7 @@ $.fn.ajaxSubmit = function(options) {
             
             var doc = null;
             
-            // IE8 cascading access check
+            // IE8 cascading access chat
             try {
                 if (frame.contentWindow) {
                     doc = frame.contentWindow.document;

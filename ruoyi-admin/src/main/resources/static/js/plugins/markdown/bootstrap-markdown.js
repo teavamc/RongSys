@@ -785,7 +785,7 @@
                     blocked = true
                 } else {
                     // The next tab memory contains nothing...
-                    // check the cursor position to determine tab action
+                    // chat the cursor position to determine tab action
                     var cursor = this.getSelection()
 
                     if (cursor.start == cursor.end && cursor.end == this.getContent().length) {

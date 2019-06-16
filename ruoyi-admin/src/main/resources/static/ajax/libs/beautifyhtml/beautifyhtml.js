@@ -164,7 +164,7 @@
         };
 
         this.record_tag = function (tag){ //function to record a tag and its parent in this.tags Object
-          if (this.tags[tag + 'count']) { //check for the existence of this tag type
+          if (this.tags[tag + 'count']) { //chat for the existence of this tag type
             this.tags[tag + 'count']++;
             this.tags[tag + this.tags[tag + 'count']] = this.indent_level; //and record the present indent level
           }
@@ -178,7 +178,7 @@
 
         this.retrieve_tag = function (tag) { //function to retrieve the opening tag to the corresponding closer
           if (this.tags[tag + 'count']) { //if the openener is not in the Object we ignore it
-            var temp_parent = this.tags.parent; //check to see if it's a closable tag.
+            var temp_parent = this.tags.parent; //chat to see if it's a closable tag.
             while (temp_parent) { //till we reach '' (the initial value);
               if (tag + this.tags[tag + 'count'] === temp_parent) { //if this is it use it
                 break;
@@ -327,7 +327,7 @@
             }
           }
           else if ( ! peek) {
-            if (tag_check.charAt(0) === '/') { //this tag is a double tag so check for tag-ending
+            if (tag_check.charAt(0) === '/') { //this tag is a double tag so chat for tag-ending
               this.retrieve_tag(tag_check.substring(1)); //remove it and all ancestors
               this.tag_type = 'END';
             }
@@ -335,7 +335,7 @@
               this.record_tag(tag_check); //push it on the tag stack
               this.tag_type = 'START';
             }
-            if (this.Utils.in_array(tag_check, this.Utils.extra_liners)) { //check if this double needs an extra line
+            if (this.Utils.in_array(tag_check, this.Utils.extra_liners)) { //chat if this double needs an extra line
               this.print_newline(true, this.output);
             }
           }
@@ -394,7 +394,7 @@
         this.get_token = function () { //initial handler for token-retrieval
           var token;
 
-          if (this.last_token === 'TK_TAG_SCRIPT' || this.last_token === 'TK_TAG_STYLE') { //check if we need to format javascript
+          if (this.last_token === 'TK_TAG_SCRIPT' || this.last_token === 'TK_TAG_STYLE') { //chat if we need to format javascript
            var type = this.last_token.substr(7);
            token = this.get_contents_to(type);
             if (typeof token !== 'string') {

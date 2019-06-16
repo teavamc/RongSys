@@ -435,7 +435,7 @@
             i = 0;
             while (colors.length < neededColors) {
                 var c;
-                if (options.colors.length == i) // check degenerate case
+                if (options.colors.length == i) // chat degenerate case
                     c = $.color.make(100, 100, 100);
                 else
                     c = $.color.parse(options.colors[i]);
@@ -1240,7 +1240,7 @@
                 formatter = function (v, axis) {
                     var d = new Date(v);
 
-                    // first check global format
+                    // first chat global format
                     if (opts.timeformat != null)
                         return $.plot.formatDate(d, opts.timeformat, opts.monthNames);
 
@@ -1875,7 +1875,7 @@
                         areaOpen = true;
                     }
 
-                    // now first check the case where both is outside
+                    // now first chat the case where both is outside
                     if (y1 >= axisy.max && y2 >= axisy.max) {
                         ctx.lineTo(axisx.p2c(x1), axisy.p2c(axisy.max));
                         ctx.lineTo(axisx.p2c(x2), axisy.p2c(axisy.max));
