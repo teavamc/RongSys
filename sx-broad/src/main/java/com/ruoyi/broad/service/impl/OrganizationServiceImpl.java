@@ -60,9 +60,35 @@ public class OrganizationServiceImpl implements IOrganizationService
 	 * @param organization 终端信息
 	 * @return 终端集合
 	 */
-	@Override
-	@DataSource(value = DataSourceType.SLAVE)
-	public List<Organization> selectOrganizationList(Organization organization)
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public List<Organization> selectOrganizationList(Organization organization){
+        List<Organization> res;
+        List<String> allaid = listNextAid(organization.getAid());
+        // 判断是否有子 aid，如果有子 aid,有则获取到所有的子 aid 放入一个 list
+        if (allaid.isEmpty()){
+            res = findAll(organization);
+        }else {
+            //获得所有的子 aid 放入 list
+            List<String> temp;
+            temp = listNextAid(allaid.get(0));
+            for (int i = 1; i < allaid.size(); i++){
+                List<String> l = listNextAid(allaid.get(i));
+                if (!l.isEmpty()){
+                    temp.addAll(l);
+                }
+            }
+            allaid.addAll(temp);
+            // 遍历所有的 aid 信息然后装入结果
+            res = listOrgByAid(allaid);
+        }
+        return res;
+    }
+
+    /**
+     *  获取所有子 aid
+     */
+	public List<Organization> findAll(Organization organization)
 	{
 		List<Organization> list = organizationMapper.selectOrganizationList(organization) ;
 		for(Organization data:list) {
@@ -230,11 +256,12 @@ public class OrganizationServiceImpl implements IOrganizationService
 	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public List<Organization> listOrgByAid(String aid){
+	public List<Organization> listOrgByAid(List<String> aid){
 		List<Organization> organizations =  organizationMapper.listOrgByAid(aid);
 		for(Organization o:organizations) {
 			o.setIsused(o.getIsuse()?"是":"否");
 		}
 		return organizations;
 	}
+
 }
