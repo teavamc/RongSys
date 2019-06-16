@@ -111,4 +111,14 @@ public interface OrganizationMapper
 	public int updateFmfrequencyByIds(@Param("ids") String[] ids, @Param("number")String number);
 
 	public int updateIsuseByTid(@Param("tid") String tid, @Param("isuse")Boolean isuse);
+
+	/**
+	 * 获取到下面所有的 aid
+	 * @param aid
+	 * @return
+	 */
+	public  List<String> listNextAid(String aid);
+
+//	通过 aid 查询所有终端
+	public List<Organization> listOrgByAid(@Param("list")List<String> aid);
 }

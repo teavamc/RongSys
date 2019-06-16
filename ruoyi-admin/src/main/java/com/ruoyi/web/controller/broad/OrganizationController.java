@@ -50,12 +50,14 @@ public class OrganizationController extends BaseController
 	private IAreaService areaService;
 	@Autowired
 	private ISysUserService sysUserService;
+
 	@RequiresPermissions("broad:organization:view")
 	@GetMapping()
 	public String organization()
 	{
 		return prefix + "/organization";
 	}
+
 
 	/**
 	 * 查询终端信息列表
@@ -70,16 +72,17 @@ public class OrganizationController extends BaseController
 		Long userid =  currentUser.getUserId();
 		int returnId = new Long(userid).intValue();
 
+
 		//通过所获取的userid去广播用户表中查询用户所属区域的Roleid
 		int roleid = sysUserService.selectRoleid(returnId);
 
 
 		if(organization.getAid() == null && (roleid == 1)) {
-			startPage() ;
+			startPage();
 			List<Organization> list = organizationService.selectOrganizationList(organization);
 			return getDataTable(list);
 		}else if(organization.getAid() != null){
-			startPage() ;
+			startPage();
 			List<Organization> list = organizationService.selectOrganizationList(organization);
 			return getDataTable(list);
 		}else{
@@ -87,7 +90,7 @@ public class OrganizationController extends BaseController
 			//通过所获取的userid去广播用户表中查询用户所属区域的Aid
 			aid = sysUserService.selectAid(returnId);
 			organization.setAid(aid);
-			startPage() ;
+			startPage();
 			List<Organization> list = organizationService.selectOrganizationList(organization);
 			return getDataTable(list);
 		}

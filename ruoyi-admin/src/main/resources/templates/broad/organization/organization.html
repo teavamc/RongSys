@@ -5,6 +5,9 @@
 <head th:include="include :: header"></head>
 <link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
 <link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+<link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+
 
 <body class="gray-bg">
 <div class="ui-layout-west">
@@ -75,15 +78,18 @@
 									终端交互时间：<input type="text" name="intertime"/>
 								</li>-->
 								<li>
-									创建时间：<input type="text" name="createdtime"/>
+									创建时间：<!--<input type="text" name="createdtime"/>-->
+                                        <input name="createdtime" class="laydate-icon form-control layer-date"
+                                               id="broaddate" value="" readonly="readonly" style="width:120px;"
+                                               placeholder="创建时间" title="创建时间"/>
 								</li>
 								<li>
-									最后修改时间：<input type="text" name="createdtime"/>
+									最后修改时间：<input type="text" name="lastaccesstime"/>
 								</li>
 								<li>
 									是否可用：<!--<input type="text" name="isuse"/>-->
-										<input type="radio" name="isuse" value="true" style="width: 50px">是
-										<input type="radio" name="isuse" value="false" style="width: 50px">否
+										<input type="radio" name="isuse" value="1" style="width: 50px" checked="checked">是
+										<input type="radio" name="isuse" value="0" style="width: 50px">否
 								</li>
 								<!--<li>
 									终端号码：<input type="text" name="phone"/>
@@ -136,10 +142,39 @@
 		</div>
 
 		<div class="col-sm-12 select-table table-striped">
-			<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			<table id="bootstrap-table" style="text-align: center" data-mobile-responsive="true"></table>
 		</div>
 	</div>
 </div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.tips.js}"></script>
+<script th:src="@{/js/views/addpglist/addpglist.js}"></script>
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<!--时间插件-->
+<script>
+    laydate({
+        elem:"#broaddate",
+        event:"focus"
+    });
+    laydate({
+        elem:"#broaddate",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){$(".sortable-list").sortable({connectWith:".connectList"}).disableSelection()});
+</script>
 <div th:include="include :: footer"></div>
 <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
 <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
@@ -164,6 +199,9 @@
                 modalName: "终端管理",
                 search: false,
                 showExport: true,
+                striped: true,
+                pagination: true,
+                pageSize: 10,
                 columns: [{
                     checkbox: true
                 },
@@ -184,25 +222,33 @@
 						field : 'aname',
 						title : '区域名称'
 					},
+                    {
+                        field : 'uname',
+                        title : '管理员姓名'
+                    },
+                    {
+                        field : 'facid',
+                        title : '出厂编号'
+                    },
+                    {
+                        field : 'address',
+                        title : '安装地址'
+                    },
+                    {
+                        field : 'phone',
+                        title : '手机号码'
+                    },
 					{
-						field : 'userid',
-						title : '用户编号'
+						field : 'lastaccesstime',
+						title : '最后访问时间'
 					},
-					{
-						field : 'uname',
-						title : '管理员姓名'
-					},
+					// {
+					// 	field : 'userid',
+					// 	title : '用户编号'
+					// },
 					{
 						field : 'createdtime',
 						title : '创建时间'
-					},
-					{
-						field : 'facid',
-						title : '出厂编号'
-					},
-					{
-						field : 'address',
-						title : '安装地址'
 					},
 					{
 						field : 'note',
@@ -229,10 +275,6 @@
 						title : '交互时间'
 					},
 					{
-						field : 'phone',
-						title : '手机号码'
-					},
-					{
 						field : 'rds',
 						title : 'RDS码'
 					},
@@ -245,13 +287,15 @@
 						title : '限制流量/MB'
 					},
 					{
-						field : 'isuse',
+						field : 'isused',
 						title : '是否可用'
-					},
-					{
-						field : 'pic',
-						title : '安装地址图片'
-					}]
+					}
+					// ,
+					// {
+					// 	field : 'pic',
+					// 	title : '安装地址图片'
+					// }
+					]
             };
         $.table.init(options);
     };
