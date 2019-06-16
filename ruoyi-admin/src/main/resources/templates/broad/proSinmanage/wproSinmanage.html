@@ -3,6 +3,26 @@
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
+<div class="col-sm-12 search-collapse">
+    <form id="formId">
+        <div class="select-list">
+            <ul>
+                <li>
+                    播出单ID：<input type="text" name="sfid"/>
+                </li>
+
+                <li>
+                    节目名称：<input type="text" name="pname"/>
+                </li>
+
+                <li>
+                    <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                    <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                </li>
+            </ul>
+        </div>
+    </form>
+</div>
 
 <div class="container-div">
     <div class="row">
@@ -22,10 +42,13 @@
 
     $(function() {
         var options = {
-            url: prefix + "/listwarning",
+            url: prefix + "/list",
             exportUrl: prefix + "/export",
             detailUrl: prefix + "/detail/{id}",
             modalName: "紧急节目播出单",
+            createUrl: prefix + "/add",
+            updateUrl: prefix + "/edit/{id}",
+            removeUrl: prefix + "/remove",
             search: false,
             showExport: true,
             columns: [{
@@ -33,8 +56,20 @@
                 title : '播出单ID',
             },
                 {
+                    field : 'username',
+                    title : '用户',
+                },
+                {
                     field : 'scategory',
                     title : '节目播出单类别',
+                },
+                {
+                    field : 'submittime',
+                    title : '时间',
+                },
+                {
+                    field : 'pname',
+                    title : '节目名称',
                 },
                 {
                     field : 'createtime',

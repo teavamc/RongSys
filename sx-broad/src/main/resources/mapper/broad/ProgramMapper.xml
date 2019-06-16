@@ -70,6 +70,7 @@
         <where>
             <if test="fid != null and fid != '' "> and fid like '%${fid}%'</if>
             <if test="fname != null  and fname != '' "> and fname like '%${fname}%'</if>
+            <if test="createdtime != null  and createdtime != '' "> and createdtime like '%${createdtime}%'</if>
         </where>
         order by  createdtime desc,fid desc
     </select>
