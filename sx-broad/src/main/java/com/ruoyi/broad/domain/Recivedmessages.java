@@ -6,14 +6,14 @@ import com.ruoyi.common.base.BaseEntity;
 
 /**
  * 短信接收记录表 recivedmessages
- * 
+ *
  * @author 张超
  * @date 2019-01-11
  */
 public class Recivedmessages extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	/** 接收id */
 	private Integer rmid;
 	/** 接收号码 */
@@ -24,72 +24,83 @@ public class Recivedmessages extends BaseEntity
 	private Boolean isread;
 	/** 接收时间 */
 	private String recivedtime;
+	/** 截止时间 */
+	private String endtime;
 	/** 是否有效 */
 	private String remark;
 
-	public void setRmid(Integer rmid) 
+	public void setRmid(Integer rmid)
 	{
 		this.rmid = rmid;
 	}
 
-	public Integer getRmid() 
+	public Integer getRmid()
 	{
 		return rmid;
 	}
-	public void setRmobile(String rmobile) 
+	public void setRmobile(String rmobile)
 	{
 		this.rmobile = rmobile;
 	}
 
-	public String getRmobile() 
+	public String getRmobile()
 	{
 		return rmobile;
 	}
-	public void setRcontent(String rcontent) 
+	public void setRcontent(String rcontent)
 	{
 		this.rcontent = rcontent;
 	}
 
-	public String getRcontent() 
+	public String getRcontent()
 	{
 		return rcontent;
 	}
-	public void setIsread(Boolean isread) 
+	public void setIsread(Boolean isread)
 	{
 		this.isread = isread;
 	}
 
-	public Boolean getIsread() 
+	public Boolean getIsread()
 	{
 		return isread;
 	}
-	public void setRecivedtime(String recivedtime) 
+	public void setRecivedtime(String recivedtime)
 	{
 		this.recivedtime = recivedtime;
 	}
 
-	public String getRecivedtime() 
+	public String getRecivedtime()
 	{
 		return recivedtime;
 	}
-	public void setRemark(String remark) 
+	public void setRemark(String remark)
 	{
 		this.remark = remark;
 	}
 
-	public String getRemark() 
+	public String getRemark()
 	{
 		return remark;
 	}
+	public void setEndtime(String endtime)
+	{
+		this.endtime = endtime;
+	}
 
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("rmid", getRmid())
-            .append("rmobile", getRmobile())
-            .append("rcontent", getRcontent())
-            .append("isread", getIsread())
-            .append("recivedtime", getRecivedtime())
-            .append("remark", getRemark())
-            .toString();
-    }
+	public String getEndtime()
+	{
+		return endtime;
+	}
+	public String toString() {
+		return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+				.append("rmid", getRmid())
+				.append("rmobile", getRmobile())
+				.append("rcontent", getRcontent())
+				.append("isread", getIsread())
+				.append("recivedtime", getRecivedtime())
+				.append("endtime", getEndtime())
+				.append("remark", getRemark())
+				.toString();
+	}
 }

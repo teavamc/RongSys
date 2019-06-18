@@ -27,11 +27,10 @@
             <if test="smobile != null  and smobile != '' "> and smobile = #{smobile}</if>
             <if test="scontent != null  and scontent != '' "> and scontent = #{scontent}</if>
             <if test="issend != null "> and issend = #{issend}</if>
-            <if test="sendtime != null  and sendtime != '' "> and sendtime like '%${sendtime}%'</if>
+            <if test="sendtime != null  and endtime != '' "> and sendtime between #{sendtime} and #{endtime}</if>
             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
             <if test="tid != null  and tid != '' "> and tid = #{tid}</if>
             <if test="spelanguage != null  and spelanguage != '' "> and spelanguage = #{spelanguage}</if>
-            <if test="sendtimes != null "> and sendtimes = #{sendtimes}</if>
         </where>
     </select>
 

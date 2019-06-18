@@ -24,7 +24,7 @@ public class Sendmessages extends BaseEntity
 	private Boolean issend;
 	/** 发送时间 */
 	private String sendtime;
-	/** 发送时间 */
+	/** 截止时间 */
 	private String endtime;
 	/** 是否有效 */
 	private String remark;
