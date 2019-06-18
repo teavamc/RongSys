@@ -86,15 +86,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         userinfo as u
         <where>
             pa.userid = u.userid
-            <if test="paid != null "> and pa.paid = #{paid}</if>
-            <if test="pname != null  and pname != '' "> and pa.pname = #{pname}</if>
-            <if test="uname != null  and uname != '' "> and u.uname = #{uname}</if>
-            <if test="userid != null  and userid != '' "> and pa.userid = #{userid}</if>
-            <if test="isemergency != null "> and pa.isemergency = #{isemergency}</if>
-            <if test="timelimit != null  and timelimit != '' "> and pa.timelimit = #{timelimit}</if>
-            <if test="submittime != null  and submittime != '' "> and pa.fileurl = #{submittime}</if>
-            <if test="iscancel != null "> and pa.iscancel = #{iscancel}</if>
-            <if test="isreply != null "> and pa.isreply = #{isreply}</if>
+            <if test="paid != null "> and paid = #{paid}</if>
+            <if test="pname != null  and pname != '' "> and pname = #{pname}</if>
+            <if test="uname != null  and uname != '' "> and uname = #{uname}</if>
+            <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
+            <if test="isemergency != null "> and isemergency = #{isemergency}</if>
+            <if test="timelimit != null  and timelimit != '' "> and timelimit = #{timelimit}</if>
+            <if test="submittime != null  and submittime != '' "> and fileurl = #{submittime}</if>
+            <if test="iscancel != null "> and iscancel = #{iscancel}</if>
+            <if test="isreply != null "> and isreply = #{isreply}</if>
         </where>
         order by
         pa.submittime
