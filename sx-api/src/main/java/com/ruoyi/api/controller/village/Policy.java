@@ -8,10 +8,7 @@ import com.ruoyi.village.domain.Policyinfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.village.service.IPolicyinfoService;
 
 import java.util.List;
@@ -44,6 +41,22 @@ public class Policy extends BaseController {
     public RongApiRes searchten()
     {
         return RongApiService.get_list(policyinfoService.selectpoliclimitten());
+    }
+
+    @GetMapping("/all")
+    @CrossOrigin
+    @ApiOperation(value = "返回所有政策公告")
+    public RongApiRes searchAll(Policyinfo policyinfo)
+    {
+        return RongApiService.get_list(policyinfoService.selectPolicyinfoList(policyinfo));
+    }
+
+    @PostMapping("/insert")
+    @CrossOrigin
+    @ApiOperation(value = "返回所有政策公告")
+    public RongApiRes insertPolicy(Policyinfo policyinfo)
+    {
+        return RongApiService.get_bean(policyinfoService.insertpolicyinfo(policyinfo));
     }
 
 }
