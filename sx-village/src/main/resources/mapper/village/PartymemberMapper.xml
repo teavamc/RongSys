@@ -137,5 +137,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{pid}
         </foreach>
     </delete>
-    
+    <select id="selectGrouplist"  resultMap="PartymemberResult">
+       select DISTINCT grouptype
+
+      from myc_partymember
+    </select>
+
 </mapper>
