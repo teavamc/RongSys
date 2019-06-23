@@ -1,7 +1,6 @@
-package com.ruoyi.broad.utils;
+package com.ruoyi.village.util;
 
-import com.ruoyi.broad.domain.Program;
-import com.ruoyi.common.utils.DateUtil;
+import com.ruoyi.village.domain.Files;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +11,8 @@ import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class bFileUtil {
-    private static Logger logger = LoggerFactory.getLogger(bFileUtil.class);
+public class bFileUtil1 {
+    private static Logger logger = LoggerFactory.getLogger(bFileUtil1.class);
     /**
      * 图片存储 完整路径（{user.home}/img/coldStone/XXX.jpg）
      * @param file
@@ -21,7 +20,7 @@ public class bFileUtil {
      */
     public static String saveImg(MultipartFile file,String saveName) {
         //获取文件上传的根目录 C:\Users\wanghao/upload/img
-        String  path = bConstant.UPLOAD_PATH + bConstant.IMG_FILE_NAME; //改为bConstant.UPLOAD_PATH
+        String  path = bConstant1.UPLOAD_PATH + bConstant1.IMG_FILE_NAME; //改为bConstant.UPLOAD_PATH
 
         //拿到文件的后缀名和UUID进行拼接形成新的文件名
         //4ca64e85b1544c96b4a6154bb521476f.jpg
@@ -41,7 +40,7 @@ public class bFileUtil {
             logger.debug("--- 文件保存异常：{} ---" + e.getMessage());
             return null;
         }
-        String filePath =  bConstant.UPLOAD_PATH;;
+        String filePath =  bConstant1.UPLOAD_PATH;;
         //返回相对路径  img/virtual/4ca64e85b1544c96b4a6154bb521476f.jpg
         return saveName; //filePath + "/" + saveName
     }
@@ -84,8 +83,8 @@ public class bFileUtil {
      * @param year
      * @return Program
      */
-    public static Program uplodeFile(String maxfileid,MultipartFile file,String fname,String flenth,String fsize,String year){
-        Program g = new Program();
+    public static com.ruoyi.village.domain.Files uplodeFile(String maxfileid, MultipartFile file, String fname, String flenth, String fsize, String year){
+        Files g = new Files();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 
         int fileid = 0;
@@ -104,7 +103,7 @@ public class bFileUtil {
             }
             filename = year.substring(2)+filename;
             if (null != file && !file.isEmpty()) {
-                filename =filename+"."+bFileUtil.getFileSuffix(file.getOriginalFilename()); //filename字段
+                filename =filename+"."+bFileUtil1.getFileSuffix(file.getOriginalFilename()); //filename字段
                 if(flenth!="NaN"&&!flenth.equals("")){
 //                    Double lenth = Double.parseDouble(flenth)*1000;
 //                    String l = DateUtil.formatLongToTimeStr(lenth.longValue());
@@ -116,16 +115,16 @@ public class bFileUtil {
                 }
                 //System.out.println("fname:--"+fname);
                 g.setFname(fname); //fname.substring(0, fname.lastIndexOf("."))
-                //String filePath = bPathUtil.getClasspath() + bConst.FILEPATHPER;			//文件上传路径
-                String path =  bFileUtil.saveImg(file,filename);//////////////////////////
+                //String filePath = bPathUtil1.getClasspath() + bConst1.FILEPATHPER;			//文件上传路径
+                String path =  bFileUtil1.saveImg(file,filename);//////////////////////////
                 //System.out.println("filename:--"+filename);
                 g.setFilename(filename);
                 //System.out.println("Userid:--"+bJurisdiction.getUserid()); //有错误///////////////////////////////
                 //g.setUserid(bJurisdiction.getUserid());
-                //System.out.println("Address:--"+bPathUtil.getClasspath() + bConst.FILEPATHPER+path);
-                g.setAddress(bPathUtil.getClasspath() + bConst.FILEPATHPER+path);
-                //System.out.println("Urls:--"+bConst.FILEPATHPER+path);
-                g.setUrls(bConst.FILEPATHPER+path);
+                //System.out.println("Address:--"+bPathUtil1.getClasspath() + bConst1.FILEPATHPER+path);
+                g.setAddress(bPathUtil1.getClasspath() + bConst1.FILEPATHPER+path);
+                //System.out.println("Urls:--"+bConst1.FILEPATHPER+path);
+                g.setUrls(bConst1.FILEPATHPER+path);
                 //System.out.println("Createdtime:--"+df.format(new Date()));
                 g.setCreatedtime(df.format(new Date()));
                 g.setIspublic(false);
