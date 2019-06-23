@@ -20,7 +20,7 @@ public class Person {
     @Autowired
     private IPersonalDetailService personalDetailService;
 
-    @GetMapping("/own")
+    @GetMapping("/all")
     @CrossOrigin
     @ApiOperation(value = "查询个人详细信息")
     public RongApiRes searchPerson(Integer pdid)
