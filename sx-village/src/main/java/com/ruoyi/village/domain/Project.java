@@ -48,6 +48,7 @@ public class Project extends BaseEntity
 	private String aid;
 	/** 项目状态“0”为未建，“1”为在建，“2”为已建 */
 	private Integer type;
+
 	public void setProid(Integer proid) 
 	{
 		this.proid = proid;

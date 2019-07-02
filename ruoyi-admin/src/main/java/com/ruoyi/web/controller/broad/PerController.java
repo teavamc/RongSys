@@ -87,7 +87,7 @@ public class PerController extends BaseController{
         //图片上传调用工具类
         try{
             //保存图片
-            //String path =  bFileUtil1.saveImg(file,filename);
+            //String path =  bFileUtil.saveImg(file,filename);
             Program g = bFileUtil.uplodeFile(maxfileid,file,fname,flenth,fsize,year);
             System.out.println(g.toString());
 //            try{
