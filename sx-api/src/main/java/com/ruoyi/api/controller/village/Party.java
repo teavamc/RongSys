@@ -5,9 +5,11 @@ import com.ruoyi.api.service.RongApiService;
 import com.ruoyi.village.domain.Education;
 import com.ruoyi.village.domain.Huodong;
 import com.ruoyi.village.domain.Partyaffairs;
+import com.ruoyi.village.domain.Shishi;
 import com.ruoyi.village.service.IEducationService;
 import com.ruoyi.village.service.IHuodongService;
 import com.ruoyi.village.service.IPartyaffairsService;
+import com.ruoyi.village.service.IShishiService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,8 @@ public class Party {
     private IEducationService educationService;
     @Autowired
     private IPartyaffairsService partyaffairsService;
+
+    private IShishiService shishiService;
     /**
      * 返回所有党员活动信息
      * @author 施景程 teavamc
@@ -60,5 +64,13 @@ public class Party {
     public RongApiRes searchAffairAll(Partyaffairs partyaffairs)
     {
         return RongApiService.get_list(partyaffairsService.selectPartyaffairsList(partyaffairs));
+    }
+
+    @GetMapping("/shishiAll")
+    @CrossOrigin
+    @ApiOperation(value = "返回所有党务公开信息")
+    public RongApiRes selectShishiList(Shishi shishi)
+    {
+        return RongApiService.get_list(shishiService.selectShishiList(shishi));
     }
 }
