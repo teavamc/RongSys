@@ -14,12 +14,19 @@ import io.netty.util.CharsetUtil;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import redis.clients.jedis.Jedis;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
+
+import static com.ruoyi.redis.RedisWatchLock.*;
 
 /**
- * Created by MI on 2019/4/26.
+ * 聊天室
+ *
+ * @author 周博
+ * @date 2019-04-27
  */
 public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
     private WebSocketServerHandshaker handshaker;
@@ -88,6 +95,7 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
                     channel.writeAndFlush(new TextWebSocketFrame(msg.text()));
                 }
             }
+            new TestThread(msg.text()).run();
         }
     }
 
@@ -113,6 +121,7 @@ public class CheckSoketHandler extends SimpleChannelInboundHandler<Object> {
             channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " 加入\n");
         }
         group.add(ctx.channel());
+
     }
 
     /**

@@ -5,6 +5,9 @@
 <head th:include="include :: header"></head>
 <link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
 <link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+<link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
+
 
 <body class="gray-bg">
 <div class="ui-layout-west">
@@ -75,10 +78,18 @@
 									终端交互时间：<input type="text" name="intertime"/>
 								</li>-->
 								<li>
-									创建时间：<input type="text" name="createdtime"/>
+									创建时间：<!--<input type="text" name="createdtime"/>-->
+                                        <input name="createdtime" class="laydate-icon form-control layer-date"
+                                               id="broaddate" value="" readonly="readonly" style="width:120px;"
+                                               placeholder="创建时间" title="创建时间"/>
 								</li>
 								<li>
-									是否可用：<input type="text" name="isuse"/>
+									最后修改时间：<input type="text" name="lastaccesstime"/>
+								</li>
+								<li>
+									是否可用：<!--<input type="text" name="isuse"/>-->
+										<input type="radio" name="isuse" value="1" style="width: 50px" checked="checked">是
+										<input type="radio" name="isuse" value="0" style="width: 50px">否
 								</li>
 								<!--<li>
 									终端号码：<input type="text" name="phone"/>
@@ -131,10 +142,39 @@
 		</div>
 
 		<div class="col-sm-12 select-table table-striped">
-			<table id="bootstrap-table" data-mobile-responsive="true"></table>
+			<table id="bootstrap-table" style="text-align: center" data-mobile-responsive="true"></table>
 		</div>
 	</div>
 </div>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery.tips.js}"></script>
+<script th:src="@{/js/views/addpglist/addpglist.js}"></script>
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<!--时间插件-->
+<script>
+    laydate({
+        elem:"#broaddate",
+        event:"focus"
+    });
+    laydate({
+        elem:"#broaddate",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
+<script>
+    $(document).ready(function(){$(".sortable-list").sortable({connectWith:".connectList"}).disableSelection()});
+</script>
 <div th:include="include :: footer"></div>
 <script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
 <script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
@@ -159,6 +199,9 @@
                 modalName: "终端管理",
                 search: false,
                 showExport: true,
+                striped: true,
+                pagination: true,
+                pageSize: 10,
                 columns: [{
                     checkbox: true
                 },
@@ -169,104 +212,90 @@
 					},
 					{
 						field : 'tname',
-						title : '终端名称',
-						sortable: true
+						title : '终端名称'
 					},
 					{
 						field : 'aid',
-						title : '区域编号',
-						sortable: true
+						title : '区域编号'
 					},
 					{
 						field : 'aname',
-						title : '区域名称',
-						sortable: true
+						title : '区域名称'
 					},
+                    {
+                        field : 'uname',
+                        title : '管理员姓名'
+                    },
+                    {
+                        field : 'facid',
+                        title : '出厂编号'
+                    },
+                    {
+                        field : 'address',
+                        title : '安装地址'
+                    },
+                    {
+                        field : 'phone',
+                        title : '手机号码'
+                    },
 					{
-						field : 'userid',
-						title : '用户编号',
-						sortable: true
+						field : 'lastaccesstime',
+						title : '最后访问时间'
 					},
-					{
-						field : 'uname',
-						title : '管理员姓名',
-						sortable: true
-					},
+					// {
+					// 	field : 'userid',
+					// 	title : '用户编号'
+					// },
 					{
 						field : 'createdtime',
-						title : '创建时间',
-						sortable: true
-					},
-					{
-						field : 'facid',
-						title : '出厂编号',
-						sortable: true
-					},
-					{
-						field : 'address',
-						title : '安装地址',
-						sortable: true
+						title : '创建时间'
 					},
 					{
 						field : 'note',
-						title : '备注',
-						sortable: true
+						title : '备注'
 					},
 					{
 						field : 'comstand',
-						title : '接入通信网',
-						sortable: true
+						title : '接入通信网'
 					},
 					{
 						field : 'broadtel',
-						title : '终端广播网模式',
-						sortable: true
+						title : '终端广播网模式'
 					},
 					{
 						field : 'manager',
-						title : '终端管理员',
-						sortable: true
+						title : '终端管理员'
 					},
 					{
 						field : 'managertel',
-						title : '管理员电话',
-						sortable: true
+						title : '管理员电话'
 					},
 					{
 						field : 'intertime',
-						title : '交互时间',
-						sortable: true
-					},
-					{
-						field : 'phone',
-						title : '手机号码',
-						sortable: true
+						title : '交互时间'
 					},
 					{
 						field : 'rds',
-						title : 'RDS码',
-						sortable: true
+						title : 'RDS码'
 					},
 					{
 						field : 'fmfrequency',
-						title : '调频接收频率',
-						sortable: true
+						title : '调频接收频率'
 					},
 					{
 						field : 'trafficlimit',
-						title : '限制流量/MB',
-						sortable: true
+						title : '限制流量/MB'
 					},
 					{
-						field : 'isuse',
-						title : '是否可用',
-						sortable: true
-					},
-					{
-						field : 'pic',
-						title : '安装地址图片',
-						sortable: true
-					}]
+						field : 'isused',
+						title : '是否可用'
+					}
+					// ,
+					// {
+					// 	field : 'pic',
+					// 	title : '安装地址图片'
+					// }
+					]
             };
         $.table.init(options);
     };
@@ -283,7 +312,6 @@
 
         function zOnClick(event, treeId, treeNode) {
             $("#aid").val(treeNode.id);
-          	/*$("#tid").val(treeNode.pId);*/
             $.table.search();
         }
     }
