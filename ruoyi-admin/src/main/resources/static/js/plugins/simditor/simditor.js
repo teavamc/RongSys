@@ -3472,50 +3472,7 @@ CodeButton = (function(_super) {
 
 })(Button);
 
-CodePopover = (function(_super) {
-  __extends(CodePopover, _super);
 
-  function CodePopover() {
-    return CodePopover.__super__.constructor.apply(this, arguments);
-  }
-
-  CodePopover.prototype._tpl = "<div class=\"code-settings\">\n  <div class=\"settings-field\">\n    <select class=\"select-lang\">\n      <option value=\"-1\">选择程序语言</option>\n      <option value=\"bash\">Bash</option>\n      <option value=\"c++\">C++</option>\n      <option value=\"cs\">C#</option>\n      <option value=\"css\">CSS</option>\n      <option value=\"erlang\">Erlang</option>\n      <option value=\"less\">Less</option>\n      <option value=\"scss\">Sass</option>\n      <option value=\"diff\">Diff</option>\n      <option value=\"coffeeScript\">CoffeeScript</option>\n      <option value=\"html\">Html,XML</option>\n      <option value=\"json\">JSON</option>\n      <option value=\"java\">Java</option>\n      <option value=\"js\">JavaScript</option>\n      <option value=\"markdown\">Markdown</option>\n      <option value=\"oc\">Objective C</option>\n      <option value=\"php\">PHP</option>\n      <option value=\"perl\">Perl</option>\n      <option value=\"python\">Python</option>\n      <option value=\"ruby\">Ruby</option>\n      <option value=\"sql\">SQL</option>\n    </select>\n  </div>\n</div>";
-
-  CodePopover.prototype.render = function() {
-    this.el.addClass('code-popover').append(this._tpl);
-    this.selectEl = this.el.find('.select-lang');
-    return this.selectEl.on('change', (function(_this) {
-      return function(e) {
-        var selected;
-        _this.lang = _this.selectEl.val();
-        selected = _this.target.hasClass('selected');
-        _this.target.removeClass().removeAttr('data-lang');
-        if (_this.lang !== -1) {
-          _this.target.addClass('lang-' + _this.lang);
-          _this.target.attr('data-lang', _this.lang);
-        }
-        if (selected) {
-          return _this.target.addClass('selected');
-        }
-      };
-    })(this));
-  };
-
-  CodePopover.prototype.show = function() {
-    var args;
-    args = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-    CodePopover.__super__.show.apply(this, args);
-    this.lang = this.target.attr('data-lang');
-    if (this.lang != null) {
-      return this.selectEl.val(this.lang);
-    } else {
-      return this.selectEl.val(-1);
-    }
-  };
-
-  return CodePopover;
-
-})(Popover);
 
 Simditor.Toolbar.addButton(CodeButton);
 
