@@ -18,9 +18,9 @@
 								预警编号：<input type="text" name="wnum"/>
 							</li>
 
-							<!--<li>-->
-								<!--接收用户：<input type="text" name="userid"/>-->
-							<!--</li>-->
+							<li>
+								接收用户：<input type="text" name="userid"/>
+							</li>
 
 							<li>
 								发布单位：<input type="text" name="company"/>
@@ -42,10 +42,16 @@
 								<!--信息：<input type="text" name="mes"/>-->
 							<!--</li>-->
 
-							<!--<li>-->
-								<!--创建时间：<input type="text" name="createtime"/>-->
-							<!--</li>-->
-
+							<li>
+								<input class="laydate-icon  layer-date"
+									   name="createtime"
+									   id="createtime"
+									   value=""
+									   readonly="readonly"
+									   style="width:120px;"
+									   placeholder="创建时间"
+									   title="创建时间"/>
+							</li>
 							<!--<li>-->
 								<!--是否已读：<input type="text" name="isread"/>-->
 							<!--</li>-->
@@ -167,5 +173,27 @@
             $.table.init(options);
         });
     </script>
+	 <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+	 <script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+	 <!--时间插件-->
+	 <script>
+		 laydate({
+			 elem:"#createtime",
+			 event:"focus"
+		 });
+		 laydate({
+			 elem:"#createtime",
+			 event:"focus"
+		 });
+		 layui.use('laydate', function(){
+			 var laydate = layui.laydate;
+
+			 //执行一个laydate实例
+			 laydate.render({
+				 elem:"#broad",
+				 type: 'time',
+			 });
+		 });
+	 </script>
 </body>
 </html>

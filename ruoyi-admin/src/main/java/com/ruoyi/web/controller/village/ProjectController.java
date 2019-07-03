@@ -1,23 +1,23 @@
 package com.ruoyi.web.controller.village;
 
 import java.util.List;
+import com.ruoyi.village.util.bFileUtil1;
+import com.ruoyi.common.utils.DateUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.village.domain.Project;
+import com.ruoyi.village.domain.Files;
 import com.ruoyi.village.service.IProjectService;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 重大项目 信息操作处理
@@ -80,15 +80,38 @@ public class ProjectController extends BaseController
 	/**
 	 * 新增保存重大项目
 	 */
-	@RequiresPermissions("village:project:add")
-	@Log(title = "重大项目", businessType = BusinessType.INSERT)
-	@PostMapping("/add")
+//	@RequiresPermissions("village:project:add")
+//	@Log(title = "重大项目", businessType = BusinessType.INSERT)
+//	@PostMapping("/add")
+//	@ResponseBody
+//	public AjaxResult addSave(Project project)
+//	{
+//		return toAjax(projectService.insertProject(project));
+//	}
+	@Log(title = "新增节目单", businessType = BusinessType.INSERT)
+	@PostMapping(value = "/add")
 	@ResponseBody
-	public AjaxResult addSave(Project project)
-	{		
-		return toAjax(projectService.insertProject(project));
-	}
+	public AjaxResult addSave(@RequestParam(value = "files") MultipartFile file,
+							  @RequestParam(value = "filename", required = false) String fname,
+							  @RequestParam(value = "flenth" ,required = false)String flenth, //时长
+							  @RequestParam(value = "fsize",required = false) String fsize){//大小
 
+		String year = DateUtil.getYear();
+//		String maxfileid = iProgramService.getMaxFileidofYear(year); //获取当年文件最大编号
+		String maxfileid = "66666"; //获取当年文件最大编号
+		//图片上传调用工具类
+		try{
+			//保存图片
+			Files g = bFileUtil1.uplodeFile(maxfileid,file,fname,flenth,fsize,year);
+			System.out.println(g.toString());
+			return toAjax(1);
+		}catch (Exception e){
+			//return "上传图片失败";
+			System.out.println("失败");
+			return toAjax(0);
+		}
+
+	}
 	/**
 	 * 修改重大项目
 	 */
