@@ -99,5 +99,12 @@ public class PartymemberServiceImpl implements IPartymemberService
 	public List<Pmcount> countbygroup(){
 		return partymemberMapper.countbygroup();
 	}
+
+	@Override
+	@DataSource(value = DataSourceType.SXVILLAGE)
+	public List<Partymember> selectGrouplist()
+	{
+		return partymemberMapper.selectGrouplist();
+	}
 	
 }

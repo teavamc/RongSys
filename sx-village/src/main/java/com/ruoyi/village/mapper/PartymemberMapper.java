@@ -67,5 +67,7 @@ public interface PartymemberMapper
 	 * @return 结果
 	 */
 	public List<Pmcount> countbygroup();
+
+	public List<Partymember> selectGrouplist();
 	
 }
