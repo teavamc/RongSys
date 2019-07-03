@@ -49,6 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="aid != null  and aid != '' "> and aid LIKE CONCAT(CONCAT('%', #{aid}),'%')</if>
              <if test="type != null "> and type LIKE CONCAT(CONCAT('%', #{type}),'%')}</if>
          </where>
+        ORDER BY proid desc
     </select>
     
     <select id="selectProjectById" parameterType="Integer" resultMap="ProjectResult">

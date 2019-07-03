@@ -59,5 +59,7 @@ public interface IPartymemberService
 	 * @return 结果
 	 */
 	public List<Pmcount> countbygroup();
+
+	public List<Partymember> selectGrouplist();
 	
 }

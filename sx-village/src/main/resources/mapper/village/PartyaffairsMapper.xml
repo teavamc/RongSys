@@ -33,6 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="aid != null  and aid != '' "> and aid LIKE CONCAT(CONCAT('%', #{aid}),'%')</if>
              <if test="remark != null  and remark != '' "> and remark LIKE CONCAT(CONCAT('%', #{remark}),'%')</if>
          </where>
+        ORDER BY dwid desc
     </select>
     
     <select id="selectPartyaffairsById" parameterType="Integer" resultMap="PartyaffairsResult">
