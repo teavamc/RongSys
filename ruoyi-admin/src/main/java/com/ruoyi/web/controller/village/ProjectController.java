@@ -1,5 +1,7 @@
 package com.ruoyi.web.controller.village;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import com.ruoyi.village.util.bFileUtil1;
 import com.ruoyi.common.utils.DateUtil;
@@ -80,31 +82,30 @@ public class ProjectController extends BaseController
 	/**
 	 * 新增保存重大项目
 	 */
-//	@RequiresPermissions("village:project:add")
-//	@Log(title = "重大项目", businessType = BusinessType.INSERT)
-//	@PostMapping("/add")
-//	@ResponseBody
-//	public AjaxResult addSave(Project project)
-//	{
-//		return toAjax(projectService.insertProject(project));
-//	}
-	@Log(title = "新增节目单", businessType = BusinessType.INSERT)
+	@Log(title = "新增项目", businessType = BusinessType.INSERT)
 	@PostMapping(value = "/add")
 	@ResponseBody
-	public AjaxResult addSave(@RequestParam(value = "files") MultipartFile file,
+    /*这里加入Project project是为了获得html页面form返回来的数据*/
+	public AjaxResult addSave(Project project,@RequestParam(value = "files") MultipartFile file,
 							  @RequestParam(value = "filename", required = false) String fname,
 							  @RequestParam(value = "flenth" ,required = false)String flenth, //时长
 							  @RequestParam(value = "fsize",required = false) String fsize){//大小
-
 		String year = DateUtil.getYear();
-//		String maxfileid = iProgramService.getMaxFileidofYear(year); //获取当年文件最大编号
-		String maxfileid = "66666"; //获取当年文件最大编号
-		//图片上传调用工具类
+
+		Date date = new Date();
+		SimpleDateFormat dateFormat= new SimpleDateFormat("yyyyMMddhhmmss");
+		System.out.println(dateFormat.format(date));
+		String maxfileid = dateFormat.format(date); //获取文件上传时的时间参数字符串作为文件名
+
+        //图片上传调用工具类
 		try{
 			//保存图片
 			Files g = bFileUtil1.uplodeFile(maxfileid,file,fname,flenth,fsize,year);
-			System.out.println(g.toString());
-			return toAjax(1);
+			System.out.println(g.toString());//在控制台输出文件信息
+
+			project.setPropic(g.getAddress());//给project实体的“文件地址”赋值
+
+			return toAjax(projectService.insertProject(project));//将project实体中的值插入数据表中
 		}catch (Exception e){
 			//return "上传图片失败";
 			System.out.println("失败");
