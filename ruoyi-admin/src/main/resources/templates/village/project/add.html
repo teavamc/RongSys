@@ -116,7 +116,6 @@
 		};
 		return fileList[0];
 	};
-
 	function aa(){
 		let  file = checkFile();
 		let size = file.size;
@@ -130,14 +129,13 @@
 		console.log(duration,size)
 	};
 	function submitHandler() {
-		aa();
-		$.modal.loading("正在处理中，请稍后...");
 		if (!checkFile()) {
 			alert('请先选择文件');
 			return false;
 		}
 		else {
-
+            aa();
+            $.modal.loading("正在上传中，请稍后...");
 			$(function () {
 				/** 验证文件是否导入成功  */
 				$("#form-filemanager-add").ajaxSubmit(function (data) {
