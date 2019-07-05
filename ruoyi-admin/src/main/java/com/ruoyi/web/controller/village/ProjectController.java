@@ -55,12 +55,11 @@ public class ProjectController extends BaseController
 	@PostMapping("/list")
 	@ResponseBody
 	public TableDataInfo list(Project project)
-	{
-        //从session中获取当前登陆用户的 userid
+	{ //从session中获取当前登陆用户的 userid
         SysUser currentUser = ShiroUtils.getSysUser();
         Long userid =  currentUser.getUserId();
         int returnId = new Long(userid).intValue();
-        //通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+        //通过所获取的userid去用户表中查询用户所属区域的Roleid
         int roleid = sysUserService.selectRoleid(returnId);
         if(project.getAid() == null && (roleid == 1)) {
 		startPage();
@@ -72,7 +71,7 @@ public class ProjectController extends BaseController
             return getDataTable(list);
         }else{
             String aid;
-            //通过所获取的userid去广播用户表中查询用户所属区域的Aid
+            //通过所获取的userid去用户表中查询用户所属区域的Aid
             aid = sysUserService.selectAid(returnId);
             project.setAid(aid);
             startPage();
@@ -99,8 +98,22 @@ public class ProjectController extends BaseController
 	 * 新增重大项目
 	 */
 	@GetMapping("/add")
-	public String add()
+	public String add(ModelMap mmap)
 	{
+        //从session中获取当前登陆用户的 username、phone、userid
+        SysUser currentUser = ShiroUtils.getSysUser();
+        String username =  currentUser.getUserName();
+        String phone =  currentUser.getPhonenumber();
+		Long userid =  currentUser.getUserId();
+        String aid;
+		int returnId = new Long(userid).intValue();
+		//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+		aid = sysUserService.selectAid(returnId);
+		//	将aid、fname、uname传至add.html中
+		mmap.put("aid", aid);//这里获得的aid是来自ry-》tb_user_admin
+		mmap.put("fname", username);
+		mmap.put("fphone", phone);
+		mmap.put("uname", username);
 		return prefix + "/add";
 	}
 
