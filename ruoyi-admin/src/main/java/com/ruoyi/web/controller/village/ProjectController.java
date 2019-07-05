@@ -3,6 +3,10 @@ package com.ruoyi.web.controller.village;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import com.ruoyi.framework.util.ShiroUtils;
+import com.ruoyi.system.domain.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import com.ruoyi.village.util.bFileUtil1;
 import com.ruoyi.common.utils.DateUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -35,7 +39,8 @@ public class ProjectController extends BaseController
 
 	@Autowired
 	private IProjectService projectService;
-
+    @Autowired
+    private ISysUserService sysUserService;
 	@RequiresPermissions("village:project:view")
 	@GetMapping()
 	public String project()
@@ -51,9 +56,29 @@ public class ProjectController extends BaseController
 	@ResponseBody
 	public TableDataInfo list(Project project)
 	{
+        //从session中获取当前登陆用户的 userid
+        SysUser currentUser = ShiroUtils.getSysUser();
+        Long userid =  currentUser.getUserId();
+        int returnId = new Long(userid).intValue();
+        //通过所获取的userid去广播用户表中查询用户所属区域的Roleid
+        int roleid = sysUserService.selectRoleid(returnId);
+        if(project.getAid() == null && (roleid == 1)) {
 		startPage();
 		List<Project> list = projectService.selectProjectList(project);
 		return getDataTable(list);
+        }else if(project.getAid() != null){
+            startPage();
+            List<Project> list = projectService.selectProjectList(project);
+            return getDataTable(list);
+        }else{
+            String aid;
+            //通过所获取的userid去广播用户表中查询用户所属区域的Aid
+            aid = sysUserService.selectAid(returnId);
+            project.setAid(aid);
+            startPage();
+            List<Project> list = projectService.selectProjectList(project);
+            return getDataTable(list);
+        }
 	}
 
 
