@@ -23,6 +23,15 @@
 							</li>
 
 							<li>
+								项目状态：
+								<select class="chosen-select" style="width: 50px"  id="ptype" name="ptype"  type="text">
+									<option value=0>在建</option>
+									<option value=1>未建</option>
+									<option value=2>已建</option>
+								</select>
+							</li>
+
+							<li>
 								开支明细：<input type="text" name="moneynote"/>
 							</li>
 
@@ -35,27 +44,33 @@
 							</li>
 
 							<!--<li>
-								负责人姓名：<input type="text" name="fname"/>
-							</li>-->
-
-							<!--<li>
-								负责人手机号：<input type="text" name="fphone"/>
-							</li>-->
-
-							<li>
-								发布日期：<input type="text" name="pushdate"/>
-							</li>
-
-							<!--<li>
 								发布人姓名：<input type="text" name="uname"/>
 							</li>-->
 
 							<li>
-								是否有效：<input type="text" name="remark"/>
+								是否有效：
+								<select class="chosen-select" style="width: 50px" id="remark" name="remark"  type="text">
+									<option value=1>是</option>
+									<option value=0>否</option>
+								</select>
 							</li>
 
 							<li>
-								项目状态：<input type="text" name="type"/>
+								负责人姓名：<input type="text" name="fname"/>
+							</li>
+
+							<li>
+								负责人手机号：<input type="text" name="fphone"/>
+							</li>
+							<li>
+								<input class="laydate-icon  layer-date"
+									   name="pushdate"
+									   id="pushdate"
+									   value=""
+									   readonly="readonly"
+									   style="width:120px;"
+									   placeholder="发布日期"
+									   title="发布日期"/>
 							</li>
 
 							<li>
@@ -176,7 +191,7 @@
 					sortable: true
 				},
 				{
-					field : 'type', 
+					field : 'ptype',
 					title : '项目状态',
 					sortable: true
 				}/*,
@@ -194,5 +209,22 @@
             $.table.init(options);
         });
     </script>
+	 <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+	 <script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+	 <!--时间插件-->
+	 <script>
+		 laydate({
+			 elem:"#pushdate",
+			 event:"focus"
+		 });
+		 layui.use('laydate', function(){
+			 var laydate = layui.laydate;
+			 //执行一个laydate实例
+			 laydate.render({
+				 elem:"#village",
+				 type: 'time',
+			 });
+		 });
+	 </script>
 </body>
 </html>
