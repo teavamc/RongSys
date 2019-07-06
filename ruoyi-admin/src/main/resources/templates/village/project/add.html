@@ -5,7 +5,17 @@
 <link th:href="@{/css/plugins/dropzone/basic.css}" rel="stylesheet">
 <link th:href="@{/css/plugins/dropzone/dropzone.css}" rel="stylesheet">
 
-<head th:include="include :: header"></head>
+<!--①注意head是否有样式冲突，引入需要的css文件-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{favicon.ico}" rel="shortcut icon"/>
+    <link th:href="@{/css/bootstrap.min14ed.css?v=3.3.6}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min93e3.css?v=4.4.0}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/plugins/simditor/simditor.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/style.min862f.css?v=4.1.0}" rel="stylesheet"/>
+</head>
+
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
 	<form class="form-horizontal m" id="form-filemanager-add" enctype="multipart/form-data" th:action="@{add}" method="post">
@@ -39,12 +49,19 @@
 				<input id="moneynote" name="moneynote" class="form-control" type="text" placeholder="请输入开支明细">
 			</div>
 		</div>
-		<div class="form-group">
+		<!--<div class="form-group">
 			<label class="col-sm-3 control-label">项目内容：</label>
 			<div class="col-sm-8">
 				<input id="content" name="content" class="form-control" type="text" >
 			</div>
-		</div>
+		</div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label">项目内容：</label>
+            <div class="col-sm-8">
+                <textarea id="content" name="content" placeholder="这里输入内容" autofocus></textarea>
+                <!--②使用textare去作为文本输入框-->
+            </div>
+        </div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">项目地址：</label>
 			<div class="col-sm-8">
@@ -108,6 +125,14 @@
 	</form>
 </div>
 <div th:include="include::footer"></div>
+<!--③引入需要的js文件-->
+<script th:src="@{/js/plugins/simditor/module.js}"></script>
+<script th:src="@{/js/plugins/simditor/uploader.js}"></script>
+<script th:src="@{/js/plugins/simditor/hotkeys.js}"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<script th:src="@{/js/plugins/simditor/simditor.js}"></script>
+
+
 <script type="text/javascript">
 	var prefix = ctx + "village/project"
 	// 检测是否选择文件，如果选择，返回文件对象;如果没选择，返回false
@@ -142,14 +167,12 @@
 		else {
             aa();
             $.modal.loading("正在上传中，请稍后...");
-			$(function () {
 				/** 验证文件是否导入成功  */
 				$("#form-filemanager-add").ajaxSubmit(function (data) {
+                    alert('222222');
 					$.operate.successCallback({"code": data.code, "msg": data.msg});
-					//alert("post success." + data.code+"--"+data.msg);
 				});
 				return false;
-			});
 		}
 	}
 	function sleep(numberMillis) {
@@ -222,7 +245,7 @@
 </script>
 
 <script>
-	$(document).ready(function(){Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
+	$(document).ready(function(){var editor=new Simditor({textarea:$("#content")});Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
 </script>
 <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
 <script th:src="@{/js/jquery-form.js}"></script>

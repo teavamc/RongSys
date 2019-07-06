@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
+
+<!--①注意head是否有样式冲突，引入需要的css文件-->
 <head>
-	<!--①注意head是否有样式冲突，引入需要的css文件-->
-	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link th:href="@{favicon.ico}" rel="shortcut icon"/>
 	<link th:href="@{/css/bootstrap.min14ed.css?v=3.3.6}" rel="stylesheet"/>
@@ -11,8 +11,8 @@
 	<link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
 	<link th:href="@{/css/plugins/simditor/simditor.css}" rel="stylesheet" type="text/css"/>
 	<link th:href="@{/css/style.min862f.css?v=4.1.0}" rel="stylesheet"/>
-
 </head>
+
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-guide-add">
