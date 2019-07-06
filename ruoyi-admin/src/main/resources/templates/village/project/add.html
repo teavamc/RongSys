@@ -12,7 +12,7 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label">项目名称：</label>
 			<div class="col-sm-8">
-				<input id="proname" name="proname" class="form-control" type="text">
+				<input id="proname" name="proname" class="form-control" type="text" placeholder="请输入项目名称">
 			</div>
 		</div>
 		<div class="form-group">
@@ -24,43 +24,43 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label">项目类别：</label>
 			<div class="col-sm-8">
-				<input id="protype" name="protype" class="form-control" type="text">
+				<input id="protype" name="protype" class="form-control" type="text" placeholder="请选择项目类别">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">投资金额：</label>
 			<div class="col-sm-8">
-				<input id="money" name="money" class="form-control" type="text">
+				<input id="money" name="money" class="form-control" type="text" placeholder="请输入投资金额">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">开支明细：</label>
 			<div class="col-sm-8">
-				<input id="moneynote" name="moneynote" class="form-control" type="text">
+				<input id="moneynote" name="moneynote" class="form-control" type="text" placeholder="请输入开支明细">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">项目内容：</label>
 			<div class="col-sm-8">
-				<input id="content" name="content" class="form-control" type="text">
+				<input id="content" name="content" class="form-control" type="text" >
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">项目地址：</label>
 			<div class="col-sm-8">
-				<input id="address" name="address" class="form-control" type="text">
+				<input id="address" name="address" class="form-control" type="text" placeholder="请输入项目地址">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">项目负责人：</label>
 			<div class="col-sm-8">
-				<input id="fname" name="fname" th:value="${fname}" class="form-control" type="text">
+				<input id="fname" name="fname" th:value="${fname}" class="form-control" type="text" placeholder="请输入项目负责人">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">负责人手机号：</label>
 			<div class="col-sm-8">
-				<input id="fphone" name="fphone" th:value="${fphone}" class="form-control" type="text">
+				<input id="fphone" name="fphone" th:value="${fphone}" class="form-control" type="text" placeholder="请输入负责人手机号">
 			</div>
 		</div>
 		<!--<div class="form-group">-->
@@ -161,11 +161,71 @@
 				return;
 		}
 	}
+
+	$().ready(function() {
+// 在键盘按下并释放及提交后验证提交表单
+		$("#form-filemanager-add").validate({
+			rules: {
+				proname: {
+					required: true,
+					minlength: 2
+				},
+				fphone: {
+					required: true,
+					minlength: 11
+				},
+				money: {
+					required: true,
+					minlength: 1
+				},
+				moneynote: {
+					required: true,
+					minlength: 2
+				},
+				address: {
+					required: true,
+					minlength: 5
+				},
+				fname: {
+					required: true,
+					minlength: 3
+				}
+			},
+			messages: {
+				proname: {
+					required: "请输入项目名称",
+					minlength: "项目名称不能小于2个字符"
+				},
+				fphone: {
+					required: "请输入手机号码",
+					minlength: "号码长度不能小于11位"
+				},
+				money: {
+					required: "请输入投资金额,单位（万元）",
+					minlength: "投资金额不能小于1个字符"
+				},
+				moneynote: {
+					required: "请输入开支明细",
+					minlength: "开支明细不能小于2个字符"
+				},
+				address: {
+					required: "请输入项目地址",
+					minlength: "项目地址不能小于5个字符"
+				},
+				fname: {
+					required: "请输入负责人姓名",
+					minlength: "负责人姓名不能小于3个字符"
+				}
+			}
+		})
+	});
 </script>
+
 <script>
 	$(document).ready(function(){Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
 </script>
 <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
 <script th:src="@{/js/jquery-form.js}"></script>
+
 </body>
 </html>
