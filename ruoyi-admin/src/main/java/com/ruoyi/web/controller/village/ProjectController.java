@@ -186,4 +186,14 @@ public class ProjectController extends BaseController
 		return toAjax(projectService.deleteProjectByIds(ids));
 	}
 
+	/**
+	 * 打开项目详情页
+	 */
+	@GetMapping("/detail/{proid}")
+	public String detail(@PathVariable("proid")Integer proid,ModelMap mmap)
+	{
+		//mmap.put("proid",proid);
+		mmap.put("listByid",projectService.selectProjectById(proid));
+		return prefix + "/detail";
+	}
 }

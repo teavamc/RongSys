@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include :: header"></head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
+</head>
+
+<body class="gray-bg" >
+<div class="wrapper wrapper-content  animated fadeInRight article">
+    <div class="row">
+        <div class="col-lg-10 col-lg-offset-1">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <div class="pull-right">
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.protype}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.fname}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.fphone}]]</button>
+                    </div>
+                    <div class="text-center article-title">
+                        <h1 th:text="${listByid.proname}"></h1>
+                        <p>项目地址：[[${listByid.address}]]</p>
+                        <p>投资金额：[[${listByid.money}]]万元 投资明细：[[${listByid.moneynote}]]</p>
+                        <p th:utext="${listByid.content}"></p>
+                    </div>
+                    <!--<img src="C:/Users/fama/upload/img/19201907040522040.png">-->
+                    <!--<div><a href="[[${listByid.propic}]]" target="_blank">文件下载</a></div>-->
+                    <!--<p>点击 W3School 的 logo 来下载该图片：<p>-->
+                    <a href="C:/Users/fama/upload/img/19201907040522040.png" download="测试">
+                        文件下载
+                    </a>
+                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="js/jquery.min.js?v=2.1.4"></script>
+<script src="js/bootstrap.min.js?v=3.3.6"></script>
+<script src="js/content.min.js?v=1.0.0"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+</body>
+
+
+<!-- Mirrored from www.zi-han.net/theme/hplus/article.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:47 GMT -->
+</html>

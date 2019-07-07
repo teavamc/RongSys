@@ -115,6 +115,7 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
+                detailUrl: prefix + "/detail/{id}",
                 modalName: "重大项目",
 				search: false,
 		        showExport: true,
@@ -218,7 +219,7 @@
                             return html;
                         }
                     }
-				}/*,
+				},/*
 		        {
 		            title: '操作',
 		            align: 'center',
@@ -228,7 +229,16 @@
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.proid + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
-		        }*/]
+		        }*/
+                    {
+                        title: '操作',
+                        align: 'center',
+                        formatter: function(value, row, index) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-success btn-xs ' + '"onclick="$.operate.detail(\'' + row.proid + '\')"><i class="fa fa-edit"></i>查看详情</a> ');
+                            return actions.join('');
+                        }
+                    }]
             };
             $.table.init(options);
         });
