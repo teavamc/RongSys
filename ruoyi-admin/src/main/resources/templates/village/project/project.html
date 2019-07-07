@@ -23,15 +23,6 @@
 							</li>
 
 							<li>
-								项目状态：
-								<select class="chosen-select" style="width: 50px"  id="ptype" name="ptype"  type="text">
-									<option value=0>在建</option>
-									<option value=1>未建</option>
-									<option value=2>已建</option>
-								</select>
-							</li>
-
-							<li>
 								开支明细：<input type="text" name="moneynote"/>
 							</li>
 
@@ -48,20 +39,30 @@
 							</li>-->
 
 							<li>
-								是否有效：
-								<select class="chosen-select" style="width: 50px" id="remark" name="remark"  type="text">
-									<option value=1>是</option>
-									<option value=0>否</option>
-								</select>
+								主管姓名：<input type="text" name="fname"/>
 							</li>
 
 							<li>
-								负责人姓名：<input type="text" name="fname"/>
+								主管号码：<input type="text" name="fphone"/>
 							</li>
 
-							<li>
-								负责人手机号：<input type="text" name="fphone"/>
-							</li>
+                            <li>
+                                是否有效：
+                                <select class="chosen-select" style="width: 50px" id="remark" name="remark"  type="text">
+                                    <option value=1>是</option>
+                                    <option value=0>否</option>
+                                </select>
+                            </li>
+
+                            <li>
+                                项目状态：
+                                <select class="chosen-select" style="width: 50px"  id="ptype" name="ptype"  type="text">
+                                    <option value=0>在建</option>
+                                    <option value=1>未建</option>
+                                    <option value=2>已建</option>
+                                </select>
+                            </li>
+
 							<li>
 								<input class="laydate-icon  layer-date"
 									   name="pushdate"
@@ -130,46 +131,46 @@
 					title : '项目名称',
 					sortable: true
 				},
-				{
+				/*{
 					field : 'propic', 
 					title : '项目图片路径',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'protype', 
 					title : '项目类别',
 					sortable: true
 				},
-				{
+				/*{
 					field : 'money', 
 					title : '投资金额',
 					sortable: true
-				},
-				{
-					field : 'moneynote', 
-					title : '开支明细',
-					sortable: true
-				},
-				{
-					field : 'content', 
-					title : '项目内容',
-					sortable: true
-				},
-				{
+				},*/
+				// {
+				// 	field : 'moneynote',
+				// 	title : '开支明细',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'content',
+				// 	title : '项目内容',
+				// 	sortable: true
+				// },
+				/*{
 					field : 'address', 
 					title : '项目地址',
 					sortable: true
-				},
-				{
-					field : 'fname', 
-					title : '负责人姓名',
-					sortable: true
-				},
-				{
+				},*/
+				// {
+				// 	field : 'fname',
+				// 	title : '负责人姓名',
+				// 	sortable: true
+				// },
+				/*{
 					field : 'fphone', 
 					title : '负责人手机号',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'greadtotal',
 					title : '项目点击数',
@@ -182,18 +183,41 @@
 				},
 				{
 					field : 'uname', 
-					title : '发布人姓名',
+					title : '发布人',
 					sortable: true
 				},
 				{
 					field : 'remark', 
 					title : '是否有效',
-					sortable: true
+					sortable: true,
+                    formatter:function(value,row,index){
+                        var html = "";
+                        if(value == "0"){
+                            html += "<label style='color: #ff5909'>否</label>";
+                            return html;
+                        }else {
+                            html += "<label>是</label>";
+                            return html;
+                        }
+                    }
 				},
 				{
 					field : 'ptype',
 					title : '项目状态',
-					sortable: true
+					sortable: true,
+                    formatter:function(value,row,index){
+                        var html = "";
+                        if(value == "0"){
+                            html += "<label>未建</label>";
+                            return html;
+                        }if(value == "1"){
+                            html += "<label>在建</label>";
+                            return html;
+                        }else {
+                            html += "<label>已建</label>";
+                            return html;
+                        }
+                    }
 				}/*,
 		        {
 		            title: '操作',
@@ -226,5 +250,6 @@
 			 });
 		 });
 	 </script>
+
 </body>
 </html>
