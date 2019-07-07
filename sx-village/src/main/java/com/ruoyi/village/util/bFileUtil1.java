@@ -19,7 +19,7 @@ public class bFileUtil1 {
      * @return 返回相对路径
      */
     public static String saveImg(MultipartFile file,String saveName) {
-        //获取文件上传的根目录 C:\Users\wanghao/upload/img
+        //获取文件上传的根目录 C:\Users\fama/upload/img
         String  path = bConstant1.UPLOAD_PATH + bConstant1.IMG_FILE_NAME; //改为bConstant.UPLOAD_PATH
 
         //拿到文件的后缀名和UUID进行拼接形成新的文件名
@@ -87,17 +87,17 @@ public class bFileUtil1 {
         Files g = new Files();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 
-        int fileid = 0;
+        /*int fileid = 0;
         if(maxfileid!=null&& Integer.parseInt(maxfileid)>10){
-            fileid = Integer.parseInt(maxfileid)+1;
+            fileid = Integer.parseInt(maxfileid);
         }else{
             fileid = 1;
-        }
+        }*/
         int j=0; //上传多个的时候用的
         String filename ="";
         String failfile="";//添加失败的节目
         if(file!=null ){
-            filename = fileid+j+"";
+            filename = maxfileid+j+"";
             while(filename.length()<5){
                 filename = "0"+filename;
             }

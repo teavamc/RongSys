@@ -26,7 +26,7 @@ public class bFileUtil {
         //拿到文件的后缀名和UUID进行拼接形成新的文件名
         //4ca64e85b1544c96b4a6154bb521476f.jpg
         //String saveName = bCommonUtil.getUuid() + "." + getFileSuffix(file.getOriginalFilename());
-        logger.info(" --- 文件保存路径：{}, 文件保存名称：{},文件原名称：{} --- ", path, saveName,file.getOriginalFilename());
+        logger.info(" --- 图片保存路径：{}, 图片保存名称：{},文件名称：{} --- ", path, saveName,file.getOriginalFilename());
 
         // 保存
         try {
@@ -38,7 +38,7 @@ public class bFileUtil {
             file.transferTo(new File(path + "/" + saveName));
         } catch (Exception e) {
             e.printStackTrace();
-            logger.debug("--- 文件保存异常：{} ---" + e.getMessage());
+            logger.debug("--- 图片保存异常：{} ---" + e.getMessage());
             return null;
         }
         String filePath =  bConstant.UPLOAD_PATH;;

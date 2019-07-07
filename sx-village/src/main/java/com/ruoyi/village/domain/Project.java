@@ -47,7 +47,8 @@ public class Project extends BaseEntity
 	/** 用户所属地区村社区 aid */
 	private String aid;
 	/** 项目状态“0”为未建，“1”为在建，“2”为已建 */
-	private Integer type;
+	private Integer ptype;
+
 	public void setProid(Integer proid) 
 	{
 		this.proid = proid;
@@ -192,14 +193,14 @@ public class Project extends BaseEntity
 	{
 		return aid;
 	}
-	public void setType(Integer type) 
+	public void setPtype(Integer ptype)
 	{
-		this.type = type;
+		this.ptype = ptype;
 	}
 
-	public Integer getType() 
+	public Integer getPtype()
 	{
-		return type;
+		return ptype;
 	}
 
     public String toString() {
@@ -220,7 +221,7 @@ public class Project extends BaseEntity
             .append("uname", getUname())
             .append("remark", getRemark())
             .append("aid", getAid())
-            .append("type", getType())
+            .append("ptype", getPtype())
             .toString();
     }
 }

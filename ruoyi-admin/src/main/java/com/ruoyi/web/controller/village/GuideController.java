@@ -76,7 +76,6 @@ public class GuideController extends BaseController
 	{
 	    return prefix + "/add";
 	}
-	
 	/**
 	 * 新增保存常用办事指南
 	 */
