@@ -36,7 +36,7 @@ public class MaincountController extends BaseController
 	private ISysUserService sysUserService;
 	@Autowired
 	private IMessageService messageService;
-	@RequiresPermissions("broad:maincount:view")
+//	@RequiresPermissions("broad:maincount:view")
 	@GetMapping()
 	public String maincount()
 	{
@@ -46,7 +46,7 @@ public class MaincountController extends BaseController
 	/**
 	 * 查询终端维护记录列表
 	 */
-	@RequiresPermissions("broad:maincount:list")
+//	@RequiresPermissions("broad:maincount:list")
 	@PostMapping("/list")
 	@ResponseBody
 	public TableDataInfo list(Maincount maincount)
@@ -69,7 +69,7 @@ public class MaincountController extends BaseController
 	/**
 	 * 导出终端维护记录列表
 	 */
-	@RequiresPermissions("broad:maincount:export")
+//	@RequiresPermissions("broad:maincount:export")
     @PostMapping("/export")
     @ResponseBody
     public AjaxResult export(Maincount maincount)
