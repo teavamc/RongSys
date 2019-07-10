@@ -1,7 +1,18 @@
 <!DOCTYPE HTML>
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
+
+<!--①注意head是否有样式冲突，引入需要的css文件-->
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link th:href="@{favicon.ico}" rel="shortcut icon"/>
+	<link th:href="@{/css/bootstrap.min14ed.css?v=3.3.6}" rel="stylesheet"/>
+	<link th:href="@{/css/font-awesome.min93e3.css?v=4.4.0}" rel="stylesheet"/>
+	<link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/plugins/simditor/simditor.css}" rel="stylesheet" type="text/css"/>
+	<link th:href="@{/css/style.min862f.css?v=4.1.0}" rel="stylesheet"/>
+</head>
+
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-guide-add">
@@ -21,12 +32,6 @@
 				<label class="col-sm-3 control-label">指南类别：</label>
 				<div class="col-sm-8">
 					<input id="gutype" name="gutype" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">指南内容：</label>
-				<div class="col-sm-8">
-					<input id="content" name="content" class="form-control" type="text">
 				</div>
 			</div>
 			<div class="form-group">	
@@ -71,10 +76,17 @@
 					<input id="remark" name="remark" class="form-control" type="text">
 				</div>
 			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">指南内容：</label>
+					<div class="col-sm-8">
+                        <textarea id="content" name="content" placeholder="这里输入内容" autofocus></textarea>
+						<!--②使用textare去作为文本输入框-->
+					</div>
+			</div>
 		</form>
 	</div>
-    <div th:include="include::footer"></div>
-    <script type="text/javascript">
+	<div th:include="include::footer"></div>
+	<script type="text/javascript">
 		var prefix = ctx + "village/guide"
 		$("#form-guide-add").validate({
 			rules:{
@@ -83,12 +95,24 @@
 				},
 			}
 		});
-		
+
 		function submitHandler() {
-	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-guide-add').serialize());
-	        }
-	    }
+			if ($.validate.form()) {
+				$.operate.save(prefix + "/add", $('#form-guide-add').serialize());
+			}
+		}
 	</script>
+
+	<!--③引入需要的js文件-->
+	<script th:src="@{/js/plugins/simditor/module.js}"></script>
+	<script th:src="@{/js/plugins/simditor/uploader.js}"></script>
+	<script th:src="@{/js/plugins/simditor/hotkeys.js}"></script>
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+	<script th:src="@{/js/plugins/simditor/simditor.js}"></script>
+	<!--④调用方法，通过id进行文本输入框配对-->
+	<script>
+		$(document).ready(function(){var editor=new Simditor({textarea:$("#content")})});
+	</script>
+
 </body>
 </html>

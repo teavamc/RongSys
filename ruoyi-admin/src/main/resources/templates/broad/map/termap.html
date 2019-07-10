@@ -10,11 +10,110 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
-        body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+        body, html,#allmap {width: 100%;height: 97%;overflow: hidden;margin:0;font-family:"微软雅黑";}
     </style>
 
 </head>
 <body class="gray-bg">
+<div class="col-xs-12">
+    <table style="margin-top:5px;">
+        <tr>
+            <td style="vertical-align:top;padding-left:5px">
+                <select class="chosen-select form-control" name="key1" id="key1" data-placeholder="关键词" style="vertical-align:top;width:180px;height: 40px;">
+                    <option value="m.tid">终端IMEI</option>
+                    <option value="tname">终端名称</option>
+                    <option value="uname">所属用户</option>
+                    <option value="aname">所属分组</option>
+                    <option value="lastaccesstime">终端最后访问日期</option>
+                    <option value="intertime">终端交互时间</option>
+                    <option value="phone">手机号码</option>
+                    <option value="address">地址</option>
+                    <option value="facid">终端出厂编号</option>
+                    <option value="comstand">终端接入通信网标准</option>
+                    <option value="broadtel">终端接入广播电视网模式</option>
+                    <option value="fmfrequency">终端可接收广播频率</option>
+                    <option value="manager">终端管理员名称</option>
+                    <option value="managertel">终端管理员电话</option>
+                    <option value="createdtime">建立日期</option>
+                </select>
+            </td>
+            <td style="padding-left:0px;">
+                <div>
+                    <input id="val1" name="val1" class="form-control" type="text" placeholder="输入内容" style="width: 110px;height: 40px;">
+                </div>
+            </td>
+            <td style="vertical-align:top;padding-left:5px">
+                <select class="chosen-select form-control" name="key2" id="key2" data-placeholder="关键词" style="vertical-align:top;width:180px;height: 40px;">
+                    <option value="m.tid">终端IMEI</option>
+                    <option value="tname">终端名称</option>
+                    <option value="uname">所属用户</option>
+                    <option value="aname">所属分组</option>
+                    <option value="lastaccesstime">终端最后访问日期</option>
+                    <option value="intertime">终端交互时间</option>
+                    <option value="phone">手机号码</option>
+                    <option value="address">地址</option>
+                    <option value="facid">终端出厂编号</option>
+                    <option value="comstand">终端接入通信网标准</option>
+                    <option value="broadtel">终端接入广播电视网模式</option>
+                    <option value="fmfrequency">终端可接收广播频率</option>
+                    <option value="manager">终端管理员名称</option>
+                    <option value="managertel">终端管理员电话</option>
+                    <option value="createdtime">建立日期</option>
+                </select>
+            </td>
+            <td style="padding-left:0px;">
+                <div>
+                    <input id="val2" name="val2" class="form-control" type="text" placeholder="输入内容" style="width: 110px;height: 40px;">
+                </div>
+            </td>
+            <td style="vertical-align:top;padding-left:5px">
+                <select class="chosen-select form-control" name="key3" id="key3" data-placeholder="关键词" style="vertical-align:top;width:180px;height: 40px;">
+                    <option value="m.tid">终端IMEI</option>
+                    <option value="tname">终端名称</option>
+                    <option value="uname">所属用户</option>
+                    <option value="aname">所属分组</option>
+                    <option value="lastaccesstime">终端最后访问日期</option>
+                    <option value="intertime">终端交互时间</option>
+                    <option value="phone">手机号码</option>
+                    <option value="address">地址</option>
+                    <option value="facid">终端出厂编号</option>
+                    <option value="comstand">终端接入通信网标准</option>
+                    <option value="broadtel">终端接入广播电视网模式</option>
+                    <option value="fmfrequency">终端可接收广播频率</option>
+                    <option value="manager">终端管理员名称</option>
+                    <option value="managertel">终端管理员电话</option>
+                    <option value="createdtime">建立日期</option>
+                </select>
+            </td>
+
+            <td style="padding-left:0px;">
+                <div >
+                    <input id="val3" name="val3" class="form-control" type="text" placeholder="输入内容" style="width: 110px;height: 40px;">
+                </div>
+            </td>
+            <td style="vertical-align:top;padding-left:5px">
+                <select class="chosen-select form-control" name="isuse" id="isuse" data-placeholder="是否启用" style="vertical-align:top;width: 100px;height: 40px;">
+                    <option value="1"> 启用</option>
+                    <option value="0">停用</option>
+                </select>
+            </td>
+            <td style="vertical-align:top;padding-left:2px;">
+                <div>
+                    <select class="chosen-select form-control" name="typekey" id="typekey" data-placeholder="终端状态" style="vertical-align:top;width: 100px;height: 40px;">
+                        <option value="0">正常</option>
+                        <option value="1">异常1天</option>
+                        <option value="2">异常2天</option>
+                        <option value="3">故障</option>
+                    </select>
+                </div>
+            </td>
+            <td style="vertical-align:top;padding-left:2px;">
+                <!--<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>-->
+                <a class="btn btn-primary btn-rounded btn-sm" onclick=""><i class="fa fa-search"></i>&nbsp;搜索</a>
+            </td>
+        </tr>
+    </table>
+</div>
 <div id="allmap"></div>
 </body>
 
@@ -51,1019 +150,9 @@
     addMarker(points);
 
 
-    var styleJson = [{
-        "featureType": "water",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "color": "#ccd6d7ff"
-        }
-    }, {
-        "featureType": "green",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "color": "#dee5e5ff"
-        }
-    }, {
-        "featureType": "building",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "building",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#d1dbdbff"
-        }
-    }, {
-        "featureType": "building",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#aab6b6ff"
-        }
-    }, {
-        "featureType": "subwaystation",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "color": "#888fa0ff"
-        }
-    }, {
-        "featureType": "education",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "color": "#e1e7e7ff"
-        }
-    }, {
-        "featureType": "medical",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "color": "#d1dbdbff"
-        }
-    }, {
-        "featureType": "scenicspots",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "color": "#d1dbdbff"
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "weight": 4
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#cacfcfff"
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "arterial",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "weight": 2
-        }
-    }, {
-        "featureType": "arterial",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#fbfffeff"
-        }
-    }, {
-        "featureType": "arterial",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#cacfcfff"
-        }
-    }, {
-        "featureType": "arterial",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "arterial",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "arterial",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "local",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "on",
-            "weight": 1
-        }
-    }, {
-        "featureType": "local",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#fbfffeff"
-        }
-    }, {
-        "featureType": "local",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#cacfcfff"
-        }
-    }, {
-        "featureType": "local",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "local",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "local",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "railway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "weight": 1
-        }
-    }, {
-        "featureType": "railway",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#9494941a"
-        }
-    }, {
-        "featureType": "railway",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#ffffff1a"
-        }
-    }, {
-        "featureType": "subway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "weight": 1
-        }
-    }, {
-        "featureType": "subway",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#c3bed433"
-        }
-    }, {
-        "featureType": "subway",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#ffffff33"
-        }
-    }, {
-        "featureType": "subway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "subway",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#979c9aff"
-        }
-    }, {
-        "featureType": "subway",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "continent",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "continent",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "continent",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#333333ff"
-        }
-    }, {
-        "featureType": "continent",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "city",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "city",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "city",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#454d50ff"
-        }
-    }, {
-        "featureType": "city",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "town",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "on"
-        }
-    }, {
-        "featureType": "town",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "town",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#454d50ff"
-        }
-    }, {
-        "featureType": "town",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "road",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "road",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#fbfffeff"
-        }
-    }, {
-        "featureType": "poilabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "districtlabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "poilabel",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "districtlabel",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#888fa0ff"
-        }
-    }, {
-        "featureType": "transportation",
-        "elementType": "geometry",
-        "stylers": {
-            "color": "#d1dbdbff"
-        }
-    }, {
-        "featureType": "companylabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "restaurantlabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "lifeservicelabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "carservicelabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "financelabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "otherlabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "village",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "district",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "land",
-        "elementType": "geometry",
-        "stylers": {
-            "color": "#edf3f3ff"
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#cacfcfff"
-        }
-    }, {
-        "featureType": "provincialway",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#cacfcfff"
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#cacfcfff"
-        }
-    }, {
-        "featureType": "road",
-        "elementType": "geometry.stroke",
-        "stylers": {
-            "color": "#cacfcfff"
-        }
-    }, {
-        "featureType": "subwaylabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "subwaylabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "tertiarywaysign",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "tertiarywaysign",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "provincialwaysign",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "provincialwaysign",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "nationalwaysign",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "nationalwaysign",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "highwaysign",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "highwaysign",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#fbfffeff"
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "provincialway",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "highway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "highway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "highway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "highway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "nationalway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "nationalway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "nationalway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "nationalway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "provincialway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "8,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "provincialway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "8,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "provincialway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "8,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "cityhighway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "cityhighway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "cityhighway",
-        "stylers": {
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "geometry",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 6
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 7
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off",
-            "curZoomRegionId": "0",
-            "curZoomRegion": "6,8",
-            "level": 8
-        }
-    }, {
-        "featureType": "cityhighway",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#fbfffeff"
-        }
-    }, {
-        "featureType": "water",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#8f5a33ff"
-        }
-    }, {
-        "featureType": "water",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "country",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#8f5a33ff"
-        }
-    }, {
-        "featureType": "country",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "country",
-        "elementType": "labels.text",
-        "stylers": {
-            "fontsize": 28
-        }
-    }, {
-        "featureType": "manmade",
-        "elementType": "geometry",
-        "stylers": {
-            "color": "#dfe7e7ff"
-        }
-    }, {
-        "featureType": "provincialway",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#fbfffeff"
-        }
-    }, {
-        "featureType": "tertiaryway",
-        "elementType": "geometry.fill",
-        "stylers": {
-            "color": "#fbfffeff"
-        }
-    }, {
-        "featureType": "manmade",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "manmade",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "scenicspots",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "scenicspots",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "airportlabel",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "airportlabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "scenicspotslabel",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "scenicspotslabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "educationlabel",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "educationlabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "medicallabel",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "medicallabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "companylabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "restaurantlabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "hotellabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "hotellabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "shoppinglabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "shoppinglabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "lifeservicelabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "carservicelabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "transportationlabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "transportationlabel",
-        "elementType": "labels",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "financelabel",
-        "elementType": "labels.icon",
-        "stylers": {
-            "visibility": "off"
-        }
-    }, {
-        "featureType": "entertainment",
-        "elementType": "geometry",
-        "stylers": {
-            "color": "#d1dbdbff"
-        }
-    }, {
-        "featureType": "estate",
-        "elementType": "geometry",
-        "stylers": {
-            "color": "#d1dbdbff"
-        }
-    }, {
-        "featureType": "shopping",
-        "elementType": "geometry",
-        "stylers": {
-            "color": "#d1dbdbff"
-        }
-    }, {
-        "featureType": "education",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "education",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "medical",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "medical",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }, {
-        "featureType": "transportation",
-        "elementType": "labels.text.fill",
-        "stylers": {
-            "color": "#999999ff"
-        }
-    }, {
-        "featureType": "transportation",
-        "elementType": "labels.text.stroke",
-        "stylers": {
-            "color": "#ffffffff"
-        }
-    }];
-    map.setMapStyleV2({styleJson:styleJson});
+    /*  var styleJson = [{
+      }];
+      map.setMapStyleV2({styleJson:styleJson});*/
 
 
     //创建标注点并添加到地图中
@@ -1128,8 +217,8 @@
         thisMarker.openInfoWindow(infoWindow); //图片加载完后重绘infoWindow
     }
     function  update_show(nPoint) {
-       var allOverlay = map.getOverlays();
-       for(var i = 0;i<allOverlay.length;i++) {
+        var allOverlay = map.getOverlays();
+        for(var i = 0;i<allOverlay.length;i++) {
             if(allOverlay[i].toString()=="[object Marker]") {
                 if (allOverlay[i].getPosition().lng == nPoint.lng && allOverlay[i].getPosition().lat == nPoint.lat) {
                     map.removeOverlay(allOverlay[i]);

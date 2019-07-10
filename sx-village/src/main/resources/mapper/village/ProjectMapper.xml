@@ -21,11 +21,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="uname"    column="uname"    />
         <result property="remark"    column="remark"    />
         <result property="aid"    column="aid"    />
-        <result property="type"    column="type"    />
+        <result property="ptype"    column="ptype"    />
     </resultMap>
 	
 	<sql id="selectProjectVo">
-        select proid, proname, propic, protype, money, moneynote, content, address, fname, fphone, greadtotal, pushdate, uid, uname, remark, aid, type from tb_project
+        select proid, proname, propic, protype, money, moneynote, content, address, fname, fphone, greadtotal, pushdate, uid, uname, remark, aid, ptype from tb_project
     </sql>
 	
     <select id="selectProjectList" parameterType="Project" resultMap="ProjectResult">
@@ -47,8 +47,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="uname != null  and uname != '' "> and uname LIKE CONCAT(CONCAT('%', #{uname}),'%')</if>
              <if test="remark != null  and remark != '' "> and remark LIKE CONCAT(CONCAT('%', #{remark}),'%')</if>
              <if test="aid != null  and aid != '' "> and aid LIKE CONCAT(CONCAT('%', #{aid}),'%')</if>
-             <if test="type != null "> and type LIKE CONCAT(CONCAT('%', #{type}),'%')}</if>
+             <if test="ptype != null "> and ptype LIKE CONCAT(CONCAT('%', #{ptype}),'%')</if>
          </where>
+        ORDER BY proid desc
     </select>
     
     <select id="selectProjectById" parameterType="Integer" resultMap="ProjectResult">
@@ -74,7 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="uname != null  and uname != ''  ">uname,</if>
 			<if test="remark != null  and remark != ''  ">remark,</if>
 			<if test="aid != null  and aid != ''  ">aid,</if>
-			<if test="type != null  ">type,</if>
+			<if test="ptype != null  ">ptype,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="proid != null  ">#{proid},</if>
@@ -93,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="uname != null  and uname != ''  ">#{uname},</if>
 			<if test="remark != null  and remark != ''  ">#{remark},</if>
 			<if test="aid != null  and aid != ''  ">#{aid},</if>
-			<if test="type != null  ">#{type},</if>
+			<if test="ptype != null  ">#{ptype},</if>
          </trim>
     </insert>
 	 
@@ -113,7 +114,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="uname != null  and uname != ''  ">uname = #{uname},</if>
             <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
             <if test="aid != null  and aid != ''  ">aid = #{aid},</if>
-            <if test="type != null  ">type = #{type},</if>
+            <if test="ptype != null  ">ptype = #{ptype},</if>
         </trim>
         where proid = #{proid}
     </update>

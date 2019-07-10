@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+<div class="wrapper wrapper-content animated fadeInRight ibox-content">
+
+
+    <table class="table table-hover">
+        <tr>
+            <th>终端IMEI</th>
+            <th>终端名称</th>
+            <th>维护人员</th>
+            <th>故障现象</th>
+            <th>维护时间</th>
+        </tr>
+        <tr  th:each="list : ${listBySjid}">
+            <td th:text="${list.tid}"></td>
+            <td th:text="${list.mstaff}"></td>
+            <td th:text="${list.uname}"></td>
+            <th th:text="${list.fault}"></th>
+            <th th:text="${list.createtime}"></th>
+        </tr>
+    </table>
+
+</div>
+<div th:include="include::footer"></div>
+</body>
+</html>

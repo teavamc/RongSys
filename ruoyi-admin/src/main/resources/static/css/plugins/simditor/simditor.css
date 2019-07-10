@@ -375,12 +375,12 @@
   position: absolute;
   z-index: 2;
 }
-.simditor .simditor-popover .settings-field {
-  margin: 0 0 5px 0;
-  font-size: 12px;
-  height: 25px;
-  line-height: 25px;
-}
+/*.simditor .simditor-popover .settings-field {*/
+  /*margin: 0 0 5px 0;*/
+  /*font-size: 12px;*/
+  /*height: 25px;*/
+  /*line-height: 25px;*/
+/*}*/
 .simditor .simditor-popover .settings-field label {
   margin: 0 8px 0 0;
   float: left;
