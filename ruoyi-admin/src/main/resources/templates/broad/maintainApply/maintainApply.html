@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
+<link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+
+<body class="gray-bg">
+
+<div class="container-div ui-layout-center">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="user-form">
+                <input type="hidden" id="Aid" name="aid">
+                <input type="hidden" id="Parentaid" name="parentaid">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            维护ID：<input type="text" name="maid"/>
+                        </li>
+
+                        <li>
+                            联系人：<input type="text" name="linkman"/>
+                        </li>
+
+                        <li class="select-time">
+                            <label>故障时间：</label><input class="laydate-icon  layer-date"
+                                   name="downtime"
+                                   id="recivedtime"
+                                   value=""
+                                   readonly="readonly"
+                                   style="width:120px;"
+                                   placeholder="开始日期"
+                                   title="开始日期"/>
+                            <span>-</span>
+
+                            <input class="laydate-icon  layer-date"
+                                   name="endtime"
+                                   id="endtime"
+                                   value=""
+                                   readonly="readonly"
+                                   style="width:120px;"
+                                   placeholder="结束日期"
+                                   title="结束日期"/>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
+<script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+<script th:inline="javascript">
+
+    var prefix = ctx + "broad/maintainApply";
+
+    $(function() {
+        $('body').layout({ west__size: 185 });
+        queryAreaList();
+    });
+
+    function queryAreaList() {
+        var options = {
+            url: prefix + "/list",
+            modalName: "申请维护记录",
+            search: false,
+            showExport: true,
+            columns: [
+                {
+                    field : 'maid',
+                    title : '维护ID',
+                    sortable: true
+                },
+                {
+                    field : 'teraddress',
+                    title : '终端安装地点',
+                    sortable: true
+                },
+                {
+                    field : 'linkman',
+                    title : '联系人',
+                    sortable: true
+                },
+                {
+                    field : 'linkphone',
+                    title : '联系电话',
+                    sortable: true
+                },
+                {
+                    field : 'downtime',
+                    title : '故障时间',
+                    sortable: true
+                },
+                {
+                    field : 'applytime',
+                    title : '提交时间',
+                    sortable: true
+                },
+                {
+                    field : 'status',
+                    title : '状态',
+                    sortable: true,
+                    align: 'center',
+                    formatter: function (value,row,index) {
+                        var action = [];
+                        if(value == 1){
+                            action.push('<a class="btn btn-xs btn-success" >已维护</a>');
+                            return action;
+                        }else if(value == 0){
+                            action.push('<a class="btn btn-xs btn-success" >未维护</a>');
+                            return action;
+                        }
+                    }
+                },
+                {
+                    field : 'remark',
+                    title : '故障原因',
+                    sortable: true
+                }
+          ]
+        };
+        $.table.init(options);
+    }
+
+</script>
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<script>
+    laydate({
+        elem:"#recivedtime",
+        event:"focus"
+    });
+    laydate({
+        elem:"#recivedtime",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
+<script>
+    laydate({
+        elem:"#endtime",
+        event:"focus"
+    });
+    laydate({
+        elem:"#endtime",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate2 = layui.laydate;
+
+        //执行一个laydate实例
+        laydate2.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
+</body>
+</html>
