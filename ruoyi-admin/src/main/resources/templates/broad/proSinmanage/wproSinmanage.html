@@ -15,6 +15,26 @@
                     节目名称：<input type="text" name="pname"/>
                 </li>
 
+                <li class="select-time">
+                    <label>时间：</label><input class="laydate-icon  layer-date"
+                                                 name="downtime"
+                                                 id="recivedtime"
+                                                 value=""
+                                                 readonly="readonly"
+                                                 style="width:120px;"
+                                                 placeholder="开始日期"
+                                                 title="开始日期"/>
+                    <span>-</span>
+
+                    <input class="laydate-icon  layer-date"
+                           name="endtime"
+                           id="endtime"
+                           value=""
+                           readonly="readonly"
+                           style="width:120px;"
+                           placeholder="结束日期"
+                           title="结束日期"/>
+                </li>
                 <li>
                     <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
                     <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
@@ -54,10 +74,6 @@
             columns: [{
                 field : 'sfid',
                 title : '播出单ID',
-            },
-                {
-                    field : 'username',
-                    title : '用户',
                 },
                 {
                     field : 'scategory',
@@ -98,8 +114,46 @@
         };
         $.table.init(options);
     });
+</script>
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<script>
+    laydate({
+        elem:"#recivedtime",
+        event:"focus"
+    });
+    laydate({
+        elem:"#recivedtime",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
 
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
+<script>
+    laydate({
+        elem:"#endtime",
+        event:"focus"
+    });
+    laydate({
+        elem:"#endtime",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate2 = layui.laydate;
 
+        //执行一个laydate实例
+        laydate2.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
 </script>
 </body>
 </html>
