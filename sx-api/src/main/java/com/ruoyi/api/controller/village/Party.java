@@ -26,7 +26,7 @@ public class Party {
     private IEducationService educationService;
     @Autowired
     private IPartyaffairsService partyaffairsService;
-
+    @Autowired
     private IShishiService shishiService;
     /**
      * 返回所有党员活动信息

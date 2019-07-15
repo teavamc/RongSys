@@ -28,6 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="man"    column="man"    />
         <result property="woman"    column="woman"    />
     </resultMap>
+
+    <resultMap type="Pedulevel" id="PedulevelResult">
+        <result property="edulevel"    column="edulevel"    />
+        <result property="psum"    column="psum"    />
+    </resultMap>
 	
 	<sql id="selectPartymemberVo">
         select pid, aid, grouptype, uname, sex, nations, idcard, edulevel, birthday, partyjoindate, phone, address, notes, uid, wcid from myc_partymember
@@ -42,7 +47,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         from myc_partymember
         group by grouptype
     </select>
-	
+
+    <select id="countbyedulevel" resultMap="PedulevelResult">
+        select
+            edulevel as edulevel,
+            count(pid) as psum
+            from myc_partymember
+            group by edulevel
+    </select>
+
     <select id="selectPartymemberList" parameterType="Partymember" resultMap="PartymemberResult">
         <include refid="selectPartymemberVo"/>
         <where>  
