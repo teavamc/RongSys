@@ -221,7 +221,7 @@ public class OrganizationServiceImpl implements IOrganizationService
 	/**
 	 * 批量删除用户信息
 	 *
-	 * @param ids 需要删除的数据ID
+	 * @param //ids 需要删除的数据ID
 	 * @return 结果
 	 */
 	/*@Override
@@ -263,5 +263,12 @@ public class OrganizationServiceImpl implements IOrganizationService
 		}
 		return organizations;
 	}
-
+	/**
+	 * 	通过 tid 查询对应终端的RDS码
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public Organization selectRdsByTid(String tid){
+		return organizationMapper.selectRdsByTid(tid);
+	}
 }

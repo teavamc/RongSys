@@ -118,6 +118,12 @@
         GROUP BY aid
     </select>
 
+    <select id="selectRdsByTid" parameterType="String" resultType="Organization">
+        SELECT rds,fmfrequency
+        FROM tb_organization
+        WHERE tid = #{tid}
+    </select>
+
     <insert id="insertOrganization" parameterType="Organization">
         insert into tb_organization
         <trim prefix="(" suffix=")" suffixOverrides=",">

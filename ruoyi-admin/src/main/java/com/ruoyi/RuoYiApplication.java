@@ -1,7 +1,10 @@
 package com.ruoyi;
 
 
+import com.ruoyi.broadserver.global.GlobalInfo;
+import com.ruoyi.broadserver.server.MinaCastThread;
 import com.ruoyi.server.CheckServer;
+import org.apache.mina.core.service.IoAcceptor;
 import org.mybatis.spring.annotation.MapperScan;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.Bean;
 
 import java.net.InetSocketAddress;
 
@@ -29,6 +33,7 @@ public class RuoYiApplication implements CommandLineRunner {
     public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(RuoYiApplication.class, args);
+
     }
 
     @Override

@@ -1,0 +1,60 @@
+package com.ruoyi.broadserver.server.handle.impl;
+
+import java.util.Date;
+
+import com.ruoyi.broad.utils.bConvert;
+import com.ruoyi.broadserver.global.ProtocolsToClient;
+import com.ruoyi.broadserver.server.handle.DefaultCommand;
+import org.apache.mina.core.session.IoSession;
+
+
+//终端经纬度信息
+public class ReadGPS extends DefaultCommand {
+    //private ClientManager clientservice = (ClientService) SpringContextUtils.getBeanByClass(ClientService.class);
+
+	public ReadGPS(IoSession session, byte[] content) {
+		super(session, content);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public byte[] execute() {
+		// TODO Auto-generated method stub
+		byte[] data = bConvert.subBytes(content, 5, 21);
+		String info = new String(data);
+		String[] infos = info.split(",");
+
+		String command = save(infos)?"1":"0";//保存信息
+		
+		datainfo = info;
+		loggersession();//插入日志
+		
+		return returnBytes(ProtocolsToClient.POSITION, command, null);
+	}
+
+	@Override
+	public boolean save(Object obj) {
+		// TODO Auto-generated method stub
+		String[] datas = (String[]) obj;
+		/*try {
+			Client client = new Client();
+			client.setLongitude(datas[0]);
+			client.setLatitude(datas[1]);
+			client.setIsregister(true);
+			client.setIMEI((String)session.getAttribute(MinaCastHandler.CLIENTINFO));
+			client.setFinallogindate(new Date());
+			clientservice.updateClient(client);
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+		}*/
+		return false;
+	}
+
+	@Override
+	public Object get(Object obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

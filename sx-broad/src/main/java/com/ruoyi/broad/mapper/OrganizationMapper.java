@@ -16,7 +16,7 @@ public interface OrganizationMapper
 	/**
 	 * 查询终端地域信息
 	 *
-	 * @param aid 终端地域ID
+	 *
 	 * @return 终端地域信息
 	 */
 	/*public Organization selectOrganizationById(String aid);*/
@@ -121,4 +121,7 @@ public interface OrganizationMapper
 
 //	通过 aid 查询所有终端
 	public List<Organization> listOrgByAid(@Param("list")List<String> aid);
+
+	//	通过 tid 查询对应终端的RDS码
+	public Organization selectRdsByTid(String tid);
 }
