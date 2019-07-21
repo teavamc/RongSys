@@ -36,4 +36,13 @@ public class Prosin {
     {
         return RongApiService.get_list(proSinmanageService.selectProSinmanageList(proSinmanage));
     }
+
+    @GetMapping("/proOne")
+    @CrossOrigin
+    @ApiOperation(value = "查询节目播出单列表")
+    public RongApiRes selectProSinmanagebyoneday()
+    {
+        return RongApiService.get_list(proSinmanageService.selectProSinmanagebyoneday());
+    }
+
 }
