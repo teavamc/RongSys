@@ -443,6 +443,7 @@
             		shade: 0.3,
             		title: $.table._option.modalName + "详细",
             		content: _url,
+
             		btn: '关闭',
             	    // 弹层外区域关闭
             		shadeClose: true,

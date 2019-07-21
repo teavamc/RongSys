@@ -35,7 +35,7 @@ public interface MaintainMapper
      *
      * @return 结果
      */
-	public int insertMaintain(@Param("tid") String tid,@Param("fault") String fault,@Param("mstaff") String mstaff,@Param("remark") String remark);
+	public int insertMaintain(Maintain maintain);
 	
 	/**
      * 修改终端维护记录
