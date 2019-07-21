@@ -34,7 +34,7 @@ public interface IMaintainService
      *
      * @return 结果
      */
-	public int insertMaintain(String tid,String fault,String mstaff,String remark);
+	public int insertMaintain(Maintain maintain);
 	
 	/**
      * 修改终端维护记录

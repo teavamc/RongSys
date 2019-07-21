@@ -107,22 +107,22 @@
                     title : '提交时间',
                     sortable: true
                 },
-                {
-                    field : 'status',
-                    title : '状态',
-                    sortable: true,
-                    align: 'center',
-                    formatter: function (value,row,index) {
-                        var action = [];
-                        if(value == 1){
-                            action.push('<a class="btn btn-xs btn-success" >已维护</a>');
-                            return action;
-                        }else if(value == 0){
-                            action.push('<a class="btn btn-xs btn-success" >未维护</a>');
-                            return action;
-                        }
-                    }
-                },
+//                {
+//                    field : 'status',
+//                    title : '状态',
+//                    sortable: true,
+//                    align: 'center',
+//                    formatter: function (value,row,index) {
+//                        var action = [];
+//                        if(value == 1){
+//                            action.push('<a class="btn btn-xs btn-success" >已维护</a>');
+//                            return action;
+//                        }else if(value == 0){
+//                            action.push('<a class="btn btn-xs btn-success" >未维护</a>');
+//                            return action;
+//                        }
+//                    }
+//                },
                 {
                     field : 'remark',
                     title : '故障原因',

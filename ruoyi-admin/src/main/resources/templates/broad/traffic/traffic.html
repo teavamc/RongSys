@@ -108,7 +108,7 @@
 					},
 					{
 						field : 'uname',
-						title : '所属用户',
+						title : '所属子分组',
 						sortable: true
 					},
 				{
@@ -122,11 +122,14 @@
 					sortable: true
 				},
 				{
-					field: 'status',
+					field: 'trafficlimit',
 					title: '状态',
 					align: 'center',
 					formatter: function(value, row, index) {
-						return $.table.selectDictLabel(datas, value);
+                        if (value > 0)
+                            return '<a class="btn btn-xs btn-primary" >正常</a>';
+                        else
+                            return '<a class="btn btn-xs btn-danger" >超量</a>';
 					}
 				},
 				{
@@ -134,15 +137,17 @@
 					title : '流量统计时间',
 					sortable: true
 				},
-				{
-					field : 'isuse',
-					title : '启用状态',
-					sortable: true,
-					formatter: function(value, row, index) {
-						return $.table.selectDictLabel(data2s, value);
-					}
-
-				}
+                    {
+                        field: 'trafficlimit',
+                        title: '启用状态',
+                        sortable: true,
+                        formatter: function (value, row, index) {
+                            if (value > 0)
+                                return '<a class="btn btn-xs btn-primary" >启用</a>';
+                            else
+                                return '<a class="btn btn-xs btn-danger" >停用</a>';
+                        }
+                    }
 //		        {
 //		            title: '操作',
 //		            align: 'center',
@@ -179,7 +184,7 @@
 			}
 			$.modal.confirm("确认要更加选中的" + rows.length + "条数据的终端启用吗?", function() {
 				var url = $.table._option.fmfrequencyUrl;
-				var fmfrequencyNumber = document.getElementById("fmfrequencyNum").value;
+				var fmfrequencyNumber = document.getElementById("#fmfrequencyNum").value;
 				var data = {"ids": rows.join(),"number": fmfrequencyNumber};
 				$.operate.submit(url, "post", "json", data);
 			});

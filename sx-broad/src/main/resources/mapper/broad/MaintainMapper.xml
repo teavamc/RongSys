@@ -27,7 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <sql id="selectMaintainVo">
     select
     tmid,
-    tm.tid as tid,
+    tm.tid,
     fault,
     mstaff,
     tm.remark as remark,
@@ -51,11 +51,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectMaintainList" parameterType="Maintain" resultMap="MaintainResult">
         <include refid="selectMaintainVo"/>
         <where>
-             <if test="tid != null  and tid != '' "> and tid like '%${tid}%'</if>
-             <if test="tname != null  and tname != '' "> and tname like '%${tname}%'</if>
-             <if test="aname != null  and aname != '' "> and aname like '%${aname}%'</if>
-             <if test="fault != null  and fault != '' "> and fault like '%${fault}%'</if>
-             <if test="aid != null  and aid != ''  ">and t.aid = #{aid}</if>
+            <if test="tid != null  and tid != '' ">and tm.tid like CONCAT('%',#{tid},'%')</if>
+            <if test="tname != null  and tname != '' ">and tname like CONCAT('%',#{tname},'%')</if>
+            <if test="aname != null  and aname != '' ">and aname like CONCAT('%',#{aname},'%')</if>
+            <if test="uname != null  and uname != '' ">and uname like CONCAT('%',#{uname},'%')</if>
+            <if test="phone != null  and phone != '' ">and phone like CONCAT('%',#{phone},'%')</if>
+            <if test="mstaff != null  and mstaff != '' ">and mstaff like CONCAT('%',#{mstaff},'%')</if>
+            <if test="createtime != null  and createtime != '' ">and createtime like CONCAT('%',#{createtime},'%')</if>
+            <if test="fault != null  and fault != '' ">and fault like CONCAT('%',#{fault},'%')</if>
          </where>
         ORDER BY tm.createtime DESC
     </select>
@@ -79,19 +82,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 
         
-    <insert id="insertMaintain" parameterType="String">
+    <insert id="insertMaintain" parameterType="Maintain">
         insert into terminal_maintain
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="tid != null  and tid != ''  ">tid,</if>
 			<if test="fault != null  and fault != ''  ">fault,</if>
 			<if test="mstaff != null  and mstaff != ''  ">mstaff,</if>
 			<if test="remark != null  and remark != ''  ">remark,</if>
+            <if test="createtime != null  and createtime != ''  ">createtime,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="tid != null  and tid != ''  ">#{tid},</if>
 			<if test="fault != null  and fault != ''  ">#{fault},</if>
 			<if test="mstaff != null  and mstaff != ''  ">#{mstaff},</if>
 			<if test="remark != null  and remark != ''  ">#{remark},</if>
+            <if test="createtime != null  and createtime != ''  ">#{createtime},</if>
          </trim>
     </insert>
 	 
@@ -112,7 +117,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 	
     <delete id="deleteMaintainByIds" parameterType="String">
-        delete from terminal_maintain where tmid in 
+        delete from terminal_maintain where tmid in
         <foreach item="tmid" collection="array" open="(" separator="," close=")">
             #{tmid}
         </foreach>
