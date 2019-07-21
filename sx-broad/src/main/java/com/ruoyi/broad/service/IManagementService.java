@@ -1,9 +1,6 @@
 package com.ruoyi.broad.service;
 
-import com.ruoyi.broad.domain.Bindex;
-import com.ruoyi.broad.domain.Management;
-import com.ruoyi.broad.domain.Managementgps;
-import com.ruoyi.broad.domain.Tersga;
+import com.ruoyi.broad.domain.*;
 
 import java.util.List;
 
@@ -60,7 +57,7 @@ public interface IManagementService
 	 * @param
 	 * @return 结果
 	 */
-	public List<Managementgps> selectManagementByRandom();
+	public List<Termap> selectManagementByRandom();
 
 	/**
 	 * 所有数据
@@ -68,7 +65,7 @@ public interface IManagementService
 	 * @param
 	 * @return 结果
 	 */
-	public List<Managementgps> selectManagementAll();
+	public List<Termap> selectManagementAll();
 
 	/**
 	 * 按照终端地址进行运行状态的分组统计
