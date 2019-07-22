@@ -114,4 +114,9 @@ public class ProSinmanageServiceImpl implements IProSinmanageService
 		return proSinmanageMapper.selectProSinmanageListbySfid(sfid);
 	}
 
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<ProSinmanage> selectProSinmanagebyoneday(){
+		return proSinmanageMapper.selectProSinmanagebyoneday();
+	}
 }

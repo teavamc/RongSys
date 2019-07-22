@@ -36,7 +36,7 @@
 		terminals
 	</sql>
     <sql id="areatable">
-		area
+		user.area
 	</sql>
     <sql id="usertable">
 		userinfo
@@ -44,7 +44,9 @@
     <sql id="userinfotable">
 		userinfo
 	</sql>
-
+    <sql id="clienttable">
+		shuofang.client
+	</sql>
     <!-- 查找列表 -->
     <!--<select id="getAllMapInfo" parameterType="String" resultMap="MapResult">
         SELECT DISTINCT tname,m.tid as tid,t.address as address,ui.uname as uname,a.aname,phone,basestation,latitude,longitude,manageruserid,managername,t.isuse as isuse
@@ -73,5 +75,14 @@
             and t.aid = #{_parameter}
         </if>
         limit 500
+    </select>
+
+
+    <select id="getAllMapInfoForIot" parameterType="String" resultMap="MapResult">
+        SELECT DISTINCT c.IMEI as tid,latitude,longitude,c.finallogindate as receivetime,t.isuse as isuse,a.aname as aname,ui.uname as uname,t.address as address,phone
+        from ((((<include refid="clienttable"/> c  JOIN <include refid="tableName"/> m on m.tid=c.IMEI)
+        LEFT JOIN <include refid="terminaltableName"/> t on t.tid= c.IMEI)
+        LEFT JOIN <include refid="areatable"/> a on t.aid= a.aid)
+        LEFT JOIN <include refid="usertable"/> ui on t.userid = ui.userid)
     </select>
 </mapper>

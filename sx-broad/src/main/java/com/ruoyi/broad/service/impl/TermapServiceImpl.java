@@ -34,4 +34,10 @@ public class TermapServiceImpl implements ITermapService
 		return menus;
 	}
 
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<Termap> getAllMapInfoForIot()
+	{
+		return termapMapper.getAllMapInfoForIot();
+	}
 }
