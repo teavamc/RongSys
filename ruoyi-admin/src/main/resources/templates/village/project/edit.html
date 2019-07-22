@@ -40,12 +40,15 @@
 					<input id="money" name="money" th:field="*{money}" class="form-control" type="text">
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">开支明细：</label>
-				<div class="col-sm-8">
-					<input id="moneynote" name="moneynote" th:field="*{moneynote}" class="form-control" type="text">
-				</div>
-			</div>
+
+            <input id="moneynote" name="moneynote" th:field="*{moneynote}" class="form-control" type="hidden">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">开支明细：</label>
+                <div class="col-sm-8">
+                    <textarea id="bbb" name="bbb"  autofocus></textarea>
+                </div>
+            </div>
+
 
 			<!--②使用input去接收数据，textare去作为文本输入框-->
 			<input id="content" name="content" th:field="*{content}" class="form-control" type="hidden">
@@ -120,7 +123,17 @@
 			proinfo =$("#content").val();//将后台返回的content字段的值提取出来
 			//alert(proinfo);
 			editor.setValue(proinfo);//赋值给UEditor
-		});
+        });
+            var editor2 = new Simditor({
+                placeholder: "输入项目内容", // 编辑器默认值（默认为’’）
+                toolbar: [
+                    'title', 'bold', 'italic', 'underline',
+                    'color', '|', 'ol', 'ul', 'table'
+                ],
+                textarea: '#bbb',
+            });
+            proinfo2 =$("#moneynote").val();//将后台返回的content字段的值提取出来
+            editor2.setValue(proinfo2);//赋值给UEditor
 	</script>
 	<script type="text/javascript">
 		var prefix = ctx + "village/project"
@@ -136,6 +149,11 @@
 			proinfo =$("#aaa").val();//获取当前编辑后的文本框的值
 			//alert(proinfo);
 			$("#content").val(proinfo);//将获得文本框的值传给content字段
+
+            proinfo2 =$("#bbb").val();//获取当前编辑后的文本框的值
+            //alert(proinfo);
+            $("#moneynote").val(proinfo2);//将获得文本框的值传给content字段
+
 			if ($.validate.form()) {
 				$.operate.save(prefix + "/edit", $('#form-project-edit').serialize());
 			}
