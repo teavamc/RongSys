@@ -57,9 +57,9 @@ public class MaintainServiceImpl implements IMaintainService
      */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public int insertMaintain(String tid,String fault,String mstaff,String remark)
+	public int insertMaintain(Maintain maintain)
 	{
-	    return maintainMapper.insertMaintain(tid,fault,mstaff,remark);
+	    return maintainMapper.insertMaintain(maintain);
 	}
 	
 	/**

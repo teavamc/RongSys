@@ -4,10 +4,9 @@ package com.ruoyi.api.controller.village;
 import com.ruoyi.api.domain.RongApiRes;
 import com.ruoyi.api.service.RongApiService;
 import com.ruoyi.common.utils.PageData;
-import com.ruoyi.village.domain.Mcount;
-import com.ruoyi.village.domain.Pmcount;
-import com.ruoyi.village.service.IMemberService;
-import com.ruoyi.village.service.IPartymemberService;
+import com.ruoyi.village.domain.*;
+
+import com.ruoyi.village.service.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,14 @@ public class Vcount {
     private IPartymemberService partymemberService;
     @Autowired
     private IMemberService memberService;
-
+    @Autowired
+    private IForestlandInfoService forestlandInfoService;
+    @Autowired
+    private IPlowlandInfoService plowlandInfoService;
+    @Autowired
+    private IAssetAssessmentService assetAssessmentService;
+    @Autowired
+    private IVillagegroupStatisticsInfoService villagegroupStatisticsInfoService;
     /**
         * 党员统计数据api
         * @author 张超 teavamc
@@ -175,6 +181,41 @@ public class Vcount {
         return RongApiService.get_list(memberService.groupAreaCountPM());
     }
 
+
+    @GetMapping("/g_fLand")
+    @CrossOrigin
+    @ApiOperation(value = "按照地区类型返回林地列表")
+    public RongApiRes selectForestlandInfoList(ForestlandInfo forestlandInfo){
+        return RongApiService.get_list(forestlandInfoService.selectForestlandInfoList(forestlandInfo));
+    }
+
+    @GetMapping("/g_pLand")
+    @CrossOrigin
+    @ApiOperation(value = "按照地区类型返回耕地列表")
+    public RongApiRes selectPlowlandInfoList(PlowlandInfo plowlandInfo){
+        return RongApiService.get_list(plowlandInfoService.selectPlowlandInfoList(plowlandInfo));
+    }
+
+    @GetMapping("/g_asset")
+    @CrossOrigin
+    @ApiOperation(value = "按照地区类型返回资产清查")
+    public RongApiRes selectAssetAssessmentList(AssetAssessment assetAssessment){
+        return RongApiService.get_list(assetAssessmentService.selectAssetAssessmentList(assetAssessment));
+    }
+
+    @GetMapping("/g_viiGroup")
+    @CrossOrigin
+    @ApiOperation(value = "按照地区类型返回村组列表")
+    public RongApiRes selectVillagegroupStatisticsInfoList(VillagegroupStatisticsInfo villagegroupStatisticsInfo){
+        return RongApiService.get_list(villagegroupStatisticsInfoService.selectVillagegroupStatisticsInfoList(villagegroupStatisticsInfo));
+    }
+
+    @GetMapping("/g_edulevel")
+    @CrossOrigin
+    @ApiOperation(value = "统计村民和党员总数/男/女")
+    public RongApiRes countbyedulevel(){
+        return RongApiService.get_list(partymemberService.countbyedulevel());
+    }
 //    报错：类转换错误
 //    java.lang.ClassCastException: java.util.HashMap cannot be cast to com.ruoyi.common.utils.PageData
 //    不知为何PageData实现了Map接口，却无法使用override的get(Object key)和getString(Object key)方法
