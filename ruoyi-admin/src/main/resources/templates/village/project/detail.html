@@ -22,8 +22,8 @@
                     </div>
                     <div class="text-center article-title">
                         <h1 th:text="${listByid.proname}"></h1>
-                        <p>项目地址：[[${listByid.address}]]</p>
-                        <p>投资金额：[[${listByid.money}]]万元 投资明细：[[${listByid.moneynote}]]</p>
+                        <p>项目地址：[[${listByid.address}]]  投资金额：[[${listByid.money}]]万元</p>
+                        <p>投资明细：</p><p th:utext="${listByid.moneynote}"></p>
                     </div>
                     <p th:utext="${listByid.content}"></p>
                     <!--<img src="C:/Users/fama/upload/img/19201907040522040.png">-->
