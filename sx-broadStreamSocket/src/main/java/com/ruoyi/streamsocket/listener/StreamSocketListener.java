@@ -86,7 +86,7 @@ public class StreamSocketListener implements ServletContextListener {
                 NUMBER_OF_CORES * 2+4, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT,
                 mWorkQueue,mThreadFactory));//创建一个处理IO的线程池
         //初始化组播全局信息
-        MinaCastThread minaCastThread = new MinaCastThread(8600);
+        MinaCastThread minaCastThread = new MinaCastThread(8600,8900);
         minaCastThread.run();
         GlobalInfo.setMinaCastThread(minaCastThread);
         System.out.println("MinaServer is started");

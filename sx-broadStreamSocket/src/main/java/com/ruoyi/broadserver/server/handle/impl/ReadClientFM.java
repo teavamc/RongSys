@@ -19,9 +19,9 @@ public class ReadClientFM  extends DefaultCommand {
 		byte[] data = bConvert.subBytes(content, 5, 25);
 		String info = new String(data);
 		String[] infos = info.split(",");
-		
+
 		String command = save(infos)?"1":"0";//保存信息
-		
+
 		datainfo = info;
 		loggersession();//插入日志
 		

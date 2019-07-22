@@ -1,5 +1,6 @@
 package com.ruoyi.broadserver.server.handle.impl;
 
+import com.ruoyi.broadserver.global.GlobalInfo;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
 import com.ruoyi.broadserver.server.MinaCastHandler;
 import com.ruoyi.broadserver.server.handle.DefaultCommand;
@@ -33,6 +34,7 @@ public class HeartIOT extends DefaultCommand {
 	public boolean save(Object obj) {
 		// TODO Auto-generated method stub
 		session.setAttribute(MinaCastHandler.CLIENTINFO, obj);
+		GlobalInfo.putClientToMap(session);
 		return true;
 	}
 

@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executors;
 
+import com.ruoyi.broadserver.global.GlobalInfo;
+import com.ruoyi.broadserver.server.handle.SimpleCommandFactory;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.filter.executor.ExecutorFilter;
 import org.apache.mina.transport.socket.SocketSessionConfig;
@@ -28,7 +30,8 @@ public class MinaCastThread implements Runnable {
 	private MinaCastHandler mHandler;
 	private NioSocketAcceptor Acceptor;
 	//private NioDatagramAcceptor netheartAcceptor;
-	private Integer port; 
+	private Integer port;
+	private Integer port2 = 0;
 	private String ip = null;
     private static Logger logger = LoggerFactory.getLogger(MinaCastThread.class);
     /**
@@ -50,6 +53,16 @@ public class MinaCastThread implements Runnable {
 		this.port = port;
 		this.ip = ip;
 	}
+	/**
+	 *
+	 * TODO 多端口初始化
+	 * 时间：2019年1月10日
+	 */
+	public MinaCastThread(int loginport,int iotport) {
+		// TODO Auto-generated constructor stub
+		this.port = loginport;
+		this.port2 = iotport;
+	}
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
@@ -61,7 +74,7 @@ public class MinaCastThread implements Runnable {
         Acceptor = new NioSocketAcceptor();
         // 此行代码能让你的程序整体性能提升10倍
         Acceptor.getFilterChain()
-                .addLast("loginIOThreadPool", new ExecutorFilter(Executors.newCachedThreadPool())); 
+                .addLast("loginIOThreadPool", new ExecutorFilter(GlobalInfo.getExecutorService()));
         Acceptor.setReuseAddress(true);//加上这句话，避免重启时提示地址被占用
         // 设置MINA2的IoHandler实现类
         Acceptor.setHandler(mHandler);
@@ -96,15 +109,18 @@ public class MinaCastThread implements Runnable {
         try {
         	if(ip != null) {
         		Acceptor.bind(new InetSocketAddress(ip,port));
-        	}else {
+        	}else if(port2 != 0){
         		Acceptor.bind(new InetSocketAddress(port));
-        	}
+				Acceptor.bind(new InetSocketAddress(port2));
+        	}else{
+				Acceptor.bind(new InetSocketAddress(port));
+			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
      
-        logger.info("TCP服务器正在端口 "+port+" 上监听中...");
+        logger.info("TCP服务器正在端口 "+port+(port2 == 0 ? "":(","+port2))+" 上监听中...");
         if(ip != null) {
         	logger.info("TCP服务器监听IP为 "+ip);
         }
