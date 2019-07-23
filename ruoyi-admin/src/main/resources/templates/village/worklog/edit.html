@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-worklog-edit" th:object="${worklog}">
+            <input id="wid" name="wid" th:field="*{wid}"  type="hidden">
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">标题：</label>
+				<div class="col-sm-8">
+					<input id="wtitle" name="wtitle" th:field="*{wtitle}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">文件路径：</label>
+				<div class="col-sm-8">
+					<input id="wpic" name="wpic" th:field="*{wpic}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">类别：</label>
+				<div class="col-sm-8">
+					<input id="wtype" name="wtype" th:field="*{wtype}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">内容：</label>
+				<div class="col-sm-8">
+					<input id="content" name="content" th:field="*{content}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">负责人姓名：</label>
+				<div class="col-sm-8">
+					<input id="wname" name="wname" th:field="*{wname}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">负责人手机号：</label>
+				<div class="col-sm-8">
+					<input id="wphone" name="wphone" th:field="*{wphone}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发布人编号：</label>
+				<div class="col-sm-8">
+					<input id="uid" name="uid" th:field="*{uid}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">点击数：</label>
+				<div class="col-sm-8">
+					<input id="greadtotal" name="greadtotal" th:field="*{greadtotal}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发布日期：</label>
+				<div class="col-sm-8">
+					<input id="pushdate" name="pushdate" th:field="*{pushdate}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">发布人姓名：</label>
+				<div class="col-sm-8">
+					<input id="uname" name="uname" th:field="*{uname}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">是否有效：</label>
+				<div class="col-sm-8">
+					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">用户所属地区村社区 aid：</label>
+				<div class="col-sm-8">
+					<input id="aid" name="aid" th:field="*{aid}" class="form-control" type="text">
+				</div>
+			</div>
+			<div class="form-group">	
+				<label class="col-sm-3 control-label">工作进度“0”为未完成，“1”为已完成：</label>
+				<div class="col-sm-8">
+					<input id="ptype" name="ptype" th:field="*{ptype}" class="form-control" type="text">
+				</div>
+			</div>
+		</form>
+    </div>
+    <div th:include="include::footer"></div>
+    <script type="text/javascript">
+		var prefix = ctx + "village/worklog"
+		$("#form-worklog-edit").validate({
+			rules:{
+				xxxx:{
+					required:true,
+				},
+			}
+		});
+		
+		function submitHandler() {
+	        if ($.validate.form()) {
+	            $.operate.save(prefix + "/edit", $('#form-worklog-edit').serialize());
+	        }
+	    }
+	</script>
+</body>
+</html>

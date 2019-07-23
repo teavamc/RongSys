@@ -217,7 +217,7 @@
 				},
 				fname: {
 					required: true,
-					minlength: 3
+					minlength: 2
 				}
 			},
 			messages: {
@@ -243,7 +243,7 @@
 				},
 				fname: {
 					required: "请输入负责人姓名",
-					minlength: "负责人姓名不能小于3个字符"
+					minlength: "负责人姓名不能小于2个字符"
 				}
 			}
 		})
@@ -251,7 +251,7 @@
 </script>
 
 <script>
-	$(document).ready(function(){var editor2 = new Simditor({placeholder: "输入开支明细", toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#moneynote',});Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
+	$(document).ready(function(){var editor = new Simditor({placeholder: "输入开支明细", toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#moneynote',});Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
 </script>
 <script>
     var editor2 = new Simditor({placeholder: "输入项目内容", toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#content',});
