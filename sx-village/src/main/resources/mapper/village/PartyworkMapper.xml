@@ -14,12 +14,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="admin"    column="admin"    />
         <result property="note"    column="note"    />
         <result property="adddate"    column="adddate"    />
+        <result property="phone"    column="phone"    />
         <result property="aid"    column="aid"    />
         <result property="remark"    column="remark"    />
     </resultMap>
 	
 	<sql id="selectPartyworkVo">
-        select id, grouptype, uname, worktime, address, content, admin, note, adddate, aid, remark from tb_partywork
+        select id, grouptype, uname, worktime, address, content, admin, note, adddate,phone, aid, remark from tb_partywork
     </sql>
 
     <select id="selectPartyworkListlimit5" resultMap="PartyworkResult">
