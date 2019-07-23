@@ -198,5 +198,14 @@ public class WorklogController extends BaseController
 	{		
 		return toAjax(worklogService.deleteWorklogByIds(ids));
 	}
-	
+
+	/**
+	 * 打开项目详情页
+	 */
+	@GetMapping("/detail/{wid}")
+	public String detail(@PathVariable("wid")Integer wid,ModelMap mmap)
+	{
+		mmap.put("listByid",worklogService.selectWorklogById(wid));
+		return prefix + "/detail";
+	}
 }

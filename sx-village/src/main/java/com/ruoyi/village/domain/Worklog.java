@@ -44,12 +44,12 @@ public class Worklog extends BaseEntity
 	/** 工作进度“0”为未完成，“1”为已完成 */
 	private Integer ptype;
 
-	public void setWid(Integer wid) 
+	public void setWid(Integer wid)
 	{
 		this.wid = wid;
 	}
 
-	public Integer getWid() 
+	public Integer getWid()
 	{
 		return wid;
 	}
