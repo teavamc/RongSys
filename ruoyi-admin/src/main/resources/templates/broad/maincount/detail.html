@@ -8,7 +8,6 @@
 
     <table class="table table-hover">
         <tr>
-            <th>终端IMEI</th>
             <th>终端名称</th>
             <th>所属分组</th>
             <th>所属子分组</th>
@@ -16,8 +15,7 @@
             <th>维护时间</th>
         </tr>
         <tr  th:each="list : ${listBySjid}">
-            <td th:text="${list.tid}"></td>
-            <td th:text="${list.mstaff}"></td>
+            <td th:text="${list.tname}"></td>
             <td th:text="${list.aname}"></td>
             <td th:text="${list.uname}"></td>
             <td th:text="${list.fault}"></td>
