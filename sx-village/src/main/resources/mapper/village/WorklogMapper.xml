@@ -29,19 +29,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectWorklogVo"/>
         <where>  
             <if test="wid != null "> and wid = #{wid}</if>
-             <if test="wtitle != null  and wtitle != '' "> and wtitle = #{wtitle}</if>
-             <if test="wpic != null  and wpic != '' "> and wpic = #{wpic}</if>
-             <if test="wtype != null  and wtype != '' "> and wtype = #{wtype}</if>
-             <if test="content != null  and content != '' "> and content = #{content}</if>
-             <if test="wname != null  and wname != '' "> and wname = #{wname}</if>
-             <if test="wphone != null  and wphone != '' "> and wphone = #{wphone}</if>
-             <if test="uid != null "> and uid = #{uid}</if>
-             <if test="greadtotal != null "> and greadtotal = #{greadtotal}</if>
-             <if test="pushdate != null "> and pushdate = #{pushdate}</if>
-             <if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-             <if test="remark != null  and remark != '' "> and remark = #{remark}</if>
-             <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
-             <if test="ptype != null "> and ptype = #{ptype}</if>
+             <if test="wtitle != null  and wtitle != '' "> and wtitle LIKE CONCAT(CONCAT('%', #{wtitle}),'%')</if>
+             <if test="wpic != null  and wpic != '' "> and wpic LIKE CONCAT(CONCAT('%', #{wpic}),'%')</if>
+             <if test="wtype != null  and wtype != '' "> and wtype LIKE CONCAT(CONCAT('%', #{wtype}),'%')</if>
+             <if test="content != null  and content != '' "> and content LIKE CONCAT(CONCAT('%', #{content}),'%')</if>
+             <if test="wname != null  and wname != '' "> and wname LIKE CONCAT(CONCAT('%', #{wname}),'%')</if>
+             <if test="wphone != null  and wphone != '' "> and wphone LIKE CONCAT(CONCAT('%', #{wphone}),'%')</if>
+             <if test="uid != null "> and uid LIKE CONCAT(CONCAT('%', #{uid}),'%')</if>
+             <if test="greadtotal != null "> and greadtotal LIKE CONCAT(CONCAT('%', #{greadtotal}),'%')</if>
+             <if test="pushdate != null "> and pushdate LIKE CONCAT(CONCAT('%', #{pushdate}),'%')</if>
+             <if test="uname != null  and uname != '' "> and uname LIKE CONCAT(CONCAT('%', #{uname}),'%')</if>
+             <if test="remark != null  and remark != '' "> and remark LIKE CONCAT(CONCAT('%', #{remark}),'%')</if>
+             <if test="aid != null  and aid != '' "> and aid LIKE CONCAT(CONCAT('%', #{aid}),'%')</if>
+             <if test="ptype != null "> and ptype LIKE CONCAT(CONCAT('%', #{ptype}),'%')</if>
          </where>
     </select>
     

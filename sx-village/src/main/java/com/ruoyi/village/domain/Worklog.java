@@ -34,7 +34,7 @@ public class Worklog extends BaseEntity
 	/** 点击数 */
 	private Integer greadtotal;
 	/** 发布日期 */
-	private Date pushdate;
+	private String pushdate;
 	/** 发布人姓名 */
 	private String uname;
 	/** 是否有效 */
@@ -125,12 +125,12 @@ public class Worklog extends BaseEntity
 	{
 		return greadtotal;
 	}
-	public void setPushdate(Date pushdate) 
+	public void setPushdate(String pushdate)
 	{
 		this.pushdate = pushdate;
 	}
 
-	public Date getPushdate() 
+	public String getPushdate()
 	{
 		return pushdate;
 	}
