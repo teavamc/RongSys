@@ -30,7 +30,7 @@
 				</div>
 			</div>
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">播放时长，只有电台转播有：</label>
+				<label class="col-sm-3 control-label">播放时长</label>
 				<div class="col-sm-8">
 					<input id="broadtime" name="broadtime" class="form-control" type="text">
 				</div>
@@ -56,9 +56,27 @@
 		
 		function submitHandler() {
 	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/add", $('#form-proList-add').serialize());
+
+                var ptp = $("#ptp").val();
+                var fN = $("#fN").val();
+                var fid = $("#fid").val();
+                var bt = $("#bt").val();
+                var broadtime = $("#broadtime").val();
+                var remark = $("#remark").val();
+
+                var info = {
+                    "ptp": ptp,
+                    "fN": fN,
+                    "fid": fid,
+                    "bt": bt,
+                    "broadtime": broadtime,
+                    "remark" : remark
+                }
+
+                $.operate.save(prefix + "/add", info);
 	        }
 	    }
 	</script>
+<script th:
 </body>
 </html>

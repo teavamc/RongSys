@@ -13,7 +13,9 @@ import com.ruoyi.common.base.BaseEntity;
 public class ProreApply extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
-	
+	private String recunit;
+
+
 	/** 节目申请-节目ID */
 	private Integer paid;
 	/** 节目名称 */
@@ -52,6 +54,14 @@ public class ProreApply extends BaseEntity
 	private Boolean listenpass;
 	/** 审听未通过次数 */
 	private Integer nopasstimes;
+
+
+	public String getRecunit() {
+		return recunit;
+	}
+	public void setRecunit(String recunit) {
+		this.recunit = recunit;
+	}
 
 	public void setPaid(Integer paid) 
 	{

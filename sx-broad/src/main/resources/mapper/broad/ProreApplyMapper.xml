@@ -86,15 +86,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         userinfo as u
         <where>
             pa.userid = u.userid
-            <if test="paid != null "> and paid = #{paid}</if>
-            <if test="pname != null  and pname != '' "> and pname = #{pname}</if>
-            <if test="uname != null  and uname != '' "> and uname = #{uname}</if>
-            <if test="userid != null  and userid != '' "> and userid = #{userid}</if>
-            <if test="isemergency != null "> and isemergency = #{isemergency}</if>
-            <if test="timelimit != null  and timelimit != '' "> and timelimit = #{timelimit}</if>
-            <if test="submittime != null  and submittime != '' "> and fileurl = #{submittime}</if>
-            <if test="iscancel != null "> and iscancel = #{iscancel}</if>
-            <if test="isreply != null "> and isreply = #{isreply}</if>
+            <!--<if test="paid != null "> and paid = #{paid}</if>-->
+            <!--<if test="pname != null  and pname != '' "> and pname = #{pname}</if>-->
+            <!--<if test="uname != null  and uname != '' "> and uname = #{uname}</if>-->
+            <!--<if test="userid != null  and userid != '' "> and userid = #{userid}</if>-->
+            <!--<if test="isemergency != null "> and isemergency = #{isemergency}</if>-->
+            <!--<if test="timelimit != null  and timelimit != '' "> and timelimit = #{timelimit}</if>-->
+            <!--<if test="submittime != null  and submittime != '' "> and fileurl = #{submittime}</if>-->
+            <!--<if test="iscancel != null "> and iscancel = #{iscancel}</if>-->
+            <!--<if test="isreply != null "> and isreply = #{isreply}</if>-->
+            <if test="paid != null  and paid != '' ">and paid like CONCAT('%',#{paid},'%')</if>
+            <if test="pname != null  and pname != '' ">and pname like CONCAT('%',#{pname},'%')</if>
+            <if test="uname != null  and uname != '' ">and uname like CONCAT('%',#{uname},'%')</if>
+            <if test="userid != null  and userid != '' ">and userid like CONCAT('%',#{userid},'%')</if>
+            <if test="isemergency != null  and isemergency != '' ">and isemergency like CONCAT('%',#{isemergency},'%')</if>
+            <if test="timelimit != null  and timelimit != '' ">and timelimit like CONCAT('%',#{timelimit},'%')</if>
+            <if test="submittime != null  and submittime != '' ">and submittime like CONCAT('%',#{submittime},'%')</if>
+            <if test="iscancel != null  and iscancel != '' ">and iscancel like CONCAT('%',#{iscancel},'%')</if>
+            <if test="isreply != null  and isreply != '' ">and isreply like CONCAT('%',#{isreply},'%')</if>
         </where>
         order by
         pa.submittime
@@ -114,7 +123,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="pname != null  and pname != ''  ">pname,</if>
 			<if test="userid != null  and userid != ''  ">userid,</if>
 			<if test="requires != null  and requires != ''  ">requires,</if>
-			<if test="isemergency != null  ">isemergency,</if>
+            <if test="requires != null  and requires != ''  ">recunit,</if>
+            <if test="isemergency != null  ">isemergency,</if>
 			<if test="timelimit != null  and timelimit != ''  ">timelimit,</if>
 			<if test="filename != null  and filename != ''  ">filename,</if>
 			<if test="fileurl != null  and fileurl != ''  ">fileurl,</if>
@@ -135,6 +145,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="pname != null  and pname != ''  ">#{pname},</if>
 			<if test="userid != null  and userid != ''  ">#{userid},</if>
 			<if test="requires != null  and requires != ''  ">#{requires},</if>
+            <if test="requires != null  and requires != ''  ">#{recunit},</if>
 			<if test="isemergency != null  ">#{isemergency},</if>
 			<if test="timelimit != null  and timelimit != ''  ">#{timelimit},</if>
 			<if test="filename != null  and filename != ''  ">#{filename},</if>
