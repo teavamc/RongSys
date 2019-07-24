@@ -17,7 +17,7 @@
                 <div class="select-list">
                     <ul>
                         <li>
-                            维护ID：<input type="text" name="maid"/>
+                            维护ID：<input type="text" name="maid" id="maid"/>
                         </li>
 
                         <li>
@@ -52,6 +52,20 @@
                 </div>
             </form>
         </div>
+        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+            <a class="btn btn-success" onclick="$.operate.add()">
+                <i class="fa fa-plus"></i> 添加
+            </a>
+            <!--&lt;!&ndash;<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:maintain:edit">&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="fa fa-edit"></i> 修改&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="broad:maintain:remove">&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="fa fa-remove"></i> 删除&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+            <!--&lt;!&ndash;<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:maintain:export">&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="fa fa-download"></i> 导出&ndash;&gt;-->
+            <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        </div>
 
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table" data-mobile-responsive="true"></table>
@@ -70,9 +84,18 @@
         queryAreaList();
     });
 
+    String.prototype.trim=function(){
+        return this.replace(/(^\s*)|(\s*$)/g, "");
+    }
+    $("#maid").change(function(){
+        $(this).val($(this).val().trim());
+    });
+
     function queryAreaList() {
         var options = {
             url: prefix + "/list",
+            createUrl: prefix + "/add",
+            deleteUrl: prefix + "/delete",
             modalName: "申请维护记录",
             search: false,
             showExport: true,
@@ -132,47 +155,8 @@
         };
         $.table.init(options);
     }
-
 </script>
 <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
 <script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
-<script>
-    laydate({
-        elem:"#recivedtime",
-        event:"focus"
-    });
-    laydate({
-        elem:"#recivedtime",
-        event:"focus"
-    });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem:"#broad",
-            type: 'time',
-        });
-    });
-</script>
-<script>
-    laydate({
-        elem:"#endtime",
-        event:"focus"
-    });
-    laydate({
-        elem:"#endtime",
-        event:"focus"
-    });
-    layui.use('laydate', function(){
-        var laydate2 = layui.laydate;
-
-        //执行一个laydate实例
-        laydate2.render({
-            elem:"#broad",
-            type: 'time',
-        });
-    });
-</script>
 </body>
 </html>

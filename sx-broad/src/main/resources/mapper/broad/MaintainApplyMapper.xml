@@ -13,6 +13,7 @@
         <result property="applytime" column="applytime"/>
         <result property="status" column="status"/>
         <result property="remark" column="remark"/>
+        <result property="userid" column="userid"/>
     </resultMap>
 
     <sql id="selectMaintainApplyCX">
@@ -64,4 +65,33 @@
             LEFT JOIN area a on a.aid = ui.aid) on ui.user_id = ma.userid
             ORDER BY downtime DESC
     </select>
+    <delete id="deleteMaintainApplyById" parameterType="integer">
+        delete from maintain_apply where maid = {maid}
+    </delete>
+    
+    <insert id="insertMaintainApply" parameterType="MaintainApply">
+        insert into maintain_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teraddress != null  and teraddress != '' ">teraddress,</if>
+            <if test="maid != null  and maid != '' ">maid,</if>
+            <if test="linkman != null  and linkman != '' ">linkman,</if>
+            <if test="linkphone != null  and linkphone != '' ">linkphone,</if>
+            <if test="downtime != null  and downtime != '' ">downtime,</if>
+            <if test="applytime != null  and applytime != '' ">applytime,</if>
+            <if test="status != null  and status != '' ">status,</if>
+            <if test="remark != null  and remark != '' ">remark,</if>
+            <if test="uid != null  and uid != '' ">uid</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teraddress != null  and teraddress != '' ">#{teraddress},</if>
+            <if test="maid != null  and maid != '' ">#{maid},</if>
+            <if test="linkman != null  and linkman != '' ">#{linkman},</if>
+            <if test="linkphone != null  and linkphone != '' ">#{linkphone},</if>
+            <if test="downtime != null  and downtime != '' ">#{downtime},</if>
+            <if test="applytime != null  and applytime != '' ">#{applytime},</if>
+            <if test="status != null  and status != '' ">#{status},</if>
+            <if test="remark != null  and remark != '' ">#{remark},</if>
+            <if test="uid != null  and uid != '' ">#{uid}</if>
+        </trim>
+    </insert>
 </mapper>

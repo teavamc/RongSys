@@ -9,6 +9,7 @@ import com.ruoyi.common.base.BaseEntity;
 public class MaintainApply extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+
     /* 维护编号*/
     private String maid;
     /*终端编号*/

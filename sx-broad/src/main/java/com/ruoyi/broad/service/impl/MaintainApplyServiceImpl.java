@@ -36,4 +36,12 @@ public class MaintainApplyServiceImpl implements IMaintainApplyService {
     public List<MaintainApply> selectAllMaintainApply(){
         return maintainApplyMapper.selectAllMaintainApply();
     }
+
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public int deleteMaintainApplyById(String maid){return maintainApplyMapper.deleteMaintainApplyById(maid);}
+
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public int insertMaintainApply(MaintainApply maintainApply){return maintainApplyMapper.insertMaintainApply(maintainApply);}
 }
