@@ -43,6 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
              <if test="aid != null  and aid != '' "> and aid LIKE CONCAT(CONCAT('%', #{aid}),'%')</if>
              <if test="ptype != null "> and ptype LIKE CONCAT(CONCAT('%', #{ptype}),'%')</if>
          </where>
+        ORDER BY pushdate DESC
     </select>
     
     <select id="selectWorklogById" parameterType="Integer" resultMap="WorklogResult">
