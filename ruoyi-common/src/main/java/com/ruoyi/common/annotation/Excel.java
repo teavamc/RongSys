@@ -17,7 +17,7 @@ public @interface Excel
     /**
      * 导出到Excel中的名字.
      */
-    public String name();
+    public String name() default "";
 
     /**
      * 日期格式, 如: yyyy-MM-dd
@@ -37,7 +37,7 @@ public @interface Excel
     /**
      * 导出时在excel中每个列的宽 单位为字符
      */
-    public double width() default 20;
+    public double width() default 16;
 
     /**
      * 文字后缀,如% 90 变成90%
@@ -63,4 +63,30 @@ public @interface Excel
      * 是否导出数据,应对需求:有时我们需要导出一份模板,这是标题需要但内容需要用户手工填写.
      */
     public boolean isExport() default true;
+
+    /**
+     * 另一个类中的属性名称,支持多级获取,以小数点隔开
+     */
+    public String targetAttr() default "";
+
+    /**
+     * 字段类型（0：导出导入；1：仅导出；2：仅导入）
+     */
+    Type type() default Type.ALL;
+
+    public enum Type
+    {
+        ALL(0), EXPORT(1), IMPORT(2);
+        private final int value;
+
+        Type(int value)
+        {
+            this.value = value;
+        }
+
+        public int value()
+        {
+            return this.value;
+        }
+    }
 }
