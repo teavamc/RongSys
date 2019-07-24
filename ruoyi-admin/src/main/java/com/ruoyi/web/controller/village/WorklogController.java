@@ -132,10 +132,6 @@ public class WorklogController extends BaseController
 	@Log(title = "工作记录", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(Worklog worklog)
-	{		
-		return toAjax(worklogService.insertWorklog(worklog));
-	}
 	/*这里加入Project project是为了获得html页面form返回来的数据*/
 	public AjaxResult addSave(Worklog worklog, @RequestParam(value = "files") MultipartFile file,
 							  @RequestParam(value = "filename", required = false) String fname,
