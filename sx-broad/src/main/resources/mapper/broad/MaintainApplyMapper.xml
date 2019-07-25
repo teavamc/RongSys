@@ -63,10 +63,13 @@
             FROM maintain_apply ma
             LEFT JOIN (userinfo ui
             LEFT JOIN area a on a.aid = ui.aid) on ui.user_id = ma.userid
-            ORDER BY downtime DESC
+            ORDER BY maid DESC
     </select>
-    <delete id="deleteMaintainApplyById" parameterType="integer">
-        delete from maintain_apply where maid = {maid}
+    <delete id="deleteMaintainApplyById" parameterType="String">
+        delete from maintain_apply where maid in
+        <foreach item="maid" collection="array" open="(" separator="," close=")">
+            #{maid}
+        </foreach>
     </delete>
     
     <insert id="insertMaintainApply" parameterType="MaintainApply">

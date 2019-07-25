@@ -78,7 +78,7 @@
 <script th:inline="javascript">
 
     var prefix = ctx + "broad/maintainApply";
-
+    var removeFlag = [[${@permission.hasPermi('broad:maintainApply:remove')}]];
     $(function() {
         $('body').layout({ west__size: 185 });
         queryAreaList();
@@ -95,14 +95,14 @@
         var options = {
             url: prefix + "/list",
             createUrl: prefix + "/add",
-            deleteUrl: prefix + "/delete",
+            removeUrl: prefix + "/remove",
             modalName: "申请维护记录",
             search: false,
             showExport: true,
             columns: [
                 {
                     field : 'maid',
-                    title : '维护ID',
+                    title : '序号',
                     sortable: true
                 },
                 {
@@ -130,6 +130,8 @@
                     title : '提交时间',
                     sortable: true
                 },
+
+
 //                {
 //                    field : 'status',
 //                    title : '状态',
@@ -150,13 +152,59 @@
                     field : 'remark',
                     title : '故障原因',
                     sortable: true
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.maid + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
                 }
-          ]
+                }]
         };
         $.table.init(options);
     }
 </script>
 <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
 <script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<script>
+    laydate({
+        elem:"#recivedtime",
+        event:"focus"
+    });
+    laydate({
+        elem:"#recivedtime",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
+<script>
+    laydate({
+        elem:"#endtime",
+        event:"focus"
+    });
+    laydate({
+        elem:"#endtime",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate2 = layui.laydate;
+
+        //执行一个laydate实例
+        laydate2.render({
+            elem:"#broad",
+            type: 'time',
+        });
+    });
+</script>
 </body>
 </html>

@@ -2,61 +2,65 @@
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header">
-    <!--<meta charset="utf-8">-->
-    <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-    <!--<link rel="shortcut icon" href="favicon.ico"> <link href="../static/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">-->
-    <!--<link href="../static/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">-->
-    <!--<link href="../static/css/animate.min.css" rel="stylesheet">-->
-    <!--<link rel="stylesheet" type="text/css" href="../static/css/plugins/simditor/simditor.css" />-->
-    <!--<link href="../static/css/style.min862f.css?v=4.1.0" rel="stylesheet">-->
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
     <form class="form-horizontal m" id="form-maintainApply-add">
         <div class="form-group">
-            <label class="col-sm-3 control-label">终端编号：</label>
+            <label class="col-sm-3 control-label">序号：</label>
             <div class="col-sm-8">
-                <input id="maid" name="maid" class="form-control" type="text">
+                <input id="maid" name="maid" class="form-control" type="text" placeholder="请输入序号(可不填)">
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-3 control-label">终端地址：</label>
+            <label class="col-sm-3 control-label">终端安装地点：</label>
             <div class="col-sm-8">
-                <input id="teraddress" name="teraddress" class="form-control" type="text">
+                <input id="teraddress" name="teraddress" class="form-control" type="text" placeholder="请输入终端安装地点">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-3 control-label">联系人：</label>
             <div class="col-sm-8">
-                <input id="linkman" name="linkman" class="form-control" type="text">
+                <input id="linkman" name="linkman" th:value="*{username}" class="form-control" type="text" placeholder="请输入联系人姓名">
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-3 control-label">联系电话：</label>
             <div class="col-sm-8">
-                <input id="linkphone" name="linkphone" class="form-control" type="text">
+                <input id="linkphone" name="linkphone" th:value="*{userphone}" class="form-control" type="text" placeholder="请输入联系电话">
             </div>
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label">应用时间：</label>
+            <label class="col-sm-3 control-label">故障时间：</label>
+            <div class="col-sm-8">
+                <input id="downtime" name="downtime" class="form-control" type="text" placeholder="请输入故障时间">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">提交时间：</label>
             <div class="col-sm-8">
                 <input id="applytime" name="applytime" class="form-control" type="text">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">故障原因：</label>
+            <div class="col-sm-8">
+                <input id="remark" name="remark" class="form-control" placeholder="请输入故障原因" >
             </div>
         </div>
     </form>
 </div>
 <div th:include="include::footer"></div>
-<!--<script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>-->
-<!--<script src="../static/js/jquery.min.js?v=2.1.4"></script>-->
-<!--<script src="../static/js/bootstrap.min.js?v=3.3.6"></script>-->
-<!--<script src="../static/js/content.min.js?v=1.0.0"></script>-->
-<!--<script type="text/javascript" src="../static/js/plugins/simditor/module.js"></script>-->
-<!--<script type="text/javascript" src="../static/js/plugins/simditor/uploader.js"></script>-->
-<!--<script type="text/javascript" src="../static/js/plugins/simditor/hotkeys.js"></script>-->
-<!--<script type="text/javascript" src="../static/js/plugins/simditor/simditor.js"></script>-->
+
+<!--<script>-->
+    <!--$(document).ready(function(){var editor = new Simditor({placeholder: "请输入故障原因", toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#remark',});Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});-->
+<!--</script>-->
+<script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
+<script th:src="@{/js/jquery-form.js}"></script>
 <script type="text/javascript">
     var prefix = ctx + "broad/maintainApply"
     $("#form-maintainApply-add").validate({
@@ -66,6 +70,43 @@
             },
         }
     });
+    function CurrentTime()
+    {
+        var now = new Date();
+
+        var year = now.getFullYear();       //年
+        var month = now.getMonth() + 1;     //月
+        var day = now.getDate();            //日
+
+        var hh = now.getHours();            //时
+        var mm = now.getMinutes();          //分
+        var ss = now.getSeconds();           //秒
+
+        var clock = year + "-";
+
+        if(month < 10)
+            clock += "0";
+
+        clock += month + "-";
+
+        if(day < 10)
+            clock += "0";
+
+        clock += day + " ";
+
+        if(hh < 10)
+            clock += "0";
+
+        clock += hh + ":";
+        if (mm < 10) clock += '0';
+        clock += mm + ":";
+
+        if (ss < 10) clock += '0';
+        clock += ss;
+
+        $("#applytime").val(clock);
+    }
+    CurrentTime(); //调用函数显示时间
 
     function submitHandler() {
 //        var userid = $("#userid").val();
@@ -89,15 +130,22 @@
         }
     }
 </script>
-
-<!--<script th:inline="javascript">-->
-    <!--$(function () {-->
-        <!--$('body').layout({west__size: 185});-->
-<!--//		queryAreaTree();-->
-<!--//        submitHandler();-->
-
-    <!--});-->
-<!--</script>-->
-
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<!--时间插件-->
+<script>
+    laydate({
+        elem:"#remark",
+        event:"focus"
+    });
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        laydate.render({
+            elem:"#remark",
+            type: 'time',
+        });
+    });
+</script>
 </body>
 </html>

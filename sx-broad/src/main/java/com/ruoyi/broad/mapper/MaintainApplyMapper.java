@@ -37,7 +37,7 @@ public interface MaintainApplyMapper {
      *
      * @return 申请维护记录信息
      */
-    public int deleteMaintainApplyById(String maid);
+    public int deleteMaintainApplyById(String[] maid);
     /**
      * 插入申请维护记录信息
      *
