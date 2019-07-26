@@ -5,198 +5,317 @@
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-villagerInfo-add">
+			<!--<div class="form-group">-->
+				<!--<label class="col-sm-3 control-label">地域编号：</label>-->
+				<!--<div class="col-sm-8">-->
+					<!--<input id="aid" name="aid" class="form-control" type="text">-->
+				<!--</div>-->
+			<!--</div>-->
+			<input name="aid"  type="hidden" id="aid"/>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">地域编号：</label>
+				<label class="col-sm-3 control-label">区域名称：</label>
 				<div class="col-sm-8">
-					<input id="aid" name="aid" class="form-control" type="text">
+					<input class="form-control" type="text" name="aidName" onclick="selectAidTree()" readonly="true" id="aidName">
 				</div>
 			</div>
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">村民姓名：</label>
+				<label class="col-sm-3 control-label">姓名：</label>
 				<div class="col-sm-8">
-					<input id="vname" name="vname" class="form-control" type="text">
+					<input id="vname" name="vname" class="form-control" type="text" placeholder="请输入姓名">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">年龄：</label>
 				<div class="col-sm-8">
-					<input id="age" name="age" class="form-control" type="text">
+					<input id="age" name="age" class="form-control" type="text" placeholder="请输入年龄">
 				</div>
 			</div>
-			<div class="form-group">	
+			<div class="form-group">
 				<label class="col-sm-3 control-label">性别：</label>
 				<div class="col-sm-8">
-					<input id="sex" name="sex" class="form-control" type="text">
+					<select class="chosen-select form-control" id="sex" name="sex"  type="text">
+						<option value="男">男</option>
+						<option value="女">女</option>
+						<option value="未知">未知</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">籍贯：</label>
 				<div class="col-sm-8">
-					<input id="nativeplace" name="nativeplace" class="form-control" type="text">
+					<input id="nativeplace" name="nativeplace" class="form-control" type="text" placeholder="请输入省份与县（市）">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">户口性质：</label>
+				<div class="col-sm-8">
+					<select class="chosen-select form-control" id="prt" name="prt"  type="text">
+						<option value="城镇户口">城镇户口</option>
+						<option value="农村居民户口">农村居民户口</option>
+						<option value="集体户口">集体户口</option>
+						<option value="农业户口">农业户口</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">户籍地址：</label>
+				<div class="col-sm-8">
+					<input id="pra" name="pra" class="form-control" type="text" placeholder="请填入户籍地址">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">民族：</label>
 				<div class="col-sm-8">
-					<input id="nation" name="nation" class="form-control" type="text">
+                    <input id="nation" name="nation" class="form-control" type="text" placeholder="请填入民族">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">政治面貌：</label>
 				<div class="col-sm-8">
-					<input id="politics" name="politics" class="form-control" type="text">
+					<select class="chosen-select form-control" id="politics" name="politics"  type="text">
+						<option value="群众">群众</option>
+						<option value="中共党员">中共党员</option>
+						<option value="中共预备党员">中共预备党员</option>
+						<option value="共青团员">共青团员</option>
+						<option value="民革党员">民革党员</option>
+						<option value="民盟盟员">民盟盟员</option>
+						<option value="民建会员">民建会员</option>
+						<option value="民进会员">民进会员</option>
+						<option value="台盟盟员">台盟盟员</option>
+						<option value="农工党党员">农工党党员</option>
+						<option value="致公党党员">致公党党员</option>
+						<option value="无党派人士">无党派人士</option>
+						<option value="九三学社社员">九三学社社员</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">入党年月：</label>
+				<label class="col-sm-3 control-label">入党日期：</label>
 				<div class="col-sm-8">
-					<input id="partyjoindate" name="partyjoindate" class="form-control" type="text">
+					<input class="form-control laydate-icon  layer-date"
+						   name="partyjoindate"
+						   id="partyjoindate"
+						   value=""
+						   readonly="readonly"
+						   style="width:120px;"
+						   placeholder="入党日期"
+						   title="入党日期"/>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">文化程度：</label>
 				<div class="col-sm-8">
-					<input id="edulevel" name="edulevel" class="form-control" type="text">
+					<select class="chosen-select form-control" id="edulevel" name="edulevel"  type="text">
+						<option value="本科">本科</option>
+						<option value="研究生">研究生</option>
+						<option value="大专">大专</option>
+						<option value="中专">中专</option>
+						<option value="高中">高中</option>
+						<option value="初中">初中</option>
+						<option value="小学">小学</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">婚姻状况：</label>
 				<div class="col-sm-8">
-					<input id="marital" name="marital" class="form-control" type="text">
+					<select class="chosen-select form-control" id="marital" name="marital"  type="text">
+						<option value="未婚">未婚</option>
+						<option value="已婚">已婚</option>
+						<option value="丧偶">丧偶</option>
+						<option value="离婚">离婚</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">身份证号码：</label>
 				<div class="col-sm-8">
-					<input id="idcard" name="idcard" class="form-control" type="text">
+					<input id="idcard" name="idcard" class="form-control" type="text" placeholder="请输入身份证号码">
 				</div>
 			</div>
 			<div class="form-group">	
-				<label class="col-sm-3 control-label">联系方式：</label>
+				<label class="col-sm-3 control-label">手机号码：</label>
 				<div class="col-sm-8">
-					<input id="phone" name="phone" class="form-control" type="text">
+					<input id="phone" name="phone" class="form-control" type="text" placeholder="请输入手机号码">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">健康状况：</label>
 				<div class="col-sm-8">
-					<input id="health" name="health" class="form-control" type="text">
+					<select class="chosen-select form-control" id="health" name="health"  type="text">
+						<option value="健康">健康</option>
+						<option value="一般">一般</option>
+						<option value="较差">较差</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">特种（残疾）信息：</label>
 				<div class="col-sm-8">
-					<input id="special" name="special" class="form-control" type="text">
+					<input list="special" name="special" class="form-control" type="text" placeholder="请填入疾病情况，若无选择无">
+					<datalist id="special">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">优抚信息：</label>
 				<div class="col-sm-8">
-					<input id="entitle" name="entitle" class="form-control" type="text">
+					<input list="entitle" name="entitle" class="form-control" type="text" placeholder="请填入优抚信息，若无选择无">
+					<datalist id="entitle">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">计生情况：</label>
 				<div class="col-sm-8">
-					<input id="familyplan" name="familyplan" class="form-control" type="text">
+					<input list="familyplan" name="familyplan" class="form-control" type="text" placeholder="请填入计生情况，若无选择无">
+					<datalist id="familyplan">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">医疗情况：</label>
 				<div class="col-sm-8">
-					<input id="medical" name="medical" class="form-control" type="text">
+					<input list="medical" name="medical" class="form-control" type="text" placeholder="请填入医疗情况，若无选择无">
+					<datalist id="medical">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">补助情况：</label>
 				<div class="col-sm-8">
-					<input id="subsidy" name="subsidy" class="form-control" type="text">
+					<input list="subsidy" name="subsidy" class="form-control" type="text" placeholder="请填入补助情况，若无选择无">
+					<datalist id="subsidy">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">保险情况：</label>
 				<div class="col-sm-8">
-					<input id="insurance" name="insurance" class="form-control" type="text">
+					<input list="insurance" name="insurance" class="form-control" type="text" placeholder="请填入保险情况，若无选择无">
+					<datalist id="insurance">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">犯罪史：</label>
 				<div class="col-sm-8">
-					<input id="criminal" name="criminal" class="form-control" type="text">
+					<input list="criminal" name="criminal" class="form-control" type="text" placeholder="请填入犯罪史，若无选择无">
+					<datalist id="criminal">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">吸毒史：</label>
 				<div class="col-sm-8">
-					<input id="drug" name="drug" class="form-control" type="text">
+					<input list="drug" name="drug" class="form-control" type="text" placeholder="请填入吸毒史，若无选择无">
+					<datalist id="drug">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">驾照：</label>
 				<div class="col-sm-8">
-					<input id="drive" name="drive" class="form-control" type="text">
+					<select class="chosen-select form-control" id="drive" name="drive"  type="text">
+						<option value="C1驾驶证">C1驾驶证</option>
+						<option value="C2驾驶证">C2驾驶证</option>
+						<option value="C3驾驶证">C3驾驶证</option>
+						<option value="C4驾驶证">C4驾驶证</option>
+						<option value="A1驾驶证">A1驾驶证</option>
+						<option value="A2驾驶证">A2驾驶证</option>
+						<option value="A3驾驶证">A3驾驶证</option>
+						<option value="B1驾驶证">B1驾驶证</option>
+						<option value="B2驾驶证">B2驾驶证</option>
+						<option value="D型驾驶证">D型驾驶证</option>
+						<option value="E型驾驶证">E型驾驶证</option>
+						<option value="F型驾驶证">F型驾驶证</option>
+						<option value="M型驾驶证">M型驾驶证</option>
+						<option value="N型驾驶证">N型驾驶证</option>
+						<option value="P型驾驶证">P型驾驶证</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">车辆：</label>
 				<div class="col-sm-8">
-					<input id="car" name="car" class="form-control" type="text">
+					<input list="car" name="car" class="form-control" type="text" placeholder="请填入车辆信息，若无选择无">
+					<datalist id="car">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">车辆类型：</label>
 				<div class="col-sm-8">
-					<input id="vtype" name="vtype" class="form-control" type="text">
+					<select class="chosen-select form-control" id="vtype" name="vtype"  type="text">
+						<option value="无">无</option>
+						<option value="轿车">轿车</option>
+						<option value="客车">客车</option>
+						<option value="挂车">挂车</option>
+						<option value="载货车">载货车</option>
+						<option value="摩托车">摩托车</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">车牌号：</label>
 				<div class="col-sm-8">
-					<input id="carnum" name="carnum" class="form-control" type="text">
+					<input list="carnum" name="carnum" class="form-control" type="text" placeholder="请填入车牌号信息，若无选择无">
+					<datalist id="carnum">
+						<option value="无">
+					</datalist>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">职业：</label>
 				<div class="col-sm-8">
-					<input id="job" name="job" class="form-control" type="text">
+					<input id="job" name="job" class="form-control" type="text" placeholder="请填入职业信息">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">工作单位：</label>
 				<div class="col-sm-8">
-					<input id="company" name="company" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">户籍地址：</label>
-				<div class="col-sm-8">
-					<input id="pra" name="pra" class="form-control" type="text">
+					<input id="company" name="company" class="form-control" type="text" placeholder="请填入工作单位">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">现居地址：</label>
 				<div class="col-sm-8">
-					<input id="home" name="home" class="form-control" type="text">
+					<input id="home" name="home" class="form-control" type="text" placeholder="请填入现居地址">
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">所属村组：</label>
 				<div class="col-sm-8">
-					<input id="grouptype" name="grouptype" class="form-control" type="text">
+					<input id="grouptype" name="grouptype" class="form-control" type="text" placeholder="请填入村组信息">
 				</div>
 			</div>
-			<div class="form-group">	
+			<div class="form-group">
 				<label class="col-sm-3 control-label">住房性质：</label>
 				<div class="col-sm-8">
-					<input id="house" name="house" class="form-control" type="text">
+					<select class="chosen-select form-control" id="house" name="house"  type="text">
+						<option value="自建房">自建房</option>
+						<option value="自购商品房">自购商品房</option>
+						<option value="租住公房">租住公房</option>
+						<option value="租住私房">租住私房</option>
+						<option value="借助父母处">借助父母处</option>
+						<option value="房改成本价房">房改成本价房</option>
+						<option value="房改标准价房">房改标准价房</option>
+						<option value="安居工程住房">安居工程住房</option>
+						<option value="集资建房">集资建房</option>
+						<option value="经济适用房">经济适用房</option>
+					</select>
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">户口性质：</label>
-				<div class="col-sm-8">
-					<input id="prt" name="prt" class="form-control" type="text">
-				</div>
-			</div>
+
 		</form>
 	</div>
     <div th:include="include::footer"></div>
@@ -209,12 +328,64 @@
 				},
 			}
 		});
-		
+
+		/*用户管理-新增-选择用户所属区域树*/
+		function selectAidTree() {
+			var url = "/broad/organization/selectAidTree";
+			var options = {
+				title: '选择区域',
+				width: "380",
+				url: "/broad/organization/selectAidTree",
+				callBack: doSubmitAid
+			};
+			$.modal.openOptions(options);
+		}
+
+		function doSubmit(index, layero){
+			var tree = layero.find("iframe")[0].contentWindow.$._tree;
+			if ($.tree.notAllowParents(tree)) {
+				var body = layer.getChildFrame('body', index);
+				$("#treeId").val(body.find('#treeId').val());
+				$("#treeName").val(body.find('#treeName').val());
+				layer.close(index);
+			}
+		}
+
+		/*该模块是选择用户所属区域树的提交功能模块，body.find()方法中该使用框架固定的treeId、treeName*/
+		function doSubmitAid(index, layero){
+			var tree = layero.find("iframe")[0].contentWindow.$._tree;
+			if ($.tree.notAllowParents(tree)) {
+				var body = layer.getChildFrame('body', index);
+				$("#aid").val(body.find('#treeId').val());
+				$("#aidName").val(body.find('#treeName').val());
+				/*console.log(body.find('#treeId').val());
+                console.log(body.find('#treeName').val());*/
+				layer.close(index);
+			}
+		}
+
 		function submitHandler() {
 	        if ($.validate.form()) {
 	            $.operate.save(prefix + "/add", $('#form-villagerInfo-add').serialize());
 	        }
 	    }
+	</script>
+	<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+	<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+	<!--时间插件-->
+	<script>
+		laydate({
+			elem:"#partyjoindate",
+			event:"focus"
+		});
+		layui.use('laydate', function(){
+			var laydate = layui.laydate;
+			//执行一个laydate实例
+			laydate.render({
+				elem:"#village",
+				type: 'time',
+			});
+		});
 	</script>
 </body>
 </html>
