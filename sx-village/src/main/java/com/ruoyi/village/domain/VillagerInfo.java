@@ -16,7 +16,7 @@ public class VillagerInfo extends BaseEntity
 	private static final long serialVersionUID = 1L;
 
 	/** 数据编号 */
-	private Integer vid;
+	private int vid;
 	/** 地域编号 */
 	@Excel(name = "地域编号")
 	private String aid;
@@ -115,12 +115,12 @@ public class VillagerInfo extends BaseEntity
 	private String house;
 
 
-	public void setVid(Integer vid) 
+	public void setVid(int vid)
 	{
 		this.vid = vid;
 	}
 
-	public Integer getVid() 
+	public int getVid()
 	{
 		return vid;
 	}

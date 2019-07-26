@@ -15,9 +15,15 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">区域名称：</label>
 				<div class="col-sm-8">
-					<input class="form-control" type="text" name="aidName" onclick="selectAidTree()" readonly="true" id="aidName">
+					<input class="form-control" type="text" name="aidName" onclick="selectAidTree()" readonly="true" id="aidName"  placeholder="请选择所属区域">
 				</div>
 			</div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">所属村组：</label>
+                <div class="col-sm-8">
+                    <input id="grouptype" name="grouptype" class="form-control" type="text" placeholder="请填入村组信息">
+                </div>
+            </div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">姓名：</label>
 				<div class="col-sm-8">
@@ -161,7 +167,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">优抚信息：</label>
 				<div class="col-sm-8">
-					<input list="entitle" name="entitle" class="form-control" type="text" placeholder="请填入优抚信息，若无选择无">
+					<input list="entitle" name="entitle" class="form-control" type="text" placeholder="请填入优抚信息，若无，则选择无">
 					<datalist id="entitle">
 						<option value="无">
 					</datalist>
@@ -170,7 +176,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">计生情况：</label>
 				<div class="col-sm-8">
-					<input list="familyplan" name="familyplan" class="form-control" type="text" placeholder="请填入计生情况，若无选择无">
+					<input list="familyplan" name="familyplan" class="form-control" type="text" placeholder="请填入计生情况，若无，则选择无">
 					<datalist id="familyplan">
 						<option value="无">
 					</datalist>
@@ -179,7 +185,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">医疗情况：</label>
 				<div class="col-sm-8">
-					<input list="medical" name="medical" class="form-control" type="text" placeholder="请填入医疗情况，若无选择无">
+					<input list="medical" name="medical" class="form-control" type="text" placeholder="请填入医疗情况，若无，则选择无">
 					<datalist id="medical">
 						<option value="无">
 					</datalist>
@@ -188,7 +194,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">补助情况：</label>
 				<div class="col-sm-8">
-					<input list="subsidy" name="subsidy" class="form-control" type="text" placeholder="请填入补助情况，若无选择无">
+					<input list="subsidy" name="subsidy" class="form-control" type="text" placeholder="请填入补助情况，若无，则选择无">
 					<datalist id="subsidy">
 						<option value="无">
 					</datalist>
@@ -197,7 +203,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">保险情况：</label>
 				<div class="col-sm-8">
-					<input list="insurance" name="insurance" class="form-control" type="text" placeholder="请填入保险情况，若无选择无">
+					<input list="insurance" name="insurance" class="form-control" type="text" placeholder="请填入保险情况，若无，则选择无">
 					<datalist id="insurance">
 						<option value="无">
 					</datalist>
@@ -206,7 +212,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">犯罪史：</label>
 				<div class="col-sm-8">
-					<input list="criminal" name="criminal" class="form-control" type="text" placeholder="请填入犯罪史，若无选择无">
+					<input list="criminal" name="criminal" class="form-control" type="text" placeholder="请填入犯罪史，若无，则选择无">
 					<datalist id="criminal">
 						<option value="无">
 					</datalist>
@@ -215,7 +221,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">吸毒史：</label>
 				<div class="col-sm-8">
-					<input list="drug" name="drug" class="form-control" type="text" placeholder="请填入吸毒史，若无选择无">
+					<input list="drug" name="drug" class="form-control" type="text" placeholder="请填入吸毒史，若无，则选择无">
 					<datalist id="drug">
 						<option value="无">
 					</datalist>
@@ -246,7 +252,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">车辆：</label>
 				<div class="col-sm-8">
-					<input list="car" name="car" class="form-control" type="text" placeholder="请填入车辆信息，若无选择无">
+					<input list="car" name="car" class="form-control" type="text" placeholder="请填入车辆信息，若无，则选择无">
 					<datalist id="car">
 						<option value="无">
 					</datalist>
@@ -268,7 +274,7 @@
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">车牌号：</label>
 				<div class="col-sm-8">
-					<input list="carnum" name="carnum" class="form-control" type="text" placeholder="请填入车牌号信息，若无选择无">
+					<input list="carnum" name="carnum" class="form-control" type="text" placeholder="请填入车牌号信息，若无，则选择无">
 					<datalist id="carnum">
 						<option value="无">
 					</datalist>
@@ -292,12 +298,7 @@
 					<input id="home" name="home" class="form-control" type="text" placeholder="请填入现居地址">
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">所属村组：</label>
-				<div class="col-sm-8">
-					<input id="grouptype" name="grouptype" class="form-control" type="text" placeholder="请填入村组信息">
-				</div>
-			</div>
+
 			<div class="form-group">
 				<label class="col-sm-3 control-label">住房性质：</label>
 				<div class="col-sm-8">

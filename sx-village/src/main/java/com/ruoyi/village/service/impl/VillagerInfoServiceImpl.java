@@ -87,5 +87,5 @@ public class VillagerInfoServiceImpl implements IVillagerInfoService
 	{
 		return villagerInfoMapper.deleteVillagerInfoByIds(Convert.toStrArray(ids));
 	}
-	
+
 }
