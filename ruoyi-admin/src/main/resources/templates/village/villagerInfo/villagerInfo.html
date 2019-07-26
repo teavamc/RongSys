@@ -18,16 +18,21 @@
 								姓名：<input type="text" name="vname"/>
 							</li>
 
-							<!--<li>
-								年龄：<input type="text" name="age"/>
-							</li>-->
-
 							<li>
-								性别：<input type="text" name="sex"/>
+								年龄：<input type="text" name="age"/>
 							</li>
 
 							<li>
 								所属村组：<input type="text" name="grouptype"/>
+							</li>
+
+							<li>
+								性别：<input list="sex"  name="sex"/>
+								<datalist id="sex">
+									<option value="男">男</option>
+									<option value="女">女</option>
+									<option value="未知">未知</option>
+								</datalist>
 							</li>
 							<!--<li>
 								籍贯：<input type="text" name="nativeplace"/>
@@ -38,27 +43,56 @@
 							</li>-->
 
 							<li>
-								政治面貌：<input type="text" name="politics"/>
+								政治面貌：<input list="politics"  name="politics"/>
+								<datalist id="politics">
+									<option value="群众">群众</option>
+									<option value="中共党员">中共党员</option>
+									<option value="中共预备党员">中共预备党员</option>
+									<option value="共青团员">共青团员</option>
+									<option value="民革党员">民革党员</option>
+									<option value="民盟盟员">民盟盟员</option>
+									<option value="民建会员">民建会员</option>
+									<option value="民进会员">民进会员</option>
+									<option value="台盟盟员">台盟盟员</option>
+									<option value="农工党党员">农工党党员</option>
+									<option value="致公党党员">致公党党员</option>
+									<option value="无党派人士">无党派人士</option>
+									<option value="九三学社社员">九三学社社员</option>
+								</datalist>
 							</li>
 
 							<!--<li>-->
 								<!--入党年月：<input type="text" name="partyjoindate"/>-->
 							<!--</li>-->
-
-							<!--<li>
-								文化程度：<input type="text" name="edulevel"/>
+							<li>
+								文化程度：<input list="edulevel"  name="edulevel"/>
+								<datalist id="edulevel">
+									<option value="本科">本科</option>
+									<option value="研究生">研究生</option>
+									<option value="大专">大专</option>
+									<option value="中专">中专</option>
+									<option value="高中">高中</option>
+									<option value="初中">初中</option>
+									<option value="小学">小学</option>
+								</datalist>
 							</li>
 
 							<li>
-								婚姻状况：<input type="text" name="marital"/>
-							</li>-->
+								婚姻状况：<input list="marital"  name="marital"/>
+								<datalist id="marital">
+									<option value="未婚">未婚</option>
+									<option value="已婚">已婚</option>
+									<option value="丧偶">丧偶</option>
+									<option value="离婚">离婚</option>
+								</datalist>
+							</li>
 
 							<!--<li>
 								身份证号码：<input type="text" name="idcard"/>
 							</li>-->
 
 							<li>
-								联系方式：<input type="text" name="phone"/>
+								手机号码：<input type="text" name="phone"/>
 							</li>
 
 							<!--<li>
@@ -223,6 +257,16 @@
 						title : '所属村组',
 						sortable: true
 				},
+				{
+						field : 'politics',
+						title : '政治面貌',
+						sortable: true
+				},
+					{
+						field : 'marital',
+						title : '婚姻状况',
+						sortable: true
+					},
 				/*{
 					field : 'nativeplace',
 					title : '籍贯',
@@ -233,11 +277,7 @@
 					title : '民族',
 					sortable: true
 				},
-				{
-					field : 'politics', 
-					title : '政治面貌',
-					sortable: true
-				},
+
 				{
 					field : 'partyjoindate', 
 					title : '入党年月',
@@ -248,11 +288,7 @@
 					title : '文化程度',
 					sortable: true
 				},
-				{
-					field : 'marital', 
-					title : '婚姻状况',
-					sortable: true
-				},
+
 				{
 					field : 'idcard', 
 					title : '身份证号码',
