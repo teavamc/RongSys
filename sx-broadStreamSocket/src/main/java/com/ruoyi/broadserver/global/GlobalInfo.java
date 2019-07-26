@@ -1,6 +1,5 @@
 package com.ruoyi.broadserver.global;
 
-import com.ruoyi.broadserver.server.MinaCastHandler;
 import com.ruoyi.broadserver.server.MinaCastThread;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.future.WriteFuture;
@@ -9,14 +8,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
 public class GlobalInfo {
     private static ExecutorService executorService =  null;//终端交互处理线程池
-    private static MinaCastThread minaCastThread;//服务器端口监听Mina处理Acceptor
-    private static Map<String, IoSession> IMEI_Client = new HashMap<>();//终端IMEI与其对应IOSession
+    private static MinaCastThread CommandThread;//服务器8600端口监听Mina处理Acceptor
+    private static MinaCastThread IOTThread;//服务器8900端口监听Mina处理Acceptor
     private static final Logger logger = LoggerFactory.getLogger(GlobalInfo.class);
 
     /**
@@ -28,17 +25,7 @@ public class GlobalInfo {
             executorService.execute(thread);
     }
 
-    /**
-     * 将终端加入Map中运行
-     * @param session
-     */
-    public static void putClientToMap(IoSession session){
-       synchronized (IMEI_Client){
-           if(!IMEI_Client.get((String)session.getAttribute(MinaCastHandler.CLIENTINFO)).equals(session)){
-               IMEI_Client.put((String)session.getAttribute(MinaCastHandler.CLIENTINFO),session);
-           }
-       }
-    }
+
     /**
      *
      * @param senddata 发送的byte[]组
@@ -89,19 +76,19 @@ public class GlobalInfo {
         GlobalInfo.executorService = executorService;
     }
 
-    public static MinaCastThread getMinaCastThread() {
-        return minaCastThread;
+    public static MinaCastThread getCommandThread() {
+        return CommandThread;
     }
 
-    public static void setMinaCastThread(MinaCastThread minaCastThread) {
-        GlobalInfo.minaCastThread = minaCastThread;
+    public static void setCommandThread(MinaCastThread commandThread) {
+        CommandThread = commandThread;
     }
 
-    public static Map<String, IoSession> getIMEI_Client() {
-        return IMEI_Client;
+    public static MinaCastThread getIOTThread() {
+        return IOTThread;
     }
 
-    public static void setIMEI_Client(Map<String, IoSession> IMEI_Client) {
-        GlobalInfo.IMEI_Client = IMEI_Client;
+    public static void setIOTThread(MinaCastThread IOTThread) {
+        GlobalInfo.IOTThread = IOTThread;
     }
 }

@@ -102,7 +102,7 @@ public class bConvert {
         }else{
             result= new byte[2];
             result[1] = (byte) ((i >> 8) & 0xFF);
-            result[0] = (byte) (i & 0xFF);
+            result[0] = (byte) (i & 0xFF);//低字节在前
             return result;
         }
     }
@@ -152,6 +152,8 @@ public class bConvert {
         System.arraycopy(src, begin, bs, 0, count);
         return bs;
     }
+
+
 //	/**
 //	 * 生成16进制累加和校验码
 //	 *

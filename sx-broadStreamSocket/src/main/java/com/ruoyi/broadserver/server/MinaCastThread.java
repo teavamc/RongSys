@@ -11,12 +11,17 @@ package com.ruoyi.broadserver.server;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.util.concurrent.Executors;
+import java.util.Locale;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.ruoyi.broadserver.global.GlobalInfo;
 import com.ruoyi.broadserver.server.handle.SimpleCommandFactory;
+import org.apache.mina.core.filterchain.DefaultIoFilterChainBuilder;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.filter.executor.ExecutorFilter;
+import org.apache.mina.filter.logging.LogLevel;
+import org.apache.mina.filter.logging.LoggingFilter;
 import org.apache.mina.transport.socket.SocketSessionConfig;
 import org.apache.mina.transport.socket.nio.NioSocketAcceptor;
 import org.slf4j.Logger;
@@ -27,41 +32,28 @@ import org.slf4j.LoggerFactory;
  *	TODO
  */
 public class MinaCastThread implements Runnable {
-	private MinaCastHandler mHandler;
-	private NioSocketAcceptor Acceptor;
-	//private NioDatagramAcceptor netheartAcceptor;
-	private Integer port;
-	private Integer port2 = 0;
-	private String ip = null;
+	private final static int NUMBER_OF_CORES = Runtime.getRuntime().availableProcessors(); // cpu核心数
+	private final static long KEEP_ALIVE_TIME = 3L; //线程活跃时间
+	private final static TimeUnit KEEP_ALIVE_TIME_UNIT = TimeUnit.SECONDS; //线程活跃时间单位
+	private BlockingQueue<Runnable> mWorkQueue = new LinkedBlockingQueue<Runnable>(); // 消息处理队列
+	private ThreadFactory Factory; //线程池工厂类实例
+	private MinaCastHandler mHandler; //通信处理器
+	private NioSocketAcceptor Acceptor; //分发器
+	private Integer port; // 端口
+	private Integer mul; //最大线程数倍乘
+	private String type; //线程池名字
     private static Logger logger = LoggerFactory.getLogger(MinaCastThread.class);
     /**
 	 * 
 	 * TODO 无地址初始化
 	 * 时间：2019年1月10日
 	 */
-	public MinaCastThread(int loginport) {
+	public MinaCastThread(int loginport,String type,int threadsize,int mul) {
 		// TODO Auto-generated constructor stub
 		this.port = loginport;
-	}
-	/**
-	 * 
-	 * TODO 有地址初始化
-	 * 时间：2019年1月10日
-	 */
-	public MinaCastThread(int port,String ip) {
-		// TODO Auto-generated constructor stub
-		this.port = port;
-		this.ip = ip;
-	}
-	/**
-	 *
-	 * TODO 多端口初始化
-	 * 时间：2019年1月10日
-	 */
-	public MinaCastThread(int loginport,int iotport) {
-		// TODO Auto-generated constructor stub
-		this.port = loginport;
-		this.port2 = iotport;
+		this.type = type;
+		this.mul = mul;
+		Factory = new MyThreadFactory(threadsize,type+"-");
 	}
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
@@ -72,10 +64,16 @@ public class MinaCastThread implements Runnable {
 		// TODO Auto-generated method stub
 		// ** loginAcceptor设置
         Acceptor = new NioSocketAcceptor();
-        // 此行代码能让你的程序整体性能提升10倍
-        Acceptor.getFilterChain()
-                .addLast("loginIOThreadPool", new ExecutorFilter(GlobalInfo.getExecutorService()));
-        Acceptor.setReuseAddress(true);//加上这句话，避免重启时提示地址被占用
+		DefaultIoFilterChainBuilder chain = Acceptor.getFilterChain();
+		LoggingFilter loggingFilter = new LoggingFilter();
+		loggingFilter.setMessageSentLogLevel(LogLevel.NONE);
+		loggingFilter.setMessageReceivedLogLevel(LogLevel.NONE);
+		chain.addLast("logger", loggingFilter);
+		// 此行代码能让你的程序整体性能提升10倍
+		chain.addLast(type, new ExecutorFilter(new ThreadPoolExecutor(NUMBER_OF_CORES,
+				NUMBER_OF_CORES * mul, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT,
+				mWorkQueue,Factory)));
+		Acceptor.setReuseAddress(true);//加上这句话，避免重启时提示地址被占用
         // 设置MINA2的IoHandler实现类
         Acceptor.setHandler(mHandler);
         logger.info("创建 Acceptor");
@@ -83,7 +81,7 @@ public class MinaCastThread implements Runnable {
         //Acceptor.setSessionRecycler(new ExpiringSessionRecycler(8 * 1000));
         // ** TCP通信配置
 		SocketSessionConfig cfg = (SocketSessionConfig) Acceptor.getSessionConfig();  
-		Acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 300);
+		Acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60);//60秒超时空闲
 		//Acceptor.getSessionConfig().setUseReadOperation(true);
 		cfg.setSoLinger(0);
         // ** UDP通信配置
@@ -107,23 +105,13 @@ public class MinaCastThread implements Runnable {
         netheartAcceptor.setSessionRecycler(new ExpiringSessionRecycler(8 * 1000));
          */
         try {
-        	if(ip != null) {
-        		Acceptor.bind(new InetSocketAddress(ip,port));
-        	}else if(port2 != 0){
-        		Acceptor.bind(new InetSocketAddress(port));
-				Acceptor.bind(new InetSocketAddress(port2));
-        	}else{
-				Acceptor.bind(new InetSocketAddress(port));
-			}
+			Acceptor.bind(new InetSocketAddress(port));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
      
-        logger.info("TCP服务器正在端口 "+port+(port2 == 0 ? "":(","+port2))+" 上监听中...");
-        if(ip != null) {
-        	logger.info("TCP服务器监听IP为 "+ip);
-        }
+        logger.info("Mina TCP服务器正在端口 "+port+" 上监听中...");
 	}
 	/**
 	 * @return the mHandler
@@ -137,5 +125,22 @@ public class MinaCastThread implements Runnable {
 	public NioSocketAcceptor getAcceptor() {
 		return Acceptor;
 	}
-	
+
+	private class MyThreadFactory implements ThreadFactory {
+		private AtomicInteger threadNumberAtomicInteger = new AtomicInteger(1);
+		private String name = "ThreadFactory";
+		public MyThreadFactory(int size,String name) {
+			// TODO Auto-generated constructor stub
+			this.name = name;
+			threadNumberAtomicInteger = new AtomicInteger(size);
+		}
+		@Override
+		public Thread newThread(Runnable r) {
+			Thread thread=  new Thread(r,String.format(Locale.CHINA,"%s%d",name,threadNumberAtomicInteger.getAndIncrement()));
+            /* thread.setDaemon(true);//是否是守护线程
+            thread.setPriority(Thread.NORM_PRIORITY);//设置优先级 1~10 有3个常量 默认 Thread.MIN_PRIORITY*/
+			return thread;
+		}
+	}
+
 }

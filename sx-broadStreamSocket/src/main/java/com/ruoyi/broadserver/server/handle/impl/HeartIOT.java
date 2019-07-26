@@ -1,5 +1,6 @@
 package com.ruoyi.broadserver.server.handle.impl;
 
+import com.ruoyi.broadserver.domain.SocketInfo;
 import com.ruoyi.broadserver.global.GlobalInfo;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
 import com.ruoyi.broadserver.server.MinaCastHandler;
@@ -20,7 +21,7 @@ public class HeartIOT extends DefaultCommand {
 		// TODO Auto-generated method stub
 		byte[] data = bConvert.subBytes(content, 5, 15);
 		String info = new String(data);
-		logger.info("终端主动请求获取");
+		//logger.info("终端主动请求获取");
 		String command = save(info)?"1":"0";//保存信息
 		
 		datainfo = info;
@@ -34,7 +35,14 @@ public class HeartIOT extends DefaultCommand {
 	public boolean save(Object obj) {
 		// TODO Auto-generated method stub
 		session.setAttribute(MinaCastHandler.CLIENTINFO, obj);
-		GlobalInfo.putClientToMap(session);
+		SocketInfo info = GlobalInfo.getSocketInfoByIMEI(obj.toString());
+		if(info != null){
+			synchronized (info){
+				info.setIotSession(session);
+			}
+		}else{
+
+		}
 		return true;
 	}
 

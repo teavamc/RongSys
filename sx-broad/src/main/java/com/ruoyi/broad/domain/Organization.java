@@ -18,6 +18,8 @@ public class Organization extends BaseEntity
     private String tid;
     /** 终端设备名称 */
     private String tname;
+    /** 终端类型 */
+    private String terminaltype;
     /** 所属分组编号 */
     private String aid;
     /** 区域名称 */
@@ -270,6 +272,14 @@ public class Organization extends BaseEntity
 
     public String getPic() { return pic; }
     public void setPic(String pic) { this.pic = pic; }
+
+    public String getTerminaltype() {
+        return terminaltype;
+    }
+
+    public void setTerminaltype(String terminaltype) {
+        this.terminaltype = terminaltype;
+    }
 
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)

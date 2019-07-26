@@ -56,10 +56,15 @@ public class StreamSocketListener implements ServletContextListener {
         //关闭线程池
         GlobalInfo.getExecutorService().shutdown();
 
-        if (GlobalInfo.getMinaCastThread().getAcceptor() != null){
-            GlobalInfo.getMinaCastThread().getAcceptor().unbind();
-            GlobalInfo.getMinaCastThread().getAcceptor().setCloseOnDeactivation(true);
-            GlobalInfo.getMinaCastThread().getAcceptor().dispose();
+        if (GlobalInfo.getCommandThread().getAcceptor() != null){
+            GlobalInfo.getCommandThread().getAcceptor().unbind();
+            GlobalInfo.getCommandThread().getAcceptor().setCloseOnDeactivation(true);
+            GlobalInfo.getCommandThread().getAcceptor().dispose();
+        }
+        if (GlobalInfo.getIOTThread().getAcceptor() != null){
+            GlobalInfo.getIOTThread().getAcceptor().unbind();
+            GlobalInfo.getIOTThread().getAcceptor().setCloseOnDeactivation(true);
+            GlobalInfo.getIOTThread().getAcceptor().dispose();
         }
 
     }
@@ -86,9 +91,12 @@ public class StreamSocketListener implements ServletContextListener {
                 NUMBER_OF_CORES * 2+4, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT,
                 mWorkQueue,mThreadFactory));//创建一个处理IO的线程池
         //初始化组播全局信息
-        MinaCastThread minaCastThread = new MinaCastThread(8600,8900);
-        minaCastThread.run();
-        GlobalInfo.setMinaCastThread(minaCastThread);
+        MinaCastThread CommandThread = new MinaCastThread(8600,"CommandThread",1,2);
+        CommandThread.run();
+        GlobalInfo.setCommandThread(CommandThread);
+        MinaCastThread IOTThread = new MinaCastThread(8900,"IOTThread",1,2);
+        IOTThread.run();
+        GlobalInfo.setCommandThread(IOTThread);
         System.out.println("MinaServer is started");
     }
 

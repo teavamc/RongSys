@@ -10,7 +10,6 @@ import org.apache.mina.core.session.IoSession;
 import com.ruoyi.framework.util.SpringUtils;
 //读取并写入RDS码
 public class RW_RDS extends DefaultCommand {
-	private IOrganizationService organizationService = (OrganizationServiceImpl) SpringUtils.getBean(OrganizationServiceImpl.class);
 	public RW_RDS(IoSession session, byte[] content) {
 		super(session, content);
 		// TODO Auto-generated constructor stub
