@@ -183,4 +183,13 @@ public class VillagerInfoController extends BaseController
         }
         return successMsg.toString();
     }
+	/**
+	 * 打开项目详情页
+	 */
+	@GetMapping("/detail/{vid}")
+	public String detail(@PathVariable("vid")Integer vid,ModelMap mmap)
+	{
+		mmap.put("listByid",villagerInfoService.selectVillagerInfoById(vid));
+		return prefix + "/detail";
+	}
 }

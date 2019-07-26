@@ -15,22 +15,59 @@
         <div class="col-lg-10 col-lg-offset-1">
             <div class="ibox">
                 <div class="ibox-content">
-                    <div class="pull-right">
-                        <button class="btn btn-white btn-xs" type="button">[[${listByid.wtype}]]</button>
-                        <button class="btn btn-white btn-xs" type="button">[[${listByid.wname}]]</button>
-                        <button class="btn btn-white btn-xs" type="button">[[${listByid.wphone}]]</button>
-                    </div>
                     <div class="text-center article-title">
-                        <h1 th:text="${listByid.wtitle}"></h1>
+                        <h1 th:text="${listByid.vname}"></h1>
                     </div>
-                    <p th:utext="${listByid.content}"></p>
-                    <a href="C:/Users/fama/upload/img/19201907040522040.png" download="测试">
-                        文件下载
-                    </a>
-                </div>
-
+                    <div class="text-center">
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.age}]]岁</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.nation}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.politics}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.partyjoindate}]]入党</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.edulevel}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.marital}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.job}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.company}]]</button>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.nativeplace}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.prt}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">户籍地址：[[${listByid.pra}]]</button>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.idcard}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.phone}]]</button>
+                    </div>
+                    <div class="text-center">
+                        <button class="btn btn-white btn-xs" type="button">现居住地：[[${listByid.home}]]</button>
+                        <button class="btn btn-white btn-xs" type="button">[[${listByid.house}]]</button>
+                    </div>
                 </div>
             </div>
+            <div>
+                <h4>健康状况:</h4><p th:utext="${listByid.health}"></p>
+                <h4>驾照:</h4><p th:utext="${listByid.drive}"></p>
+                <h4>车辆:</h4><p th:utext="${listByid.car}"></p>
+                <h4>车辆类型:</h4><p th:utext="${listByid.vtype}"></p>
+                <h4>车牌号:</h4><p th:utext="${listByid.carnum}"></p>
+                <h4>特种信息:</h4><p th:utext="${listByid.special}"></p>
+                <h4>优抚信息:</h4><p th:utext="${listByid.entitle}"></p>
+                <h4>计生情况:</h4><p th:utext="${listByid.familyplan}"></p>
+                <h4>医疗情况:</h4><p th:utext="${listByid.medical}"></p>
+                <h4>补助情况:</h4><p th:utext="${listByid.subsidy}"></p>
+                <h4>保险情况:</h4><p th:utext="${listByid.insurance}"></p>
+                <h4>犯罪史:</h4><p th:utext="${listByid.criminal}"></p>
+                <h4>优抚信息:</h4><p th:utext="${listByid.entitle}"></p>
+                <h4>计生情况:</h4><p th:utext="${listByid.familyplan}"></p>
+                <h4>医疗情况:</h4><p th:utext="${listByid.medical}"></p>
+                <h4>补助情况:</h4><p th:utext="${listByid.subsidy}"></p>
+                <h4>保险情况:</h4><p th:utext="${listByid.insurance}"></p>
+                <h4>犯罪史:</h4><p th:utext="${listByid.criminal}"></p>
+                <h4>吸毒史:</h4><p th:utext="${listByid.drug}"></p>
+            </div>
+
+        </div>
+
+
         </div>
     </div>
 
