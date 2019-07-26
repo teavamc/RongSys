@@ -123,5 +123,16 @@ public class VillagerInfoController extends BaseController
 	{		
 		return toAjax(villagerInfoService.deleteVillagerInfoByIds(ids));
 	}
-	
+
+	/**
+	 * 下载模板
+	 */
+	@GetMapping("/importTemplate")
+	@ResponseBody
+	public AjaxResult importTemplate()
+	{
+		ExcelUtil<VillagerInfo> util = new ExcelUtil<VillagerInfo>(VillagerInfo.class);
+		return util.importTemplateExcel("用户数据");
+	}
+
 }
