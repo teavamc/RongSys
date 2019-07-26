@@ -27,7 +27,7 @@ public class Termap extends BaseEntity
     /** 基础设置 */
     private String basestation;
     /** 经度 */
-    private Boolean latitude;
+    private String latitude;
     /** 纬度 */
     private String longitude;
     /** 更新时间 */
@@ -99,11 +99,11 @@ public class Termap extends BaseEntity
         this.basestation = basestation;
     }
 
-    public Boolean getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Boolean latitude) {
+    public void setLatitude(String latitude) {
         this.latitude = latitude;
     }
 

@@ -85,7 +85,7 @@ public class MaincountController extends BaseController
 	@GetMapping("/detail/{tid}")
 	public String detail(@PathVariable("tid")String tid,ModelMap mmap)
 	{
-		mmap.put("tid",tid);
+//		mmap.put("tid",tid);
 		mmap.put("listBySjid",maincountService.selectMaincountById(tid));
 		return prefix + "/detail";
 	}

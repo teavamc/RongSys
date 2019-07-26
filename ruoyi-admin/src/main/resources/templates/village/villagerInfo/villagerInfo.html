@@ -10,55 +10,58 @@
 				<form id="formId">
 					<div class="select-list">
 						<ul>
-							<li>
-								地域编号：<input type="text" name="aid"/>
-							</li>
+							<!--<li>-->
+								<!--地域编号：<input type="text" name="aid"/>-->
+							<!--</li>-->
 
 							<li>
-								村民姓名：<input type="text" name="vname"/>
+								姓名：<input type="text" name="vname"/>
 							</li>
 
-							<li>
+							<!--<li>
 								年龄：<input type="text" name="age"/>
-							</li>
+							</li>-->
 
 							<li>
 								性别：<input type="text" name="sex"/>
 							</li>
 
 							<li>
+								所属村组：<input type="text" name="grouptype"/>
+							</li>
+							<!--<li>
 								籍贯：<input type="text" name="nativeplace"/>
-							</li>
+							</li>-->
 
-							<li>
+							<!--<li>
 								民族：<input type="text" name="nation"/>
-							</li>
+							</li>-->
 
 							<li>
 								政治面貌：<input type="text" name="politics"/>
 							</li>
 
-							<li>
-								入党年月：<input type="text" name="partyjoindate"/>
-							</li>
+							<!--<li>-->
+								<!--入党年月：<input type="text" name="partyjoindate"/>-->
+							<!--</li>-->
 
-							<li>
+							<!--<li>
 								文化程度：<input type="text" name="edulevel"/>
 							</li>
 
 							<li>
 								婚姻状况：<input type="text" name="marital"/>
-							</li>
+							</li>-->
 
-							<li>
+							<!--<li>
 								身份证号码：<input type="text" name="idcard"/>
-							</li>
+							</li>-->
 
 							<li>
 								联系方式：<input type="text" name="phone"/>
 							</li>
 
-							<li>
+							<!--<li>
 								健康状况：<input type="text" name="health"/>
 							</li>
 
@@ -124,19 +127,16 @@
 
 							<li>
 								现居地址：<input type="text" name="home"/>
-							</li>
+							</li>-->
 
-							<li>
-								所属村组：<input type="text" name="grouptype"/>
-							</li>
 
-							<li>
+							<!--<li>
 								住房性质：<input type="text" name="house"/>
 							</li>
 
 							<li>
 								户口性质：<input type="text" name="prt"/>
-							</li>
+							</li>-->
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -156,6 +156,9 @@
 				</a>
 				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:villagerInfo:remove">
 					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-info" onclick="importExcel()">
+					<i class="fa fa-upload"></i> 导入
 				</a>
 				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="village:villagerInfo:export">
 						<i class="fa fa-download"></i> 导出
@@ -190,14 +193,14 @@
 					title : '数据编号',
 					visible: false
 				},
-				{
+				/*{
 					field : 'aid', 
 					title : '地域编号',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'vname',
-					title : '村民姓名',
+					title : '姓名',
 					sortable: true
 				},
 				{
@@ -211,6 +214,11 @@
 					sortable: true
 				},
 				{
+						field : 'grouptype',
+						title : '所属村组',
+						sortable: true
+				},
+				/*{
 					field : 'nativeplace',
 					title : '籍贯',
 					sortable: true
@@ -244,103 +252,99 @@
 					field : 'idcard', 
 					title : '身份证号码',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'phone', 
 					title : '联系方式',
 					sortable: true
-				},
-				{
-					field : 'health', 
-					title : '健康状况',
-					sortable: true
-				},
-				{
-					field : 'special', 
-					title : '特种（残疾）信息',
-					sortable: true
-				},
-				{
-					field : 'entitle', 
-					title : '优抚信息',
-					sortable: true
-				},
-				{
-					field : 'familyplan', 
-					title : '计生情况',
-					sortable: true
-				},
-				{
-					field : 'medical', 
-					title : '医疗情况',
-					sortable: true
-				},
-				{
-					field : 'subsidy', 
-					title : '补助情况',
-					sortable: true
-				},
-				{
-					field : 'insurance', 
-					title : '保险情况',
-					sortable: true
-				},
-				{
-					field : 'criminal', 
-					title : '犯罪史',
-					sortable: true
-				},
-				{
-					field : 'drug', 
-					title : '吸毒史',
-					sortable: true
-				},
-				{
-					field : 'drive', 
-					title : '驾照',
-					sortable: true
-				},
-				{
-					field : 'car', 
-					title : '车辆',
-					sortable: true
-				},
-				{
-					field : 'vtype', 
-					title : '车辆类型',
-					sortable: true
-				},
-				{
-					field : 'carnum', 
-					title : '车牌号',
-					sortable: true
-				},
-				{
-					field : 'job',
-					title : '职业',
-					sortable: true
-				},
-				{
-					field : 'company', 
-					title : '工作单位',
-					sortable: true
-				},
-				{
-					field : 'pra', 
-					title : '户籍地址',
-					sortable: true
-				},
-				{
-					field : 'home', 
-					title : '现居地址',
-					sortable: true
-				},
-				{
-					field : 'grouptype', 
-					title : '所属村组',
-					sortable: true
-				},
-				{
+				}
+				// {
+				// 	field : 'health',
+				// 	title : '健康状况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'special',
+				// 	title : '特种（残疾）信息',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'entitle',
+				// 	title : '优抚信息',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'familyplan',
+				// 	title : '计生情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'medical',
+				// 	title : '医疗情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'subsidy',
+				// 	title : '补助情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'insurance',
+				// 	title : '保险情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'criminal',
+				// 	title : '犯罪史',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'drug',
+				// 	title : '吸毒史',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'drive',
+				// 	title : '驾照',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'car',
+				// 	title : '车辆',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'vtype',
+				// 	title : '车辆类型',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'carnum',
+				// 	title : '车牌号',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'job',
+				// 	title : '职业',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'company',
+				// 	title : '工作单位',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'pra',
+				// 	title : '户籍地址',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'home',
+				// 	title : '现居地址',
+				// 	sortable: true
+				// },
+
+				/*{
 					field : 'house', 
 					title : '住房性质',
 					sortable: true
@@ -349,8 +353,8 @@
 					field : 'prt', 
 					title : '户口性质',
 					sortable: true
-				},
-		        {
+				},*/
+		        /*{
 		            title: '操作',
 		            align: 'center',
 		            formatter: function(value, row, index) {
@@ -359,7 +363,7 @@
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.vid + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
-		        }]
+		        }*/]
             };
             $.table.init(options);
         });

@@ -8,6 +8,7 @@ import com.ruoyi.broad.domain.Managementgps;
 import com.ruoyi.broad.service.IConditionsService;
 
 import com.ruoyi.broad.service.IManagementService;
+import com.ruoyi.broad.service.ITermapService;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.framework.web.domain.server.Sys;
@@ -34,7 +35,8 @@ public class Gps extends BaseController
 {
     @Autowired
     private IManagementService managementService;
-
+    @Autowired
+    private ITermapService termapService;
     /**
      * 随机查询100台终端的地理位置
      * @author 张超
@@ -61,5 +63,13 @@ public class Gps extends BaseController
         return RongApiService.get_list(managementService.selectManagementAll());
     }
 
+
+    @GetMapping("/iotAll")
+    @CrossOrigin
+    @ApiOperation(value = "查询全部的终端地理位置")
+    public RongApiRes searchiotAll()
+    {
+        return RongApiService.get_list(termapService.getAllMapInfoForIot());
+    }
 
 }

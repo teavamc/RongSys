@@ -34,19 +34,28 @@
 		<div class="form-group">
 			<label class="col-sm-3 control-label">项目类别：</label>
 			<div class="col-sm-8">
-				<input id="protype" name="protype" class="form-control" type="text" placeholder="请输入项目类别">
+				<!--<input id="protype" name="protype" class="form-control" type="text" placeholder="请输入项目类别">-->
+                <input list="protype"  name="protype" class="form-control" placeholder="请输入/选择项目类别"/>
+                <datalist id="protype">
+                      <option value="新建项目">
+                      <option value="扩建项目">
+                      <option value="改建项目">
+                       <option value="迁建项目">
+                       <option value="恢复项目">
+                </datalist>
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">投资金额：</label>
 			<div class="col-sm-8">
-				<input id="money" name="money" class="form-control" type="text" placeholder="请输入投资金额，单位、">
+				<input id="money" name="money" class="form-control" type="text" placeholder="请输入投资金额，单位（万元）">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="col-sm-3 control-label">开支明细：</label>
 			<div class="col-sm-8">
-				<input id="moneynote" name="moneynote" class="form-control" type="text" placeholder="请输入开支明细">
+				<!--<input id="moneynote" name="moneynote" class="form-control" type="text" placeholder="请输入开支明细">-->
+				<textarea id="moneynote" name="moneynote" placeholder="请输入开支明细" autofocus></textarea>
 			</div>
 		</div>
 		<!--<div class="form-group">
@@ -99,8 +108,8 @@
             <label class="col-sm-3 control-label">项目状态：</label>
             <div class="col-sm-8">
                 <select class="chosen-select form-control" id="ptype" name="ptype"  type="text">
-                    <option value=0>在建</option>
-                    <option value=1>未建</option>
+                    <option value=1>在建</option>
+                    <option value=0>未建</option>
                     <option value=2>已建</option>
                 </select>
             </div>
@@ -130,7 +139,6 @@
 <script th:src="@{/js/plugins/simditor/hotkeys.js}"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 <script th:src="@{/js/plugins/simditor/simditor.js}"></script>
-
 
 <script type="text/javascript">
 	var prefix = ctx + "village/project"
@@ -209,7 +217,7 @@
 				},
 				fname: {
 					required: true,
-					minlength: 3
+					minlength: 2
 				}
 			},
 			messages: {
@@ -235,7 +243,7 @@
 				},
 				fname: {
 					required: "请输入负责人姓名",
-					minlength: "负责人姓名不能小于3个字符"
+					minlength: "负责人姓名不能小于2个字符"
 				}
 			}
 		})
@@ -243,7 +251,10 @@
 </script>
 
 <script>
-	$(document).ready(function(){var editor=new Simditor({textarea:$("#content")});Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
+	$(document).ready(function(){var editor = new Simditor({placeholder: "输入开支明细", toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#moneynote',});Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});
+</script>
+<script>
+    var editor2 = new Simditor({placeholder: "输入项目内容", toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#content',});
 </script>
 <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
 <script th:src="@{/js/jquery-form.js}"></script>

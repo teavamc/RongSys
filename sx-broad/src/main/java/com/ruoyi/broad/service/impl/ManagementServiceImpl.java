@@ -3,16 +3,13 @@ package com.ruoyi.broad.service.impl;
 import java.util.List;
 
 
-import com.ruoyi.broad.domain.Bindex;
-import com.ruoyi.broad.domain.Managementgps;
-import com.ruoyi.broad.domain.Tersga;
+import com.ruoyi.broad.domain.*;
 import com.ruoyi.broad.mapper.BindexMapper;
 import com.ruoyi.common.annotation.DataSource;
 import com.ruoyi.common.enums.DataSourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.broad.mapper.ManagementMapper;
-import com.ruoyi.broad.domain.Management;
 import com.ruoyi.broad.service.IManagementService;
 import com.ruoyi.common.support.Convert;
 
@@ -103,7 +100,7 @@ public class ManagementServiceImpl implements IManagementService
 	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public List<Managementgps> selectManagementByRandom(){
+	public List<Termap> selectManagementByRandom(){
 		return managementMapper.selectManagementByRandom();
 	}
 
@@ -115,7 +112,7 @@ public class ManagementServiceImpl implements IManagementService
 	 */
 	@Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public List<Managementgps> selectManagementAll(){
+	public List<Termap> selectManagementAll(){
 		return managementMapper.selectManagementAll();
 	};
 

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.MaintainApplyMapper">
+
+    <resultMap type="MaintainApply" id="MaintainApplyResult">
+        <result property="maid" column="maid"/>
+        <result property="teraddress" column="teraddress"/>
+        <result property="linkman" column="linkman"/>
+        <result property="linkphone" column="linkphone"/>
+        <result property="downtime" column="downtime"/>
+        <result property="applytime" column="applytime"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="userid" column="userid"/>
+    </resultMap>
+
+    <sql id="selectMaintainApplyCX">
+         SELECT
+            maid,
+            teraddress,
+            linkman,
+            linkphone,
+            downtime,
+            applytime,
+            status,
+            remark
+    </sql>
+
+    <select id="selectMaintainApplyList" parameterType="MaintainApply" resultMap="MaintainApplyResult">
+        <include refid="selectMaintainApplyCX"/>
+        FROM maintain_apply ma
+        LEFT JOIN (userinfo ui
+        LEFT JOIN area a on a.aid = ui.aid) on ui.user_id = ma.userid
+        <where>
+        <if test="maid != null  and maid != '' ">and maid like CONCAT('%',#{maid},'%')</if>
+        <if test="teraddress != null  and teraddress != '' ">and teraddress like CONCAT('%',#{teraddress},'%')</if>
+        <if test="linkman != null  and linkman != '' ">and linkman like CONCAT('%',#{linkman},'%')</if>
+        <if test="linkphone != null  and linkphone != '' ">and linkphone like CONCAT('%',#{linkphone},'%')</if>
+        <if test="downtime != null  and downtime != '' ">and downtime like CONCAT('%',#{downtime},'%')</if>
+        <if test="applytime != null  and applytime != '' ">and applytime like CONCAT('%',#{applytime},'%')</if>
+        <if test="status != null  and status != '' ">and status like CONCAT('%',#{status},'%')</if>
+        <if test="remark != null  and remark != '' ">and remark like CONCAT('%',#{remark},'%')</if>
+        <if test="uid != null  and uid != '' ">and uid like CONCAT('%',#{uid},'%')</if>
+        </where>
+        ORDER BY downtime DESC
+    </select>
+
+    <select id="selectMaintainApplyById" parameterType="String" resultMap="MaintainApplyResult">
+        WHERE maid = #{maid}
+    </select>
+
+    <select id="selectAllMaintainApply" resultMap="MaintainApplyResult">
+         maid,
+            teraddress,
+            linkman,
+            linkphone,
+            downtime,
+            applytime,
+            status,
+            remark
+            FROM maintain_apply ma
+            LEFT JOIN (userinfo ui
+            LEFT JOIN area a on a.aid = ui.aid) on ui.user_id = ma.userid
+            ORDER BY maid DESC
+    </select>
+    <delete id="deleteMaintainApplyById" parameterType="String">
+        delete from maintain_apply where maid in
+        <foreach item="maid" collection="array" open="(" separator="," close=")">
+            #{maid}
+        </foreach>
+    </delete>
+    
+    <insert id="insertMaintainApply" parameterType="MaintainApply">
+        insert into maintain_apply
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="teraddress != null  and teraddress != '' ">teraddress,</if>
+            <if test="maid != null  and maid != '' ">maid,</if>
+            <if test="linkman != null  and linkman != '' ">linkman,</if>
+            <if test="linkphone != null  and linkphone != '' ">linkphone,</if>
+            <if test="downtime != null  and downtime != '' ">downtime,</if>
+            <if test="applytime != null  and applytime != '' ">applytime,</if>
+            <if test="status != null  and status != '' ">status,</if>
+            <if test="remark != null  and remark != '' ">remark,</if>
+            <if test="uid != null  and uid != '' ">uid</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teraddress != null  and teraddress != '' ">#{teraddress},</if>
+            <if test="maid != null  and maid != '' ">#{maid},</if>
+            <if test="linkman != null  and linkman != '' ">#{linkman},</if>
+            <if test="linkphone != null  and linkphone != '' ">#{linkphone},</if>
+            <if test="downtime != null  and downtime != '' ">#{downtime},</if>
+            <if test="applytime != null  and applytime != '' ">#{applytime},</if>
+            <if test="status != null  and status != '' ">#{status},</if>
+            <if test="remark != null  and remark != '' ">#{remark},</if>
+            <if test="uid != null  and uid != '' ">#{uid}</if>
+        </trim>
+    </insert>
+</mapper>

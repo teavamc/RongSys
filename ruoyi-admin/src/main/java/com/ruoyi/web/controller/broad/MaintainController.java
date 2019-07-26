@@ -69,6 +69,28 @@ public class MaintainController extends BaseController
 		return getDataTable(list);
 	}
 
+	/**
+	 * 添加用户信息
+	 * @author CX
+	 */
+	@GetMapping("/add")
+	public String add(ModelMap mmap)
+	{
+		//从session中获取当前登陆用户的 username、phone、userid
+		SysUser currentUser = ShiroUtils.getSysUser();
+		String username =  currentUser.getUserName();
+//		String phone =  currentUser.getPhonenumber();
+		Long userid =  currentUser.getUserId();
+		String aid;
+		int returnId = new Long(userid).intValue();
+		//通过所获取的userid去广播用户表中查询用户所属区域的Aid
+		aid = sysUserService.selectAid(returnId);
+		//	将aid、fname、uname传至add.html中
+//		mmap.put("aid", aid);//这里获得的aid是来自ry-》tb_user_admin
+		mmap.put("fname", username);
+//		mmap.put("fphone", phone);
+		return prefix + "/add";
+	}
 
 	/**
 	 * 导出终端维护记录列表
@@ -86,11 +108,11 @@ public class MaintainController extends BaseController
 	/**
 	 * 新增终端维护记录
 	 */
-	@GetMapping("/add")
-	public String add()
-	{
-	    return prefix + "/add";
-	}
+//	@GetMapping("/add")
+//	public String add()
+//	{
+//	    return prefix + "/add";
+//	}
 
 	/**
 	 * 新增保存终端维护记录
@@ -99,12 +121,9 @@ public class MaintainController extends BaseController
 	@Log(title = "终端维护记录", businessType = BusinessType.INSERT)
 	@PostMapping("/add")
 	@ResponseBody
-	public AjaxResult addSave(@RequestParam(value = "tid") String tid,
-							  @RequestParam(value = "fault") String fault,
-							  @RequestParam(value = "mstaff") String mstaff,
-							  @RequestParam(value = "remark") String remark)
+	public AjaxResult addSave(Maintain maintain)
 	{
-		return toAjax(maintainService.insertMaintain(tid,fault,mstaff,remark));
+		return toAjax(maintainService.insertMaintain(maintain));
 	}
 
 	/**

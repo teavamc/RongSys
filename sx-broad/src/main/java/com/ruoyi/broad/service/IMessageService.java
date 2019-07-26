@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface IMessageService {
 
-    public List<Map<String, Object>>  selectMessageList(BroadMessage broadMessage);
+    public List<Map<String, Object>> selectMessageList (BroadMessage broadMessage);
 
     public List<MessageExample> selectMessageExampleList();
 

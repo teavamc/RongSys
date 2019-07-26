@@ -69,5 +69,6 @@ public interface IProSinmanageService
 	 * @return java.util.List<com.ruoyi.broad.domain.ProSinmanage>
 	 */
 	public List<ProSinmanage> selectProSinmanageListbySfid(String sfid);
-	
+
+	public List<ProSinmanage> selectProSinmanagebyoneday();
 }
