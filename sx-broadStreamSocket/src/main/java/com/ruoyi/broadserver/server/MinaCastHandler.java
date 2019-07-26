@@ -12,6 +12,7 @@ package com.ruoyi.broadserver.server;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 
+import com.ruoyi.broadserver.domain.SocketInfo;
 import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.future.WriteFuture;
 import org.apache.mina.core.service.IoHandlerAdapter;
@@ -112,7 +113,15 @@ public class MinaCastHandler extends IoHandlerAdapter
 	 @Override
 	 public void sessionIdle(IoSession session, IdleStatus status)
 	   throws Exception {
-		 //logger.info(session.getServiceAddress() +"IDS");
+		 logger.info("连接空闲,断开连接："+session.getLocalAddress());
+		 if(session.getAttribute(CLIENTINFO) != null){
+		 	SocketInfo info = DefaultCommand.getSocketInfoByIMEI(session.getAttribute(CLIENTINFO).toString());
+		 	if(info != null){
+				IoSession socketsession = info.getsession(session);
+				socketsession = null;
+			}
+		 }
+		 session.close(true);
 	 }
 	 @Override
 	 public void sessionOpened(IoSession session) throws Exception {

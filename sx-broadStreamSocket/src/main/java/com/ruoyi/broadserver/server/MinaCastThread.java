@@ -41,6 +41,7 @@ public class MinaCastThread implements Runnable {
 	private NioSocketAcceptor Acceptor; //分发器
 	private Integer port; // 端口
 	private Integer mul; //最大线程数倍乘
+	private Integer idletime; //空闲时间
 	private String type; //线程池名字
     private static Logger logger = LoggerFactory.getLogger(MinaCastThread.class);
     /**
@@ -48,11 +49,12 @@ public class MinaCastThread implements Runnable {
 	 * TODO 无地址初始化
 	 * 时间：2019年1月10日
 	 */
-	public MinaCastThread(int loginport,String type,int threadsize,int mul) {
+	public MinaCastThread(int loginport,String type,int threadsize,int mul,int idletime) {
 		// TODO Auto-generated constructor stub
 		this.port = loginport;
 		this.type = type;
 		this.mul = mul;
+		this.idletime = idletime;
 		Factory = new MyThreadFactory(threadsize,type+"-");
 	}
 	/* (non-Javadoc)
@@ -81,7 +83,7 @@ public class MinaCastThread implements Runnable {
         //Acceptor.setSessionRecycler(new ExpiringSessionRecycler(8 * 1000));
         // ** TCP通信配置
 		SocketSessionConfig cfg = (SocketSessionConfig) Acceptor.getSessionConfig();  
-		Acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, 60);//60秒超时空闲
+		Acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, idletime);//超时空闲
 		//Acceptor.getSessionConfig().setUseReadOperation(true);
 		cfg.setSoLinger(0);
         // ** UDP通信配置

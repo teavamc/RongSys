@@ -3,6 +3,7 @@ package com.ruoyi.broadserver.domain;
 import org.apache.mina.core.session.IoSession;
 
 import java.net.InetAddress;
+import java.util.Calendar;
 import java.util.Date;
 /*终端通信缓存类*/
 public class SocketInfo {
@@ -93,6 +94,35 @@ public class SocketInfo {
 
     public void setCommandSession(IoSession commandSession) {
         this.commandSession = commandSession;
+    }
+
+    /*做等同判断*/
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        SocketInfo other = (SocketInfo) obj;
+        if (imei == null) {
+            if (other.imei != null)
+                return false;
+        } else if (!imei.equals(other.imei))
+            return false;
+        return true;
+    }
+    public IoSession getsession(IoSession session){
+        if(heartioSession != null &&heartioSession.equals(session)){
+            return heartioSession;
+        }else if(iotSession != null &&iotSession.equals(session)){
+            return iotSession;
+        }else if(commandSession != null &&commandSession.equals(session)){
+            return commandSession;
+        }else {
+            return  null;
+        }
     }
 }
 
