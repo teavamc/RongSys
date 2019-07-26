@@ -23,12 +23,10 @@ public class Register extends DefaultCommand {
     public byte[] execute() {
         // TODO Auto-generated method stub
         try{
-            byte[] data = bConvert.subBytes(content, 5, 15);
-            String info = new String(data);//获取IMEI号
-            String command = save(get(info))?"1":"0";//保存信息
-            datainfo = df.format(new Date());//返回当前时间给终端
+            String command = save(get(datainfo))?"1":"0";//保存信息
+            String data = df.format(new Date());//返回当前时间给终端
             loggersession();//插入日志
-            return returnBytes(ProtocolsToClient.REGISTER, command, datainfo);
+            return returnBytes(ProtocolsToClient.REGISTER, command, data);
         }catch (Exception e){
             logger.error("终端注册登录失败"+e);
         }
@@ -42,19 +40,17 @@ public class Register extends DefaultCommand {
             if(obj!= null){
                 Organization ter = (Organization)obj;
                 SocketInfo info = getSocketInfoByIMEI(ter.getTid());
-                if(info!=null) {
-                    synchronized (info) {
-                        info.setCommandSession(session);
-                        info.setIpAddress(((InetSocketAddress) session.getRemoteAddress()).getAddress());
-                        info.setType(ter.getTerminaltype());
-                    }
-                }else{
+                if(info==null) {
                     info = new SocketInfo();
                     info.setImei(ter.getTid());
-                    info.setIpAddress(((InetSocketAddress) session.getRemoteAddress()).getAddress());
-                    info.setCommandSession(session);
-                    info.setType(ter.getTerminaltype());
                     putClientToMap(info);
+
+                }
+                synchronized (info) {
+                    info.setCommandSession(session);
+                    info.setIpAddress(((InetSocketAddress) session.getRemoteAddress()).getAddress());
+                    info.setType(ter.getTerminaltype());
+                    info.setLastTime(new Date());
                 }
                 return true;
             }

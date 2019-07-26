@@ -16,16 +16,15 @@ public class BroadCast extends DefaultCommand {
 	@Override
 	public byte[] execute() {
 		// TODO Auto-generated method stub
-		byte[] data = bConvert.subBytes(content, 5, 24);
-		String info = new String(data);
-		String[] infos = info.split(",");
-
-		String command = save(infos)?"1":"0";//保存信息并执行对应操作
-		
-		datainfo = info;
-		loggersession();//插入日志
-		
-		return returnBytes(ProtocolsToClient.BROADCAST, command, null);
+		try {
+			String[] infos = datainfo.split(",");
+			String command = save(infos)?"1":"0";//保存信息并执行对应操作
+			loggersession();//插入日志
+			return returnBytes(ProtocolsToClient.BROADCAST, command, null);
+		} catch (Exception e) {
+			logger.error("解析信息出错",e);
+		}
+		return null;
 	}
 
 	@Override

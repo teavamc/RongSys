@@ -17,9 +17,7 @@ public class RW_VOL extends DefaultCommand {
 	@Override
 	public byte[] execute() {
 		// TODO Auto-generated method stub
-		byte[] data = bConvert.subBytes(content, 5, 4);
-		
-		String command = save(data)?"1":"0";//保存音量或者执行对应操作
+		String command = save(datainfo)?"1":"0";//保存音量或者执行对应操作
 		
 		loggersession();//插入日志
 		

@@ -19,23 +19,23 @@ public class HeartIOT extends DefaultCommand {
 	@Override
 	public byte[] execute() {
 		// TODO Auto-generated method stub
-		byte[] data = bConvert.subBytes(content, 5, 15);
-		String info = new String(data);
-		//logger.info("终端主动请求获取");
-		String command = save(info)?"1":"0";//保存信息
-		
-		datainfo = info;
-		loggersession();//插入日志
-		
-		
-		return returnBytes(ProtocolsToClient.GETPARAMATER, command, "ok");
+		try {
+			//logger.info("终端主动请求获取");
+			String command = save(datainfo)?"1":"0";//保存信息
+
+			loggersession();//插入日志
+			return returnBytes(ProtocolsToClient.GETPARAMATER, command, "ok");
+		} catch (Exception e) {
+			logger.error("解析信息出错",e);
+		}
+		return null;
 	}
 
 	@Override
 	public boolean save(Object obj) {
 		// TODO Auto-generated method stub
 		session.setAttribute(MinaCastHandler.CLIENTINFO, obj);
-		SocketInfo info = GlobalInfo.getSocketInfoByIMEI(obj.toString());
+		SocketInfo info = getSocketInfoByIMEI(obj.toString());
 		if(info != null){
 			synchronized (info){
 				info.setIotSession(session);

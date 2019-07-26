@@ -1,5 +1,6 @@
 package com.ruoyi.broadserver.server.handle;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.ByteBuffer;
 import java.util.Date;
 import java.util.HashMap;
@@ -25,6 +26,7 @@ public abstract class DefaultCommand implements Command{
 	private static Map<String, SocketInfo> IMEI_SocketInfo = new HashMap<>();//终端IMEI与其对应信息
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultCommand.class);
 	protected static IOrganizationService organizationService = (OrganizationServiceImpl) SpringUtils.getBean(OrganizationServiceImpl.class);
+	protected final static String GBK = "GBK";
     //private SessionManager sessionservice = (SessionService) SpringContextUtils.getBeanByClass(SessionService.class);
     
 	protected IoSession session;
@@ -35,30 +37,44 @@ public abstract class DefaultCommand implements Command{
 	public DefaultCommand(IoSession session, byte[] content) {
 		this.session = session;
 		this.content = content;
+		if(content.length > 7) {
+			byte[] data = bConvert.subBytes(content, 5, content.length-7);
+			try {
+				datainfo = new String(data, GBK);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	//默认调用返回的格式
 	protected byte[] returnBytes(String type,String command,String data) {//data可能为null
-		byte[] checkData = new byte[(data!= null?data.length():0)+3];//用来计算校验和
-		ByteBuffer encoded = ByteBuffer.allocate(data.length()+20);
-		encoded.put(bConvert.hexStringToBytes(ProtocolsToClient.PACKETHEAD));//发包的数据头
-		encoded.put(bConvert.hexStringToBytes(type));//发包的类型
-		byte[] length = bConvert.intToByteArray(2+(data!= null?data.length():0));
-		System.arraycopy(length, 0, checkData, 0, length.length);
-		checkData[2] = (byte)Integer.parseInt(command);
-		if(data != null)
-			System.arraycopy(data.getBytes(), 0, checkData, 3, data.getBytes().length);
-		String check = bConvert.checksum(checkData);
-		encoded.put(length);//发包的数据长度 命令1字节+data长度+校验1字节
-		encoded.put(bConvert.hexStringToBytes(command));//发包命令
-		if(data != null)encoded.put(data.getBytes());//发包数据
-		encoded.put(bConvert.hexStringToBytes(check)[0]);//发包的校验
-		encoded.put(bConvert.hexStringToBytes(ProtocolsToClient.ENDCHECK));//发包的结尾
-		encoded.flip();
-		byte[] bs = new byte[encoded.remaining()];
-		encoded.get(bs);
-		encoded.clear();
-		return bs;
+		try {
+			byte[] res = data!= null?data.getBytes(GBK):new byte[0];
+			byte[] checkData = new byte[res.length+3];//用来计算校验和
+			ByteBuffer encoded = ByteBuffer.allocate(res.length+20);
+			encoded.put(bConvert.hexStringToBytes(ProtocolsToClient.PACKETHEAD));//发包的数据头
+			encoded.put(bConvert.hexStringToBytes(type));//发包的类型
+			byte[] length = bConvert.intToByteArray(2+res.length);
+			System.arraycopy(length, 0, checkData, 0, length.length);
+			checkData[2] = (byte)Integer.parseInt(command);
+			if(data != null)
+				System.arraycopy(res, 0, checkData, 3, res.length);
+			String check = bConvert.checksum(checkData);
+			encoded.put(length);//发包的数据长度 命令1字节+data长度+校验1字节
+			encoded.put(bConvert.hexStringToBytes(command));//发包命令
+			encoded.put(res);//发包数据
+			encoded.put(bConvert.hexStringToBytes(check)[0]);//发包的校验
+			encoded.put(bConvert.hexStringToBytes(ProtocolsToClient.ENDCHECK));//发包的结尾
+			encoded.flip();
+			byte[] bs = new byte[encoded.remaining()];
+			encoded.get(bs);
+			encoded.clear();
+			return bs;
+		} catch (UnsupportedEncodingException e) {
+			logger.error("解析信息出错",e);
+		}
+		return null;
 	}
 	//发文件的返回格式
 	protected byte[] returnFile(String type,String command,String data) {//data可能为null

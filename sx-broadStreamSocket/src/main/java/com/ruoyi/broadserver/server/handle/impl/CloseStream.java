@@ -16,17 +16,17 @@ public class CloseStream extends DefaultCommand {
 	@Override
 	public byte[] execute() {
 		// TODO Auto-generated method stub
-		// TODO Auto-generated method stub
-		byte[] data = bConvert.subBytes(content, 5, 6);
-		String info = new String(data);
+		try {
+			String command = save(datainfo)?"1":"0";//保存信息
 
-		String command = save(info)?"1":"0";//保存信息
-		
-		
-		datainfo = info;
-		loggersession();//插入日志
-	
-		return returnBytes(ProtocolsToClient.CLOSESTREAM, command, "OK");
+
+			loggersession();//插入日志
+
+			return returnBytes(ProtocolsToClient.CLOSESTREAM, command, "OK");
+		} catch (Exception e) {
+			logger.error("解析信息出错",e);
+		}
+		return  null;
 	}
 
 	@Override

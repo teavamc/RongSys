@@ -8,7 +8,7 @@ import java.util.Date;
 /*终端通信缓存类*/
 public class SocketInfo {
     private String imei; //终端IMEI号
-    private String type;//终端类型 1 老终端 2 新终端 3 后备电源型
+    private String type;//终端类型
 
     private IoSession heartioSession;//终端心跳连接对象信息 8800端口
     private IoSession iotSession;//终端物联网信息连接对象 8900端口

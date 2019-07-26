@@ -21,6 +21,12 @@ public class SimpleCommandFactory {
 				case ProtocolsToClient.IPCHANGE://获取终端IP(读)，并为流媒体心跳包
 					command = new ClientHeart_IP(session,content);
 					break;
+				case ProtocolsToClient.REGISTER://终端命令端口注册登录
+					command = new Register(session,content);
+					break;
+				case ProtocolsToClient.STATU://获取终端硬件信息状态
+					command = new ReadClientInfo(session,content);
+					break;
 				case ProtocolsToClient.OPENSTREAM://启动流媒体传输
 					command = new OpenStream(session,content);
 					break;

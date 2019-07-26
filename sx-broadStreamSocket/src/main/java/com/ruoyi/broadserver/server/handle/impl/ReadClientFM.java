@@ -16,13 +16,10 @@ public class ReadClientFM  extends DefaultCommand {
 	@Override
 	public byte[] execute() {
 		// TODO Auto-generated method stub
-		byte[] data = bConvert.subBytes(content, 5, 25);
-		String info = new String(data);
-		String[] infos = info.split(",");
+		String[] infos = datainfo.split(",");
 
 		String command = save(infos)?"1":"0";//保存信息
 
-		datainfo = info;
 		loggersession();//插入日志
 		
 		return returnBytes(ProtocolsToClient.CLIENTREAD, command, null);

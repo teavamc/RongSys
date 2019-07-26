@@ -18,19 +18,17 @@ public class RW_RDS extends DefaultCommand {
 	@Override
 	public byte[] execute() {
 		// TODO Auto-generated method stub
-		byte[] data = bConvert.subBytes(content, 5, 14);
-		String info = new String(data);
-		String[] infos = info.split(",");
-		logger.info(info);
+		String[] infos = datainfo.split(",");
+
 		String command = save(infos)?"1":"0";//保存信息
-		datainfo = info;
+
 		loggersession();//插入日志
 		
-		String reinfo = (String)get(info);//获取需要修改的码率频段，后续可进行修改
+		String reinfo = (String)get(datainfo);//获取需要修改的码率频段，后续可进行修改
 		if(reinfo != null)
 			return returnBytes(ProtocolsToClient.E_FM_RECIVE, command, reinfo);
 		else
-			return returnBytes(ProtocolsToClient.E_FM_RECIVE, command, info);
+			return returnBytes(ProtocolsToClient.E_FM_RECIVE, command, datainfo);
 	}
 	
 	@Override
