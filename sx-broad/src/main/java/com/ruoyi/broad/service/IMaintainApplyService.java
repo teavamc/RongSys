@@ -31,4 +31,19 @@ public interface IMaintainApplyService {
      * @return 申请维护记录信息
      */
     public List<MaintainApply> selectAllMaintainApply();
+    /**
+     * 删除申请维护记录信息
+     *
+     *
+     * @return 申请维护记录信息
+     */
+
+    public int deleteMaintainApplyById(String maid);
+    /**
+     * 插入申请维护记录信息
+     *
+     *
+     * @return 申请维护记录信息
+     */
+    public int insertMaintainApply(MaintainApply maintainApply);
 }

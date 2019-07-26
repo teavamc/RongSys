@@ -70,7 +70,8 @@ public class MaintainController extends BaseController
 	}
 
 	/**
-	 * 新增重大项目
+	 * 添加用户信息
+	 * @author CX
 	 */
 	@GetMapping("/add")
 	public String add(ModelMap mmap)

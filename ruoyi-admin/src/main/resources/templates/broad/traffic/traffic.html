@@ -11,7 +11,7 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								终端编号：<input type="text" name="tid"/>
+								终端编号：<input type="text" name="tid" id="tid"/>
 							</li>
 
 							<li>
@@ -108,7 +108,7 @@
 					},
 					{
 						field : 'uname',
-						title : '所属上级分组',
+						title : '上级分组',
 						sortable: true
 					},
 				{
@@ -189,6 +189,13 @@
 				$.operate.submit(url, "post", "json", data);
 			});
 		}
-    </script>
+        String.prototype.trim=function(){
+            return this.replace(/(^\s*)|(\s*$)/g, "");
+        }
+        $("#tid").change(function(){
+            $(this).val($(this).val().trim());
+        });
+
+	</script>
 </body>
 </html>

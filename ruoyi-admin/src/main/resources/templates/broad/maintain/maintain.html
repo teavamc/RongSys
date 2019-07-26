@@ -11,7 +11,7 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								终端编号：<input type="text" name="tid"/>
+								终端编号：<input type="text" name="tid" id="tid"/>
 							</li>
 
 							<li>
@@ -25,6 +25,7 @@
 							<li>
 								维护人员：<input type="text" name="mstaff"/>
 							</li>
+
 							<li>
 								故障现象：<input type="text" name="fault"/>
 							</li>
@@ -84,9 +85,7 @@
                 modalName: "终端维护记录",
 				search: false,
 		        showExport: true,
-                columns: [{
-		            checkbox: true
-		        },
+                columns: [
 				{
 					field : 'tmid',
 					title : '终端维护记录-维护ID',
@@ -97,33 +96,36 @@
 					title : '终端编号',
 					sortable: true
 				},
-					{
-						field : 'tname',
-						title : '终端名称',
-						sortable: true
-					},
-					{
-						field : 'aname',
-						title : '所属分组',
-						sortable: true
-					},
-					{
-						field : 'uname',
-						title : '所属上级分组',
-						sortable: true
-					},{
-						field : 'phone',
-						title : '终端号码',
-						sortable: true
-					},{
-						field : 'address',
-						title : '终端地址',
-						sortable: true
-					},{
-						field : 'nettype',
-						title : '网络类型',
-						sortable: true
-					},
+				{
+					field : 'tname',
+					title : '终端名称',
+					sortable: true
+				},
+				{
+					field : 'aname',
+					title : '所属分组',
+					sortable: true
+				},
+				{
+					field : 'uname',
+					title : '上级分组',
+					sortable: true
+				},
+				{
+					field : 'phone',
+					title : '终端号码',
+					sortable: true
+				},
+				{
+					field : 'address',
+					title : '终端地址',
+					sortable: true
+				},
+				{
+					field : 'nettype',
+					title : '网络类型',
+					sortable: true
+				},
 				{
 					field : 'fault', 
 					title : '故障现象',
@@ -153,5 +155,52 @@
             $.table.init(options);
         });
     </script>
+<script>
+    String.prototype.trim=function(){
+        return this.replace(/(^\s*)|(\s*$)/g, "");
+    }
+    $("#tid").change(function(){
+        $(this).val($(this).val().trim());
+    });
+
+</script>
+<script>
+ laydate({
+	 elem:"#recivedtime",
+	 event:"focus"
+ });
+ laydate({
+	 elem:"#recivedtime",
+	 event:"focus"
+ });
+ layui.use('laydate', function(){
+	 var laydate = layui.laydate;
+
+	 //执行一个laydate实例
+	 laydate.render({
+		 elem:"#broad",
+		 type: 'time',
+	 });
+ });
+</script>
+<script>
+ laydate({
+	 elem:"#endtime",
+	 event:"focus"
+ });
+ laydate({
+	 elem:"#endtime",
+	 event:"focus"
+ });
+ layui.use('laydate', function(){
+	 var laydate2 = layui.laydate;
+
+	 //执行一个laydate实例
+	 laydate2.render({
+		 elem:"#broad",
+		 type: 'time',
+	 });
+ });
+</script>
 </body>
 </html>
