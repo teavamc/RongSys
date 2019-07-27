@@ -26,12 +26,13 @@
                         <p>投资明细：</p><p th:utext="${listByid.moneynote}"></p>
                     </div>
                     <p th:utext="${listByid.content}"></p>
-                    <!--<img src="C:/Users/fama/upload/img/19201907040522040.png">-->
-                    <!--<div><a href="[[${listByid.propic}]]" target="_blank">文件下载</a></div>-->
-                    <!--<p>点击 W3School 的 logo 来下载该图片：<p>-->
-                    <a href="C:/Users/fama/upload/img/19201907040522040.png" download="测试">
-                        文件下载
-                    </a>
+
+                    <a href="http://110.53.162.165/test/a.jpg" download="test.png">点击下载</a>
+
+                    <img src="http://110.53.162.165/test/a.jpg" height="200" width="400"/>
+
+                    <button type="button" id="btn1" onclick="aaa()">下载</button>
+
                 </div>
 
                 </div>
@@ -44,6 +45,16 @@
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
 <script src="js/content.min.js?v=1.0.0"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+
+<script>
+        function aaa(){
+           var elemIF = document.createElement("iframe");
+           var a = "http://110.53.162.165/test/a.png";
+            elemIF.src = a;
+            elemIF.style.display = "none";
+            document.body.appendChild(elemIF);
+        }
+</script>
 </body>
 
 
