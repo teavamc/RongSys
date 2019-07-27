@@ -24,6 +24,7 @@
         <result property="fmfrequency"    column="fmfrequency"    />
         <result property="trafficlimit"    column="trafficlimit"    />
         <result property="pic"    column="pic"    />
+        <result property="terminaltype"    column="terminaltype"    />
     </resultMap>
 
     <resultMap type="area" id="AreatreeResult">
@@ -58,8 +59,8 @@
         t.tid as tid,tname,t.aid as aid,a.aname,t.userid as userid,t.uname,
         facid,address,t.note as note,comstand,broadtel,
         manager,managertel,intertime,createdtime,t.isuse as isuse,phone,
-        fmfrequency,rds,trafficlimit,p.pic as pic
-        from (((tb_organization t
+        fmfrequency,rds,trafficlimit,p.pic as pic,terminaltype
+        from (((terminals t
         left join area a on t.aid = a.aid)
         left join userinfo u on t.userid = u.userid)
         left join terminals_pic p on t.tid = p.tid)
@@ -99,6 +100,7 @@
             <if test="rds != null  and rds != '' "> and rds = #{rds}</if>
             <if test="trafficlimit != null  and trafficlimit != '' "> and trafficlimit = #{trafficlimit}</if>
             <if test="pic != null  and pic != '' "> and p.pic = #{pic}</if>
+            <if test="terminaltype != null  terminaltype pic != '' "> and t.terminaltype = #{terminaltype}</if>
         </where>
     </select>
 
@@ -120,12 +122,12 @@
 
     <select id="selectRdsByTid" parameterType="String" resultType="Organization">
         SELECT rds,fmfrequency
-        FROM tb_organization
+        FROM terminals
         WHERE tid = #{tid}
     </select>
 
     <insert id="insertOrganization" parameterType="Organization">
-        insert into tb_organization
+        insert into terminals
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="tid != null  and tid != ''  ">tid,</if>
             <if test="tname != null  and tname != ''  ">tname,</if>
@@ -148,6 +150,7 @@
             <if test="rds != null  and rds != ''  ">rds,</if>
             <if test="fmfrequency != null  and fmfrequency != ''  ">fmfrequency,</if>
             <if test="trafficlimit != null  ">trafficlimit,</if>
+            <if test="terminaltype != null  ">terminaltype,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="tid != null  and tid != ''  ">#{tid},</if>
@@ -171,6 +174,7 @@
             <if test="rds != null  and rds != ''  ">#{rds},</if>
             <if test="fmfrequency != null  and fmfrequency != ''  ">#{fmfrequency},</if>
             <if test="trafficlimit != null  ">0,</if>
+            <if test="terminaltype != null  ">terminaltype,</if>
         </trim>
     </insert>
 
@@ -187,7 +191,7 @@
     </insert>
 
     <update id="updateOrganization" parameterType="Organization">
-        update tb_organization
+        update terminals
         <trim prefix="SET" suffixOverrides=",">
             <if test="tname != null  and tname != ''  ">tname = #{tname},</if>
             <if test="aid != null  and aid != ''  ">aid = #{aid},</if>
@@ -209,17 +213,18 @@
             <if test="rds != null  and rds != ''  ">rds = #{rds},</if>
             <if test="fmfrequency != null  and fmfrequency != ''  ">fmfrequency = #{fmfrequency},</if>
             <if test="trafficlimit != null  ">trafficlimit = #{trafficlimit},</if>
+            <if test="terminaltype != null  ">terminaltype = #{terminaltype},</if>
         </trim>
         where tid = #{tid}
     </update>
 
     <delete id="deleteOrganizationById" parameterType="String">
-        delete from tb_organization where tid = #{tid}
+        delete from terminals where tid = #{tid}
     </delete>
 
     <delete id="deleteOrganizationByIds" parameterType="String">
-        delete from tb_organization where tid in
-        <foreach item="tid" collection="array" open="(" separator="," close=")">
+        delete from terminals where tid in
+        <foreach item="tid" collection="array" open="(" index=""                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             separator="," close=")">
             #{tid}
         </foreach>
     </delete>
@@ -233,14 +238,14 @@
         </where>
     </select>
     <update id="updateRdsByIds" >
-        update  tb_organization set rds = #{number} where tid in
+        update  terminals set rds = #{number} where tid in
         <foreach item="tid" collection="ids" open="(" separator="," close=")">
             #{tid}
         </foreach>
     </update>
 
     <update id="updateFmfrequencyByIds" >
-        update  tb_organization set fmfrequency = #{number} where tid in
+        update  terminals set fmfrequency = #{number} where tid in
         <foreach item="tid" collection="ids" open="(" separator="," close=")">
             #{tid}
         </foreach>

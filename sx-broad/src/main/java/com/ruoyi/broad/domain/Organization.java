@@ -67,6 +67,9 @@ public class Organization extends BaseEntity
     /** 父地域ID */
     private String parentaid;
 
+
+
+
     public void setTid(String tid)
     {
         this.tid = tid;
