@@ -31,7 +31,7 @@
 
                     <img src="http://110.53.162.165/test/a.jpg" height="200" width="400"/>
 
-                    <button type="button" id="btn1" onclick="aaa()">下载</button>
+                    <button type="button" id="btn1" onclick="aaa(1)">下载</button>
 
                 </div>
 
@@ -47,12 +47,8 @@
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
 <script>
-        function aaa(){
-           var elemIF = document.createElement("iframe");
-           var a = "http://110.53.162.165/test/a.png";
-            elemIF.src = a;
-            elemIF.style.display = "none";
-            document.body.appendChild(elemIF);
+        function aaa(fileId){
+            window.location.href = "/village/project/downloadFile/" + fileId;
         }
 </script>
 </body>
