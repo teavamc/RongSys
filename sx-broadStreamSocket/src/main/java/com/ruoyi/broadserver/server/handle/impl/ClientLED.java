@@ -3,7 +3,6 @@ package com.ruoyi.broadserver.server.handle.impl;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
 import com.ruoyi.broadserver.server.handle.DefaultCommand;
 import org.apache.mina.core.session.IoSession;
-import com.ruoyi.broad.utils.bConvert;
 
 //LED字幕更新（终端主动请求获取）
 public class ClientLED extends DefaultCommand {

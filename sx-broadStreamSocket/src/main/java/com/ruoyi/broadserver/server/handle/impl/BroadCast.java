@@ -3,7 +3,6 @@ package com.ruoyi.broadserver.server.handle.impl;
 import com.ruoyi.broadserver.server.handle.DefaultCommand;
 import org.apache.mina.core.session.IoSession;
 
-import com.ruoyi.broad.utils.bConvert;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
 //紧急界面播出回执（新建连接）
 public class BroadCast extends DefaultCommand {

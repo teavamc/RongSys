@@ -1,7 +1,6 @@
 package com.ruoyi.broadserver.server.handle.impl;
 
 import com.ruoyi.broad.domain.Organization;
-import com.ruoyi.broad.utils.bConvert;
 import com.ruoyi.broadserver.domain.SocketInfo;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
 import com.ruoyi.broadserver.server.handle.DefaultCommand;

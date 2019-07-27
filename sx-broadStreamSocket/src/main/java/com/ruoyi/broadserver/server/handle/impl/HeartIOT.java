@@ -1,12 +1,10 @@
 package com.ruoyi.broadserver.server.handle.impl;
 
 import com.ruoyi.broadserver.domain.SocketInfo;
-import com.ruoyi.broadserver.global.GlobalInfo;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
 import com.ruoyi.broadserver.server.MinaCastHandler;
 import com.ruoyi.broadserver.server.handle.DefaultCommand;
 import org.apache.mina.core.session.IoSession;
-import com.ruoyi.broad.utils.bConvert;
 
 //物联网终端参数透传接口（终端主动请求获取，端口:8900）
 public class HeartIOT extends DefaultCommand {
