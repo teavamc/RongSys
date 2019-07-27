@@ -1,29 +1,31 @@
 package com.ruoyi.web.controller.system;
 
 import java.util.List;
-import java.util.Map;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.annotation.Log;
+import com.ruoyi.common.constant.UserConstants;
+import com.ruoyi.framework.web.base.BaseController;
 import com.ruoyi.common.base.AjaxResult;
+import com.ruoyi.common.base.Ztree;
 import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.system.domain.SysDept;
 import com.ruoyi.system.domain.SysRole;
 import com.ruoyi.system.service.ISysDeptService;
-import com.ruoyi.framework.web.base.BaseController;
 
 /**
  * 部门信息
- * 
+ *
  * @author ruoyi
  */
 @Controller
@@ -43,7 +45,7 @@ public class SysDeptController extends BaseController
     }
 
     @RequiresPermissions("system:dept:list")
-    @GetMapping("/list")
+    @PostMapping("/list")
     @ResponseBody
     public List<SysDept> list(SysDept dept)
     {
@@ -68,8 +70,12 @@ public class SysDeptController extends BaseController
     @RequiresPermissions("system:dept:add")
     @PostMapping("/add")
     @ResponseBody
-    public AjaxResult addSave(SysDept dept)
+    public AjaxResult addSave(@Validated SysDept dept)
     {
+        if (UserConstants.DEPT_NAME_NOT_UNIQUE.equals(deptService.checkDeptNameUnique(dept)))
+        {
+            return error("新增部门'" + dept.getDeptName() + "'失败，部门名称已存在");
+        }
         dept.setCreateBy(ShiroUtils.getLoginName());
         return toAjax(deptService.insertDept(dept));
     }
@@ -96,8 +102,16 @@ public class SysDeptController extends BaseController
     @RequiresPermissions("system:dept:edit")
     @PostMapping("/edit")
     @ResponseBody
-    public AjaxResult editSave(SysDept dept)
+    public AjaxResult editSave(@Validated SysDept dept)
     {
+        if (UserConstants.DEPT_NAME_NOT_UNIQUE.equals(deptService.checkDeptNameUnique(dept)))
+        {
+            return error("修改部门'" + dept.getDeptName() + "'失败，部门名称已存在");
+        }
+        else if (dept.getParentId().equals(dept.getDeptId()))
+        {
+            return error("修改部门'" + dept.getDeptName() + "'失败，上级部门不能是自己");
+        }
         dept.setUpdateBy(ShiroUtils.getLoginName());
         return toAjax(deptService.updateDept(dept));
     }
@@ -107,17 +121,17 @@ public class SysDeptController extends BaseController
      */
     @Log(title = "部门管理", businessType = BusinessType.DELETE)
     @RequiresPermissions("system:dept:remove")
-    @PostMapping("/remove/{deptId}")
+    @GetMapping("/remove/{deptId}")
     @ResponseBody
     public AjaxResult remove(@PathVariable("deptId") Long deptId)
     {
         if (deptService.selectDeptCount(deptId) > 0)
         {
-            return error(1, "存在下级部门,不允许删除");
+            return AjaxResult.warn("存在下级部门,不允许删除");
         }
         if (deptService.checkDeptExistUser(deptId))
         {
-            return error(1, "部门存在用户,不允许删除");
+            return AjaxResult.warn("部门存在用户,不允许删除");
         }
         return toAjax(deptService.deleteDeptById(deptId));
     }
@@ -147,10 +161,10 @@ public class SysDeptController extends BaseController
      */
     @GetMapping("/treeData")
     @ResponseBody
-    public List<Map<String, Object>> treeData()
+    public List<Ztree> treeData()
     {
-        List<Map<String, Object>> tree = deptService.selectDeptTree(new SysDept());
-        return tree;
+        List<Ztree> ztrees = deptService.selectDeptTree(new SysDept());
+        return ztrees;
     }
 
     /**
@@ -158,9 +172,9 @@ public class SysDeptController extends BaseController
      */
     @GetMapping("/roleDeptTreeData")
     @ResponseBody
-    public List<Map<String, Object>> deptTreeData(SysRole role)
+    public List<Ztree> deptTreeData(SysRole role)
     {
-        List<Map<String, Object>> tree = deptService.roleDeptTreeData(role);
-        return tree;
+        List<Ztree> ztrees = deptService.roleDeptTreeData(role);
+        return ztrees;
     }
 }

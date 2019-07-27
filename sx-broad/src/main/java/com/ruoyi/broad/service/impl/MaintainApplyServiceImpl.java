@@ -46,4 +46,8 @@ public class MaintainApplyServiceImpl implements IMaintainApplyService {
     @Override
     @DataSource(value = DataSourceType.SLAVE)
     public int insertMaintainApply(MaintainApply maintainApply){return maintainApplyMapper.insertMaintainApply(maintainApply);}
+
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public int updateMaintainApply(MaintainApply maintainApply){return maintainApplyMapper.updateMaintainApply(maintainApply);}
 }

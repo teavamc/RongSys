@@ -40,8 +40,19 @@ public class Maincount extends BaseEntity
 	private String uname;
 	/** 所属分组编号 */
 	private String aid;
+
+	public String getMnum() {
+		return mnum;
+	}
+
+	public void setMnum(String mnum) {
+		this.mnum = mnum;
+	}
+
 	/** 维修次数 */
-	private int mnum;
+
+	private String mnum;
+
 	public void setTmid(Integer tmid) 
 	{
 		this.tmid = tmid;
@@ -153,13 +164,7 @@ public class Maincount extends BaseEntity
 		this.aid = aid;
 	}
 
-	public int getMnum() {
-		return mnum;
-	}
 
-	public void setMnum(int mnum) {
-		this.mnum = mnum;
-	}
 	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("tmid", getTmid())

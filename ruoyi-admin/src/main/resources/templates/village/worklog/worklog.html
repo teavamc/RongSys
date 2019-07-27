@@ -53,11 +53,11 @@
 							</li>
 
 							<li>
-								项目状态：
-								<select class="chosen-select" style="width:100px"  id="ptype" name="ptype"  type="text">
+								项目状态：<input list="ptype"  name="ptype"/>
+								<datalist id="ptype">
 									<option value=0>未完成</option>
 									<option value=1>已完成</option>
-								</select>
+								</datalist>
 							</li>
 
 							<li>
@@ -72,11 +72,11 @@
 							</li>
 
 							<li>
-								是否有效：
-								<select class="chosen-select" style="width: 50px" id="remark" name="remark"  type="text">
-									<option value=1>是</option>
-									<option value=0>否</option>
-								</select>
+								是否有效：<input list="remark"  name="remark"/>
+								<datalist id="remark">
+									<option value="是">是</option>
+									<option value="否">否</option>
+								</datalist>
 							</li>
 
 							<li>
@@ -185,17 +185,7 @@
 				{
 					field : 'remark', 
 					title : '是否有效',
-					sortable: true,
-					formatter:function(value,row,index){
-						var html = "";
-						if(value == "0"){
-							html += "<label style='color: #ff5909'>否</label>";
-							return html;
-						}else {
-							html += "<label>是</label>";
-							return html;
-						}
-					}
+					sortable: true
 				},
 				/*{
 					field : 'aid', 

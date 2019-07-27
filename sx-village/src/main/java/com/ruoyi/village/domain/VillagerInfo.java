@@ -1,5 +1,6 @@
 package com.ruoyi.village.domain;
 
+import com.ruoyi.common.annotation.Excel;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.base.BaseEntity;
@@ -13,80 +14,113 @@ import com.ruoyi.common.base.BaseEntity;
 public class VillagerInfo extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
-	
+
 	/** 数据编号 */
-	private Integer vid;
+	private int vid;
 	/** 地域编号 */
+	@Excel(name = "地域编号")
 	private String aid;
-	/** 村民姓名 */
+	/** 所属村组 */
+	@Excel(name = "所属村组")
+	private String grouptype;
+	/** 姓名 */
+	@Excel(name = "姓名")
 	private String vname;
 	/** 年龄 */
+	@Excel(name = "年龄")
 	private String age;
 	/** 性别 */
+	@Excel(name = "性别")
 	private String sex;
 	/** 籍贯 */
+	@Excel(name = "籍贯")
 	private String nativeplace;
+	/** 户口性质 */
+	@Excel(name = "户口性质")
+	private String prt;
+	/** 户籍地址 */
+	@Excel(name = "户籍地址")
+	private String pra;
 	/** 民族 */
+	@Excel(name = "民族")
 	private String nation;
 	/** 政治面貌 */
+	@Excel(name = "政治面貌")
 	private String politics;
 	/** 入党年月 */
+	@Excel(name = "入党年月")
 	private String partyjoindate;
 	/** 文化程度 */
+	@Excel(name = "文化程度")
 	private String edulevel;
 	/** 婚姻状况 */
+	@Excel(name = "婚姻状况")
 	private String marital;
 	/** 身份证号码 */
+	@Excel(name = "身份证号码")
 	private String idcard;
 	/** 联系方式 */
+	@Excel(name = "联系方式")
 	private String phone;
 	/** 健康状况 */
+	@Excel(name = "健康状况")
 	private String health;
 	/** 特种（残疾）信息 */
+	@Excel(name = "特种（残疾）信息")
 	private String special;
 	/** 优抚信息 */
+	@Excel(name = "优抚信息")
 	private String entitle;
 	/** 计生情况 */
+	@Excel(name = "计生情况")
 	private String familyplan;
 	/** 医疗情况 */
+	@Excel(name = "医疗情况")
 	private String medical;
 	/** 补助情况 */
+	@Excel(name = "补助情况")
 	private String subsidy;
 	/** 保险情况 */
+	@Excel(name = "保险情况")
 	private String insurance;
 	/** 犯罪史 */
+	@Excel(name = "犯罪史")
 	private String criminal;
 	/** 吸毒史 */
+	@Excel(name = "吸毒史")
 	private String drug;
 	/** 驾照 */
+	@Excel(name = "驾照")
 	private String drive;
 	/** 车辆 */
+	@Excel(name = "车辆")
 	private String car;
 	/** 车辆类型 */
+	@Excel(name = "车辆类型")
 	private String vtype;
 	/** 车牌号 */
+	@Excel(name = "车牌号")
 	private String carnum;
 	/** 职业 */
+	@Excel(name = "职业")
 	private String job;
 	/** 工作单位 */
+	@Excel(name = "工作单位")
 	private String company;
-	/** 户籍地址 */
-	private String pra;
 	/** 现居地址 */
+	@Excel(name = "现居地址")
 	private String home;
-	/** 所属村组 */
-	private String grouptype;
 	/** 住房性质 */
+	@Excel(name = "住房性质")
 	private String house;
-	/** 户口性质 */
-	private String prt;
 
-	public void setVid(Integer vid) 
+
+	public void setVid(int vid)
 	{
 		this.vid = vid;
 	}
 
-	public Integer getVid() 
+	public int getVid()
 	{
 		return vid;
 	}

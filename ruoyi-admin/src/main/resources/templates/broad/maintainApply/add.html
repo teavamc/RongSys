@@ -1,7 +1,15 @@
 <!DOCTYPE HTML>
 <html  lang="zh" xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
-<head th:include="include :: header">
+<!--①注意head是否有样式冲突，引入需要的css文件-->
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{favicon.ico}" rel="shortcut icon"/>
+    <link th:href="@{/css/bootstrap.min14ed.css?v=3.3.6}" rel="stylesheet"/>
+    <link th:href="@{/css/font-awesome.min93e3.css?v=4.4.0}" rel="stylesheet"/>
+    <link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
+    <link th:href="@{/css/plugins/simditor/simditor.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/css/style.min862f.css?v=4.1.0}" rel="stylesheet"/>
 </head>
 <body class="white-bg">
 <div class="wrapper wrapper-content animated fadeInRight ibox-content">
@@ -9,7 +17,7 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">序号：</label>
             <div class="col-sm-8">
-                <input id="maid" name="maid" class="form-control" type="text" placeholder="请输入序号(可不填)">
+                <input id="maid" name="maid" class="form-control" type="text" placeholder="请输入序号(可不填)<如果填入要保证序号不重复，否则会报错>">
             </div>
         </div>
         <div class="form-group">
@@ -49,16 +57,13 @@
         <div class="form-group">
             <label class="col-sm-3 control-label">故障原因：</label>
             <div class="col-sm-8">
-                <input id="remark" name="remark" class="form-control" placeholder="请输入故障原因" >
+                <textarea id="remark" name="remark"  autofocus></textarea>
             </div>
         </div>
     </form>
 </div>
 <div th:include="include::footer"></div>
 
-<!--<script>-->
-    <!--$(document).ready(function(){var editor = new Simditor({placeholder: "请输入故障原因", toolbar: ['title', 'bold', 'underline', 'color', '|', 'ol', 'ul', 'table'], textarea: '#remark',});Dropzone.options.myAwesomeDropzone={autoProcessQueue:false,uploadMultiple:true,parallelUploads:100,maxFiles:100,init:function(){var myDropzone=this;this.element.querySelector("button[type=submit]").addEventListener("click",function(e){e.preventDefault();e.stopPropagation();myDropzone.processQueue()});this.on("sendingmultiple",function(){});this.on("successmultiple",function(files,response){});this.on("errormultiple",function(files,response){})}}});-->
-<!--</script>-->
 <script th:src="@{/js/plugins/dropzone/dropzone.js}"></script>
 <script th:src="@{/js/jquery-form.js}"></script>
 <script type="text/javascript">
@@ -70,7 +75,7 @@
             },
         }
     });
-    function CurrentTime()
+    function CurrentTime()                         //获取当前时间
     {
         var now = new Date();
 
@@ -109,22 +114,6 @@
     CurrentTime(); //调用函数显示时间
 
     function submitHandler() {
-//        var userid = $("#userid").val();
-//        var pname = $("#pname").val();
-//        var requires = $("#requires").val();
-//        var timelimit = $("#timelimit").val();
-//        var userid = $("#userid").val();
-//        var submittime = $("#submittime").val();
-//
-//        var info = {
-//            "userid": userid,
-//            "pname": pname,
-//            "requires": requires,
-//            "timelimit": timelimit,
-//            "userid":userid,
-//            "submittime": submittime,
-//        }
-//
         if ($.validate.form()) {
             $.operate.save(prefix + "/add", $('#form-maintainApply-add').serialize());
         }
@@ -132,18 +121,30 @@
 </script>
 <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
 <script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<!--与富文本框有关的js文件的引入-->
+<script th:src="@{/js/plugins/simditor/module.js}"></script>
+<script th:src="@{/js/plugins/simditor/uploader.js}"></script>
+<script th:src="@{/js/plugins/simditor/hotkeys.js}"></script>
+<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+<script th:src="@{/js/plugins/simditor/simditor.js}"></script>
 <!--时间插件-->
 <script>
     laydate({
-        elem:"#remark",
+        elem:"#downtime",
         event:"focus"
     });
-    layui.use('laydate', function(){
-        var laydate = layui.laydate;
-        //执行一个laydate实例
-        laydate.render({
-            elem:"#remark",
-            type: 'time',
+
+</script>
+<!--设置富文本插件-->
+<script>
+    $(document).ready(function() {
+        var editor = new Simditor({
+            placeholder: "请输入故障原因", // 编辑器默认值（默认为’’）
+            toolbar: [
+                'title', 'bold', 'italic', 'underline',
+                'color', '|', 'ol', 'ul', 'table'
+            ],
+            textarea: '#remark',
         });
     });
 </script>

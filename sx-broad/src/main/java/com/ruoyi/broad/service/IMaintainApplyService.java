@@ -46,4 +46,11 @@ public interface IMaintainApplyService {
      * @return 申请维护记录信息
      */
     public int insertMaintainApply(MaintainApply maintainApply);
+    /**
+     * 更新申请维护记录信息
+     *
+     *
+     * @return 申请维护记录信息
+     */
+    public int updateMaintainApply(MaintainApply maintainApply);
 }
