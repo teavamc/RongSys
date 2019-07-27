@@ -1,13 +1,13 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import com.ruoyi.common.annotation.DataScope;
 import com.ruoyi.common.constant.UserConstants;
+import com.ruoyi.common.base.Ztree;
 import com.ruoyi.common.exception.BusinessException;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.system.domain.SysDept;
@@ -17,7 +17,7 @@ import com.ruoyi.system.service.ISysDeptService;
 
 /**
  * 部门管理 服务实现
- * 
+ *
  * @author ruoyi
  */
 @Service
@@ -28,12 +28,12 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 查询部门管理数据
-     * 
+     *
      * @param dept 部门信息
      * @return 部门信息集合
      */
     @Override
-    @DataScope(tableAlias = "d")
+    @DataScope(deptAlias = "d")
     public List<SysDept> selectDeptList(SysDept dept)
     {
         return deptMapper.selectDeptList(dept);
@@ -41,18 +41,17 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 查询部门管理树
-     * 
+     *
      * @param dept 部门信息
      * @return 所有部门信息
      */
     @Override
-    @DataScope(tableAlias = "d")
-    public List<Map<String, Object>> selectDeptTree(SysDept dept)
+    @DataScope(deptAlias = "d")
+    public List<Ztree> selectDeptTree(SysDept dept)
     {
-        List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
         List<SysDept> deptList = deptMapper.selectDeptList(dept);
-        trees = getTrees(deptList, false, null);
-        return trees;
+        List<Ztree> ztrees = initZtree(deptList);
+        return ztrees;
     }
 
     /**
@@ -62,61 +61,68 @@ public class SysDeptServiceImpl implements ISysDeptService
      * @return 部门列表（数据权限）
      */
     @Override
-    public List<Map<String, Object>> roleDeptTreeData(SysRole role)
+    public List<Ztree> roleDeptTreeData(SysRole role)
     {
         Long roleId = role.getRoleId();
-        List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+        List<Ztree> ztrees = new ArrayList<Ztree>();
         List<SysDept> deptList = selectDeptList(new SysDept());
         if (StringUtils.isNotNull(roleId))
         {
             List<String> roleDeptList = deptMapper.selectRoleDeptTree(roleId);
-            trees = getTrees(deptList, true, roleDeptList);
+            ztrees = initZtree(deptList, roleDeptList);
         }
         else
         {
-            trees = getTrees(deptList, false, null);
+            ztrees = initZtree(deptList);
         }
-        return trees;
+        return ztrees;
     }
 
     /**
      * 对象转部门树
      *
      * @param deptList 部门列表
-     * @param isCheck 是否需要选中
-     * @param roleDeptList 角色已存在菜单列表
-     * @return
+     * @return 树结构列表
      */
-    public List<Map<String, Object>> getTrees(List<SysDept> deptList, boolean isCheck, List<String> roleDeptList)
+    public List<Ztree> initZtree(List<SysDept> deptList)
+    {
+        return initZtree(deptList, null);
+    }
+
+    /**
+     * 对象转部门树
+     *
+     * @param deptList 部门列表
+     * @param roleDeptList 角色已存在菜单列表
+     * @return 树结构列表
+     */
+    public List<Ztree> initZtree(List<SysDept> deptList, List<String> roleDeptList)
     {
 
-        List<Map<String, Object>> trees = new ArrayList<Map<String, Object>>();
+        List<Ztree> ztrees = new ArrayList<Ztree>();
+        boolean isCheck = StringUtils.isNotNull(roleDeptList);
         for (SysDept dept : deptList)
         {
             if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()))
             {
-                Map<String, Object> deptMap = new HashMap<String, Object>();
-                deptMap.put("id", dept.getDeptId());
-                deptMap.put("pId", dept.getParentId());
-                deptMap.put("name", dept.getDeptName());
-                deptMap.put("title", dept.getDeptName());
+                Ztree ztree = new Ztree();
+                ztree.setId(dept.getDeptId());
+                ztree.setpId(dept.getParentId());
+                ztree.setName(dept.getDeptName());
+                ztree.setTitle(dept.getDeptName());
                 if (isCheck)
                 {
-                    deptMap.put("checked", roleDeptList.contains(dept.getDeptId() + dept.getDeptName()));
+                    ztree.setChecked(roleDeptList.contains(dept.getDeptId() + dept.getDeptName()));
                 }
-                else
-                {
-                    deptMap.put("checked", false);
-                }
-                trees.add(deptMap);
+                ztrees.add(ztree);
             }
         }
-        return trees;
+        return ztrees;
     }
 
     /**
      * 查询部门人数
-     * 
+     *
      * @param parentId 部门ID
      * @return 结果
      */
@@ -130,7 +136,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 查询部门是否存在用户
-     * 
+     *
      * @param deptId 部门ID
      * @return 结果 true 存在 false 不存在
      */
@@ -143,7 +149,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 删除部门管理信息
-     * 
+     *
      * @param deptId 部门ID
      * @return 结果
      */
@@ -155,7 +161,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 新增保存部门信息
-     * 
+     *
      * @param dept 部门信息
      * @return 结果
      */
@@ -174,19 +180,22 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 修改保存部门信息
-     * 
+     *
      * @param dept 部门信息
      * @return 结果
      */
     @Override
+    @Transactional
     public int updateDept(SysDept dept)
     {
-        SysDept info = deptMapper.selectDeptById(dept.getParentId());
-        if (StringUtils.isNotNull(info))
+        SysDept newParentDept = deptMapper.selectDeptById(dept.getParentId());
+        SysDept oldDept = selectDeptById(dept.getDeptId());
+        if (StringUtils.isNotNull(newParentDept) && StringUtils.isNotNull(oldDept))
         {
-            String ancestors = info.getAncestors() + "," + info.getDeptId();
-            dept.setAncestors(ancestors);
-            updateDeptChildren(dept.getDeptId(), ancestors);
+            String newAncestors = newParentDept.getAncestors() + "," + newParentDept.getDeptId();
+            String oldAncestors = oldDept.getAncestors();
+            dept.setAncestors(newAncestors);
+            updateDeptChildren(dept.getDeptId(), newAncestors, oldAncestors);
         }
         int result = deptMapper.updateDept(dept);
         if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()))
@@ -199,7 +208,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 修改该部门的父级部门状态
-     * 
+     *
      * @param dept 当前部门
      */
     private void updateParentDeptStatus(SysDept dept)
@@ -212,28 +221,27 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 修改子元素关系
-     * 
-     * @param deptId 部门ID
-     * @param ancestors 元素列表
+     *
+     * @param deptId 被修改的部门ID
+     * @param newAncestors 新的父ID集合
+     * @param oldAncestors 旧的父ID集合
      */
-    public void updateDeptChildren(Long deptId, String ancestors)
+    public void updateDeptChildren(Long deptId, String newAncestors, String oldAncestors)
     {
-        SysDept dept = new SysDept();
-        dept.setParentId(deptId);
-        List<SysDept> childrens = deptMapper.selectDeptList(dept);
-        for (SysDept children : childrens)
+        List<SysDept> children = deptMapper.selectChildrenDeptById(deptId);
+        for (SysDept child : children)
         {
-            children.setAncestors(ancestors + "," + dept.getParentId());
+            child.setAncestors(child.getAncestors().replace(oldAncestors, newAncestors));
         }
-        if (childrens.size() > 0)
+        if (children.size() > 0)
         {
-            deptMapper.updateDeptChildren(childrens);
+            deptMapper.updateDeptChildren(children);
         }
     }
 
     /**
      * 根据部门ID查询信息
-     * 
+     *
      * @param deptId 部门ID
      * @return 部门信息
      */
@@ -245,7 +253,7 @@ public class SysDeptServiceImpl implements ISysDeptService
 
     /**
      * 校验部门名称是否唯一
-     * 
+     *
      * @param dept 部门信息
      * @return 结果
      */
