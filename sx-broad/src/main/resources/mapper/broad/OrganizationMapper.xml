@@ -100,7 +100,7 @@
             <if test="rds != null  and rds != '' "> and rds = #{rds}</if>
             <if test="trafficlimit != null  and trafficlimit != '' "> and trafficlimit = #{trafficlimit}</if>
             <if test="pic != null  and pic != '' "> and p.pic = #{pic}</if>
-            <if test="terminaltype != null  terminaltype pic != '' "> and t.terminaltype = #{terminaltype}</if>
+            <if test="terminaltype != null  terminaltype != '' "> and t.terminaltype = #{terminaltype}</if>
         </where>
     </select>
 
