@@ -16,7 +16,7 @@
         <result property="userid" column="userid"/>
     </resultMap>
 
-    <sql id="selectMaintainApplyCX">
+    <sql id="selectMaintainApplyVo">
          SELECT
             maid,
             teraddress,
@@ -26,13 +26,14 @@
             applytime,
             status,
             remark
+            FROM maintain_apply ma
+        LEFT JOIN (userinfo ui
+        LEFT JOIN area a on a.aid = ui.aid) on ui.user_id = ma.userid
     </sql>
 
     <select id="selectMaintainApplyList" parameterType="MaintainApply" resultMap="MaintainApplyResult">
-        <include refid="selectMaintainApplyCX"/>
-        FROM maintain_apply ma
-        LEFT JOIN (userinfo ui
-        LEFT JOIN area a on a.aid = ui.aid) on ui.user_id = ma.userid
+        <include refid="selectMaintainApplyVo"/>
+
         <where>
         <if test="maid != null  and maid != '' ">and maid like CONCAT('%',#{maid},'%')</if>
         <if test="teraddress != null  and teraddress != '' ">and teraddress like CONCAT('%',#{teraddress},'%')</if>
@@ -48,6 +49,7 @@
     </select>
 
     <select id="selectMaintainApplyById" parameterType="String" resultMap="MaintainApplyResult">
+        <include refid="selectMaintainApplyVo"/>
         WHERE maid = #{maid}
     </select>
 
@@ -97,4 +99,20 @@
             <if test="uid != null  and uid != '' ">#{uid}</if>
         </trim>
     </insert>
+
+    <update id="updateMaintainApply" parameterType="MaintainApply">
+        update maintain_apply
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="teraddress != null  and teraddress != ''  ">teraddress = #{teraddress},</if>
+            <if test="maid != null  and maid != ''  ">maid = #{maid},</if>
+            <if test="linkman != null  and linkman != ''  ">linkman = #{linkman},</if>
+            <if test="linkphone != null  and linkphone != ''  ">linkphone = #{linkphone},</if>
+            <if test="downtime != null  and downtime != ''  ">downtime = #{downtime},</if>
+            <if test="applytime != null  and applytime != ''  ">applytime = #{applytime},</if>
+            <if test="status != null  and status != ''  ">status = #{status},</if>
+            <if test="remark != null  and remark != ''  ">remark = #{remark},</if>
+            <if test="uid != null  and uid != ''  ">uid = #{uid},</if>
+        </trim>
+        where maid = #{maid}
+    </update>
 </mapper>

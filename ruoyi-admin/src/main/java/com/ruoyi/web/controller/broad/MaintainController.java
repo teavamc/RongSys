@@ -170,4 +170,14 @@ public class MaintainController extends BaseController
 		List<Map<String, Object>> tree = messageService.selectMessageList((new BroadMessage()));
 		return tree;
 	}
+	/**
+	 * 终端维护记录详细
+	 */
+	@GetMapping("/detail/{id}")
+	@Log(title = "终端维护记录详细")
+	public String detail(@PathVariable("id") Integer tmid,ModelMap mmp)
+	{
+		mmp.put("listById",maintainService.selectMaintainById(tmid));
+		return prefix + "/detail";
+	}
 }

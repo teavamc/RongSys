@@ -15,10 +15,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -98,5 +95,36 @@ public class MaintainApplyController extends BaseController {
     public AjaxResult removeMaintainApply(String ids)
     {
          return toAjax(iMaintainApplyService.deleteMaintainApplyById(ids));
+    }
+
+    @GetMapping("/detail/{maid}")
+    @Log(title = "申请维护记录详细")
+    public String detail(@PathVariable("maid") String maid,ModelMap mmp)
+    {
+        mmp.put("listById",iMaintainApplyService.selectMaintainApplyById(maid));
+        return prefix + "/detail";
+    }
+
+    /**
+     * 修改终端维护记录
+     */
+    @GetMapping("/edit/{maid}")
+    public String edit(@PathVariable("maid") String maid, ModelMap mmap)
+    {
+        MaintainApply maintainApply = iMaintainApplyService.selectMaintainApplyById(maid);
+        mmap.put("maintainApply", maintainApply);
+        return prefix + "/edit";
+    }
+
+    /**
+     * 修改保存终端维护记录
+     */
+    @RequiresPermissions("broad:maintain:edit")
+    @Log(title = "申请维护记录", businessType = BusinessType.UPDATE)
+    @PostMapping("/edit")
+    @ResponseBody
+    public AjaxResult editSave(MaintainApply maintainApply)
+    {
+        return toAjax(iMaintainApplyService.updateMaintainApply(maintainApply));
     }
 }
