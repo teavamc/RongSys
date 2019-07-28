@@ -51,6 +51,8 @@ public class bConst1 {
     public static final String FILEPATHPROSPEC = "uploadFiles/audiofile/prospec/";
     //节目文件夹
     public static final String FILEPATHPER = "uploadFiles/audiofile/";
+    //项目文件夹
+    public static final String FILEPATHPER2 = "/profile/img/";
 
     public static final String[] LOGTYPE=new String[]{"登陆日志","操作日志"};
 

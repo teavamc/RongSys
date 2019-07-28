@@ -27,11 +27,11 @@
                     </div>
                     <p th:utext="${listByid.content}"></p>
 
-                    <a href="http://110.53.162.165/test/a.jpg" download="test.png">点击下载</a>
+                    <a th:href="${listByid.propic}" download="test.png">点击下载</a>
 
-                    <img src="http://110.53.162.165/test/a.jpg" height="200" width="400"/>
+                    <img th:src="${listByid.propic}" height="200" width="400"/>
 
-                    <button type="button" id="btn1" onclick="aaa(1)">下载</button>
+                    <!--<button type="button" id="btn1" onclick="aaa(1)">下载</button>-->
 
                 </div>
 

@@ -21,26 +21,27 @@ public class bFileUtil1 {
     public static String saveImg(MultipartFile file,String saveName) {
         //获取文件上传的根目录 C:\Users\fama/upload/img
         String  path = bConstant1.UPLOAD_PATH + bConstant1.IMG_FILE_NAME; //改为bConstant.UPLOAD_PATH
-
+        logger.info(" --- bConstant1.UPLOAD_PATH：{} --- ",bConstant1.UPLOAD_PATH);
+        logger.info(" --- bConstant1.IMG_FILE_NAME：{} --- ",bConstant1.IMG_FILE_NAME);
         //拿到文件的后缀名和UUID进行拼接形成新的文件名
         //4ca64e85b1544c96b4a6154bb521476f.jpg
         //String saveName = bCommonUtil.getUuid() + "." + getFileSuffix(file.getOriginalFilename());
         logger.info(" --- 文件保存路径：{}, 文件保存名称：{},文件原名称：{} --- ", path, saveName,file.getOriginalFilename());
-
         // 保存
         try {
-            // 保存文件图片
+            // 保存文件
             File targetFile = new File(path);
             if (!targetFile.exists()) {
                 targetFile.mkdirs();
             }
-            file.transferTo(new File(path + "/" + saveName));
+            //file.transferTo(new File(path + "/" + saveName));
+            file.transferTo(new File(bPathUtil1.getClasspath() + bConst1.FILEPATHPER2 +saveName));
         } catch (Exception e) {
             e.printStackTrace();
             logger.debug("--- 文件保存异常：{} ---" + e.getMessage());
             return null;
         }
-        String filePath =  bConstant1.UPLOAD_PATH;;
+        //String filePath =  bConstant1.UPLOAD_PATH;
         //返回相对路径  img/virtual/4ca64e85b1544c96b4a6154bb521476f.jpg
         return saveName; //filePath + "/" + saveName
     }
@@ -86,18 +87,12 @@ public class bFileUtil1 {
     public static com.ruoyi.village.domain.Files uplodeFile(String maxfileid, MultipartFile file, String fname, String flenth, String fsize, String year){
         Files g = new Files();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
-
-        /*int fileid = 0;
-        if(maxfileid!=null&& Integer.parseInt(maxfileid)>10){
-            fileid = Integer.parseInt(maxfileid);
-        }else{
-            fileid = 1;
-        }*/
         int j=0; //上传多个的时候用的
         String filename ="";
         String failfile="";//添加失败的节目
         if(file!=null ){
-            filename = maxfileid+j+"";
+           /* filename = maxfileid+j+"";*/
+            filename = maxfileid+"";
             while(filename.length()<5){
                 filename = "0"+filename;
             }
@@ -105,27 +100,15 @@ public class bFileUtil1 {
             if (null != file && !file.isEmpty()) {
                 filename =filename+"."+bFileUtil1.getFileSuffix(file.getOriginalFilename()); //filename字段
                 if(flenth!="NaN"&&!flenth.equals("")){
-//                    Double lenth = Double.parseDouble(flenth)*1000;
-//                    String l = DateUtil.formatLongToTimeStr(lenth.longValue());
-//                    g.setFlenth(l);
-                    //System.out.println("flenth:--"+flenth);
                     g.setFlenth(flenth);
                 }else{
                     failfile = fname+"获取时长信息出错，";
                 }
-                //System.out.println("fname:--"+fname);
-                g.setFname(fname); //fname.substring(0, fname.lastIndexOf("."))
-                //String filePath = bPathUtil1.getClasspath() + bConst1.FILEPATHPER;			//文件上传路径
-                String path =  bFileUtil1.saveImg(file,filename);//////////////////////////
-                //System.out.println("filename:--"+filename);
+                //path是返回文件的名字（纯名字）
+                String path =  bFileUtil1.saveImg(file,maxfileid+file.getOriginalFilename());
                 g.setFilename(filename);
-                //System.out.println("Userid:--"+bJurisdiction.getUserid()); //有错误///////////////////////////////
-                //g.setUserid(bJurisdiction.getUserid());
-                //System.out.println("Address:--"+bPathUtil1.getClasspath() + bConst1.FILEPATHPER+path);
-                g.setAddress(bPathUtil1.getClasspath() + bConst1.FILEPATHPER+path);
-                //System.out.println("Urls:--"+bConst1.FILEPATHPER+path);
-                g.setUrls(bConst1.FILEPATHPER+path);
-                //System.out.println("Createdtime:--"+df.format(new Date()));
+                g.setAddress(bPathUtil1.getClasspath() + bConst1.FILEPATHPER2 + maxfileid+file.getOriginalFilename());
+                g.setUrls(bConst1.FILEPATHPER2 + maxfileid+file.getOriginalFilename());
                 g.setCreatedtime(df.format(new Date()));
                 g.setIspublic(false);
                 g.setIslisten(true);
