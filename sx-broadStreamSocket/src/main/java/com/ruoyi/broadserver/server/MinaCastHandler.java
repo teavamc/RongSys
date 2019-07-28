@@ -117,9 +117,9 @@ public class MinaCastHandler extends IoHandlerAdapter
 		 if(session.getAttribute(CLIENTINFO) != null){
 		 	SocketInfo info = DefaultCommand.getSocketInfoByIMEI(session.getAttribute(CLIENTINFO).toString());
 		 	if(info != null){
-				IoSession socketsession = info.getsession(session);
-				socketsession = null;
-			}
+				 IoSession socketsession = info.getsession(session);
+				 socketsession = null;
+			 }
 		 }
 		 session.close(true);
 	 }

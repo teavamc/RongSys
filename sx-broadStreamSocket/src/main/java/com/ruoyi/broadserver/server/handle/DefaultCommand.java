@@ -105,6 +105,7 @@ public abstract class DefaultCommand implements Command{
 			@Override
 			public void run() {
 				if(datainfo != null && !datainfo.equals("")) {
+					logger.info("获取终端信息："+datainfo);
 					//do sth
 				/*Session mysession = new Session();
 				mysession.setSessiondata(datainfo);
@@ -117,7 +118,7 @@ public abstract class DefaultCommand implements Command{
 					e.printStackTrace();
 				}*/
 				}
-
+				setTime();
 			}
 		});
 	}

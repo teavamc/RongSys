@@ -26,7 +26,6 @@ public class ReadClientInfo extends DefaultCommand {
 
             loggersession();//插入日志
 
-
             return returnBytes(ProtocolsToClient.STATU, command, null);
         }catch (Exception e){
             logger.error("解析信息出错",e);
@@ -47,6 +46,7 @@ public class ReadClientInfo extends DefaultCommand {
                     conditions =  dispose(new Conditions(new Date(),Tid),obj);
                     conditionsService.insertConditions(conditions);
                 }
+                return true;
             }
         } catch (Exception e) {
            logger.error("保存终端硬件信息出错："+e);
