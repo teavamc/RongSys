@@ -20,7 +20,9 @@ public class ProtocolsToClient {
 	public static final String REGISTER = "01";//终端注册登录
 	public static final String STATU = "02";//终端状态
 	public static final String LIST = "05";//终端节目list表发放
-	public static final String E_FM_RECIVE = "0a";//应急FM调频接收RDS码/接收频率
+	public static final String PHONELIST = "06";//允许终端维护电话发放
+	public static final String MUTUALTIME = "07";//终端交互时间设置
+	public static final String E_FM_RECIVE = "0a";//设置应急FM调频接收RDS码/接收频率
 	public static final String CLIENTREAD = "0b";//获取终端RDS码/发射频率/发射功率/反射功率/工作电压（对系统只读）
 	public static final String IPCHANGE = "0c";//获取终端IP（对系统可读可写）并为流媒体心跳包
 	public static final String CELLPOS = "0d";//基站信息（LAC,CID）

@@ -27,7 +27,7 @@ public class ReadIOT extends DefaultCommand {
 		// TODO Auto-generated method stub
 		String[] infos = new String(content).split(",");
 		logger.info(new String(content));
-		logger.info((String)session.getAttribute(MinaCastHandler.CLIENTINFO));
+		logger.info(Tid);
 		save(infos);//保存信息
 		loggersession();//插入日志
 		
@@ -46,7 +46,7 @@ public class ReadIOT extends DefaultCommand {
 			}
 			datainfo += "	"+ ProtocolsToClient.TORRENTDATA[(i-3)]+": "+datas[i];
 		}
-		torrent.setIMEI((String)session.getAttribute(MinaCastHandler.CLIENTINFO));
+		torrent.setIMEI(Tid);
 		torrent.setIP(((InetSocketAddress)session.getRemoteAddress()).getAddress().getHostAddress());
 		torrent.setPow1(datas[4]);
 		torrent.setGrouppow(datas[3]);

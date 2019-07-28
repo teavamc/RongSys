@@ -1,6 +1,7 @@
 package com.ruoyi.broad.service.impl;
 
 import com.ruoyi.broad.domain.Organization;
+import com.ruoyi.broad.domain.TerminalTels;
 import com.ruoyi.broad.mapper.OrganizationMapper;
 import com.ruoyi.broad.service.IOrganizationService;
 import com.ruoyi.common.annotation.DataSource;
@@ -270,5 +271,13 @@ public class OrganizationServiceImpl implements IOrganizationService
 	@DataSource(value = DataSourceType.SLAVE)
 	public Organization selectRdsByTid(String tid){
 		return organizationMapper.selectRdsByTid(tid);
+	}
+	/**
+	 * 	通过 tid 查询对应终端的维护电话
+	 */
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<TerminalTels> selectTelsByTid(String tid){
+		return organizationMapper.selectTelsByTid(tid);
 	}
 }

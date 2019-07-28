@@ -27,6 +27,12 @@ public class SimpleCommandFactory {
 				case ProtocolsToClient.STATU://获取终端硬件信息状态
 					command = new ReadClientInfo(session,content);
 					break;
+				case ProtocolsToClient.PHONELIST://获取终端硬件信息状态
+					command = new RW_Tels(session,content);
+					break;
+				case ProtocolsToClient.MUTUALTIME://设置终端交互时间
+					command = new RW_Time(session,content);
+					break;
 				case ProtocolsToClient.OPENSTREAM://启动流媒体传输
 					command = new OpenStream(session,content);
 					break;
@@ -37,7 +43,7 @@ public class SimpleCommandFactory {
 					command = new RW_RDS(session,content);
 					break;
 				case ProtocolsToClient.CLIENTREAD://获取终端只读信息
-					command = new ReadClientFM(session,content);  
+					command = new ReadClientFM(session,content);
 					break;
 				case ProtocolsToClient.CELLPOS://获取基站信息
 					command = new ReadBS(session,content);

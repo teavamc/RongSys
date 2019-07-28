@@ -1,9 +1,13 @@
 package com.ruoyi.broadserver.server.handle.impl;
 
 
+import com.ruoyi.broad.domain.Conditions;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
+import com.ruoyi.broadserver.server.MinaCastHandler;
 import com.ruoyi.broadserver.server.handle.DefaultCommand;
 import org.apache.mina.core.session.IoSession;
+
+import java.util.Date;
 
 //获取终端硬件信息状态
 public class ReadClientInfo extends DefaultCommand {
@@ -33,8 +37,21 @@ public class ReadClientInfo extends DefaultCommand {
     @Override
     public boolean save(Object obj) {
         // TODO Auto-generated method stub
-
-        return true;
+        try {
+            if(Tid != null) {
+                Conditions conditions = conditionsService.selectConditionsById(Tid);
+                if(conditions != null){
+                    dispose(conditions,obj);
+                    conditionsService.updateConditions(conditions);
+                }else{
+                    conditions =  dispose(new Conditions(new Date(),Tid),obj);
+                    conditionsService.insertConditions(conditions);
+                }
+            }
+        } catch (Exception e) {
+           logger.error("保存终端硬件信息出错："+e);
+        }
+        return false;
     }
 
     @Override
@@ -42,5 +59,43 @@ public class ReadClientInfo extends DefaultCommand {
         // TODO Auto-generated method stub
         return null;
     }
-
+    private  Conditions dispose(Conditions conditions,Object obj){
+        String[] mylist = obj.toString().split("，");
+        for (int i = 0; i < mylist.length; i++)
+        {
+            String[] myy = mylist[i].split("：");
+            switch (myy[0])
+            {
+                case "硬件版本":
+                    conditions.setHversion( myy[1].trim());
+                    break;
+                case "软件版本":
+                    conditions.setSversion(myy[1].trim());
+                    break;
+                case "内核温度":
+                    conditions.setTemp(myy[1].trim());
+                    break;
+                case "网络类型":
+                    conditions.setNettype(myy[1].trim());
+                    break;
+                case "信号质量":
+                    conditions.setQsignal(myy[1].trim());
+                    break;
+                case "SD卡容量":
+                    conditions.setSd(myy[1].trim());
+                    break;
+                case "发射功率":
+                    conditions.setTransmitpower(myy[1]==null||myy[1].equals("")?0:Integer.parseInt(myy[1].trim()));
+                    break;
+                case "反射功率":
+                    conditions.setReflectedpower(myy[1]==null||myy[1].equals("")?0:Integer.parseInt(myy[1].trim()));
+                    break;
+                case "工作电压":
+                    conditions.setWorkvoltage(myy[1]==null||myy[1].equals("")?0:Integer.parseInt(myy[1].trim()));
+                    break;
+            }
+        }
+        conditions.setUpdatatime(new Date());
+        return conditions;
+    }
 }

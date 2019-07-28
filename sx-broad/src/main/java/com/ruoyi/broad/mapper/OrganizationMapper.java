@@ -1,6 +1,7 @@
 package com.ruoyi.broad.mapper;
 
 import com.ruoyi.broad.domain.Organization;
+import com.ruoyi.broad.domain.TerminalTels;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -119,9 +120,15 @@ public interface OrganizationMapper
 	 */
 	public  List<String> listNextAid(String aid);
 
-//	通过 aid 查询所有终端
+	//	通过 aid 查询所有终端
 	public List<Organization> listOrgByAid(@Param("list")List<String> aid);
 
 	//	通过 tid 查询对应终端的RDS码
 	public Organization selectRdsByTid(String tid);
+	/**
+	 * 通过IMEI获取终端维护员电话
+	 * @param tid
+	 * @return
+	 */
+	public  List<TerminalTels> selectTelsByTid(String tid);
 }

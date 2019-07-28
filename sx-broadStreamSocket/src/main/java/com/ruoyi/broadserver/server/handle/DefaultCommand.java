@@ -7,7 +7,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ruoyi.broad.domain.Organization;
+import com.ruoyi.broad.service.IConditionsService;
 import com.ruoyi.broad.service.IOrganizationService;
+import com.ruoyi.broad.service.impl.ConditionsServiceImpl;
 import com.ruoyi.broad.service.impl.OrganizationServiceImpl;
 import com.ruoyi.broadserver.domain.SocketInfo;
 import com.ruoyi.broadserver.global.GlobalInfo;
@@ -26,21 +28,26 @@ public abstract class DefaultCommand implements Command{
 	private static Map<String, SocketInfo> IMEI_SocketInfo = new HashMap<>();//终端IMEI与其对应信息
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultCommand.class);
 	protected static IOrganizationService organizationService = (OrganizationServiceImpl) SpringUtils.getBean(OrganizationServiceImpl.class);
+	protected static IConditionsService conditionsService = (ConditionsServiceImpl) SpringUtils.getBean(ConditionsServiceImpl.class);
 	protected final static String GBK = "GBK";
     //private SessionManager sessionservice = (SessionService) SpringContextUtils.getBeanByClass(SessionService.class);
     
 	protected IoSession session;
 	protected byte[] content;
 	protected String datainfo = null;
-	
+	protected byte[] dataresourecs;
+	protected String Tid = null;
 	
 	public DefaultCommand(IoSession session, byte[] content) {
 		this.session = session;
 		this.content = content;
 		if(content.length > 7) {
-			byte[] data = bConvert.subBytes(content, 5, content.length-7);
+			dataresourecs = bConvert.subBytes(content, 5, content.length-7);
 			try {
-				datainfo = new String(data, GBK);
+				datainfo = new String(dataresourecs, GBK);
+				if(session.getAttribute(MinaCastHandler.CLIENTINFO) != null){
+					Tid = session.getAttribute(MinaCastHandler.CLIENTINFO).toString();
+				}
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
@@ -117,8 +124,8 @@ public abstract class DefaultCommand implements Command{
 	/*保存终端最后通信时间*/
 	protected void setTime(){
 		try{
-			if(session.getAttribute(MinaCastHandler.CLIENTINFO) != null) {
-				SocketInfo selfInfo = getSocketInfoByIMEI(session.getAttribute(MinaCastHandler.CLIENTINFO).toString());
+			if(Tid != null) {
+				SocketInfo selfInfo = getSocketInfoByIMEI(Tid);
 				if (selfInfo != null) {
 					synchronized (selfInfo) {
 						selfInfo.setLastTime(new Date());//存储最后通信时间
