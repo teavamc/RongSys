@@ -7,8 +7,8 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.stereotype.Component;
 
 /**
- * spring工具类 方便在非spring管理环境中获取bean
- * 
+ * spring工具类
+ * 方便在非spring管理环境中获取bean
  * @author ruoyi
  */
 @Component

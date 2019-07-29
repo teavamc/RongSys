@@ -4,6 +4,9 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.ruoyi.common.base.BaseEntity;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * 设备报表 ter_conditions
  * 
@@ -12,6 +15,7 @@ import com.ruoyi.common.base.BaseEntity;
  */
 public class Conditions extends BaseEntity
 {
+	private static final SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static final long serialVersionUID = 1L;
 	
 	/** 终端号IMEI */
@@ -52,7 +56,21 @@ public class Conditions extends BaseEntity
 	private String rds;
 	/** FM调频发射频率 */
 	private String fmfrequency;
+	/** 终端设备信息更新时间 */
+	private Date updatatime;
+	/** 终端最后通信时间 */
+	private Date lastaccesstime;
 
+	public Conditions(){
+
+	}
+	public Conditions(String tid){
+		this.tid = tid;
+	}
+	public Conditions(Date date,String tid){
+		this.createtime = df.format(date);
+		this.tid = tid;
+	}
 	public void setTid(String tid) 
 	{
 		this.tid = tid;
@@ -225,7 +243,23 @@ public class Conditions extends BaseEntity
 		return fmfrequency;
 	}
 
-    public String toString() {
+	public Date getUpdatatime() {
+		return updatatime;
+	}
+
+	public void setUpdatatime(Date updatatime) {
+		this.updatatime = updatatime;
+	}
+
+	public Date getLastaccesstime() {
+		return lastaccesstime;
+	}
+
+	public void setLastaccesstime(Date lastaccesstime) {
+		this.lastaccesstime = lastaccesstime;
+	}
+
+	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("tid", getTid())
             .append("hversion", getHversion())

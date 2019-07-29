@@ -18,6 +18,8 @@ public class Organization extends BaseEntity
     private String tid;
     /** 终端设备名称 */
     private String tname;
+    /** 终端类型 */
+    private String terminaltype;
     /** 所属分组编号 */
     private String aid;
     /** 区域名称 */
@@ -26,8 +28,6 @@ public class Organization extends BaseEntity
     private String userid;
     /** 管理员姓名 */
     private String uname;
-    /** 最后处理时间 */
-    private String lastaccesstime;
     /** 出厂编号 */
     private String facid;
     /** 安装地址 */
@@ -64,6 +64,9 @@ public class Organization extends BaseEntity
 
     /** 父地域ID */
     private String parentaid;
+
+
+
 
     public void setTid(String tid)
     {
@@ -118,15 +121,6 @@ public class Organization extends BaseEntity
     public String getUname()
     {
         return uname;
-    }
-    public void setLastaccesstime(String lastaccesstime)
-    {
-        this.lastaccesstime = lastaccesstime;
-    }
-
-    public String getLastaccesstime()
-    {
-        return lastaccesstime;
     }
     public void setFacid(String facid)
     {
@@ -271,6 +265,14 @@ public class Organization extends BaseEntity
     public String getPic() { return pic; }
     public void setPic(String pic) { this.pic = pic; }
 
+    public String getTerminaltype() {
+        return terminaltype;
+    }
+
+    public void setTerminaltype(String terminaltype) {
+        this.terminaltype = terminaltype;
+    }
+
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
                 .append("tid", getTid())
@@ -279,7 +281,6 @@ public class Organization extends BaseEntity
                 .append("aname", getAname())
                 .append("userid", getUserid())
                 .append("uname", getUname())
-                .append("lastaccesstime", getLastaccesstime())
                 .append("facid", getFacid())
                 .append("address", getAddress())
                 .append("note", getNote())

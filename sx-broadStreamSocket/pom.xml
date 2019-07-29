@@ -32,6 +32,12 @@
             <artifactId>sx-broad</artifactId>
             <version>${ruoyi.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>sx-iot</artifactId>
+            <version>3.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
 </project>
