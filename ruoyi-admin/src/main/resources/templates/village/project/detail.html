@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns="http://xmlns.jcp.org/jsf/html">
 <head th:include="include :: header"></head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,11 +27,16 @@
                     </div>
                     <p th:utext="${listByid.content}"></p>
 
-                    <a th:href="${listByid.propic}" download="test.png">点击下载</a>
+                    <input id="fileaddress" name="fileaddress" th:value="${listByid.propic}" type="hidden">
+                    <p>点击 W3School 的 logo 来下载该图片：<p>
 
-                    <img th:src="${listByid.propic}" height="200" width="400"/>
+                    <a href="http://110.53.162.165/pictures/1.png" download="w3logo">
+                        <img border="0" th:src="${listByid.propic}" alt="W3School">
+                    </a>
 
-                    <!--<button type="button" id="btn1" onclick="aaa(1)">下载</button>-->
+                   <!-- <img th:src="${listByid.propic}" height="200" width="400"/>-->
+
+                    <button type="button" id="btn2" onclick="test()">下载文件</button>
 
                 </div>
 
@@ -50,9 +55,26 @@
         function aaa(fileId){
             window.location.href = "/village/project/downloadFile/" + fileId;
         }
+
+        function test() {
+            //文件路径
+            var filePath = $("#fileaddress").val();
+            //获取最后一个.的位置
+            var index= filePath.lastIndexOf(".");
+            //获取后缀
+            var ext = filePath.substr(index+1);
+            //输出结果
+            console.log(ext);
+            //判断是否是图片
+            console.log("该文件是否为图片：" + isAssetTypeAnImage(ext));
+        }
+
+        function isAssetTypeAnImage(ext) {
+            return [
+                'png', 'jpg', 'jpeg', 'bmp', 'gif', 'webp', 'psd', 'svg', 'tiff'].
+            indexOf(ext.toLowerCase()) !== -1;
+        }
 </script>
 </body>
 
-
-<!-- Mirrored from www.zi-han.net/theme/hplus/article.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 20 Jan 2016 14:19:47 GMT -->
 </html>
