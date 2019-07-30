@@ -206,10 +206,6 @@ public class ProjectController extends BaseController
 	@GetMapping("/downloadFile/{fileId}")
 	public void downloadFile(@PathVariable("fileId") Integer fileId, HttpServletResponse response, HttpServletRequest request) throws Exception
 	{
-		/*FileInfo sysFile = fileInfoService.selectFileInfoById(fileId);
-		String filePath = sysFile.getFilePath();
-		String realFileName = sysFile.getFileName() + filePath.substring(filePath.indexOf("."));*/
-		/*String path = RuoYiConfig.getUploadPath() + sysFile.getFilePath();*/
 		String path = "http://110.53.162.165/test/a.jpg";
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("multipart/form-data");
