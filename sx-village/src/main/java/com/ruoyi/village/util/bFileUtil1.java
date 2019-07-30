@@ -105,13 +105,14 @@ public class bFileUtil1 {
                 //path是返回文件的名字（纯名字）
                 String path =  bFileUtil1.saveImg(file,maxfileid+file.getOriginalFilename());
                 g.setFilename(filename);
-
-                /*setAddress是文件保存在数据库中的文件地址*/
                // g.setAddress(bPathUtil1.getClasspath() + bConst1.FILEPATHPER2 + maxfileid+file.getOriginalFilename());
+                //给以后开发的小伙伴的留言：
                 /*原来的bPathUtil1.getClasspath()是获得目前根目录用户地址*/
-                /*为什么这里是pictures呢？因为在服务器中设置了地址映射，文件储存到根目录/root/profile/img/中，
-                   然后在tomcat的conf/sever.xml中设置了/pictures指向/root/profile/img/，所以这里文件保存到数据库的地址就是/pictures*/
-                g.setAddress("http://110.53.162.165/pictures/" + maxfileid + file.getOriginalFilename());
+                /*为什么这里是bConstant1.WEB_IMG_ADDRESS呢？因为在服务器中设置了地址映射，文件储存到根目录/root/profile/img/中，
+                   然后在tomcat的conf/sever.xml中设置了bConstant1.WEB_IMG_ADDRESS指向/root/profile/img/，所以这里文件保存到数据库的地址就是bConstant1.WEB_IMG_ADDRESS*/
+                /*setAddress是文件保存在数据库中的文件地址*/
+                g.setAddress(bConstant1.WEB_ADDRESS + bConstant1.WEB_IMG_ADDRESS + maxfileid + file.getOriginalFilename());
+                /*感觉这个url好像是没有用的。。。*/
                 g.setUrls(bConst1.FILEPATHPER2 + maxfileid+file.getOriginalFilename());
                 g.setCreatedtime(df.format(new Date()));
                 g.setIspublic(false);
