@@ -137,7 +137,7 @@ public class ProjectController extends BaseController
 		Date date = new Date();
 		SimpleDateFormat dateFormat= new SimpleDateFormat("yyyyMMddhhmmss");
 		System.out.println(dateFormat.format(date));
-		String maxfileid = dateFormat.format(date); //获取文件上传时的时间参数字符串作为文件名
+		String maxfileid = dateFormat.format(date); //获取文件上传时的时间参数字符串作为文件名，防止储存同名文件
 
         //图片上传调用工具类
 		try{
@@ -149,7 +149,7 @@ public class ProjectController extends BaseController
 
 			return toAjax(projectService.insertProject(project));//将project实体中的值插入数据表中
 		}catch (Exception e){
-			//return "上传图片失败";
+			//return "上传文件失败";
 			System.out.println("失败");
 			return toAjax(0);
 		}
@@ -203,14 +203,14 @@ public class ProjectController extends BaseController
 	/**
 	 * 下载文件
 	 */
-	@GetMapping("/downloadFile/{fileId}")
-	public void downloadFile(@PathVariable("fileId") Integer fileId, HttpServletResponse response, HttpServletRequest request) throws Exception
-	{
-		String path = "http://110.53.162.165/test/a.jpg";
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("multipart/form-data");
-		response.setHeader("Content-Disposition",
-				"attachment;fileName=" + "aaa.jpg");
-		FileUtils.writeBytes(path, response.getOutputStream());
-	}
+//	@GetMapping("/downloadFile/{fileId}")
+//	public void downloadFile(@PathVariable("fileId") Integer fileId, HttpServletResponse response, HttpServletRequest request) throws Exception
+//	{
+//		String path = "http://110.53.162.165/test/a.jpg";
+//		response.setCharacterEncoding("utf-8");
+//		response.setContentType("multipart/form-data");
+//		response.setHeader("Content-Disposition",
+//				"attachment;fileName=" + "aaa.jpg");
+//		FileUtils.writeBytes(path, response.getOutputStream());
+//	}
 }

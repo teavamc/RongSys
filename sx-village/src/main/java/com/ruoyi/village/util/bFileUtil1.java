@@ -14,18 +14,15 @@ import java.util.Date;
 public class bFileUtil1 {
     private static Logger logger = LoggerFactory.getLogger(bFileUtil1.class);
     /**
-     * 图片存储 完整路径（{user.home}/img/coldStone/XXX.jpg）
+     * 文件上传
      * @param file
      * @return 返回相对路径
      */
     public static String saveImg(MultipartFile file,String saveName) {
-        //获取文件上传的根目录 C:\Users\fama/upload/img
-        String  path = bConstant1.UPLOAD_PATH + bConstant1.IMG_FILE_NAME; //改为bConstant.UPLOAD_PATH
+        //获取文件上传的目录
+        String  path = bConstant1.UPLOAD_PATH + bConstant1.IMG_FILE_NAME;
         logger.info(" --- bConstant1.UPLOAD_PATH：{} --- ",bConstant1.UPLOAD_PATH);
         logger.info(" --- bConstant1.IMG_FILE_NAME：{} --- ",bConstant1.IMG_FILE_NAME);
-        //拿到文件的后缀名和UUID进行拼接形成新的文件名
-        //4ca64e85b1544c96b4a6154bb521476f.jpg
-        //String saveName = bCommonUtil.getUuid() + "." + getFileSuffix(file.getOriginalFilename());
         logger.info(" --- 文件保存路径：{}, 文件保存名称：{},文件原名称：{} --- ", path, saveName,file.getOriginalFilename());
         // 保存
         try {
@@ -35,6 +32,7 @@ public class bFileUtil1 {
                 targetFile.mkdirs();
             }
             //file.transferTo(new File(path + "/" + saveName));
+            /*文件上传地址：在本地用户根目录bPathUtil1.getClasspath()+指定文件夹路径"/profile/img/"+文件名*/
             file.transferTo(new File(bPathUtil1.getClasspath() + bConst1.FILEPATHPER2 +saveName));
         } catch (Exception e) {
             e.printStackTrace();
@@ -75,7 +73,7 @@ public class bFileUtil1 {
     }
 
     /**
-     * 文件上传封装
+     * 文件保存封装
      * @param maxfileid
      * @param file
      * @param fname
@@ -107,7 +105,13 @@ public class bFileUtil1 {
                 //path是返回文件的名字（纯名字）
                 String path =  bFileUtil1.saveImg(file,maxfileid+file.getOriginalFilename());
                 g.setFilename(filename);
-                g.setAddress(bPathUtil1.getClasspath() + bConst1.FILEPATHPER2 + maxfileid+file.getOriginalFilename());
+
+                /*setAddress是文件保存在数据库中的文件地址*/
+               // g.setAddress(bPathUtil1.getClasspath() + bConst1.FILEPATHPER2 + maxfileid+file.getOriginalFilename());
+                /*原来的bPathUtil1.getClasspath()是获得目前根目录用户地址*/
+                /*为什么这里是pictures呢？因为在服务器中设置了地址映射，文件储存到根目录/root/profile/img/中，
+                   然后在tomcat的conf/sever.xml中设置了/pictures指向/root/profile/img/，所以这里文件保存到数据库的地址就是/pictures*/
+                g.setAddress("http://110.53.162.165/pictures/" + maxfileid + file.getOriginalFilename());
                 g.setUrls(bConst1.FILEPATHPER2 + maxfileid+file.getOriginalFilename());
                 g.setCreatedtime(df.format(new Date()));
                 g.setIspublic(false);
