@@ -144,7 +144,7 @@ public abstract class DefaultCommand implements Command{
 	 */
 	public static void putClientToMap(SocketInfo info){
 		synchronized (IMEI_SocketInfo){
-			if(!IMEI_SocketInfo.get(info.getImei()).equals(info)){
+			if(IMEI_SocketInfo.get(info.getImei()) == null ||!IMEI_SocketInfo.get(info.getImei()).equals(info)){
 				IMEI_SocketInfo.put(info.getImei(),info);
 			}
 		}

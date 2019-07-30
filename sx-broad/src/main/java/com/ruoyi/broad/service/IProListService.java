@@ -132,5 +132,5 @@ public interface IProListService
 	 * @param [pid]
 	 * @return java.util.List<com.ruoyi.broad.domain.Progbroad>
 	 */
-	public List<ProList> 	selectProListListByPid(String pid);
+	public List<ProList> selectProListListByPid(String pid);
 }

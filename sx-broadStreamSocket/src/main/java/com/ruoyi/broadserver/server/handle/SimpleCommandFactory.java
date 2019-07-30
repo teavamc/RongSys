@@ -27,6 +27,9 @@ public class SimpleCommandFactory {
 				case ProtocolsToClient.STATU://获取终端硬件信息状态
 					command = new ReadClientInfo(session,content);
 					break;
+				case ProtocolsToClient.LIST://发送文件信息
+					command = new SendFile(session,content);
+					break;
 				case ProtocolsToClient.PHONELIST://获取终端硬件信息状态
 					command = new RW_Tels(session,content);
 					break;

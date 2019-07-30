@@ -48,4 +48,9 @@ public class ProgramServiceImpl implements IProgramService {
     public int insertProgram(Program program) {
         return 0;
     }
+
+    @Override
+    public Program selectFileByFileName(String fname) {
+        return programMapper.selectFileByFileName(fname);
+    }
 }

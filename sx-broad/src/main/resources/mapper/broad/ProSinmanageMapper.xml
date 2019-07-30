@@ -157,5 +157,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{sfid}
         </foreach>
     </delete>
-    
+
+    <select id="selectProSinmanageByTId" parameterType="String" resultMap="ProSinmanageResult">
+        select sfid,
+        scategory,
+        createtime,
+        broaddate,
+        remark from pro_sinmanage ps
+        LEFT JOIN pro_terminals pt on ps.sfid=pt.ProgrammeID
+        LEFT JOIN terminals ter on ter.tid=pt.TerminalID
+        where pt.TerminalID=#{imei} and ter.isuse=1
+    </select>
+
 </mapper>

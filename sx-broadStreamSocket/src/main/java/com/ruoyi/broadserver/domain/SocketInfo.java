@@ -3,6 +3,7 @@ package com.ruoyi.broadserver.domain;
 import org.apache.mina.core.session.IoSession;
 
 import java.net.InetAddress;
+import java.nio.ByteBuffer;
 import java.util.Calendar;
 import java.util.Date;
 /*终端通信缓存类*/
@@ -17,9 +18,8 @@ public class SocketInfo {
     private InetAddress  ipAddress;//终端IP地址
     private Date lastTime; //最后通信时间
 
-    private Integer byteCount=0;//标示当前文件字节发送的长度到哪个位置
-    private byte[] byteFile; //老终端发送的文件信息
-    private Long filelenth = 0l;//设置当前发送文件的总字数
+    private Integer byteCount=0;//标志终端下载字节总数
+    private ByteBuffer byteFile = null; //老终端发送的文件信息
 
 
 
@@ -35,25 +35,20 @@ public class SocketInfo {
     public void setByteCount(Integer byteCount) {
         this.byteCount = byteCount;
     }
-    public byte[] getByteFile() {
+
+    public ByteBuffer getByteFile() {
         return byteFile;
     }
-    public void setByteFile(byte[] byteFile) {
+
+    public void setByteFile(ByteBuffer byteFile) {
         this.byteFile = byteFile;
     }
+
     public Date getLastTime() {
         return lastTime;
     }
     public void setLastTime(Date lastTime) {
         this.lastTime = lastTime;
-    }
-
-    public Long getFilelenth() {
-        return filelenth;
-    }
-
-    public void setFilelenth(Long filelenth) {
-        this.filelenth = filelenth;
     }
 
     public InetAddress getIpAddress() {

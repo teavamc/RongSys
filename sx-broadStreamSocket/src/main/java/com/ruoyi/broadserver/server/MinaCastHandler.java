@@ -33,7 +33,8 @@ public class MinaCastHandler extends IoHandlerAdapter
     private static Logger logger = LoggerFactory.getLogger(MinaCastHandler.class);  
     public static final CharsetDecoder decoder = (Charset.forName("ISO-8859-1")).newDecoder();
 	public static final String CLIENTINFO = "CLIENTINFO";
-        //private int Number = 1;
+	private static final SimpleCommandFactory commandFactory = new SimpleCommandFactory();
+	//private int Number = 1;
     /**
      * MINA的异常回调方法。
      * <p>
@@ -69,7 +70,6 @@ public class MinaCastHandler extends IoHandlerAdapter
 		byte[] content = new byte[buffer.limit()];
 		buffer.get(content);
 		byte[] returndata = null;
-		SimpleCommandFactory commandFactory = new SimpleCommandFactory();
 		DefaultCommand command = commandFactory.createCommand(session, content);
 		if(command != null) {
 			returndata = command.execute();

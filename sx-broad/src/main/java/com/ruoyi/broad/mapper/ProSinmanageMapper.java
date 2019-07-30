@@ -78,4 +78,6 @@ public interface ProSinmanageMapper
 	public List<ProSinmanage> selectProSinmanageListbySfid(String sfid);
 
 	public List<ProSinmanage> selectProSinmanagebyoneday();
+
+	public List<ProSinmanage> selectProSinmanageByTId(String tid);
 }
