@@ -22,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="bt"    column="Bt"    />
         <result property="broadtime"    column="broadtime"    />
         <result property="remark"    column="Remark"    />
+        <result property="id" column="id"/>
     </resultMap>
 	
 	<sql id="selectProListVo">
@@ -59,9 +60,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by Bt
     </select>
     
-    <select id="selectProListById" parameterType="Integer" resultMap="ProListResult">
+    <select id="selectProListById" parameterType="String" resultMap="ProListResult">
         <include refid="selectProListVo"/>
-        where Pid = #{pid}
+        where id = #{id}
     </select>
         
     <insert id="insertProList" parameterType="ProList">

@@ -1,11 +1,13 @@
 package com.ruoyi.broad.domain;
 
+import com.ruoyi.common.base.BaseEntity;
+
 /**
  * Created by ASUS on 2019/7/28.
  * @author 朱恒玉
  * @function 终端与其维护授权的维护号码
  */
-public class TerminalTels {
+public class TerminalTels  extends BaseEntity {
     private int telid;//编号
     private String tid;//终端IMEI编号
     private String tel;//电话号码

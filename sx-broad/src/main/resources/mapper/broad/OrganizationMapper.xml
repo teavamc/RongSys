@@ -263,7 +263,7 @@
         where tid = #{tid}
     </update>
 
-    <select id="selectTelsByTid" parameterType="String" resultType="TerminaltelsResult">
+    <select id="selectTelsByTid" parameterType="String" resultMap="TerminaltelsResult">
         SELECT telid,tid,tel,telperson,isuse
         FROM terminaltels
         WHERE tid = #{tid}

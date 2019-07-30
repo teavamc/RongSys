@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.ruoyi.common.utils.file.FileUtils;
 import com.ruoyi.framework.util.ShiroUtils;
 import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.service.ISysUserService;
@@ -24,6 +25,9 @@ import com.ruoyi.common.page.TableDataInfo;
 import com.ruoyi.common.base.AjaxResult;
 import com.ruoyi.common.utils.ExcelUtil;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 重大项目 信息操作处理
@@ -194,5 +198,19 @@ public class ProjectController extends BaseController
 		//mmap.put("proid",proid);
 		mmap.put("listByid",projectService.selectProjectById(proid));
 		return prefix + "/detail";
+	}
+
+	/**
+	 * 下载文件
+	 */
+	@GetMapping("/downloadFile/{fileId}")
+	public void downloadFile(@PathVariable("fileId") Integer fileId, HttpServletResponse response, HttpServletRequest request) throws Exception
+	{
+		String path = "http://110.53.162.165/test/a.jpg";
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("multipart/form-data");
+		response.setHeader("Content-Disposition",
+				"attachment;fileName=" + "aaa.jpg");
+		FileUtils.writeBytes(path, response.getOutputStream());
 	}
 }

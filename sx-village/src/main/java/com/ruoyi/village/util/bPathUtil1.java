@@ -52,7 +52,10 @@ public class bPathUtil1 {
      * @return
      */
     public static String getClasspath(){
-        String path = (String.valueOf(Thread.currentThread().getContextClassLoader().getResource(""))+"../../../").replaceAll("file:/", "").replaceAll("%20", " ").trim();
+//        String path = (String.valueOf(Thread.currentThread().getContextClassLoader().getResource(""))+"../../../").replaceAll("file:/", "").replaceAll("%20", " ").trim();
+       /*文件上传到本地用户路径底下*/
+        String path = System.getProperty("user.home");
+
         if(path.indexOf(":") != 1){
             path = File.separator + path;
         }
