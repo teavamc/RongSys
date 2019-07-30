@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.broad.mapper.TempgroupMapper">
+    <resultMap type="Tempgroup" id="TempgroupResult">
+        <result property="tid"    column="tid"    />
+        <result property="tname"    column="tname"    />
+        <result property="aname"    column="aname"    />
+        <result property="address"    column="address"    />
+    </resultMap>
+
+    <!--字段-->
+    <sql id="Field">
+        tgid,
+        tgname,
+        userid,
+        rightuserid,
+        createtime,
+        note
+    </sql>
+
+    <!--字段值-->
+    <sql id="FieldValue">
+        #{tgid},
+        #{tgname},
+        #{userid},
+        #{rightuserid},
+        #{createtime},
+        #{note}
+    </sql>
+
+    <!--字段-->
+    <sql id="TelField">
+        tgid,
+        tid
+    </sql>
+
+    <!--字段值-->
+    <sql id="TelFieldValue">
+        #{tgid}
+        #{tid}
+    </sql>
+
+    <!--表名-->
+    <sql id="tableName">
+		tempgroup
+	</sql>
+    <sql id="grouptertable">
+        tempgroup_ter
+    </sql>
+    <sql id="tertableName">
+        terminals
+    </sql>
+    <sql id="areatableName">
+        user.area
+    </sql>
+    <sql id="usertable">
+        user.userinfo
+    </sql>
+    <!--查询所有临时列表-->
+    <select id="selectAllTempgroup" resultMap="TempgroupResult">
+       select
+            tid,
+            tname,
+            aname,
+            address
+        from
+            <include refid="tertableName"/> tt left join <include refid="areatableName"/> aa
+        on tt.aid = aa.aid
+    </select>
+
+    <!--根据分组编号查询终端列表-->
+    <!--<select id="listTersByTgid" parameterType="pd" resultType="pd">-->
+        <!--select-->
+        <!--tgid,tt.tid as tid,tname,t.aid as aid,aname,t.userid as userid,uname-->
+        <!--from-->
+        <!--((<include refid="grouptertable"></include> tt-->
+        <!--join <include refid="tertableName"></include> t on tt.tid = t.tid)-->
+        <!--left join <include refid="areatableName"></include> a on t.aid = a.aid)-->
+        <!--left join <include refid="usertable"></include> u on t.userid = u.userid-->
+        <!--where tt.tgid = #{tgid}-->
+        <!--order by tt.tid-->
+    <!--</select>-->
+
+    <!--插入临时列表-->
+    <insert id="insertTempgroup" parameterType="Tempgroup">
+        insert into <include refid="tableName"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="tgname != null  and tgname != '' ">tgname,</if>
+            <if test="userid != null  and userid != '' ">userid,</if>
+            <if test="createtime != null  and linkman != '' ">linkman,</if>
+            <if test="linkphone != null  and linkphone != '' ">linkphone,</if>
+            <if test="downtime != null  and downtime != '' ">downtime,</if>
+            <if test="applytime != null  and applytime != '' ">applytime,</if>
+            <if test="status != null  and status != '' ">status,</if>
+            <if test="remark != null  and remark != '' ">remark,</if>
+            <if test="uid != null  and uid != '' ">uid</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="teraddress != null  and teraddress != '' ">#{teraddress},</if>
+            <if test="maid != null  and maid != '' ">#{maid},</if>
+            <if test="linkman != null  and linkman != '' ">#{linkman},</if>
+            <if test="linkphone != null  and linkphone != '' ">#{linkphone},</if>
+            <if test="downtime != null  and downtime != '' ">#{downtime},</if>
+            <if test="applytime != null  and applytime != '' ">#{applytime},</if>
+            <if test="status != null  and status != '' ">#{status},</if>
+            <if test="remark != null  and remark != '' ">#{remark},</if>
+            <if test="uid != null  and uid != '' ">#{uid}</if>
+        </trim>
+    </insert>
+</mapper>
