@@ -1,9 +1,9 @@
-<!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns="http://xmlns.jcp.org/jsf/html">
 <head th:include="include :: header"></head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="favicon.ico"> <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
     <link href="css/animate.min.css" rel="stylesheet">
     <link href="css/style.min862f.css?v=4.1.0" rel="stylesheet">
@@ -28,11 +28,9 @@
                     <p th:utext="${listByid.content}"></p>
 
                     <input id="fileaddress" name="fileaddress" th:value="${listByid.propic}" type="hidden">
-                    <p>点击 W3School 的 logo 来下载该图片：<p>
 
-                    <a href="http://110.53.162.165/pictures/1.png" download="w3logo">
-                        <img border="0" th:src="${listByid.propic}" alt="W3School">
-                    </a>
+                    <!--<img border="0" th:src="${listByid.propic}" height="200" width="400" type="hidden">-->
+
 
                    <!-- <img th:src="${listByid.propic}" height="200" width="400"/>-->
 
@@ -46,12 +44,13 @@
     </div>
 
 </div>
+<div th:include="include::footer"></div>
 <script src="js/jquery.min.js?v=2.1.4"></script>
 <script src="js/bootstrap.min.js?v=3.3.6"></script>
 <script src="js/content.min.js?v=1.0.0"></script>
 <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
 
-<script>
+<script type="text/javascript">
         function aaa(fileId){
             window.location.href = "/village/project/downloadFile/" + fileId;
         }
@@ -67,12 +66,27 @@
             console.log(ext);
             //判断是否是图片
             console.log("该文件是否为图片：" + isAssetTypeAnImage(ext));
+           var flag = isAssetTypeAnImage(ext);
+            if(flag == false){
+                downloadNormalFile(filePath)
+            }else{
+                alert("该文件为图片，无法直接下载");
+            }
         }
 
         function isAssetTypeAnImage(ext) {
             return [
                 'png', 'jpg', 'jpeg', 'bmp', 'gif', 'webp', 'psd', 'svg', 'tiff'].
             indexOf(ext.toLowerCase()) !== -1;
+        }
+
+        function  downloadNormalFile(src) {
+            var link = document.createElement('a');
+            //link.setAttribute("download", download);
+            link.href = src;
+            document.body.appendChild(link);//添加到页面中，为兼容Firefox浏览器
+            link.click();
+            document.body.removeChild(link);//从页面移除
         }
 </script>
 </body>

@@ -82,14 +82,14 @@ public class SysMenuServiceImpl implements ISysMenuService
     public List<SysMenu> selectMenuAll(Long userId)
     {
         List<SysMenu> menuList = null;
-        if (SysUser.isAdmin(userId))
-        {
+        /*if (SysUser.isAdmin(userId))
+        {*/
             menuList = menuMapper.selectMenuAll();
-        }
+       /* }
         else
         {
             menuList = menuMapper.selectMenuAllByUserId(userId);
-        }
+        }*/
         return menuList;
     }
 
