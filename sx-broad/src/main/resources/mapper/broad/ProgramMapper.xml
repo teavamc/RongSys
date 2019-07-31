@@ -80,4 +80,13 @@
         FROM <include refid="tableName"></include>
         where SUBSTRING(filename,1,2) = SUBSTRING(#{year},3)
     </select>
+
+    <!--根据用户查询节目列表 -->
+    <select id="selectFileByFileName" parameterType="String" resultMap="programMap">
+        select
+        fid,fname,g.userid as userid,remark,ispublic,filename,urls,address,createdtime,ptype,flenth,fsize,uname
+        from
+            <include refid="tableName"></include>
+        where filename = #{name}
+    </select>
 </mapper>

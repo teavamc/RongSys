@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ruoyi.broad.domain.Organization;
 import com.ruoyi.broad.service.IConditionsService;
 import com.ruoyi.broad.service.IOrganizationService;
 import com.ruoyi.broad.service.impl.ConditionsServiceImpl;
@@ -14,9 +13,7 @@ import com.ruoyi.broad.service.impl.OrganizationServiceImpl;
 import com.ruoyi.broadserver.domain.SocketInfo;
 import com.ruoyi.broadserver.global.GlobalInfo;
 import com.ruoyi.broadserver.server.MinaCastHandler;
-import com.ruoyi.broadserver.server.MinaCastThread;
 import com.ruoyi.framework.util.SpringUtils;
-import com.ruoyi.streamsocket.server.NettyServerHandler;
 import org.apache.mina.core.session.IoSession;
 import com.ruoyi.broad.utils.bConvert;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
@@ -29,7 +26,7 @@ public abstract class DefaultCommand implements Command{
 	protected static final Logger logger = LoggerFactory.getLogger(DefaultCommand.class);
 	protected static IOrganizationService organizationService = (OrganizationServiceImpl) SpringUtils.getBean(OrganizationServiceImpl.class);
 	protected static IConditionsService conditionsService = (ConditionsServiceImpl) SpringUtils.getBean(ConditionsServiceImpl.class);
-	protected final static String GBK = "GBK";
+	public final static String GBK = "GBK";
     //private SessionManager sessionservice = (SessionService) SpringContextUtils.getBeanByClass(SessionService.class);
     
 	protected IoSession session;
@@ -59,7 +56,7 @@ public abstract class DefaultCommand implements Command{
 		try {
 			byte[] res = data!= null?data.getBytes(GBK):new byte[0];
 			byte[] checkData = new byte[res.length+3];//用来计算校验和
-			ByteBuffer encoded = ByteBuffer.allocate(res.length+20);
+			ByteBuffer encoded = ByteBuffer.allocate(res.length+7);
 			encoded.put(bConvert.hexStringToBytes(ProtocolsToClient.PACKETHEAD));//发包的数据头
 			encoded.put(bConvert.hexStringToBytes(type));//发包的类型
 			byte[] length = bConvert.intToByteArray(2+res.length);
@@ -70,7 +67,8 @@ public abstract class DefaultCommand implements Command{
 			String check = bConvert.checksum(checkData);
 			encoded.put(length);//发包的数据长度 命令1字节+data长度+校验1字节
 			encoded.put(bConvert.hexStringToBytes(command));//发包命令
-			encoded.put(res);//发包数据
+			if(data != null)
+				encoded.put(res);//发包数据
 			encoded.put(bConvert.hexStringToBytes(check)[0]);//发包的校验
 			encoded.put(bConvert.hexStringToBytes(ProtocolsToClient.ENDCHECK));//发包的结尾
 			encoded.flip();
@@ -132,6 +130,8 @@ public abstract class DefaultCommand implements Command{
 						selfInfo.setLastTime(new Date());//存储最后通信时间
 					}
 				}
+			}else{
+				logger.info("TID为空");
 			}
 		}catch (Exception e){
 			logger.error("保存通信时间出错:",e);
@@ -144,7 +144,7 @@ public abstract class DefaultCommand implements Command{
 	 */
 	public static void putClientToMap(SocketInfo info){
 		synchronized (IMEI_SocketInfo){
-			if(!IMEI_SocketInfo.get(info.getImei()).equals(info)){
+			if(IMEI_SocketInfo.get(info.getImei()) == null ||!IMEI_SocketInfo.get(info.getImei()).equals(info)){
 				IMEI_SocketInfo.put(info.getImei(),info);
 			}
 		}

@@ -119,4 +119,10 @@ public class ProSinmanageServiceImpl implements IProSinmanageService
 	public List<ProSinmanage> selectProSinmanagebyoneday(){
 		return proSinmanageMapper.selectProSinmanagebyoneday();
 	}
+
+	@Override
+	@DataSource(value = DataSourceType.SLAVE)
+	public List<ProSinmanage> selectProSinmanageByTId(String tid) {
+		return proSinmanageMapper.selectProSinmanageByTId(tid);
+	}
 }

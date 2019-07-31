@@ -35,7 +35,7 @@ public class ProListServiceImpl implements IProListService
      */
     @Override
 	@DataSource(value = DataSourceType.SLAVE)
-	public ProList selectProListById(String id)
+    public ProList selectProListById(String id)
 	{
 	    return proListMapper.selectProListById(id);
 	}

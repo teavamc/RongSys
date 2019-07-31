@@ -51,7 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             b.fname as Fid,
             a.Bt,
             a.broadtime,
-            a.Remark
+            a.Remark,
+            b.urls
         from pro_list as a left join programs as b
         on
         a.fid= b.fid

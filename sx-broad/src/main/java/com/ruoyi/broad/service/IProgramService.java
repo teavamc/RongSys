@@ -32,4 +32,10 @@ public interface IProgramService {
      * @return
      */
     public int insertProgram(Program program);
+    /**
+     * 查询节目
+     * @param fname 节目名称
+     * @return 结果
+     */
+    public Program selectFileByFileName(String fname);
 }

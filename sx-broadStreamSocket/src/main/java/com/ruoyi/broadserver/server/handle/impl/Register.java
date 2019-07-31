@@ -3,6 +3,7 @@ package com.ruoyi.broadserver.server.handle.impl;
 import com.ruoyi.broad.domain.Organization;
 import com.ruoyi.broadserver.domain.SocketInfo;
 import com.ruoyi.broadserver.global.ProtocolsToClient;
+import com.ruoyi.broadserver.server.MinaCastHandler;
 import com.ruoyi.broadserver.server.handle.DefaultCommand;
 import org.apache.mina.core.session.IoSession;
 
@@ -38,6 +39,7 @@ public class Register extends DefaultCommand {
         try{
             if(obj!= null){
                 Organization ter = (Organization)obj;
+                session.setAttribute(MinaCastHandler.CLIENTINFO, ter.getTid());
                 SocketInfo info = getSocketInfoByIMEI(ter.getTid());
                 if(info==null) {
                     info = new SocketInfo();

@@ -8,7 +8,6 @@ import com.ruoyi.broadserver.global.ProtocolsToClient;
 import com.ruoyi.broadserver.server.handle.impl.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class SimpleCommandFactory {
@@ -16,7 +15,6 @@ public class SimpleCommandFactory {
 	public DefaultCommand createCommand(IoSession session, byte[] content) {
 		if(bConvert.byteToHexString(content[0]).equals(ProtocolsToClient.PACKETHEAD)) {
 			DefaultCommand command = null;
-			logger.info("收到终端信息："+new String(content));
 			switch (bConvert.byteToHexString(content[1])) {//类型判断
 				case ProtocolsToClient.IPCHANGE://获取终端IP(读)，并为流媒体心跳包
 					command = new ClientHeart_IP(session,content);
@@ -26,6 +24,9 @@ public class SimpleCommandFactory {
 					break;
 				case ProtocolsToClient.STATU://获取终端硬件信息状态
 					command = new ReadClientInfo(session,content);
+					break;
+				case ProtocolsToClient.LIST://发送文件信息
+					command = new SendFile(session,content);
 					break;
 				case ProtocolsToClient.PHONELIST://获取终端硬件信息状态
 					command = new RW_Tels(session,content);

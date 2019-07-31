@@ -57,9 +57,9 @@ public class Conditions extends BaseEntity
 	/** FM调频发射频率 */
 	private String fmfrequency;
 	/** 终端设备信息更新时间 */
-	private Date updatatime;
+	private String updatatime;
 	/** 终端最后通信时间 */
-	private Date lastaccesstime;
+	private String lastaccesstime;
 
 	public Conditions(){
 
@@ -243,20 +243,20 @@ public class Conditions extends BaseEntity
 		return fmfrequency;
 	}
 
-	public Date getUpdatatime() {
+	public String getUpdatatime() {
 		return updatatime;
 	}
 
 	public void setUpdatatime(Date updatatime) {
-		this.updatatime = updatatime;
+		this.updatatime = df.format(updatatime);
 	}
 
-	public Date getLastaccesstime() {
+	public String getLastaccesstime() {
 		return lastaccesstime;
 	}
 
 	public void setLastaccesstime(Date lastaccesstime) {
-		this.lastaccesstime = lastaccesstime;
+		this.lastaccesstime = df.format(lastaccesstime);
 	}
 
 	public String toString() {

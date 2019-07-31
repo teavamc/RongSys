@@ -70,4 +70,12 @@ public class bConst {
     public static final String PAGE	= "config/PAGE.txt";
     // 短信猫配置路径
     public static final String CONFIG = "config/config.properties";
+    // 终端命令交互监听端口
+    public static final int CommdPort = 8600;
+    // 终端物联网数据交互端口
+    public static final int IOTPort = 8900;
+    // 服务器下载文件路径
+    public static final String ServerPath = "110.53.162.164/Broad/";
+    //终端系统升级文件路径
+    public static final String UpdateUrl = "/opt/SocketServer/Update/upgrade.bin";
 }
