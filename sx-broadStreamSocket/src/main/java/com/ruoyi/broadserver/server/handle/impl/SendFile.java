@@ -40,13 +40,14 @@ public class SendFile extends DefaultCommand {
     public byte[] execute() {
         try {
             SocketInfo info = (SocketInfo) get("");
+            logger.info("终端请求获取文件"+datainfo);
             if(info != null){
                 byte[] ReturnData = new byte[0];
                 String byteOrder = (int)content[4]+"";
                 if(!byteOrder.equals("0")){
                     senderlenth = (Integer.parseInt(byteOrder)*16);//定义每次发送的字节长度 出去包尾和校验两个字节
                 }
-                if(info.getByteCount()==0 && info.getByteFile()==null  && !info.getByteFile().hasRemaining()){//获取新的文件，并保存到变量中
+                if(info.getByteCount()==0 && info.getByteFile()==null){//获取新的文件，并保存到变量中
                     info.setByteFile(FileContent(info.getImei(),datainfo));
                     logger.info("正常日志   记录：申请发送文件:" + datainfo + " 总字节数：" +info.getByteFile().limit() + ";byteOrder:" + byteOrder + "; 信息："+ info.getImei());
                 }
@@ -72,6 +73,8 @@ public class SendFile extends DefaultCommand {
                         info.setByteCount(info.getByteCount()+ ReturnData.length);
                 }
                 return returnBytes(ProtocolsToClient.LIST, byteOrder, new String(ReturnData,GBK));
+            }else{
+                logger.info("未获取终端信息");
             }
         } catch (Exception e) {
             logger.error("终端获取文件出错：", e);
@@ -103,7 +106,7 @@ public class SendFile extends DefaultCommand {
 //    	long starttime = System.currentTimeMillis();
 
         Date nowTime=new Date();
-        byte[] mybytes = null;
+        byte[] mybytes = new byte[0];
         SimpleDateFormat ftime=new SimpleDateFormat("yyyy-MM-dd");
         String date=ftime.format(nowTime);//现在的时间按照sdf1模式返回字符串
         try
@@ -112,7 +115,7 @@ public class SendFile extends DefaultCommand {
             List<ProSinmanage> model = proSinmanageService.selectProSinmanageByTId(IMEI);//根据IMEI号获取节目单
             if(model != null){
                 for(ProSinmanage sinmanage:model){
-                    if(sinmanage.getBroadtimes().equals(date)){
+                    if(sinmanage.getBroaddate().equals(date)){
                         list = proListService.selectProListListByPid(sinmanage.getSfid());
                     }
                 }
@@ -175,6 +178,7 @@ public class SendFile extends DefaultCommand {
         ByteBuffer buffer = ByteBuffer.allocate(mybytes.length+1);
         buffer.put(mybytes);
         buffer.flip();
+        logger.info("获取文件buffer");
         return  buffer;
     }
     /**

@@ -92,7 +92,7 @@ public class StreamSocketListener implements ServletContextListener {
                 NUMBER_OF_CORES * 2+4, KEEP_ALIVE_TIME, KEEP_ALIVE_TIME_UNIT,
                 mWorkQueue,mThreadFactory));//创建一个处理IO的线程池
         //初始化组播全局信息
-        MinaCastThread CommandThread = new MinaCastThread(bConst.CommdPort,"CommandThread",1,2,3);
+        MinaCastThread CommandThread = new MinaCastThread(bConst.CommdPort,"CommandThread",1,2,10);
         CommandThread.run();
         GlobalInfo.setCommandThread(CommandThread);
         MinaCastThread IOTThread = new MinaCastThread(bConst.IOTPort,"IOTThread",1,2,15);

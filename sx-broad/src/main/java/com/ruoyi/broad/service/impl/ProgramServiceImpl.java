@@ -50,6 +50,7 @@ public class ProgramServiceImpl implements IProgramService {
     }
 
     @Override
+    @DataSource(value = DataSourceType.SLAVE)
     public Program selectFileByFileName(String fname) {
         return programMapper.selectFileByFileName(fname);
     }

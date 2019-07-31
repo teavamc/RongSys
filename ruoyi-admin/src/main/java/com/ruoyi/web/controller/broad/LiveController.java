@@ -46,7 +46,7 @@ public class LiveController extends BaseController {
 //    @Value("${SX.rtmpAddress}")
 //    private String rtmpAddress;
     // 张超服务器
-    private String rtmpAddress = "rtmp://120.79.42.11:1936/live";
+    private String rtmpAddress = "rtmp://114.67.88.76:1936/live";
     private String prefix = "broad/live";
 
     /**

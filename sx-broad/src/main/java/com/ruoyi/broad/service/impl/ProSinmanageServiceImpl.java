@@ -121,6 +121,7 @@ public class ProSinmanageServiceImpl implements IProSinmanageService
 	}
 
 	@Override
+	@DataSource(value = DataSourceType.SLAVE)
 	public List<ProSinmanage> selectProSinmanageByTId(String tid) {
 		return proSinmanageMapper.selectProSinmanageByTId(tid);
 	}

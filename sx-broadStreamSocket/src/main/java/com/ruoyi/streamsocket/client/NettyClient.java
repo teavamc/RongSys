@@ -26,7 +26,7 @@ public class NettyClient {
     private static final Logger log = LoggerFactory.getLogger(NettyClient.class);
     //思信地址
 //    private  String host = "110.53.162.164";
-    private  String host = "120.79.42.11";
+    private  String host = "114.67.88.76";
 //    交互端口
     private  int port = 8800;
 

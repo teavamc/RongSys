@@ -41,9 +41,11 @@ public class ReadClientInfo extends DefaultCommand {
                 if(conditions != null){
                     dispose(conditions,obj);
                     conditionsService.updateConditions(conditions);
+                    logger.info("更新终端配置信息");
                 }else{
                     conditions =  dispose(new Conditions(new Date(),Tid),obj);
                     conditionsService.insertConditions(conditions);
+                    logger.info("添加终端配置信息");
                 }
                 return true;
             }
