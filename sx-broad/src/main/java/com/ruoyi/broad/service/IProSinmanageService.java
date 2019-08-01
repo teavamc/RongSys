@@ -69,5 +69,8 @@ public interface IProSinmanageService
 	 * @return java.util.List<com.ruoyi.broad.domain.ProSinmanage>
 	 */
 	public List<ProSinmanage> selectProSinmanageListbySfid(String sfid);
-	
+
+	public List<ProSinmanage> selectProSinmanagebyoneday();
+	/*通过终端ID查询其所有节目播出单*/
+	public List<ProSinmanage> selectProSinmanageByTId(String tid);
 }

@@ -47,7 +47,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectVillagerInfoList" parameterType="VillagerInfo" resultMap="VillagerInfoResult">
         <include refid="selectVillagerInfoVo"/>
         <where>  
-            <if test="vid != null "> and vid = #{vid}</if>
+            <if test="vid != null and vid != ''"> and vid = #{vid}</if>
              <if test="aid != null  and aid != '' "> and aid = #{aid}</if>
              <if test="vname != null  and vname != '' "> and vname = #{vname}</if>
              <if test="age != null  and age != '' "> and age = #{age}</if>
@@ -211,5 +211,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{vid}
         </foreach>
     </delete>
-    
+
 </mapper>

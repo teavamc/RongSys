@@ -10,12 +10,12 @@
 				<form id="formId">
 					<div class="select-list">
 						<ul>
-							<li>
-								地域编号：<input type="text" name="aid"/>
-							</li>
+							<!--<li>-->
+								<!--地域编号：<input type="text" name="aid"/>-->
+							<!--</li>-->
 
 							<li>
-								村民姓名：<input type="text" name="vname"/>
+								姓名：<input type="text" name="vname"/>
 							</li>
 
 							<li>
@@ -23,42 +23,79 @@
 							</li>
 
 							<li>
-								性别：<input type="text" name="sex"/>
+								所属村组：<input type="text" name="grouptype"/>
 							</li>
 
 							<li>
+								性别：<input list="sex"  name="sex"/>
+								<datalist id="sex">
+									<option value="男">男</option>
+									<option value="女">女</option>
+									<option value="未知">未知</option>
+								</datalist>
+							</li>
+							<!--<li>
 								籍贯：<input type="text" name="nativeplace"/>
-							</li>
+							</li>-->
 
-							<li>
+							<!--<li>
 								民族：<input type="text" name="nation"/>
+							</li>-->
+
+							<li>
+								政治面貌：<input list="politics"  name="politics"/>
+								<datalist id="politics">
+									<option value="群众">群众</option>
+									<option value="中共党员">中共党员</option>
+									<option value="中共预备党员">中共预备党员</option>
+									<option value="共青团员">共青团员</option>
+									<option value="民革党员">民革党员</option>
+									<option value="民盟盟员">民盟盟员</option>
+									<option value="民建会员">民建会员</option>
+									<option value="民进会员">民进会员</option>
+									<option value="台盟盟员">台盟盟员</option>
+									<option value="农工党党员">农工党党员</option>
+									<option value="致公党党员">致公党党员</option>
+									<option value="无党派人士">无党派人士</option>
+									<option value="九三学社社员">九三学社社员</option>
+								</datalist>
+							</li>
+
+							<!--<li>-->
+								<!--入党年月：<input type="text" name="partyjoindate"/>-->
+							<!--</li>-->
+							<li>
+								文化程度：<input list="edulevel"  name="edulevel"/>
+								<datalist id="edulevel">
+									<option value="本科">本科</option>
+									<option value="研究生">研究生</option>
+									<option value="大专">大专</option>
+									<option value="中专">中专</option>
+									<option value="高中">高中</option>
+									<option value="初中">初中</option>
+									<option value="小学">小学</option>
+								</datalist>
 							</li>
 
 							<li>
-								政治面貌：<input type="text" name="politics"/>
+								婚姻状况：<input list="marital"  name="marital"/>
+								<datalist id="marital">
+									<option value="未婚">未婚</option>
+									<option value="已婚">已婚</option>
+									<option value="丧偶">丧偶</option>
+									<option value="离婚">离婚</option>
+								</datalist>
 							</li>
 
-							<li>
-								入党年月：<input type="text" name="partyjoindate"/>
-							</li>
-
-							<li>
-								文化程度：<input type="text" name="edulevel"/>
-							</li>
-
-							<li>
-								婚姻状况：<input type="text" name="marital"/>
-							</li>
-
-							<li>
+							<!--<li>
 								身份证号码：<input type="text" name="idcard"/>
-							</li>
+							</li>-->
 
 							<li>
-								联系方式：<input type="text" name="phone"/>
+								手机号码：<input type="text" name="phone"/>
 							</li>
 
-							<li>
+							<!--<li>
 								健康状况：<input type="text" name="health"/>
 							</li>
 
@@ -124,19 +161,16 @@
 
 							<li>
 								现居地址：<input type="text" name="home"/>
-							</li>
+							</li>-->
 
-							<li>
-								所属村组：<input type="text" name="grouptype"/>
-							</li>
 
-							<li>
+							<!--<li>
 								住房性质：<input type="text" name="house"/>
 							</li>
 
 							<li>
 								户口性质：<input type="text" name="prt"/>
-							</li>
+							</li>-->
 
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
@@ -156,6 +190,9 @@
 				</a>
 				<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="village:villagerInfo:remove">
 					<i class="fa fa-remove"></i> 删除
+				</a>
+				<a class="btn btn-info" onclick="importExcel()">
+					<i class="fa fa-upload"></i> 导入
 				</a>
 				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="village:villagerInfo:export">
 						<i class="fa fa-download"></i> 导出
@@ -180,6 +217,11 @@
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
                 modalName: "村民",
+
+                importUrl: prefix + "/importData",
+                importTemplateUrl: prefix + "/importTemplate",
+                detailUrl: prefix + "/detail/{id}",
+
 				search: false,
 		        showExport: true,
                 columns: [{
@@ -190,14 +232,14 @@
 					title : '数据编号',
 					visible: false
 				},
-				{
+				/*{
 					field : 'aid', 
 					title : '地域编号',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'vname',
-					title : '村民姓名',
+					title : '姓名',
 					sortable: true
 				},
 				{
@@ -211,6 +253,21 @@
 					sortable: true
 				},
 				{
+						field : 'grouptype',
+						title : '所属村组',
+						sortable: true
+				},
+				{
+						field : 'politics',
+						title : '政治面貌',
+						sortable: true
+				},
+					{
+						field : 'marital',
+						title : '婚姻状况',
+						sortable: true
+					},
+				/*{
 					field : 'nativeplace',
 					title : '籍贯',
 					sortable: true
@@ -220,11 +277,7 @@
 					title : '民族',
 					sortable: true
 				},
-				{
-					field : 'politics', 
-					title : '政治面貌',
-					sortable: true
-				},
+
 				{
 					field : 'partyjoindate', 
 					title : '入党年月',
@@ -235,112 +288,113 @@
 					title : '文化程度',
 					sortable: true
 				},
-				{
-					field : 'marital', 
-					title : '婚姻状况',
-					sortable: true
-				},
+
 				{
 					field : 'idcard', 
 					title : '身份证号码',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'phone', 
 					title : '联系方式',
 					sortable: true
 				},
-				{
-					field : 'health', 
-					title : '健康状况',
-					sortable: true
-				},
-				{
-					field : 'special', 
-					title : '特种（残疾）信息',
-					sortable: true
-				},
-				{
-					field : 'entitle', 
-					title : '优抚信息',
-					sortable: true
-				},
-				{
-					field : 'familyplan', 
-					title : '计生情况',
-					sortable: true
-				},
-				{
-					field : 'medical', 
-					title : '医疗情况',
-					sortable: true
-				},
-				{
-					field : 'subsidy', 
-					title : '补助情况',
-					sortable: true
-				},
-				{
-					field : 'insurance', 
-					title : '保险情况',
-					sortable: true
-				},
-				{
-					field : 'criminal', 
-					title : '犯罪史',
-					sortable: true
-				},
-				{
-					field : 'drug', 
-					title : '吸毒史',
-					sortable: true
-				},
-				{
-					field : 'drive', 
-					title : '驾照',
-					sortable: true
-				},
-				{
-					field : 'car', 
-					title : '车辆',
-					sortable: true
-				},
-				{
-					field : 'vtype', 
-					title : '车辆类型',
-					sortable: true
-				},
-				{
-					field : 'carnum', 
-					title : '车牌号',
-					sortable: true
-				},
-				{
-					field : 'job',
-					title : '职业',
-					sortable: true
-				},
-				{
-					field : 'company', 
-					title : '工作单位',
-					sortable: true
-				},
-				{
-					field : 'pra', 
-					title : '户籍地址',
-					sortable: true
-				},
-				{
-					field : 'home', 
-					title : '现居地址',
-					sortable: true
-				},
-				{
-					field : 'grouptype', 
-					title : '所属村组',
-					sortable: true
-				},
-				{
+					{
+						title: '操作',
+						align: 'center',
+						formatter: function(value, row, index) {
+							var actions = [];
+							actions.push('<a class="btn btn-success btn-xs ' + '"onclick="$.operate.detail(\'' + row.vid + '\')"><i class="fa fa-edit"></i>查看详情</a> ');
+							return actions.join('');
+						}
+					}
+				// {
+				// 	field : 'health',
+				// 	title : '健康状况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'special',
+				// 	title : '特种（残疾）信息',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'entitle',
+				// 	title : '优抚信息',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'familyplan',
+				// 	title : '计生情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'medical',
+				// 	title : '医疗情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'subsidy',
+				// 	title : '补助情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'insurance',
+				// 	title : '保险情况',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'criminal',
+				// 	title : '犯罪史',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'drug',
+				// 	title : '吸毒史',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'drive',
+				// 	title : '驾照',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'car',
+				// 	title : '车辆',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'vtype',
+				// 	title : '车辆类型',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'carnum',
+				// 	title : '车牌号',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'job',
+				// 	title : '职业',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'company',
+				// 	title : '工作单位',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'pra',
+				// 	title : '户籍地址',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'home',
+				// 	title : '现居地址',
+				// 	sortable: true
+				// },
+
+				/*{
 					field : 'house', 
 					title : '住房性质',
 					sortable: true
@@ -349,8 +403,8 @@
 					field : 'prt', 
 					title : '户口性质',
 					sortable: true
-				},
-		        {
+				},*/
+		        /*{
 		            title: '操作',
 		            align: 'center',
 		            formatter: function(value, row, index) {
@@ -359,10 +413,134 @@
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.vid + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
-		        }]
+		        }*/]
             };
             $.table.init(options);
         });
     </script>
+     <!-- 导入区域 -->
+     <script id="importTpl" type="text/template">
+     <form enctype="multipart/form-data" class="mt20 mb10">
+         <div class="col-xs-offset-1">
+             <input type="file" id="file" name="file"/>
+             <!--<input type="checkbox" id="updateSupport" name="updateSupport" title="如果登录账户已经存在，更新这条数据。"> 是否更新已经存在的用户数据
+              &nbsp;	-->
+             <a onclick="importTemplate()" class="btn btn-default btn-xs"><i class="fa fa-file-excel-o"></i> 点击下载excel模板</a>
+             <font color="red" class="pull-left mt10">
+                 提示：仅允许导入“xls”或“xlsx”格式文件！
+             </font>
+         </div>
+     </form>
+     </script>
+     <script>
+         // 下载模板
+         function importTemplate() {
+             $.get($.table._option.importTemplateUrl, function(result) {
+                 if (result.code == web_status.SUCCESS) {
+                     window.location.href = ctx + "common/download?fileName=" + encodeURI(result.msg) + "&delete=" + true;
+                 } else if (result.code == web_status.WARNING) {
+                     $.modal.alertWarning(result.msg)
+                 } else {
+                     $.modal.alertError(result.msg);
+                 }
+             });
+         }
+     </script>
+     <script>
+         // 导入数据
+         function importExcel(formId){
+             var currentId = $.common.isEmpty(formId) ? 'importTpl' : formId;
+             layer.open({
+                 type: 1,
+                 area: ['400px', '230px'],
+                 fix: false,
+                 //不固定
+                 maxmin: true,
+                 shade: 0.3,
+                 title: '导入' + $.table._option.modalName + '数据',
+                 content: $('#' + currentId).html(),
+                 btn: ['<i class="fa fa-check"></i> 导入', '<i class="fa fa-remove"></i> 取消'],
+                 // 弹层外区域关闭
+                 shadeClose: true,
+                 btn1: function(index, layero){
+                     var file = layero.find('#file').val();
+                     if (file == '' || (!$.common.endWith(file, '.xls') && !$.common.endWith(file, '.xlsx'))){
+                         $.modal.msgWarning("请选择后缀为 “xls”或“xlsx”的文件。");
+                         return false;
+                     }
+                     var index = layer.load(2, {shade: false});
+                     //$.modal.disable();
+                     // 禁用按钮
+                     function disable() {
+                         var doc = window.top == window.parent ? window.document : window.parent.document;
+                         $("a[class*=layui-layer-btn]", doc).addClass("layer-disabled");
+                     };
+                     var formData = new FormData();
+                     formData.append("file", $('#file')[0].files[0]);
+                     formData.append("updateSupport", $("input[name='updateSupport']").is(':checked'));
+                     $.ajax({
+                         url: $.table._option.importUrl,
+                         data: formData,
+                         cache: false,
+                         contentType: false,
+                         processData: false,
+                         type: 'POST',
+                         success: function (result) {
+                             if (result.code == web_status.SUCCESS) {
+                                 // 关闭全部窗体
+                                 layer.closeAll();
+                                 // 成功提示
+                                 function alertSuccess(content) {
+                                     // 弹出提示
+                                     layer.alert(content, {
+                                         icon: $.modal.icon("success"),
+                                         title: "系统提示",
+                                         btn: ['确认'],
+                                         btnclass: ['btn btn-primary'],
+                                     });
+                                 }
+                                 $.table.refresh();
+                             } else if (result.code == web_status.WARNING) {
+                                 layer.closeAll();
+                                 // 启用按钮
+                                 function enable() {
+                                     var doc = window.top == window.parent ? window.document : window.parent.document;
+                                     $("a[class*=layui-layer-btn]", doc).removeClass("layer-disabled");
+                                 }
+                                 // 成功提示
+                                 function alertSuccess(content) {
+                                     // 弹出提示
+                                     layer.alert(content, {
+                                         icon: $.modal.icon("success"),
+                                         title: "系统提示",
+                                         btn: ['确认'],
+                                         btnclass: ['btn btn-primary'],
+                                     });
+                                 }
+                                 $.modal.alert("warning");
+                             } else {
+                                 layer.closeAll();
+                                 function enable() {
+                                     var doc = window.top == window.parent ? window.document : window.parent.document;
+                                     $("a[class*=layui-layer-btn]", doc).removeClass("layer-disabled");
+                                 }
+                                 // 错误提示
+                                 function alertError(content) {
+                                     // 弹出提示
+                                     layer.alert(content, {
+                                         icon: $.modal.icon("fail"),
+                                         title: "系统提示",
+                                         btn: ['确认'],
+                                         btnclass: ['btn btn-primary'],
+                                     });
+                                 }
+                                 $.modal.alert("操作失败，插入数据与现有数据重复");
+                             }
+                         }
+                     });
+                 }
+             });
+         }
+     </script>
 </body>
 </html>

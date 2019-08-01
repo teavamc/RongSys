@@ -70,6 +70,7 @@
         <where>
             <if test="fid != null and fid != '' "> and fid like '%${fid}%'</if>
             <if test="fname != null  and fname != '' "> and fname like '%${fname}%'</if>
+            <if test="createdtime != null  and createdtime != '' "> and createdtime like '%${createdtime}%'</if>
         </where>
         order by  createdtime desc,fid desc
     </select>
@@ -78,5 +79,14 @@
         SELECT SUBSTRING(MAX(SUBSTRING(filename,3)),1,5)
         FROM <include refid="tableName"></include>
         where SUBSTRING(filename,1,2) = SUBSTRING(#{year},3)
+    </select>
+
+    <!--根据用户查询节目列表 -->
+    <select id="selectFileByFileName" parameterType="String" resultMap="programMap">
+        select
+        fid,fname,g.userid as userid,remark,ispublic,filename,urls,address,createdtime,ptype,flenth,fsize,uname
+        from
+            <include refid="tableName"></include>
+        where filename = #{name}
     </select>
 </mapper>

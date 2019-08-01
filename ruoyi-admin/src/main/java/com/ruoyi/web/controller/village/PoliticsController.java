@@ -38,7 +38,7 @@ public class PoliticsController extends BaseController {
     }
 
     /**
-     * 投诉咨询列表
+     * 政策列表
      * @param politics
      * @return
      */

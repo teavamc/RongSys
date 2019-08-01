@@ -1,7 +1,16 @@
 <!DOCTYPE HTML>
-<html  lang="zh" xmlns:th="http://www.thymeleaf.org">
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns="http://xmlns.jcp.org/jsf/html">
 <meta charset="utf-8">
-<head th:include="include :: header"></head>
+<!--①注意head是否有样式冲突，引入需要的css文件-->
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link th:href="@{favicon.ico}" rel="shortcut icon"/>
+	<link th:href="@{/css/bootstrap.min14ed.css?v=3.3.6}" rel="stylesheet"/>
+	<link th:href="@{/css/font-awesome.min93e3.css?v=4.4.0}" rel="stylesheet"/>
+	<link th:href="@{/css/animate.min.css}" rel="stylesheet"/>
+	<link th:href="@{/css/plugins/simditor/simditor.css}" rel="stylesheet" type="text/css"/>
+	<link th:href="@{/css/style.min862f.css?v=4.1.0}" rel="stylesheet"/>
+</head>
 <body class="white-bg">
     <div class="wrapper wrapper-content animated fadeInRight ibox-content">
         <form class="form-horizontal m" id="form-project-edit" th:object="${project}">
@@ -12,16 +21,17 @@
 					<input id="proname" name="proname" th:field="*{proname}" class="form-control" type="text">
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">项目图片路径：</label>
-				<div class="col-sm-8">
-					<input id="propic" name="propic" th:field="*{propic}" class="form-control" type="text">
-				</div>
-			</div>
+			<!--<div class="form-group">	-->
+				<!--<label class="col-sm-3 control-label">项目文件路径：</label>-->
+				<!--<div class="col-sm-8">-->
+					<!--<input id="propic" name="propic" th:field="*{propic}" class="form-control" type="text">-->
+				<!--</div>-->
+			<!--</div>-->
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">项目类别：</label>
 				<div class="col-sm-8">
-					<input id="protype" name="protype" th:field="*{protype}" class="form-control" type="text">
+					<!--<input id="protype" name="protype" th:field="*{protype}" class="form-control" type="text">-->
+					<input id="protype"  name="protype" th:field="*{protype}" class="form-control" placeholder="请输入/选择项目类别"/>
 				</div>
 			</div>
 			<div class="form-group">	
@@ -30,18 +40,25 @@
 					<input id="money" name="money" th:field="*{money}" class="form-control" type="text">
 				</div>
 			</div>
-			<div class="form-group">	
-				<label class="col-sm-3 control-label">开支明细：</label>
-				<div class="col-sm-8">
-					<input id="moneynote" name="moneynote" th:field="*{moneynote}" class="form-control" type="text">
-				</div>
-			</div>
-			<div class="form-group">	
+
+            <input id="moneynote" name="moneynote" th:field="*{moneynote}" class="form-control" type="hidden">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">开支明细：</label>
+                <div class="col-sm-8">
+                    <textarea id="bbb" name="bbb"  autofocus></textarea>
+                </div>
+            </div>
+
+
+			<!--②使用input去接收数据，textare去作为文本输入框-->
+			<input id="content" name="content" th:field="*{content}" class="form-control" type="hidden">
+			<div class="form-group">
 				<label class="col-sm-3 control-label">项目内容：</label>
 				<div class="col-sm-8">
-					<input id="content" name="content" th:field="*{content}" class="form-control" type="text">
+					<textarea id="aaa" name="aaa"  autofocus></textarea>
 				</div>
 			</div>
+
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">项目地址：</label>
 				<div class="col-sm-8">
@@ -62,20 +79,63 @@
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">是否有效：</label>
-				<div class="col-sm-8">
+				<!--<div class="col-sm-8">
 					<input id="remark" name="remark" th:field="*{remark}" class="form-control" type="text">
+				</div>-->
+				<div class="col-sm-8">
+					<select class="chosen-select form-control" th:field="*{remark}" id="remark" name="remark" type="text">
+							<option value=1>是</option>
+							<option value=0>否</option>
+					</select>
 				</div>
 			</div>
 			<div class="form-group">	
 				<label class="col-sm-3 control-label">项目状态：</label>
 				<div class="col-sm-8">
-					<input id="type" name="type" th:field="*{type}" class="form-control" type="text">
+					<select id="ptype" name="ptype" th:field="*{ptype}" class="form-control" type="text">
+						<option value=1>在建</option>
+						<option value=0>未建</option>
+						<option value=2>已建</option>
+					</select>
 				</div>
 			</div>
 		</form>
     </div>
     <div th:include="include::footer"></div>
-    <script type="text/javascript">
+
+	<!--③引入需要的js文件-->
+	<script th:src="@{/js/plugins/simditor/module.js}"></script>
+	<script th:src="@{/js/plugins/simditor/uploader.js}"></script>
+	<script th:src="@{/js/plugins/simditor/hotkeys.js}"></script>
+	<script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script>
+	<script th:src="@{/js/plugins/simditor/simditor.js}"></script>
+	<!--④初始化文本框并且通过setValue方法传值给富文本编辑器-->
+	<script>
+		$(document).ready(function() {
+		var editor = new Simditor({
+			placeholder: "输入项目内容", // 编辑器默认值（默认为’’）
+			toolbar: [
+				'title', 'bold', 'italic', 'underline',
+				'color', '|', 'ol', 'ul', 'table'
+			],
+			textarea: '#aaa',
+		});
+			proinfo =$("#content").val();//将后台返回的content字段的值提取出来
+			//alert(proinfo);
+			editor.setValue(proinfo);//赋值给UEditor
+        });
+            var editor2 = new Simditor({
+                placeholder: "输入项目内容", // 编辑器默认值（默认为’’）
+                toolbar: [
+                    'title', 'bold', 'italic', 'underline',
+                    'color', '|', 'ol', 'ul', 'table'
+                ],
+                textarea: '#bbb',
+            });
+            proinfo2 =$("#moneynote").val();//将后台返回的content字段的值提取出来
+            editor2.setValue(proinfo2);//赋值给UEditor
+	</script>
+	<script type="text/javascript">
 		var prefix = ctx + "village/project"
 		$("#form-project-edit").validate({
 			rules:{
@@ -84,12 +144,20 @@
 				},
 			}
 		});
-		
+		<!--⑤获取当前编辑后的文本框的值并赋值给content字段-->
 		function submitHandler() {
-	        if ($.validate.form()) {
-	            $.operate.save(prefix + "/edit", $('#form-project-edit').serialize());
-	        }
-	    }
+			proinfo =$("#aaa").val();//获取当前编辑后的文本框的值
+			//alert(proinfo);
+			$("#content").val(proinfo);//将获得文本框的值传给content字段
+
+            proinfo2 =$("#bbb").val();//获取当前编辑后的文本框的值
+            //alert(proinfo);
+            $("#moneynote").val(proinfo2);//将获得文本框的值传给content字段
+
+			if ($.validate.form()) {
+				$.operate.save(prefix + "/edit", $('#form-project-edit').serialize());
+			}
+		}
 	</script>
 </body>
 </html>

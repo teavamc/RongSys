@@ -125,7 +125,7 @@ public class BaseController
     /**
      * 返回错误码消息
      */
-    public AjaxResult error(int code, String message)
+    public AjaxResult error(String code, String message)
     {
         return AjaxResult.error(code, message);
     }

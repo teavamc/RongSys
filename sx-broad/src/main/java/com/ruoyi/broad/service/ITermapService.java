@@ -19,4 +19,7 @@ public interface ITermapService
 	 */
 	@DataSource(value = DataSourceType.SLAVE)
 	List<Termap> selectMap(String aid);
+
+	@DataSource(value = DataSourceType.SLAVE)
+	List<Termap> getAllMapInfoForIot();
 }

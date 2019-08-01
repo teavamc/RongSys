@@ -48,4 +48,10 @@ public class ProgramServiceImpl implements IProgramService {
     public int insertProgram(Program program) {
         return 0;
     }
+
+    @Override
+    @DataSource(value = DataSourceType.SLAVE)
+    public Program selectFileByFileName(String fname) {
+        return programMapper.selectFileByFileName(fname);
+    }
 }

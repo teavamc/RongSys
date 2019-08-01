@@ -20,10 +20,10 @@ public interface ProListMapper
 	/**
      * 查询节目单记录信息
      * 
-     * @param pid 节目单记录ID
+     * @param id 节目单记录ID
      * @return 节目单记录信息
      */
-	public ProList selectProListById(Integer pid);
+	public ProList selectProListById(String id);
 	
 	/**
      * 查询节目单记录列表

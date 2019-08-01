@@ -2,91 +2,117 @@
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
+<link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet"/>
+<link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet"/>
 <body class="gray-bg">
-    
-     <div class="container-div">
-		<div class="row">
-			<div class="col-sm-12 search-collapse">
-				<form id="formId">
-					<div class="select-list">
-						<ul>
-							<li>
-								手机号：<input type="text" name="smobile"/>
-							</li>
 
-							<!--<li>-->
-								<!--内容：<input type="text" name="scontent"/>-->
-							<!--</li>-->
+<div class="container-div">
+	<div class="row">
+		<div class="col-sm-12 search-collapse">
+			<form id="formId">
+				<div class="select-list">
+					<ul>
+						<li>
+							手机号：<input type="text" name="smobile"/>
+						</li>
+						<li>
+							<input class="laydate-icon  layer-date"
+								   name="sendtime"
+								   id="sendtime"
+								   value=""
+								   readonly="readonly"
+								   style="width:120px;"
+								   placeholder="开始日期"
+								   title="开始日期"/>
+						</li>
+						<li>
+							~
+						</li>
+						<li>
+							<input class="laydate-icon  layer-date"
+								   name="endtime"
+								   id="endtime"
+								   value=""
+								   readonly="readonly"
+								   style="width:120px;"
+								   placeholder="结束日期"
+								   title="结束日期"/>
+						</li>
+						<!--<li>-->
+						<!--内容：<input type="text" name="scontent"/>-->
+						<!--</li>-->
 
-							<!--<li>-->
-								<!--是否发送：<input type="text" name="issend"/>-->
-							<!--</li>-->
+						<!--<li>-->
+						<!--是否发送：<input type="text" name="issend"/>-->
+						<!--</li>-->
 
-							<li>
-								发送时间：<input type="text" name="sendtime"/>
-							</li>
+						<!--<li>-->
+						<!--发送时间：<input type="text" name="sendtime"/>-->
+						<!--</li>-->
 
-							<!--<li>-->
-								<!--是否有效：<input type="text" name="remark"/>-->
-							<!--</li>-->
 
-							<!--<li>-->
-								<!--接收方编号<input type="text" name="tid"/>-->
-							<!--</li>-->
+						<!--<li>-->
+						<!--是否有效：<input type="text" name="remark"/>-->
+						<!--</li>-->
 
-							<!--<li>-->
-								<!--特殊语种：<input type="text" name="spelanguage"/>-->
-							<!--</li>-->
+						<!--<li>-->
+						<!--接收方编号<input type="text" name="tid"/>-->
+						<!--</li>-->
 
-							<!--<li>-->
-								<!--发送次数：<input type="text" name="sendtimes"/>-->
-							<!--</li>-->
+						<!--<li>-->
+						<!--特殊语种：<input type="text" name="spelanguage"/>-->
+						<!--</li>-->
 
-							<li>
-								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
-								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
-							</li>
-						</ul>
-					</div>
-				</form>
-			</div>
-			
-	        <div class="btn-group-sm hidden-xs" id="toolbar" role="group">
-				<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:sendmessages:add">-->
-					<!--<i class="fa fa-plus"></i> 添加-->
-				<!--</a>-->
-				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:sendmessages:edit">-->
-					<!--<i class="fa fa-edit"></i> 修改-->
-				<!--</a>-->
-				<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:sendmessages:remove">-->
-					<!--<i class="fa fa-remove"></i> 删除-->
-				<!--</a>-->
-				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:sendmessages:export">-->
-						<!--<i class="fa fa-download"></i> 导出-->
-				 <!--</a>-->
-			</div>
-			<div class="col-sm-12 select-table table-striped">
-				<table id="bootstrap-table" data-mobile-responsive="true"></table>
-			</div>
+						<!--<li>-->
+						<!--发送次数：<input type="text" name="sendtimes"/>-->
+						<!--</li>-->
+
+						<li>
+							<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+							<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+						</li>
+					</ul>
+				</div>
+			</form>
+		</div>
+
+		<div class="btn-group-sm hidden-xs" id="toolbar" role="group">
+			<!--<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="system:sendmessages:add">-->
+			<!--<i class="fa fa-plus"></i> 添加-->
+			<!--</a>-->
+			<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="system:sendmessages:edit">-->
+			<!--<i class="fa fa-edit"></i> 修改-->
+			<!--</a>-->
+			<!--<a class="btn btn-danger btn-del btn-del disabled" onclick="$.operate.removeAll()" shiro:hasPermission="system:sendmessages:remove">-->
+			<!--<i class="fa fa-remove"></i> 删除-->
+			<!--</a>-->
+			<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="system:sendmessages:export">-->
+			<!--<i class="fa fa-download"></i> 导出-->
+			<!--</a>-->
+		</div>
+		<div class="col-sm-12 select-table table-striped">
+			<table id="bootstrap-table" data-mobile-responsive="true"></table>
 		</div>
 	</div>
-    <div th:include="include :: footer"></div>
-    <script th:inline="javascript">
-        var editFlag = [[${@permission.hasPermi('system:sendmessages:edit')}]];
-        var removeFlag = [[${@permission.hasPermi('system:sendmessages:remove')}]];
-        var prefix = ctx + "broad/sendmessages";
+</div>
+<div th:include="include :: footer"></div>
 
-        $(function() {
-            var options = {
-                url: prefix + "/list",
-                createUrl: prefix + "/add",
-                updateUrl: prefix + "/edit/{id}",
-                removeUrl: prefix + "/remove",
-				exportUrl: prefix + "/export",
-                modalName: "短信发送记录",
-				search: false,
-		        showExport: true,
-                columns: [
+<script th:inline="javascript">
+	var editFlag = [[${@permission.hasPermi('system:sendmessages:edit')}]];
+	var removeFlag = [[${@permission.hasPermi('system:sendmessages:remove')}]];
+	var prefix = ctx + "broad/sendmessages";
+
+	$(function() {
+		var options = {
+			url: prefix + "/list",
+			createUrl: prefix + "/add",
+			updateUrl: prefix + "/edit/{id}",
+			removeUrl: prefix + "/remove",
+			exportUrl: prefix + "/export",
+			modalName: "短信发送记录",
+			search: false,
+			showExport: true,
+			columns: [
 //                    {
 //		            checkbox: true
 //		        },
@@ -96,7 +122,7 @@
 //					visible: false
 //				},
 				{
-					field : 'smobile', 
+					field : 'smobile',
 					title : '手机号',
 					sortable: true
 				},
@@ -106,29 +132,29 @@
 					sortable: true
 				},
 				{
-					field : 'scontent', 
+					field : 'scontent',
 					title : '内容',
 					sortable: true
 				},
 
 				{
-					field : 'sendtime', 
+					field : 'sendtime',
 					title : '发送时间',
 					sortable: true
 				},
 				{
-					field : 'remark', 
+					field : 'remark',
 					title : '备注',
 					sortable: true
 				},
 
 				{
-					field : 'spelanguage', 
+					field : 'spelanguage',
 					title : '特殊语种',
 					sortable: true
 				},
 				{
-					field : 'sendtimes', 
+					field : 'sendtimes',
 					title : '发送次数',
 					sortable: true
 				},
@@ -147,10 +173,51 @@
 //						return actions.join('');
 //		            }
 //		        }
-		        ]
-            };
-            $.table.init(options);
-        });
-    </script>
+			]
+		};
+		$.table.init(options);
+	});
+</script>
+<script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+<script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+<!--时间插件-->
+<script>
+	laydate({
+		elem:"#sendtime",
+		event:"focus"
+	});
+	laydate({
+		elem:"#sendtime",
+		event:"focus"
+	});
+	layui.use('laydate', function(){
+		var laydate = layui.laydate;
+
+		//执行一个laydate实例
+		laydate.render({
+			elem:"#broad",
+			type: 'time',
+		});
+	});
+</script>
+<script>
+	laydate({
+		elem:"#endtime",
+		event:"focus"
+	});
+	laydate({
+		elem:"#endtime",
+		event:"focus"
+	});
+	layui.use('laydate', function(){
+		var laydate2 = layui.laydate;
+
+		//执行一个laydate实例
+		laydate2.render({
+			elem:"#broad",
+			type: 'time',
+		});
+	});
+</script>
 </body>
 </html>

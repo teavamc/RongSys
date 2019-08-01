@@ -58,5 +58,5 @@ public interface VillagerInfoMapper
      * @return 结果
      */
 	public int deleteVillagerInfoByIds(String[] vids);
-	
+
 }

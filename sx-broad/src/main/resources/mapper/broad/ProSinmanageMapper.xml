@@ -18,23 +18,50 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select sfid, scategory, createtime, broaddate, userid, remark, broadtimes from pro_sinmanage
     </sql>
 	
-    <select id="selectProSinmanageList" parameterType="int" resultMap="ProSinmanageResult">
-        select PS.sfid,
-               PS.scategory,
-               PS.createtime,
-               PS.broaddate,
-               US.uname as uname,
-               PS.remark,
-               PS.broadtimes
+    <select id="selectProSinmanageList" parameterType="ProSinmanage" resultMap="ProSinmanageResult">
+        select PS.sfid as sfid,
+        PS.scategory as scategory,
+        PS.createtime,
+        PS.broaddate,
+        US.uname as uname,
+        PS.remark,
+        PS.broadtimes,
+        WS.pname as pname,
+        WS.submittime
         from pro_sinmanage as PS,
-             userinfo as US
-        where
+        userinfo as US,
+        prore_apply as WS
+        <where>
             PS.userid = US.userid and
             PS.scategory = "正常播出单"
-        <if test="userid != null  and userid != '' "> and PS.userid = #{userid}</if>
+            and PS.userid = WS.paid
+            <if test="sfid != null and sfid != ''"> and sfid like '%${sfid}%'</if>
+            <if test="pname != null and pname != ''"> and pname like '%${pname}%'</if>
+        </where>
          order by sfid desc
     </select>
-
+    <select id="selectProSinmanagebyoneday" parameterType="ProSinmanage" resultMap="ProSinmanageResult">
+        select PS.sfid as sfid,
+        PS.scategory as scategory,
+        PS.createtime,
+        PS.broaddate,
+        US.uname as uname,
+        PS.remark,
+        PS.broadtimes,
+        WS.pname as pname,
+        WS.submittime
+        from pro_sinmanage as PS,
+        userinfo as US,
+        prore_apply as WS
+        <where>
+            PS.userid = US.userid and
+            PS.userid = WS.userid and
+            PS.createtime >= DATE_SUB((select createtime from pro_sinmanage order by sfid desc LIMIT 1),INTERVAL 1 day)
+            <if test="sfid != null and sfid != ''"> and sfid like '%${sfid}%'</if>
+            <if test="pname != null and pname != ''"> and pname like '%${pname}%'</if>
+        </where>
+        order by sfid desc
+    </select>
     <!--<select id="selectProSinmanageListForWarning" parameterType="int" resultMap="ProSinmanageResult">-->
         <!--select PS.sfid,-->
                <!--PS.scategory,-->
@@ -60,6 +87,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         PS.createtime,
         PS.broaddate,
         US.uname as uname,
+        US.username,
         PS.remark,
         PS.broadtimes
         from pro_sinmanage as PS,
@@ -129,5 +157,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{sfid}
         </foreach>
     </delete>
-    
+
+    <select id="selectProSinmanageByTId" parameterType="String" resultMap="ProSinmanageResult">
+        select sfid,
+        scategory,
+        createtime,
+        broaddate,
+        remark from pro_sinmanage ps
+        LEFT JOIN pro_terminals pt on ps.sfid=pt.ProgrammeID
+        LEFT JOIN terminals ter on ter.tid=pt.TerminalID
+        where pt.TerminalID=#{imei} and ter.isuse=1
+    </select>
+
 </mapper>

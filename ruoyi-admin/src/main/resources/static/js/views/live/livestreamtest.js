@@ -21,7 +21,7 @@ var isstreamliving=2;
 // var  rtmpAddress = "rtmp://110.53.162.164:1936/live";
 
 // 张超 RED5流媒体
-var  rtmpAddress = "rtmp://120.79.42.11:1936/live";
+var  rtmpAddress = "rtmp://114.67.88.76:1936/live";
 var list = new Array();
 var nameList = new Array();
 /**

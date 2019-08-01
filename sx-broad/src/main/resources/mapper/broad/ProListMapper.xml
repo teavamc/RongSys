@@ -22,6 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="bt"    column="Bt"    />
         <result property="broadtime"    column="broadtime"    />
         <result property="remark"    column="Remark"    />
+        <result property="id" column="id"/>
     </resultMap>
 	
 	<sql id="selectProListVo">
@@ -50,7 +51,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             b.fname as Fid,
             a.Bt,
             a.broadtime,
-            a.Remark
+            a.Remark,
+            b.urls
         from pro_list as a left join programs as b
         on
         a.fid= b.fid
@@ -59,9 +61,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         order by Bt
     </select>
     
-    <select id="selectProListById" parameterType="Integer" resultMap="ProListResult">
+    <select id="selectProListById" parameterType="String" resultMap="ProListResult">
         <include refid="selectProListVo"/>
-        where Pid = #{pid}
+        where id = #{id}
     </select>
         
     <insert id="insertProList" parameterType="ProList">

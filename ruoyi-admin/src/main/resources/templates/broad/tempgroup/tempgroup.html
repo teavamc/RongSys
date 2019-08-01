@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<meta charset="utf-8">
+<head th:include="include :: header"></head>
+<link th:href="@{/ajax/libs/jquery-layout/jquery.layout-latest.css}" rel="stylesheet"/>
+<link th:href="@{/ajax/libs/jquery-ztree/3.5/css/metro/zTreeStyle.css}" rel="stylesheet"/>
+
+<body class="gray-bg">
+
+<div class="container-div ui-layout-center">
+    <div class="row">
+        <div class="col-sm-12 search-collapse">
+            <form id="user-form">
+                <input type="hidden" id="Aid" name="aid">
+                <input type="hidden" id="Parentaid" name="parentaid">
+                <div class="select-list">
+                    <ul>
+                        <li>
+                            节目ID：<input type="text" name="fid"/>
+                        </li>
+
+                        <li>
+                            节目名称：<input type="text" name="fname"/>
+                        </li>
+                        <li>
+                            <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                            <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-12 select-table table-striped">
+            <table id="bootstrap-table" data-mobile-responsive="true"></table>
+        </div>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:src="@{/ajax/libs/jquery-layout/jquery.layout-latest.js}"></script>
+<script th:src="@{/ajax/libs/jquery-ztree/3.5/js/jquery.ztree.all-3.5.js}"></script>
+<script th:inline="javascript">
+
+    var prefix = ctx + "broad/tempgroup";
+
+    $(function() {
+        $('body').layout({ west__size: 185 });
+        queryAreaList();
+    });
+
+    function queryAreaList() {
+        var options = {
+            url: prefix + "/list",
+            modalName: "特殊分组管理",
+            search: false,
+            showExport: true,
+            columns: [
+                {
+                    field : 'tid',
+                    title : '终端IEME',
+                    sortable: true
+                },
+                {
+                    field : 'tname',
+                    title : '终端名称',
+                    sortable: true
+                },
+                {
+                    field : 'aname',
+                    title : '所属分组',
+                    sortable: true
+                },
+                {
+                    field : 'address',
+                    title : '终端地址',
+                    sortable: true
+                }
+            ]
+        };
+        $.table.init(options);
+    }
+
+</script>
+</body>
+</html>

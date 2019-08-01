@@ -13,6 +13,8 @@ import com.ruoyi.common.base.BaseEntity;
 public class ProList extends BaseEntity
 {
 	private static final long serialVersionUID = 1L;
+
+	private String id;
 	
 	/** 节目编号 */
 	private String pid;
@@ -28,6 +30,16 @@ public class ProList extends BaseEntity
 	private String broadtime;
 	/** 备注 */
 	private String remark;
+	/** 节目文件路径 */
+	private String urls;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public void setPid(String pid)
 	{
@@ -46,15 +58,6 @@ public class ProList extends BaseEntity
 	public String getPtp() 
 	{
 		return ptp;
-	}
-	public void setFN(String fN) 
-	{
-		this.fN = fN;
-	}
-
-	public String getFN() 
-	{
-		return fN;
 	}
 	public void setFid(String fid)
 	{
@@ -93,15 +96,32 @@ public class ProList extends BaseEntity
 		return remark;
 	}
 
-    public String toString() {
+	public String getfN() {
+		return fN;
+	}
+
+	public void setfN(String fN) {
+		this.fN = fN;
+	}
+
+	public String getUrls() {
+		return urls;
+	}
+
+	public void setUrls(String urls) {
+		this.urls = urls;
+	}
+
+	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("pid", getPid())
             .append("ptp", getPtp())
-            .append("fN", getFN())
+            .append("fN", getfN())
             .append("fid", getFid())
             .append("bt", getBt())
             .append("broadtime", getBroadtime())
             .append("remark", getRemark())
             .toString();
     }
+
 }

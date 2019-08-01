@@ -316,7 +316,7 @@ public class ProSinmanageController extends BaseController
 			ProList proList = new ProList();
 			proList.setPtp(list.get(i));
 			proList.setFid(list.get(i+1));
-			proList.setFN(list.get(i+2));
+			proList.setfN(list.get(i+2));
 			proList.setBt(list.get(i+3));
 			proList.setBroadtime(list.get(i+4));
 			i+=5;

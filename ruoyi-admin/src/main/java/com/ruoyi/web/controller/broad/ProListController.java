@@ -92,10 +92,10 @@ public class ProListController extends BaseController
 	/**
 	 * 修改节目单记录
 	 */
-	@GetMapping("/edit/{pid}")
-	public String edit(@PathVariable("pid") Integer pid, ModelMap mmap)
+	@GetMapping("/edit/{id}")
+	public String edit(@PathVariable("id") String id, ModelMap mmap)
 	{
-		ProList proList = proListService.selectProListById(pid);
+		ProList proList = proListService.selectProListById(id);
 		mmap.put("proList", proList);
 	    return prefix + "/edit";
 	}

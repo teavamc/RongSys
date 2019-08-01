@@ -15,47 +15,70 @@
 							</li>
 
 							<li>
-								项目类别：<input type="text" name="protype"/>
+								项目类别：<input list="protype"  name="protype"/>
+                                <datalist id="protype">
+                                    <option value="新建项目">
+                                    <option value="扩建项目">
+									<option value="改建项目">
+                                    <option value="迁建项目">
+                                    <option value="恢复项目">
+                                </datalist>
 							</li>
 
-							<li>
+							<!--<li>
 								投资金额：<input type="text" name="money"/>
-							</li>
+							</li>-->
 
-							<li>
+							<!--<li>
 								开支明细：<input type="text" name="moneynote"/>
-							</li>
+							</li>-->
 
-							<li>
+							<!--<li>
 								项目内容：<input type="text" name="content"/>
-							</li>
+							</li>-->
 
-							<li>
+							<!--<li>
 								项目地址：<input type="text" name="address"/>
-							</li>
-
-							<!--<li>
-								负责人姓名：<input type="text" name="fname"/>
-							</li>-->
-
-							<!--<li>
-								负责人手机号：<input type="text" name="fphone"/>
 							</li>-->
 
 							<li>
-								发布日期：<input type="text" name="pushdate"/>
-							</li>
-
-							<!--<li>
 								发布人姓名：<input type="text" name="uname"/>
-							</li>-->
-
-							<li>
-								是否有效：<input type="text" name="remark"/>
 							</li>
 
+							<!--<li>-->
+								<!--主管姓名：<input type="text" name="fname"/>-->
+							<!--</li>-->
+
+							<!--<li>
+								主管号码：<input type="text" name="fphone"/>
+							</li>-->
+
+                            <li>
+                                是否有效：<input list="remark"  name="remark"/>
+								<datalist id="remark">
+									<option value=1>是</option>
+									<option value=0>否</option>
+								</datalist>
+                            </li>
+
+                            <li>
+                                项目状态：<input list="ptype"  name="ptype"/>
+								<datalist id="ptype">
+									<option value=1>在建</option>
+									<option value=0>未建</option>
+									<option value=2>已建</option>
+								</datalist>
+                            </li>
+
 							<li>
-								项目状态：<input type="text" name="type"/>
+								<input class="laydate-icon  layer-date"
+									   name="pushdate"
+									   id="pushdate"
+									   value=""
+									   readonly="readonly"
+									   style="width:120px;"
+									   placeholder="发布日期"
+									   title="发布日期"/>
 							</li>
 
 							<li>
@@ -99,6 +122,7 @@
                 updateUrl: prefix + "/edit/{id}",
                 removeUrl: prefix + "/remove",
 				exportUrl: prefix + "/export",
+                detailUrl: prefix + "/detail/{id}",
                 modalName: "重大项目",
 				search: false,
 		        showExport: true,
@@ -115,46 +139,46 @@
 					title : '项目名称',
 					sortable: true
 				},
-				{
+				/*{
 					field : 'propic', 
 					title : '项目图片路径',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'protype', 
 					title : '项目类别',
 					sortable: true
 				},
-				{
+				/*{
 					field : 'money', 
 					title : '投资金额',
 					sortable: true
-				},
-				{
-					field : 'moneynote', 
-					title : '开支明细',
-					sortable: true
-				},
-				{
-					field : 'content', 
-					title : '项目内容',
-					sortable: true
-				},
-				{
+				},*/
+				// {
+				// 	field : 'moneynote',
+				// 	title : '开支明细',
+				// 	sortable: true
+				// },
+				// {
+				// 	field : 'content',
+				// 	title : '项目内容',
+				// 	sortable: true
+				// },
+				/*{
 					field : 'address', 
 					title : '项目地址',
 					sortable: true
-				},
-				{
-					field : 'fname', 
-					title : '负责人姓名',
-					sortable: true
-				},
-				{
+				},*/
+				// {
+				// 	field : 'fname',
+				// 	title : '负责人姓名',
+				// 	sortable: true
+				// },
+				/*{
 					field : 'fphone', 
 					title : '负责人手机号',
 					sortable: true
-				},
+				},*/
 				{
 					field : 'greadtotal',
 					title : '项目点击数',
@@ -167,19 +191,42 @@
 				},
 				{
 					field : 'uname', 
-					title : '发布人姓名',
+					title : '发布人',
 					sortable: true
 				},
 				{
 					field : 'remark', 
 					title : '是否有效',
-					sortable: true
+					sortable: true,
+                    formatter:function(value,row,index){
+                        var html = "";
+                        if(value == "0"){
+                            html += "<label style='color: #ff5909'>否</label>";
+                            return html;
+                        }else {
+                            html += "<label>是</label>";
+                            return html;
+                        }
+                    }
 				},
 				{
-					field : 'type', 
+					field : 'ptype',
 					title : '项目状态',
-					sortable: true
-				}/*,
+					sortable: true,
+                    formatter:function(value,row,index){
+                        var html = "";
+                        if(value == "0"){
+                            html += "<label>未建</label>";
+                            return html;
+                        }if(value == "1"){
+                            html += "<label>在建</label>";
+                            return html;
+                        }if(value == "2"){
+                            html += "<label>已建</label>";
+                            return html;
+                        }
+                    }
+				},/*
 		        {
 		            title: '操作',
 		            align: 'center',
@@ -189,10 +236,37 @@
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.proid + '\')"><i class="fa fa-remove"></i>删除</a>');
 						return actions.join('');
 		            }
-		        }*/]
+		        }*/
+                    {
+                        title: '操作',
+                        align: 'center',
+                        formatter: function(value, row, index) {
+                            var actions = [];
+                            actions.push('<a class="btn btn-success btn-xs ' + '"onclick="$.operate.detail(\'' + row.proid + '\')"><i class="fa fa-edit"></i>查看详情</a> ');
+                            return actions.join('');
+                        }
+                    }]
             };
             $.table.init(options);
         });
     </script>
+	 <script th:src="@{/js/plugins/layer/laydate/laydate.js}"></script>
+	 <script th:src="@{/js/plugins/layer/layui-v2.4.5/layui/layui.js}"></script>
+	 <!--时间插件-->
+	 <script>
+		 laydate({
+			 elem:"#pushdate",
+			 event:"focus"
+		 });
+		 layui.use('laydate', function(){
+			 var laydate = layui.laydate;
+			 //执行一个laydate实例
+			 laydate.render({
+				 elem:"#village",
+				 type: 'time',
+			 });
+		 });
+	 </script>
+
 </body>
 </html>

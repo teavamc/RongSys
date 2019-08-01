@@ -11,7 +11,7 @@
 					<div class="select-list">
 						<ul>
 							<li>
-								终端编号：<input type="text" name="tid"/>
+								终端编号：<input type="text" name="tid" id="tid"/>
 							</li>
 
 							<li>
@@ -50,9 +50,9 @@
                      批量设置限制流量/MB
                 </a>
 				<!--<input type="text" name="fmfrequencyNum" id="fmfrequencyNum" width="50px"/>-->
-				<a class="btn btn-warning btn-del disabled" onclick="fmfrequency()">
-					批量设置限终端启用
-				</a>
+				<!--<a class="btn btn-warning btn-del disabled" onclick="fmfrequency()">-->
+					<!--批量设置限终端启用-->
+				<!--</a>-->
 				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:traffic:export">-->
 						<!--<i class="fa fa-download"></i> 导出-->
 				 <!--</a>-->
@@ -108,7 +108,7 @@
 					},
 					{
 						field : 'uname',
-						title : '所属用户',
+						title : '上级分组',
 						sortable: true
 					},
 				{
@@ -122,11 +122,14 @@
 					sortable: true
 				},
 				{
-					field: 'status',
+					field: 'trafficlimit',
 					title: '状态',
 					align: 'center',
 					formatter: function(value, row, index) {
-						return $.table.selectDictLabel(datas, value);
+                        if (value > 0)
+                            return '<a class="btn btn-xs btn-primary" >正常</a>';
+                        else
+                            return '<a class="btn btn-xs btn-danger" >超量</a>';
 					}
 				},
 				{
@@ -135,24 +138,26 @@
 					sortable: true
 				},
 				{
-					field : 'isuse',
-					title : '启用状态',
+					field: 'trafficlimit',
+					title: '启用状态',
 					sortable: true,
-					formatter: function(value, row, index) {
-						return $.table.selectDictLabel(data2s, value);
+					formatter: function (value, row, index) {
+						if (value > 0)
+							return '<a class="btn btn-xs btn-primary" >启用</a>';
+						else
+							return '<a class="btn btn-xs btn-danger" >停用</a>';
 					}
-
-				}
-//		        {
-//		            title: '操作',
-//		            align: 'center',
-//		            formatter: function(value, row, index) {
-//		            	var actions = [];
-//		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.ttid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-//                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.ttid + '\')"><i class="fa fa-remove"></i>删除</a>');
-//						return actions.join('');
-//		            }
-//		        }
+				},
+		        {
+		            title: '操作',
+		            align: 'center',
+		            formatter: function(value, row, index) {
+		            	var actions = [];
+		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.ttid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="#" onclick="$.operate.remove(\'' + row.ttid + '\')"><i class="fa fa-remove"></i>删除</a>');
+						return actions.join('');
+		            }
+		        }
 		        ]
             };
             $.table.init(options);
@@ -179,11 +184,18 @@
 			}
 			$.modal.confirm("确认要更加选中的" + rows.length + "条数据的终端启用吗?", function() {
 				var url = $.table._option.fmfrequencyUrl;
-				var fmfrequencyNumber = document.getElementById("fmfrequencyNum").value;
+				var fmfrequencyNumber = document.getElementById("#fmfrequencyNum").value;
 				var data = {"ids": rows.join(),"number": fmfrequencyNumber};
 				$.operate.submit(url, "post", "json", data);
 			});
 		}
-    </script>
+        String.prototype.trim=function(){
+            return this.replace(/(^\s*)|(\s*$)/g, "");
+        }
+        $("#tid").change(function(){
+            $(this).val($(this).val().trim());
+        });
+
+	</script>
 </body>
 </html>

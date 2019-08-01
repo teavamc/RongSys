@@ -50,5 +50,5 @@ public interface IVillagerInfoService
      * @return 结果
      */
 	public int deleteVillagerInfoByIds(String ids);
-	
+
 }

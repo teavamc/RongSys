@@ -23,6 +23,7 @@ public class Partywork extends BaseEntity
 	private String uname;
 	/** 值班时间 */
 	private String worktime;
+
 	/** 值班地点 */
 	private String address;
 	/** 值班要求 */
@@ -33,6 +34,8 @@ public class Partywork extends BaseEntity
 	private String note;
 	/** 添加时间 */
 	private Date adddate;
+	/** 值班地点 */
+	private String phone;
 	/** 地域编号 */
 	private String aid;
 	/** 是否有效 */
@@ -138,13 +141,22 @@ public class Partywork extends BaseEntity
 		return remark;
 	}
 
-    public String toString() {
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("id", getId())
             .append("grouptype", getGrouptype())
             .append("uname", getUname())
             .append("worktime", getWorktime())
             .append("address", getAddress())
+			.append("phone", getPhone())
             .append("content", getContent())
             .append("admin", getAdmin())
             .append("note", getNote())

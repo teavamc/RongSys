@@ -21,4 +21,5 @@ public interface TermapMapper
 	 */
 	public List<Termap> getAllMapInfo(String aid);
 
+	public List<Termap> getAllMapInfoForIot();
 }

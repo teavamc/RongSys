@@ -28,12 +28,12 @@
 				<a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="broad:proList:add">
 					<i class="fa fa-plus"></i> 添加
 				</a>
-				<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:proList:edit">
-					<i class="fa fa-edit"></i> 修改
-				</a>
-				<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:proList:export">
-						<i class="fa fa-download"></i> 导出
-				 </a>
+				<!--<a class="btn btn-primary btn-edit disabled" onclick="$.operate.edit()" shiro:hasPermission="broad:proList:edit">-->
+					<!--<i class="fa fa-edit"></i> 修改-->
+				<!--</a>-->
+				<!--<a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="broad:proList:export">-->
+						<!--<i class="fa fa-download"></i> 导出-->
+				 <!--</a>-->
 			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table" data-mobile-responsive="true"></table>
@@ -69,11 +69,11 @@
 					title : '操作记录',
 					sortable: true
 				},
-				{
-					field : 'fN', 
-					title : '节目文件',
-					sortable: true
-				},
+//				{
+//					field : 'fN',
+//					title : '节目文件',
+//					sortable: true
+//				},
 				{
 					field : 'fid', 
 					title : '文件编号',
@@ -89,20 +89,21 @@
 					title : '播放时长',
 					sortable: true
 				},
-				{
-					field : 'remark', 
-					title : '备注',
-					sortable: true
-				},
-		        {
-		            title: '操作',
-		            align: 'center',
-		            formatter: function(value, row, index) {
-		            	var actions = [];
-		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.pid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
-						return actions.join('');
-		            }
-		        }]
+//				{
+//					field : 'remark',
+//					title : '备注',
+//					sortable: true
+//				}
+//		        {
+//		            title: '操作',
+//		            align: 'center',
+//		            formatter: function(value, row, index) {
+//		            	var actions = [];
+//		            	actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="#" onclick="$.operate.edit(\'' + row.pid + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+//						return actions.join('');
+//		            }
+//		        }
+				]
             };
             $.table.init(options);
         });

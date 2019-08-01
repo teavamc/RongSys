@@ -29,6 +29,7 @@ public class RuoYiApplication implements CommandLineRunner {
     public static void main(String[] args) {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(RuoYiApplication.class, args);
+
     }
 
     @Override
